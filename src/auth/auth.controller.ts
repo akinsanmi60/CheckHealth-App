@@ -42,14 +42,14 @@ import { Role } from "../roles/role.enum";
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post("signup")
+  @Post("/user/signup")
   @ApiBody({ type: GettingStartedDto })
   @ApiResponse({ type: GenericResponse })
   gettingStarted(@Body() dto: GettingStartedDto) {
     return this.authService.userGettingStarted(dto);
   }
 
-  @Post("/verify")
+  @Post("/user/verify")
   @ApiBody({
     type: VerifyEmailDto,
   })
@@ -60,7 +60,7 @@ export class AuthController {
     return this.authService.verifyAccount(dto);
   }
 
-  @Post("change-password")
+  @Post("/user/change-password")
   @ApiBody({ type: ChangePasswordDto })
   @ApiResponse({ type: GenericResponse })
   @ApiParam({ name: "id", type: "string" })
@@ -68,23 +68,23 @@ export class AuthController {
     return this.authService.changePassword(id, dto);
   }
 
-  @Post("login")
+  @Post("/user/login")
   @ApiBody({ type: LoginDto })
   login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
 
-  @Post("forgot-password")
+  @Post("/user/forgot-password")
   ForgotPassword(@Body() dto: ForgotPasswordDto) {
     return this.authService.forgotPassword(dto);
   }
 
-  @Post("reset-password")
+  @Post("/user/reset-password")
   resetPassword(@Body() dto: ResetPasswordDto) {
     return this.authService.resetPassword(dto);
   }
 
-  @Post(":id/activate-user")
+  @Post("/:id/activate-user")
   @ApiParam({ name: "id", type: "string" })
   @ApiResponse({
     type: UserInfoDto,
@@ -95,7 +95,7 @@ export class AuthController {
     return await this.authService.activateUser(id);
   }
 
-  @Post(":id/deactivate-user")
+  @Post("/:id/deactivate-user")
   @ApiParam({ name: "id", type: "string" })
   @ApiResponse({
     type: UserInfoDto,
@@ -106,7 +106,7 @@ export class AuthController {
     return await this.authService.deactivateUser(id);
   }
 
-  @Get(":id")
+  @Get("/:id")
   @ApiResponse({
     type: IGetIndividualUser,
   })
@@ -117,7 +117,7 @@ export class AuthController {
     return await this.authService.getUserById(id);
   }
 
-  @Get("allusers")
+  @Get("/allusers")
   @ApiQuery({ type: GetAllUserDto, required: false })
   @ApiResponse({
     type: GetAllUserResponse,
