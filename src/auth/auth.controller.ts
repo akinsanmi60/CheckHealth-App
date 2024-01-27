@@ -122,8 +122,8 @@ export class AuthController {
   @ApiResponse({
     type: GetAllUserResponse,
   })
-  // @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(Role.admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
   async getAllUsers(@Query() dto) {
     return await this.authService.getAllUsers(dto);
   }
