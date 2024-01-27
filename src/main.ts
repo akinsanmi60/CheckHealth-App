@@ -38,9 +38,7 @@ async function bootstrap() {
   if (swaggerConfig.enabled) {
     const options = new DocumentBuilder()
       .setTitle(swaggerConfig.title || "Employ Project")
-      .setDescription(
-        swaggerConfig.description || "The Employ API description",
-      )
+      .setDescription(swaggerConfig.description || "The Employ API description")
       .setVersion(swaggerConfig.version || "1.0")
       .addBasicAuth({
         type: "http",
@@ -53,15 +51,19 @@ async function bootstrap() {
 
     const document = SwaggerModule.createDocument(app, options);
 
-    SwaggerModule.setup(swaggerConfig.path || "/api/employ-docs", app, document, {
-      customCssUrl: CSS_URL,
-      customJs: CUSTOM_JS_URL,
-      swaggerOptions: {
-        persistAuthorization: true,
+    SwaggerModule.setup(
+      swaggerConfig.path || "/api/employ-docs",
+      app,
+      document,
+      {
+        customCssUrl: CSS_URL,
+        customJs: CUSTOM_JS_URL,
+        swaggerOptions: {
+          persistAuthorization: true,
+        },
       },
-    });
+    );
   }
-
 
   // Cors
   if (corsConfig.enabled) {

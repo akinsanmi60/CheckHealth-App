@@ -107,11 +107,76 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.CompanyUserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  created_at: 'created_at',
+  companyName: 'companyName',
+  phoneNumber: 'phoneNumber',
+  password: 'password',
+  passwordResetCode: 'passwordResetCode',
+  lastLogin: 'lastLogin',
+  passportImg: 'passportImg',
+  isActive: 'isActive',
+  updated_at: 'updated_at',
+  verificationCode: 'verificationCode',
+  status: 'status',
+  address: 'address',
+  emailNotification: 'emailNotification',
+  campaignNtification: 'campaignNtification',
+  termsConditions: 'termsConditions'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  name: 'name',
-  phone_number: 'phone_number'
+  created_at: 'created_at',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  phoneNumber: 'phoneNumber',
+  ageRange: 'ageRange',
+  ethnicity: 'ethnicity',
+  gender: 'gender',
+  maritalStatus: 'maritalStatus',
+  disability: 'disability',
+  DOB: 'DOB',
+  accountType: 'accountType',
+  department: 'department',
+  jobRole: 'jobRole',
+  password: 'password',
+  role: 'role',
+  passwordResetCode: 'passwordResetCode',
+  createdBy: 'createdBy',
+  lastLogin: 'lastLogin',
+  passportImg: 'passportImg',
+  isActive: 'isActive',
+  updated_at: 'updated_at',
+  isEmailVerified: 'isEmailVerified',
+  verificationCode: 'verificationCode',
+  status: 'status',
+  address: 'address',
+  bio: 'bio',
+  emailNotification: 'emailNotification',
+  campaignNtification: 'campaignNtification',
+  termsConditions: 'termsConditions',
+  addedBy: 'addedBy',
+  circleName: 'circleName',
+  circleId: 'circleId'
+};
+
+exports.Prisma.CirclesScalarFieldEnum = {
+  id: 'id',
+  created_at: 'created_at',
+  circleName: 'circleName',
+  circleDescription: 'circleDescription',
+  circleShareLink: 'circleShareLink',
+  wellbeingScore: 'wellbeingScore',
+  activityLevel: 'activityLevel',
+  companyUserId: 'companyUserId',
+  userId: 'userId',
+  createdBy: 'createdBy',
+  circleStatus: 'circleStatus',
+  circleNos: 'circleNos'
 };
 
 exports.Prisma.SortOrder = {
@@ -128,10 +193,40 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.UserStatus = exports.$Enums.UserStatus = {
+  active: 'active',
+  pending: 'pending',
+  inactive: 'inactive'
+};
 
+exports.UserGender = exports.$Enums.UserGender = {
+  male: 'male',
+  female: 'female'
+};
+
+exports.UserAccount = exports.$Enums.UserAccount = {
+  personalUser: 'personalUser',
+  clientUser: 'clientUser'
+};
+
+exports.SystemRole = exports.$Enums.SystemRole = {
+  superAdmin: 'superAdmin',
+  admin: 'admin',
+  user: 'user'
+};
+
+exports.ActivityLevel = exports.$Enums.ActivityLevel = {
+  high: 'high',
+  moderate: 'moderate',
+  excellent: 'excellent',
+  moderatelyHigh: 'moderatelyHigh',
+  low: 'low'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  CompanyUser: 'CompanyUser',
+  User: 'User',
+  Circles: 'Circles'
 };
 
 /**

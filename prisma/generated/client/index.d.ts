@@ -14,10 +14,90 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model CompanyUser
+ * 
+ */
+export type CompanyUser = $Result.DefaultSelection<Prisma.$CompanyUserPayload>
+/**
  * Model User
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Circles
+ * 
+ */
+export type Circles = $Result.DefaultSelection<Prisma.$CirclesPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const UserStatus: {
+  active: 'active',
+  pending: 'pending',
+  inactive: 'inactive'
+};
+
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+
+
+export const UserGender: {
+  male: 'male',
+  female: 'female'
+};
+
+export type UserGender = (typeof UserGender)[keyof typeof UserGender]
+
+
+export const UserAccount: {
+  personalUser: 'personalUser',
+  clientUser: 'clientUser'
+};
+
+export type UserAccount = (typeof UserAccount)[keyof typeof UserAccount]
+
+
+export const SystemRole: {
+  superAdmin: 'superAdmin',
+  admin: 'admin',
+  user: 'user'
+};
+
+export type SystemRole = (typeof SystemRole)[keyof typeof SystemRole]
+
+
+export const ActivityLevel: {
+  high: 'high',
+  moderate: 'moderate',
+  excellent: 'excellent',
+  moderatelyHigh: 'moderatelyHigh',
+  low: 'low'
+};
+
+export type ActivityLevel = (typeof ActivityLevel)[keyof typeof ActivityLevel]
+
+}
+
+export type UserStatus = $Enums.UserStatus
+
+export const UserStatus: typeof $Enums.UserStatus
+
+export type UserGender = $Enums.UserGender
+
+export const UserGender: typeof $Enums.UserGender
+
+export type UserAccount = $Enums.UserAccount
+
+export const UserAccount: typeof $Enums.UserAccount
+
+export type SystemRole = $Enums.SystemRole
+
+export const SystemRole: typeof $Enums.SystemRole
+
+export type ActivityLevel = $Enums.ActivityLevel
+
+export const ActivityLevel: typeof $Enums.ActivityLevel
 
 /**
  * ##  Prisma Client ʲˢ
@@ -26,8 +106,8 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more CompanyUsers
+ * const companyUsers = await prisma.companyUser.findMany()
  * ```
  *
  * 
@@ -47,8 +127,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more CompanyUsers
+   * const companyUsers = await prisma.companyUser.findMany()
    * ```
    *
    * 
@@ -142,6 +222,16 @@ export class PrismaClient<
   $extends: $Extensions.ExtendsHook<'extends', Prisma.TypeMapCb, ExtArgs>
 
       /**
+   * `prisma.companyUser`: Exposes CRUD operations for the **CompanyUser** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CompanyUsers
+    * const companyUsers = await prisma.companyUser.findMany()
+    * ```
+    */
+  get companyUser(): Prisma.CompanyUserDelegate<ExtArgs>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -150,6 +240,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs>;
+
+  /**
+   * `prisma.circles`: Exposes CRUD operations for the **Circles** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Circles
+    * const circles = await prisma.circles.findMany()
+    * ```
+    */
+  get circles(): Prisma.CirclesDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -620,7 +720,9 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    CompanyUser: 'CompanyUser',
+    User: 'User',
+    Circles: 'Circles'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -637,10 +739,76 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user'
+      modelProps: 'companyUser' | 'user' | 'circles'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
+      CompanyUser: {
+        payload: Prisma.$CompanyUserPayload<ExtArgs>
+        fields: Prisma.CompanyUserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CompanyUserFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CompanyUserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CompanyUserFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CompanyUserPayload>
+          }
+          findFirst: {
+            args: Prisma.CompanyUserFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CompanyUserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CompanyUserFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CompanyUserPayload>
+          }
+          findMany: {
+            args: Prisma.CompanyUserFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CompanyUserPayload>[]
+          }
+          create: {
+            args: Prisma.CompanyUserCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CompanyUserPayload>
+          }
+          createMany: {
+            args: Prisma.CompanyUserCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.CompanyUserDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CompanyUserPayload>
+          }
+          update: {
+            args: Prisma.CompanyUserUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CompanyUserPayload>
+          }
+          deleteMany: {
+            args: Prisma.CompanyUserDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CompanyUserUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.CompanyUserUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CompanyUserPayload>
+          }
+          aggregate: {
+            args: Prisma.CompanyUserAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateCompanyUser>
+          }
+          groupBy: {
+            args: Prisma.CompanyUserGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<CompanyUserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CompanyUserCountArgs<ExtArgs>,
+            result: $Utils.Optional<CompanyUserCountAggregateOutputType> | number
+          }
+        }
+      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
@@ -704,6 +872,72 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>,
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Circles: {
+        payload: Prisma.$CirclesPayload<ExtArgs>
+        fields: Prisma.CirclesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CirclesFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CirclesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CirclesFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CirclesPayload>
+          }
+          findFirst: {
+            args: Prisma.CirclesFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CirclesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CirclesFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CirclesPayload>
+          }
+          findMany: {
+            args: Prisma.CirclesFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CirclesPayload>[]
+          }
+          create: {
+            args: Prisma.CirclesCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CirclesPayload>
+          }
+          createMany: {
+            args: Prisma.CirclesCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.CirclesDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CirclesPayload>
+          }
+          update: {
+            args: Prisma.CirclesUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CirclesPayload>
+          }
+          deleteMany: {
+            args: Prisma.CirclesDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CirclesUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.CirclesUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$CirclesPayload>
+          }
+          aggregate: {
+            args: Prisma.CirclesAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateCircles>
+          }
+          groupBy: {
+            args: Prisma.CirclesGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<CirclesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CirclesCountArgs<ExtArgs>,
+            result: $Utils.Optional<CirclesCountAggregateOutputType> | number
           }
         }
       }
@@ -851,10 +1085,1186 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type CompanyUserCountOutputType
+   */
+
+  export type CompanyUserCountOutputType = {
+    membersList: number
+    company_circle: number
+  }
+
+  export type CompanyUserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    membersList?: boolean | CompanyUserCountOutputTypeCountMembersListArgs
+    company_circle?: boolean | CompanyUserCountOutputTypeCountCompany_circleArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * CompanyUserCountOutputType without action
+   */
+  export type CompanyUserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUserCountOutputType
+     */
+    select?: CompanyUserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * CompanyUserCountOutputType without action
+   */
+  export type CompanyUserCountOutputTypeCountMembersListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+
+  /**
+   * CompanyUserCountOutputType without action
+   */
+  export type CompanyUserCountOutputTypeCountCompany_circleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CirclesWhereInput
+  }
+
+
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    myCircles: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    myCircles?: boolean | UserCountOutputTypeCountMyCirclesArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMyCirclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CirclesWhereInput
+  }
+
+
 
   /**
    * Models
    */
+
+  /**
+   * Model CompanyUser
+   */
+
+  export type AggregateCompanyUser = {
+    _count: CompanyUserCountAggregateOutputType | null
+    _min: CompanyUserMinAggregateOutputType | null
+    _max: CompanyUserMaxAggregateOutputType | null
+  }
+
+  export type CompanyUserMinAggregateOutputType = {
+    id: string | null
+    email: string | null
+    created_at: Date | null
+    companyName: string | null
+    phoneNumber: string | null
+    password: string | null
+    passwordResetCode: string | null
+    lastLogin: Date | null
+    passportImg: string | null
+    isActive: boolean | null
+    updated_at: Date | null
+    verificationCode: string | null
+    status: $Enums.UserStatus | null
+    address: string | null
+    emailNotification: boolean | null
+    campaignNtification: boolean | null
+    termsConditions: boolean | null
+  }
+
+  export type CompanyUserMaxAggregateOutputType = {
+    id: string | null
+    email: string | null
+    created_at: Date | null
+    companyName: string | null
+    phoneNumber: string | null
+    password: string | null
+    passwordResetCode: string | null
+    lastLogin: Date | null
+    passportImg: string | null
+    isActive: boolean | null
+    updated_at: Date | null
+    verificationCode: string | null
+    status: $Enums.UserStatus | null
+    address: string | null
+    emailNotification: boolean | null
+    campaignNtification: boolean | null
+    termsConditions: boolean | null
+  }
+
+  export type CompanyUserCountAggregateOutputType = {
+    id: number
+    email: number
+    created_at: number
+    companyName: number
+    phoneNumber: number
+    password: number
+    passwordResetCode: number
+    lastLogin: number
+    passportImg: number
+    isActive: number
+    updated_at: number
+    verificationCode: number
+    status: number
+    address: number
+    emailNotification: number
+    campaignNtification: number
+    termsConditions: number
+    _all: number
+  }
+
+
+  export type CompanyUserMinAggregateInputType = {
+    id?: true
+    email?: true
+    created_at?: true
+    companyName?: true
+    phoneNumber?: true
+    password?: true
+    passwordResetCode?: true
+    lastLogin?: true
+    passportImg?: true
+    isActive?: true
+    updated_at?: true
+    verificationCode?: true
+    status?: true
+    address?: true
+    emailNotification?: true
+    campaignNtification?: true
+    termsConditions?: true
+  }
+
+  export type CompanyUserMaxAggregateInputType = {
+    id?: true
+    email?: true
+    created_at?: true
+    companyName?: true
+    phoneNumber?: true
+    password?: true
+    passwordResetCode?: true
+    lastLogin?: true
+    passportImg?: true
+    isActive?: true
+    updated_at?: true
+    verificationCode?: true
+    status?: true
+    address?: true
+    emailNotification?: true
+    campaignNtification?: true
+    termsConditions?: true
+  }
+
+  export type CompanyUserCountAggregateInputType = {
+    id?: true
+    email?: true
+    created_at?: true
+    companyName?: true
+    phoneNumber?: true
+    password?: true
+    passwordResetCode?: true
+    lastLogin?: true
+    passportImg?: true
+    isActive?: true
+    updated_at?: true
+    verificationCode?: true
+    status?: true
+    address?: true
+    emailNotification?: true
+    campaignNtification?: true
+    termsConditions?: true
+    _all?: true
+  }
+
+  export type CompanyUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CompanyUser to aggregate.
+     */
+    where?: CompanyUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanyUsers to fetch.
+     */
+    orderBy?: CompanyUserOrderByWithRelationInput | CompanyUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CompanyUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanyUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanyUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CompanyUsers
+    **/
+    _count?: true | CompanyUserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CompanyUserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CompanyUserMaxAggregateInputType
+  }
+
+  export type GetCompanyUserAggregateType<T extends CompanyUserAggregateArgs> = {
+        [P in keyof T & keyof AggregateCompanyUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCompanyUser[P]>
+      : GetScalarType<T[P], AggregateCompanyUser[P]>
+  }
+
+
+
+
+  export type CompanyUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanyUserWhereInput
+    orderBy?: CompanyUserOrderByWithAggregationInput | CompanyUserOrderByWithAggregationInput[]
+    by: CompanyUserScalarFieldEnum[] | CompanyUserScalarFieldEnum
+    having?: CompanyUserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CompanyUserCountAggregateInputType | true
+    _min?: CompanyUserMinAggregateInputType
+    _max?: CompanyUserMaxAggregateInputType
+  }
+
+  export type CompanyUserGroupByOutputType = {
+    id: string
+    email: string
+    created_at: Date | null
+    companyName: string | null
+    phoneNumber: string | null
+    password: string | null
+    passwordResetCode: string | null
+    lastLogin: Date | null
+    passportImg: string | null
+    isActive: boolean | null
+    updated_at: Date | null
+    verificationCode: string | null
+    status: $Enums.UserStatus
+    address: string | null
+    emailNotification: boolean | null
+    campaignNtification: boolean | null
+    termsConditions: boolean | null
+    _count: CompanyUserCountAggregateOutputType | null
+    _min: CompanyUserMinAggregateOutputType | null
+    _max: CompanyUserMaxAggregateOutputType | null
+  }
+
+  type GetCompanyUserGroupByPayload<T extends CompanyUserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CompanyUserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CompanyUserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CompanyUserGroupByOutputType[P]>
+            : GetScalarType<T[P], CompanyUserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CompanyUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    created_at?: boolean
+    companyName?: boolean
+    phoneNumber?: boolean
+    password?: boolean
+    passwordResetCode?: boolean
+    lastLogin?: boolean
+    passportImg?: boolean
+    isActive?: boolean
+    updated_at?: boolean
+    verificationCode?: boolean
+    status?: boolean
+    address?: boolean
+    emailNotification?: boolean
+    campaignNtification?: boolean
+    termsConditions?: boolean
+    membersList?: boolean | CompanyUser$membersListArgs<ExtArgs>
+    company_circle?: boolean | CompanyUser$company_circleArgs<ExtArgs>
+    _count?: boolean | CompanyUserCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["companyUser"]>
+
+  export type CompanyUserSelectScalar = {
+    id?: boolean
+    email?: boolean
+    created_at?: boolean
+    companyName?: boolean
+    phoneNumber?: boolean
+    password?: boolean
+    passwordResetCode?: boolean
+    lastLogin?: boolean
+    passportImg?: boolean
+    isActive?: boolean
+    updated_at?: boolean
+    verificationCode?: boolean
+    status?: boolean
+    address?: boolean
+    emailNotification?: boolean
+    campaignNtification?: boolean
+    termsConditions?: boolean
+  }
+
+  export type CompanyUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    membersList?: boolean | CompanyUser$membersListArgs<ExtArgs>
+    company_circle?: boolean | CompanyUser$company_circleArgs<ExtArgs>
+    _count?: boolean | CompanyUserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $CompanyUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CompanyUser"
+    objects: {
+      membersList: Prisma.$UserPayload<ExtArgs>[]
+      company_circle: Prisma.$CirclesPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      email: string
+      created_at: Date | null
+      companyName: string | null
+      phoneNumber: string | null
+      password: string | null
+      passwordResetCode: string | null
+      lastLogin: Date | null
+      passportImg: string | null
+      isActive: boolean | null
+      updated_at: Date | null
+      verificationCode: string | null
+      status: $Enums.UserStatus
+      address: string | null
+      emailNotification: boolean | null
+      campaignNtification: boolean | null
+      termsConditions: boolean | null
+    }, ExtArgs["result"]["companyUser"]>
+    composites: {}
+  }
+
+
+  type CompanyUserGetPayload<S extends boolean | null | undefined | CompanyUserDefaultArgs> = $Result.GetResult<Prisma.$CompanyUserPayload, S>
+
+  type CompanyUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CompanyUserFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CompanyUserCountAggregateInputType | true
+    }
+
+  export interface CompanyUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CompanyUser'], meta: { name: 'CompanyUser' } }
+    /**
+     * Find zero or one CompanyUser that matches the filter.
+     * @param {CompanyUserFindUniqueArgs} args - Arguments to find a CompanyUser
+     * @example
+     * // Get one CompanyUser
+     * const companyUser = await prisma.companyUser.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends CompanyUserFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, CompanyUserFindUniqueArgs<ExtArgs>>
+    ): Prisma__CompanyUserClient<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one CompanyUser that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {CompanyUserFindUniqueOrThrowArgs} args - Arguments to find a CompanyUser
+     * @example
+     * // Get one CompanyUser
+     * const companyUser = await prisma.companyUser.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends CompanyUserFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, CompanyUserFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__CompanyUserClient<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first CompanyUser that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyUserFindFirstArgs} args - Arguments to find a CompanyUser
+     * @example
+     * // Get one CompanyUser
+     * const companyUser = await prisma.companyUser.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends CompanyUserFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, CompanyUserFindFirstArgs<ExtArgs>>
+    ): Prisma__CompanyUserClient<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first CompanyUser that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyUserFindFirstOrThrowArgs} args - Arguments to find a CompanyUser
+     * @example
+     * // Get one CompanyUser
+     * const companyUser = await prisma.companyUser.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends CompanyUserFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, CompanyUserFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__CompanyUserClient<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more CompanyUsers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyUserFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CompanyUsers
+     * const companyUsers = await prisma.companyUser.findMany()
+     * 
+     * // Get first 10 CompanyUsers
+     * const companyUsers = await prisma.companyUser.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const companyUserWithIdOnly = await prisma.companyUser.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends CompanyUserFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CompanyUserFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a CompanyUser.
+     * @param {CompanyUserCreateArgs} args - Arguments to create a CompanyUser.
+     * @example
+     * // Create one CompanyUser
+     * const CompanyUser = await prisma.companyUser.create({
+     *   data: {
+     *     // ... data to create a CompanyUser
+     *   }
+     * })
+     * 
+    **/
+    create<T extends CompanyUserCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, CompanyUserCreateArgs<ExtArgs>>
+    ): Prisma__CompanyUserClient<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many CompanyUsers.
+     *     @param {CompanyUserCreateManyArgs} args - Arguments to create many CompanyUsers.
+     *     @example
+     *     // Create many CompanyUsers
+     *     const companyUser = await prisma.companyUser.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends CompanyUserCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CompanyUserCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a CompanyUser.
+     * @param {CompanyUserDeleteArgs} args - Arguments to delete one CompanyUser.
+     * @example
+     * // Delete one CompanyUser
+     * const CompanyUser = await prisma.companyUser.delete({
+     *   where: {
+     *     // ... filter to delete one CompanyUser
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends CompanyUserDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, CompanyUserDeleteArgs<ExtArgs>>
+    ): Prisma__CompanyUserClient<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one CompanyUser.
+     * @param {CompanyUserUpdateArgs} args - Arguments to update one CompanyUser.
+     * @example
+     * // Update one CompanyUser
+     * const companyUser = await prisma.companyUser.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends CompanyUserUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, CompanyUserUpdateArgs<ExtArgs>>
+    ): Prisma__CompanyUserClient<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more CompanyUsers.
+     * @param {CompanyUserDeleteManyArgs} args - Arguments to filter CompanyUsers to delete.
+     * @example
+     * // Delete a few CompanyUsers
+     * const { count } = await prisma.companyUser.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends CompanyUserDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CompanyUserDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CompanyUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyUserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CompanyUsers
+     * const companyUser = await prisma.companyUser.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends CompanyUserUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, CompanyUserUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CompanyUser.
+     * @param {CompanyUserUpsertArgs} args - Arguments to update or create a CompanyUser.
+     * @example
+     * // Update or create a CompanyUser
+     * const companyUser = await prisma.companyUser.upsert({
+     *   create: {
+     *     // ... data to create a CompanyUser
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CompanyUser we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends CompanyUserUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, CompanyUserUpsertArgs<ExtArgs>>
+    ): Prisma__CompanyUserClient<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of CompanyUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyUserCountArgs} args - Arguments to filter CompanyUsers to count.
+     * @example
+     * // Count the number of CompanyUsers
+     * const count = await prisma.companyUser.count({
+     *   where: {
+     *     // ... the filter for the CompanyUsers we want to count
+     *   }
+     * })
+    **/
+    count<T extends CompanyUserCountArgs>(
+      args?: Subset<T, CompanyUserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CompanyUserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CompanyUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CompanyUserAggregateArgs>(args: Subset<T, CompanyUserAggregateArgs>): Prisma.PrismaPromise<GetCompanyUserAggregateType<T>>
+
+    /**
+     * Group by CompanyUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyUserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CompanyUserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CompanyUserGroupByArgs['orderBy'] }
+        : { orderBy?: CompanyUserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CompanyUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCompanyUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CompanyUser model
+   */
+  readonly fields: CompanyUserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CompanyUser.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CompanyUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    membersList<T extends CompanyUser$membersListArgs<ExtArgs> = {}>(args?: Subset<T, CompanyUser$membersListArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    company_circle<T extends CompanyUser$company_circleArgs<ExtArgs> = {}>(args?: Subset<T, CompanyUser$company_circleArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CirclesPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the CompanyUser model
+   */ 
+  interface CompanyUserFieldRefs {
+    readonly id: FieldRef<"CompanyUser", 'String'>
+    readonly email: FieldRef<"CompanyUser", 'String'>
+    readonly created_at: FieldRef<"CompanyUser", 'DateTime'>
+    readonly companyName: FieldRef<"CompanyUser", 'String'>
+    readonly phoneNumber: FieldRef<"CompanyUser", 'String'>
+    readonly password: FieldRef<"CompanyUser", 'String'>
+    readonly passwordResetCode: FieldRef<"CompanyUser", 'String'>
+    readonly lastLogin: FieldRef<"CompanyUser", 'DateTime'>
+    readonly passportImg: FieldRef<"CompanyUser", 'String'>
+    readonly isActive: FieldRef<"CompanyUser", 'Boolean'>
+    readonly updated_at: FieldRef<"CompanyUser", 'DateTime'>
+    readonly verificationCode: FieldRef<"CompanyUser", 'String'>
+    readonly status: FieldRef<"CompanyUser", 'UserStatus'>
+    readonly address: FieldRef<"CompanyUser", 'String'>
+    readonly emailNotification: FieldRef<"CompanyUser", 'Boolean'>
+    readonly campaignNtification: FieldRef<"CompanyUser", 'Boolean'>
+    readonly termsConditions: FieldRef<"CompanyUser", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * CompanyUser findUnique
+   */
+  export type CompanyUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanyUser to fetch.
+     */
+    where: CompanyUserWhereUniqueInput
+  }
+
+
+  /**
+   * CompanyUser findUniqueOrThrow
+   */
+  export type CompanyUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanyUser to fetch.
+     */
+    where: CompanyUserWhereUniqueInput
+  }
+
+
+  /**
+   * CompanyUser findFirst
+   */
+  export type CompanyUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanyUser to fetch.
+     */
+    where?: CompanyUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanyUsers to fetch.
+     */
+    orderBy?: CompanyUserOrderByWithRelationInput | CompanyUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CompanyUsers.
+     */
+    cursor?: CompanyUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanyUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanyUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CompanyUsers.
+     */
+    distinct?: CompanyUserScalarFieldEnum | CompanyUserScalarFieldEnum[]
+  }
+
+
+  /**
+   * CompanyUser findFirstOrThrow
+   */
+  export type CompanyUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanyUser to fetch.
+     */
+    where?: CompanyUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanyUsers to fetch.
+     */
+    orderBy?: CompanyUserOrderByWithRelationInput | CompanyUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CompanyUsers.
+     */
+    cursor?: CompanyUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanyUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanyUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CompanyUsers.
+     */
+    distinct?: CompanyUserScalarFieldEnum | CompanyUserScalarFieldEnum[]
+  }
+
+
+  /**
+   * CompanyUser findMany
+   */
+  export type CompanyUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanyUsers to fetch.
+     */
+    where?: CompanyUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanyUsers to fetch.
+     */
+    orderBy?: CompanyUserOrderByWithRelationInput | CompanyUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CompanyUsers.
+     */
+    cursor?: CompanyUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanyUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanyUsers.
+     */
+    skip?: number
+    distinct?: CompanyUserScalarFieldEnum | CompanyUserScalarFieldEnum[]
+  }
+
+
+  /**
+   * CompanyUser create
+   */
+  export type CompanyUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CompanyUser.
+     */
+    data: XOR<CompanyUserCreateInput, CompanyUserUncheckedCreateInput>
+  }
+
+
+  /**
+   * CompanyUser createMany
+   */
+  export type CompanyUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CompanyUsers.
+     */
+    data: CompanyUserCreateManyInput | CompanyUserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * CompanyUser update
+   */
+  export type CompanyUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CompanyUser.
+     */
+    data: XOR<CompanyUserUpdateInput, CompanyUserUncheckedUpdateInput>
+    /**
+     * Choose, which CompanyUser to update.
+     */
+    where: CompanyUserWhereUniqueInput
+  }
+
+
+  /**
+   * CompanyUser updateMany
+   */
+  export type CompanyUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CompanyUsers.
+     */
+    data: XOR<CompanyUserUpdateManyMutationInput, CompanyUserUncheckedUpdateManyInput>
+    /**
+     * Filter which CompanyUsers to update
+     */
+    where?: CompanyUserWhereInput
+  }
+
+
+  /**
+   * CompanyUser upsert
+   */
+  export type CompanyUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CompanyUser to update in case it exists.
+     */
+    where: CompanyUserWhereUniqueInput
+    /**
+     * In case the CompanyUser found by the `where` argument doesn't exist, create a new CompanyUser with this data.
+     */
+    create: XOR<CompanyUserCreateInput, CompanyUserUncheckedCreateInput>
+    /**
+     * In case the CompanyUser was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CompanyUserUpdateInput, CompanyUserUncheckedUpdateInput>
+  }
+
+
+  /**
+   * CompanyUser delete
+   */
+  export type CompanyUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+    /**
+     * Filter which CompanyUser to delete.
+     */
+    where: CompanyUserWhereUniqueInput
+  }
+
+
+  /**
+   * CompanyUser deleteMany
+   */
+  export type CompanyUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CompanyUsers to delete
+     */
+    where?: CompanyUserWhereInput
+  }
+
+
+  /**
+   * CompanyUser.membersList
+   */
+  export type CompanyUser$membersListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+
+  /**
+   * CompanyUser.company_circle
+   */
+  export type CompanyUser$company_circleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
+    where?: CirclesWhereInput
+    orderBy?: CirclesOrderByWithRelationInput | CirclesOrderByWithRelationInput[]
+    cursor?: CirclesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CirclesScalarFieldEnum | CirclesScalarFieldEnum[]
+  }
+
+
+  /**
+   * CompanyUser without action
+   */
+  export type CompanyUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+  }
+
+
 
   /**
    * Model User
@@ -869,22 +2279,112 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: string | null
     email: string | null
-    name: string | null
-    phone_number: string | null
+    created_at: Date | null
+    firstName: string | null
+    lastName: string | null
+    phoneNumber: string | null
+    ageRange: string | null
+    ethnicity: string | null
+    gender: $Enums.UserGender | null
+    maritalStatus: string | null
+    disability: string | null
+    DOB: string | null
+    accountType: $Enums.UserAccount | null
+    department: string | null
+    jobRole: string | null
+    password: string | null
+    role: $Enums.SystemRole | null
+    passwordResetCode: string | null
+    createdBy: string | null
+    lastLogin: Date | null
+    passportImg: string | null
+    isActive: boolean | null
+    updated_at: Date | null
+    isEmailVerified: boolean | null
+    verificationCode: string | null
+    status: $Enums.UserStatus | null
+    address: string | null
+    bio: string | null
+    emailNotification: boolean | null
+    campaignNtification: boolean | null
+    termsConditions: boolean | null
+    addedBy: string | null
+    circleName: string | null
+    circleId: string | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
     email: string | null
-    name: string | null
-    phone_number: string | null
+    created_at: Date | null
+    firstName: string | null
+    lastName: string | null
+    phoneNumber: string | null
+    ageRange: string | null
+    ethnicity: string | null
+    gender: $Enums.UserGender | null
+    maritalStatus: string | null
+    disability: string | null
+    DOB: string | null
+    accountType: $Enums.UserAccount | null
+    department: string | null
+    jobRole: string | null
+    password: string | null
+    role: $Enums.SystemRole | null
+    passwordResetCode: string | null
+    createdBy: string | null
+    lastLogin: Date | null
+    passportImg: string | null
+    isActive: boolean | null
+    updated_at: Date | null
+    isEmailVerified: boolean | null
+    verificationCode: string | null
+    status: $Enums.UserStatus | null
+    address: string | null
+    bio: string | null
+    emailNotification: boolean | null
+    campaignNtification: boolean | null
+    termsConditions: boolean | null
+    addedBy: string | null
+    circleName: string | null
+    circleId: string | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
     email: number
-    name: number
-    phone_number: number
+    created_at: number
+    firstName: number
+    lastName: number
+    phoneNumber: number
+    ageRange: number
+    ethnicity: number
+    gender: number
+    maritalStatus: number
+    disability: number
+    DOB: number
+    accountType: number
+    department: number
+    jobRole: number
+    password: number
+    role: number
+    passwordResetCode: number
+    createdBy: number
+    lastLogin: number
+    passportImg: number
+    isActive: number
+    updated_at: number
+    isEmailVerified: number
+    verificationCode: number
+    status: number
+    address: number
+    bio: number
+    emailNotification: number
+    campaignNtification: number
+    termsConditions: number
+    addedBy: number
+    circleName: number
+    circleId: number
     _all: number
   }
 
@@ -892,22 +2392,112 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     email?: true
-    name?: true
-    phone_number?: true
+    created_at?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
+    ageRange?: true
+    ethnicity?: true
+    gender?: true
+    maritalStatus?: true
+    disability?: true
+    DOB?: true
+    accountType?: true
+    department?: true
+    jobRole?: true
+    password?: true
+    role?: true
+    passwordResetCode?: true
+    createdBy?: true
+    lastLogin?: true
+    passportImg?: true
+    isActive?: true
+    updated_at?: true
+    isEmailVerified?: true
+    verificationCode?: true
+    status?: true
+    address?: true
+    bio?: true
+    emailNotification?: true
+    campaignNtification?: true
+    termsConditions?: true
+    addedBy?: true
+    circleName?: true
+    circleId?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
     email?: true
-    name?: true
-    phone_number?: true
+    created_at?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
+    ageRange?: true
+    ethnicity?: true
+    gender?: true
+    maritalStatus?: true
+    disability?: true
+    DOB?: true
+    accountType?: true
+    department?: true
+    jobRole?: true
+    password?: true
+    role?: true
+    passwordResetCode?: true
+    createdBy?: true
+    lastLogin?: true
+    passportImg?: true
+    isActive?: true
+    updated_at?: true
+    isEmailVerified?: true
+    verificationCode?: true
+    status?: true
+    address?: true
+    bio?: true
+    emailNotification?: true
+    campaignNtification?: true
+    termsConditions?: true
+    addedBy?: true
+    circleName?: true
+    circleId?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
     email?: true
-    name?: true
-    phone_number?: true
+    created_at?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
+    ageRange?: true
+    ethnicity?: true
+    gender?: true
+    maritalStatus?: true
+    disability?: true
+    DOB?: true
+    accountType?: true
+    department?: true
+    jobRole?: true
+    password?: true
+    role?: true
+    passwordResetCode?: true
+    createdBy?: true
+    lastLogin?: true
+    passportImg?: true
+    isActive?: true
+    updated_at?: true
+    isEmailVerified?: true
+    verificationCode?: true
+    status?: true
+    address?: true
+    bio?: true
+    emailNotification?: true
+    campaignNtification?: true
+    termsConditions?: true
+    addedBy?: true
+    circleName?: true
+    circleId?: true
     _all?: true
   }
 
@@ -986,8 +2576,38 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     email: string
-    name: string | null
-    phone_number: string | null
+    created_at: Date | null
+    firstName: string | null
+    lastName: string | null
+    phoneNumber: string | null
+    ageRange: string | null
+    ethnicity: string | null
+    gender: $Enums.UserGender | null
+    maritalStatus: string | null
+    disability: string | null
+    DOB: string | null
+    accountType: $Enums.UserAccount
+    department: string | null
+    jobRole: string | null
+    password: string | null
+    role: $Enums.SystemRole
+    passwordResetCode: string | null
+    createdBy: string | null
+    lastLogin: Date | null
+    passportImg: string | null
+    isActive: boolean | null
+    updated_at: Date | null
+    isEmailVerified: boolean | null
+    verificationCode: string | null
+    status: $Enums.UserStatus
+    address: string | null
+    bio: string | null
+    emailNotification: boolean | null
+    campaignNtification: boolean | null
+    termsConditions: boolean | null
+    addedBy: string | null
+    circleName: string | null
+    circleId: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1010,26 +2630,128 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
-    name?: boolean
-    phone_number?: boolean
+    created_at?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    phoneNumber?: boolean
+    ageRange?: boolean
+    ethnicity?: boolean
+    gender?: boolean
+    maritalStatus?: boolean
+    disability?: boolean
+    DOB?: boolean
+    accountType?: boolean
+    department?: boolean
+    jobRole?: boolean
+    password?: boolean
+    role?: boolean
+    passwordResetCode?: boolean
+    createdBy?: boolean
+    lastLogin?: boolean
+    passportImg?: boolean
+    isActive?: boolean
+    updated_at?: boolean
+    isEmailVerified?: boolean
+    verificationCode?: boolean
+    status?: boolean
+    address?: boolean
+    bio?: boolean
+    emailNotification?: boolean
+    campaignNtification?: boolean
+    termsConditions?: boolean
+    addedBy?: boolean
+    circleName?: boolean
+    circleId?: boolean
+    companyUser?: boolean | User$companyUserArgs<ExtArgs>
+    myCircles?: boolean | User$myCirclesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
     email?: boolean
-    name?: boolean
-    phone_number?: boolean
+    created_at?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    phoneNumber?: boolean
+    ageRange?: boolean
+    ethnicity?: boolean
+    gender?: boolean
+    maritalStatus?: boolean
+    disability?: boolean
+    DOB?: boolean
+    accountType?: boolean
+    department?: boolean
+    jobRole?: boolean
+    password?: boolean
+    role?: boolean
+    passwordResetCode?: boolean
+    createdBy?: boolean
+    lastLogin?: boolean
+    passportImg?: boolean
+    isActive?: boolean
+    updated_at?: boolean
+    isEmailVerified?: boolean
+    verificationCode?: boolean
+    status?: boolean
+    address?: boolean
+    bio?: boolean
+    emailNotification?: boolean
+    campaignNtification?: boolean
+    termsConditions?: boolean
+    addedBy?: boolean
+    circleName?: boolean
+    circleId?: boolean
+  }
+
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    companyUser?: boolean | User$companyUserArgs<ExtArgs>
+    myCircles?: boolean | User$myCirclesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      companyUser: Prisma.$CompanyUserPayload<ExtArgs> | null
+      myCircles: Prisma.$CirclesPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
-      name: string | null
-      phone_number: string | null
+      created_at: Date | null
+      firstName: string | null
+      lastName: string | null
+      phoneNumber: string | null
+      ageRange: string | null
+      ethnicity: string | null
+      gender: $Enums.UserGender | null
+      maritalStatus: string | null
+      disability: string | null
+      DOB: string | null
+      accountType: $Enums.UserAccount
+      department: string | null
+      jobRole: string | null
+      password: string | null
+      role: $Enums.SystemRole
+      passwordResetCode: string | null
+      createdBy: string | null
+      lastLogin: Date | null
+      passportImg: string | null
+      isActive: boolean | null
+      updated_at: Date | null
+      isEmailVerified: boolean | null
+      verificationCode: string | null
+      status: $Enums.UserStatus
+      address: string | null
+      bio: string | null
+      emailNotification: boolean | null
+      campaignNtification: boolean | null
+      termsConditions: boolean | null
+      addedBy: string | null
+      circleName: string | null
+      circleId: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1395,6 +3117,9 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
+    companyUser<T extends User$companyUserArgs<ExtArgs> = {}>(args?: Subset<T, User$companyUserArgs<ExtArgs>>): Prisma__CompanyUserClient<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    myCircles<T extends User$myCirclesArgs<ExtArgs> = {}>(args?: Subset<T, User$myCirclesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CirclesPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1426,8 +3151,38 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
-    readonly name: FieldRef<"User", 'String'>
-    readonly phone_number: FieldRef<"User", 'String'>
+    readonly created_at: FieldRef<"User", 'DateTime'>
+    readonly firstName: FieldRef<"User", 'String'>
+    readonly lastName: FieldRef<"User", 'String'>
+    readonly phoneNumber: FieldRef<"User", 'String'>
+    readonly ageRange: FieldRef<"User", 'String'>
+    readonly ethnicity: FieldRef<"User", 'String'>
+    readonly gender: FieldRef<"User", 'UserGender'>
+    readonly maritalStatus: FieldRef<"User", 'String'>
+    readonly disability: FieldRef<"User", 'String'>
+    readonly DOB: FieldRef<"User", 'String'>
+    readonly accountType: FieldRef<"User", 'UserAccount'>
+    readonly department: FieldRef<"User", 'String'>
+    readonly jobRole: FieldRef<"User", 'String'>
+    readonly password: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'SystemRole'>
+    readonly passwordResetCode: FieldRef<"User", 'String'>
+    readonly createdBy: FieldRef<"User", 'String'>
+    readonly lastLogin: FieldRef<"User", 'DateTime'>
+    readonly passportImg: FieldRef<"User", 'String'>
+    readonly isActive: FieldRef<"User", 'Boolean'>
+    readonly updated_at: FieldRef<"User", 'DateTime'>
+    readonly isEmailVerified: FieldRef<"User", 'Boolean'>
+    readonly verificationCode: FieldRef<"User", 'String'>
+    readonly status: FieldRef<"User", 'UserStatus'>
+    readonly address: FieldRef<"User", 'String'>
+    readonly bio: FieldRef<"User", 'String'>
+    readonly emailNotification: FieldRef<"User", 'Boolean'>
+    readonly campaignNtification: FieldRef<"User", 'Boolean'>
+    readonly termsConditions: FieldRef<"User", 'Boolean'>
+    readonly addedBy: FieldRef<"User", 'String'>
+    readonly circleName: FieldRef<"User", 'String'>
+    readonly circleId: FieldRef<"User", 'String'>
   }
     
 
@@ -1441,6 +3196,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the User
      */
     select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1457,6 +3216,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1471,6 +3234,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the User
      */
     select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1517,6 +3284,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1562,6 +3333,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1602,6 +3377,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The data needed to create a User.
      */
     data: XOR<UserCreateInput, UserUncheckedCreateInput>
@@ -1628,6 +3407,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the User
      */
     select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1663,6 +3446,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -1686,6 +3473,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -1704,6 +3495,43 @@ export namespace Prisma {
 
 
   /**
+   * User.companyUser
+   */
+  export type User$companyUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+    where?: CompanyUserWhereInput
+  }
+
+
+  /**
+   * User.myCircles
+   */
+  export type User$myCirclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
+    where?: CirclesWhereInput
+    orderBy?: CirclesOrderByWithRelationInput | CirclesOrderByWithRelationInput[]
+    cursor?: CirclesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CirclesScalarFieldEnum | CirclesScalarFieldEnum[]
+  }
+
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1711,6 +3539,1042 @@ export namespace Prisma {
      * Select specific fields to fetch from the User
      */
     select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Circles
+   */
+
+  export type AggregateCircles = {
+    _count: CirclesCountAggregateOutputType | null
+    _min: CirclesMinAggregateOutputType | null
+    _max: CirclesMaxAggregateOutputType | null
+  }
+
+  export type CirclesMinAggregateOutputType = {
+    id: string | null
+    created_at: Date | null
+    circleName: string | null
+    circleDescription: string | null
+    circleShareLink: string | null
+    wellbeingScore: string | null
+    activityLevel: $Enums.ActivityLevel | null
+    companyUserId: string | null
+    userId: string | null
+    createdBy: string | null
+    circleStatus: $Enums.UserStatus | null
+    circleNos: string | null
+  }
+
+  export type CirclesMaxAggregateOutputType = {
+    id: string | null
+    created_at: Date | null
+    circleName: string | null
+    circleDescription: string | null
+    circleShareLink: string | null
+    wellbeingScore: string | null
+    activityLevel: $Enums.ActivityLevel | null
+    companyUserId: string | null
+    userId: string | null
+    createdBy: string | null
+    circleStatus: $Enums.UserStatus | null
+    circleNos: string | null
+  }
+
+  export type CirclesCountAggregateOutputType = {
+    id: number
+    created_at: number
+    circleName: number
+    circleDescription: number
+    circleShareLink: number
+    wellbeingScore: number
+    activityLevel: number
+    companyUserId: number
+    userId: number
+    createdBy: number
+    circleStatus: number
+    circleNos: number
+    _all: number
+  }
+
+
+  export type CirclesMinAggregateInputType = {
+    id?: true
+    created_at?: true
+    circleName?: true
+    circleDescription?: true
+    circleShareLink?: true
+    wellbeingScore?: true
+    activityLevel?: true
+    companyUserId?: true
+    userId?: true
+    createdBy?: true
+    circleStatus?: true
+    circleNos?: true
+  }
+
+  export type CirclesMaxAggregateInputType = {
+    id?: true
+    created_at?: true
+    circleName?: true
+    circleDescription?: true
+    circleShareLink?: true
+    wellbeingScore?: true
+    activityLevel?: true
+    companyUserId?: true
+    userId?: true
+    createdBy?: true
+    circleStatus?: true
+    circleNos?: true
+  }
+
+  export type CirclesCountAggregateInputType = {
+    id?: true
+    created_at?: true
+    circleName?: true
+    circleDescription?: true
+    circleShareLink?: true
+    wellbeingScore?: true
+    activityLevel?: true
+    companyUserId?: true
+    userId?: true
+    createdBy?: true
+    circleStatus?: true
+    circleNos?: true
+    _all?: true
+  }
+
+  export type CirclesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Circles to aggregate.
+     */
+    where?: CirclesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Circles to fetch.
+     */
+    orderBy?: CirclesOrderByWithRelationInput | CirclesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CirclesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Circles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Circles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Circles
+    **/
+    _count?: true | CirclesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CirclesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CirclesMaxAggregateInputType
+  }
+
+  export type GetCirclesAggregateType<T extends CirclesAggregateArgs> = {
+        [P in keyof T & keyof AggregateCircles]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCircles[P]>
+      : GetScalarType<T[P], AggregateCircles[P]>
+  }
+
+
+
+
+  export type CirclesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CirclesWhereInput
+    orderBy?: CirclesOrderByWithAggregationInput | CirclesOrderByWithAggregationInput[]
+    by: CirclesScalarFieldEnum[] | CirclesScalarFieldEnum
+    having?: CirclesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CirclesCountAggregateInputType | true
+    _min?: CirclesMinAggregateInputType
+    _max?: CirclesMaxAggregateInputType
+  }
+
+  export type CirclesGroupByOutputType = {
+    id: string
+    created_at: Date | null
+    circleName: string | null
+    circleDescription: string | null
+    circleShareLink: string | null
+    wellbeingScore: string | null
+    activityLevel: $Enums.ActivityLevel
+    companyUserId: string | null
+    userId: string | null
+    createdBy: string | null
+    circleStatus: $Enums.UserStatus
+    circleNos: string | null
+    _count: CirclesCountAggregateOutputType | null
+    _min: CirclesMinAggregateOutputType | null
+    _max: CirclesMaxAggregateOutputType | null
+  }
+
+  type GetCirclesGroupByPayload<T extends CirclesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CirclesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CirclesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CirclesGroupByOutputType[P]>
+            : GetScalarType<T[P], CirclesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CirclesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    created_at?: boolean
+    circleName?: boolean
+    circleDescription?: boolean
+    circleShareLink?: boolean
+    wellbeingScore?: boolean
+    activityLevel?: boolean
+    companyUserId?: boolean
+    userId?: boolean
+    createdBy?: boolean
+    circleStatus?: boolean
+    circleNos?: boolean
+    companyUser?: boolean | Circles$companyUserArgs<ExtArgs>
+    user?: boolean | Circles$userArgs<ExtArgs>
+  }, ExtArgs["result"]["circles"]>
+
+  export type CirclesSelectScalar = {
+    id?: boolean
+    created_at?: boolean
+    circleName?: boolean
+    circleDescription?: boolean
+    circleShareLink?: boolean
+    wellbeingScore?: boolean
+    activityLevel?: boolean
+    companyUserId?: boolean
+    userId?: boolean
+    createdBy?: boolean
+    circleStatus?: boolean
+    circleNos?: boolean
+  }
+
+  export type CirclesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    companyUser?: boolean | Circles$companyUserArgs<ExtArgs>
+    user?: boolean | Circles$userArgs<ExtArgs>
+  }
+
+
+  export type $CirclesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Circles"
+    objects: {
+      companyUser: Prisma.$CompanyUserPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      created_at: Date | null
+      circleName: string | null
+      circleDescription: string | null
+      circleShareLink: string | null
+      wellbeingScore: string | null
+      activityLevel: $Enums.ActivityLevel
+      companyUserId: string | null
+      userId: string | null
+      createdBy: string | null
+      circleStatus: $Enums.UserStatus
+      circleNos: string | null
+    }, ExtArgs["result"]["circles"]>
+    composites: {}
+  }
+
+
+  type CirclesGetPayload<S extends boolean | null | undefined | CirclesDefaultArgs> = $Result.GetResult<Prisma.$CirclesPayload, S>
+
+  type CirclesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CirclesFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CirclesCountAggregateInputType | true
+    }
+
+  export interface CirclesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Circles'], meta: { name: 'Circles' } }
+    /**
+     * Find zero or one Circles that matches the filter.
+     * @param {CirclesFindUniqueArgs} args - Arguments to find a Circles
+     * @example
+     * // Get one Circles
+     * const circles = await prisma.circles.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends CirclesFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, CirclesFindUniqueArgs<ExtArgs>>
+    ): Prisma__CirclesClient<$Result.GetResult<Prisma.$CirclesPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Circles that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {CirclesFindUniqueOrThrowArgs} args - Arguments to find a Circles
+     * @example
+     * // Get one Circles
+     * const circles = await prisma.circles.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends CirclesFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, CirclesFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__CirclesClient<$Result.GetResult<Prisma.$CirclesPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Circles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CirclesFindFirstArgs} args - Arguments to find a Circles
+     * @example
+     * // Get one Circles
+     * const circles = await prisma.circles.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends CirclesFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, CirclesFindFirstArgs<ExtArgs>>
+    ): Prisma__CirclesClient<$Result.GetResult<Prisma.$CirclesPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Circles that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CirclesFindFirstOrThrowArgs} args - Arguments to find a Circles
+     * @example
+     * // Get one Circles
+     * const circles = await prisma.circles.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends CirclesFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, CirclesFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__CirclesClient<$Result.GetResult<Prisma.$CirclesPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Circles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CirclesFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Circles
+     * const circles = await prisma.circles.findMany()
+     * 
+     * // Get first 10 Circles
+     * const circles = await prisma.circles.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const circlesWithIdOnly = await prisma.circles.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends CirclesFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CirclesFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CirclesPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Circles.
+     * @param {CirclesCreateArgs} args - Arguments to create a Circles.
+     * @example
+     * // Create one Circles
+     * const Circles = await prisma.circles.create({
+     *   data: {
+     *     // ... data to create a Circles
+     *   }
+     * })
+     * 
+    **/
+    create<T extends CirclesCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, CirclesCreateArgs<ExtArgs>>
+    ): Prisma__CirclesClient<$Result.GetResult<Prisma.$CirclesPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Circles.
+     *     @param {CirclesCreateManyArgs} args - Arguments to create many Circles.
+     *     @example
+     *     // Create many Circles
+     *     const circles = await prisma.circles.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends CirclesCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CirclesCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Circles.
+     * @param {CirclesDeleteArgs} args - Arguments to delete one Circles.
+     * @example
+     * // Delete one Circles
+     * const Circles = await prisma.circles.delete({
+     *   where: {
+     *     // ... filter to delete one Circles
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends CirclesDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, CirclesDeleteArgs<ExtArgs>>
+    ): Prisma__CirclesClient<$Result.GetResult<Prisma.$CirclesPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Circles.
+     * @param {CirclesUpdateArgs} args - Arguments to update one Circles.
+     * @example
+     * // Update one Circles
+     * const circles = await prisma.circles.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends CirclesUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, CirclesUpdateArgs<ExtArgs>>
+    ): Prisma__CirclesClient<$Result.GetResult<Prisma.$CirclesPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Circles.
+     * @param {CirclesDeleteManyArgs} args - Arguments to filter Circles to delete.
+     * @example
+     * // Delete a few Circles
+     * const { count } = await prisma.circles.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends CirclesDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CirclesDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Circles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CirclesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Circles
+     * const circles = await prisma.circles.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends CirclesUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, CirclesUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Circles.
+     * @param {CirclesUpsertArgs} args - Arguments to update or create a Circles.
+     * @example
+     * // Update or create a Circles
+     * const circles = await prisma.circles.upsert({
+     *   create: {
+     *     // ... data to create a Circles
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Circles we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends CirclesUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, CirclesUpsertArgs<ExtArgs>>
+    ): Prisma__CirclesClient<$Result.GetResult<Prisma.$CirclesPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Circles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CirclesCountArgs} args - Arguments to filter Circles to count.
+     * @example
+     * // Count the number of Circles
+     * const count = await prisma.circles.count({
+     *   where: {
+     *     // ... the filter for the Circles we want to count
+     *   }
+     * })
+    **/
+    count<T extends CirclesCountArgs>(
+      args?: Subset<T, CirclesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CirclesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Circles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CirclesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CirclesAggregateArgs>(args: Subset<T, CirclesAggregateArgs>): Prisma.PrismaPromise<GetCirclesAggregateType<T>>
+
+    /**
+     * Group by Circles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CirclesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CirclesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CirclesGroupByArgs['orderBy'] }
+        : { orderBy?: CirclesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CirclesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCirclesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Circles model
+   */
+  readonly fields: CirclesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Circles.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CirclesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    companyUser<T extends Circles$companyUserArgs<ExtArgs> = {}>(args?: Subset<T, Circles$companyUserArgs<ExtArgs>>): Prisma__CompanyUserClient<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    user<T extends Circles$userArgs<ExtArgs> = {}>(args?: Subset<T, Circles$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Circles model
+   */ 
+  interface CirclesFieldRefs {
+    readonly id: FieldRef<"Circles", 'String'>
+    readonly created_at: FieldRef<"Circles", 'DateTime'>
+    readonly circleName: FieldRef<"Circles", 'String'>
+    readonly circleDescription: FieldRef<"Circles", 'String'>
+    readonly circleShareLink: FieldRef<"Circles", 'String'>
+    readonly wellbeingScore: FieldRef<"Circles", 'String'>
+    readonly activityLevel: FieldRef<"Circles", 'ActivityLevel'>
+    readonly companyUserId: FieldRef<"Circles", 'String'>
+    readonly userId: FieldRef<"Circles", 'String'>
+    readonly createdBy: FieldRef<"Circles", 'String'>
+    readonly circleStatus: FieldRef<"Circles", 'UserStatus'>
+    readonly circleNos: FieldRef<"Circles", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Circles findUnique
+   */
+  export type CirclesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
+    /**
+     * Filter, which Circles to fetch.
+     */
+    where: CirclesWhereUniqueInput
+  }
+
+
+  /**
+   * Circles findUniqueOrThrow
+   */
+  export type CirclesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
+    /**
+     * Filter, which Circles to fetch.
+     */
+    where: CirclesWhereUniqueInput
+  }
+
+
+  /**
+   * Circles findFirst
+   */
+  export type CirclesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
+    /**
+     * Filter, which Circles to fetch.
+     */
+    where?: CirclesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Circles to fetch.
+     */
+    orderBy?: CirclesOrderByWithRelationInput | CirclesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Circles.
+     */
+    cursor?: CirclesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Circles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Circles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Circles.
+     */
+    distinct?: CirclesScalarFieldEnum | CirclesScalarFieldEnum[]
+  }
+
+
+  /**
+   * Circles findFirstOrThrow
+   */
+  export type CirclesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
+    /**
+     * Filter, which Circles to fetch.
+     */
+    where?: CirclesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Circles to fetch.
+     */
+    orderBy?: CirclesOrderByWithRelationInput | CirclesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Circles.
+     */
+    cursor?: CirclesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Circles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Circles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Circles.
+     */
+    distinct?: CirclesScalarFieldEnum | CirclesScalarFieldEnum[]
+  }
+
+
+  /**
+   * Circles findMany
+   */
+  export type CirclesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
+    /**
+     * Filter, which Circles to fetch.
+     */
+    where?: CirclesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Circles to fetch.
+     */
+    orderBy?: CirclesOrderByWithRelationInput | CirclesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Circles.
+     */
+    cursor?: CirclesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Circles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Circles.
+     */
+    skip?: number
+    distinct?: CirclesScalarFieldEnum | CirclesScalarFieldEnum[]
+  }
+
+
+  /**
+   * Circles create
+   */
+  export type CirclesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Circles.
+     */
+    data: XOR<CirclesCreateInput, CirclesUncheckedCreateInput>
+  }
+
+
+  /**
+   * Circles createMany
+   */
+  export type CirclesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Circles.
+     */
+    data: CirclesCreateManyInput | CirclesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Circles update
+   */
+  export type CirclesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Circles.
+     */
+    data: XOR<CirclesUpdateInput, CirclesUncheckedUpdateInput>
+    /**
+     * Choose, which Circles to update.
+     */
+    where: CirclesWhereUniqueInput
+  }
+
+
+  /**
+   * Circles updateMany
+   */
+  export type CirclesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Circles.
+     */
+    data: XOR<CirclesUpdateManyMutationInput, CirclesUncheckedUpdateManyInput>
+    /**
+     * Filter which Circles to update
+     */
+    where?: CirclesWhereInput
+  }
+
+
+  /**
+   * Circles upsert
+   */
+  export type CirclesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Circles to update in case it exists.
+     */
+    where: CirclesWhereUniqueInput
+    /**
+     * In case the Circles found by the `where` argument doesn't exist, create a new Circles with this data.
+     */
+    create: XOR<CirclesCreateInput, CirclesUncheckedCreateInput>
+    /**
+     * In case the Circles was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CirclesUpdateInput, CirclesUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Circles delete
+   */
+  export type CirclesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
+    /**
+     * Filter which Circles to delete.
+     */
+    where: CirclesWhereUniqueInput
+  }
+
+
+  /**
+   * Circles deleteMany
+   */
+  export type CirclesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Circles to delete
+     */
+    where?: CirclesWhereInput
+  }
+
+
+  /**
+   * Circles.companyUser
+   */
+  export type Circles$companyUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyUser
+     */
+    select?: CompanyUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyUserInclude<ExtArgs> | null
+    where?: CompanyUserWhereInput
+  }
+
+
+  /**
+   * Circles.user
+   */
+  export type Circles$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+
+  /**
+   * Circles without action
+   */
+  export type CirclesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Circles
+     */
+    select?: CirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CirclesInclude<ExtArgs> | null
   }
 
 
@@ -1729,14 +4593,85 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const CompanyUserScalarFieldEnum: {
+    id: 'id',
+    email: 'email',
+    created_at: 'created_at',
+    companyName: 'companyName',
+    phoneNumber: 'phoneNumber',
+    password: 'password',
+    passwordResetCode: 'passwordResetCode',
+    lastLogin: 'lastLogin',
+    passportImg: 'passportImg',
+    isActive: 'isActive',
+    updated_at: 'updated_at',
+    verificationCode: 'verificationCode',
+    status: 'status',
+    address: 'address',
+    emailNotification: 'emailNotification',
+    campaignNtification: 'campaignNtification',
+    termsConditions: 'termsConditions'
+  };
+
+  export type CompanyUserScalarFieldEnum = (typeof CompanyUserScalarFieldEnum)[keyof typeof CompanyUserScalarFieldEnum]
+
+
   export const UserScalarFieldEnum: {
     id: 'id',
     email: 'email',
-    name: 'name',
-    phone_number: 'phone_number'
+    created_at: 'created_at',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    phoneNumber: 'phoneNumber',
+    ageRange: 'ageRange',
+    ethnicity: 'ethnicity',
+    gender: 'gender',
+    maritalStatus: 'maritalStatus',
+    disability: 'disability',
+    DOB: 'DOB',
+    accountType: 'accountType',
+    department: 'department',
+    jobRole: 'jobRole',
+    password: 'password',
+    role: 'role',
+    passwordResetCode: 'passwordResetCode',
+    createdBy: 'createdBy',
+    lastLogin: 'lastLogin',
+    passportImg: 'passportImg',
+    isActive: 'isActive',
+    updated_at: 'updated_at',
+    isEmailVerified: 'isEmailVerified',
+    verificationCode: 'verificationCode',
+    status: 'status',
+    address: 'address',
+    bio: 'bio',
+    emailNotification: 'emailNotification',
+    campaignNtification: 'campaignNtification',
+    termsConditions: 'termsConditions',
+    addedBy: 'addedBy',
+    circleName: 'circleName',
+    circleId: 'circleId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const CirclesScalarFieldEnum: {
+    id: 'id',
+    created_at: 'created_at',
+    circleName: 'circleName',
+    circleDescription: 'circleDescription',
+    circleShareLink: 'circleShareLink',
+    wellbeingScore: 'wellbeingScore',
+    activityLevel: 'activityLevel',
+    companyUserId: 'companyUserId',
+    userId: 'userId',
+    createdBy: 'createdBy',
+    circleStatus: 'circleStatus',
+    circleNos: 'circleNos'
+  };
+
+  export type CirclesScalarFieldEnum = (typeof CirclesScalarFieldEnum)[keyof typeof CirclesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -1783,6 +4718,97 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserStatus'
+   */
+  export type EnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserStatus[]'
+   */
+  export type ListEnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserGender'
+   */
+  export type EnumUserGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserGender'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserGender[]'
+   */
+  export type ListEnumUserGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserGender[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserAccount'
+   */
+  export type EnumUserAccountFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserAccount'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserAccount[]'
+   */
+  export type ListEnumUserAccountFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserAccount[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SystemRole'
+   */
+  export type EnumSystemRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'SystemRole[]'
+   */
+  export type ListEnumSystemRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ActivityLevel'
+   */
+  export type EnumActivityLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityLevel'>
+    
+
+
+  /**
+   * Reference to a field of type 'ActivityLevel[]'
+   */
+  export type ListEnumActivityLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityLevel[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -1799,38 +4825,282 @@ export namespace Prisma {
    */
 
 
+  export type CompanyUserWhereInput = {
+    AND?: CompanyUserWhereInput | CompanyUserWhereInput[]
+    OR?: CompanyUserWhereInput[]
+    NOT?: CompanyUserWhereInput | CompanyUserWhereInput[]
+    id?: StringFilter<"CompanyUser"> | string
+    email?: StringFilter<"CompanyUser"> | string
+    created_at?: DateTimeNullableFilter<"CompanyUser"> | Date | string | null
+    companyName?: StringNullableFilter<"CompanyUser"> | string | null
+    phoneNumber?: StringNullableFilter<"CompanyUser"> | string | null
+    password?: StringNullableFilter<"CompanyUser"> | string | null
+    passwordResetCode?: StringNullableFilter<"CompanyUser"> | string | null
+    lastLogin?: DateTimeNullableFilter<"CompanyUser"> | Date | string | null
+    passportImg?: StringNullableFilter<"CompanyUser"> | string | null
+    isActive?: BoolNullableFilter<"CompanyUser"> | boolean | null
+    updated_at?: DateTimeNullableFilter<"CompanyUser"> | Date | string | null
+    verificationCode?: StringNullableFilter<"CompanyUser"> | string | null
+    status?: EnumUserStatusFilter<"CompanyUser"> | $Enums.UserStatus
+    address?: StringNullableFilter<"CompanyUser"> | string | null
+    emailNotification?: BoolNullableFilter<"CompanyUser"> | boolean | null
+    campaignNtification?: BoolNullableFilter<"CompanyUser"> | boolean | null
+    termsConditions?: BoolNullableFilter<"CompanyUser"> | boolean | null
+    membersList?: UserListRelationFilter
+    company_circle?: CirclesListRelationFilter
+  }
+
+  export type CompanyUserOrderByWithRelationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    companyName?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+    passwordResetCode?: SortOrderInput | SortOrder
+    lastLogin?: SortOrderInput | SortOrder
+    passportImg?: SortOrderInput | SortOrder
+    isActive?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    verificationCode?: SortOrderInput | SortOrder
+    status?: SortOrder
+    address?: SortOrderInput | SortOrder
+    emailNotification?: SortOrderInput | SortOrder
+    campaignNtification?: SortOrderInput | SortOrder
+    termsConditions?: SortOrderInput | SortOrder
+    membersList?: UserOrderByRelationAggregateInput
+    company_circle?: CirclesOrderByRelationAggregateInput
+  }
+
+  export type CompanyUserWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email?: string
+    passwordResetCode?: string
+    verificationCode?: string
+    AND?: CompanyUserWhereInput | CompanyUserWhereInput[]
+    OR?: CompanyUserWhereInput[]
+    NOT?: CompanyUserWhereInput | CompanyUserWhereInput[]
+    created_at?: DateTimeNullableFilter<"CompanyUser"> | Date | string | null
+    companyName?: StringNullableFilter<"CompanyUser"> | string | null
+    phoneNumber?: StringNullableFilter<"CompanyUser"> | string | null
+    password?: StringNullableFilter<"CompanyUser"> | string | null
+    lastLogin?: DateTimeNullableFilter<"CompanyUser"> | Date | string | null
+    passportImg?: StringNullableFilter<"CompanyUser"> | string | null
+    isActive?: BoolNullableFilter<"CompanyUser"> | boolean | null
+    updated_at?: DateTimeNullableFilter<"CompanyUser"> | Date | string | null
+    status?: EnumUserStatusFilter<"CompanyUser"> | $Enums.UserStatus
+    address?: StringNullableFilter<"CompanyUser"> | string | null
+    emailNotification?: BoolNullableFilter<"CompanyUser"> | boolean | null
+    campaignNtification?: BoolNullableFilter<"CompanyUser"> | boolean | null
+    termsConditions?: BoolNullableFilter<"CompanyUser"> | boolean | null
+    membersList?: UserListRelationFilter
+    company_circle?: CirclesListRelationFilter
+  }, "id" | "id" | "email" | "passwordResetCode" | "verificationCode">
+
+  export type CompanyUserOrderByWithAggregationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    companyName?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+    passwordResetCode?: SortOrderInput | SortOrder
+    lastLogin?: SortOrderInput | SortOrder
+    passportImg?: SortOrderInput | SortOrder
+    isActive?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    verificationCode?: SortOrderInput | SortOrder
+    status?: SortOrder
+    address?: SortOrderInput | SortOrder
+    emailNotification?: SortOrderInput | SortOrder
+    campaignNtification?: SortOrderInput | SortOrder
+    termsConditions?: SortOrderInput | SortOrder
+    _count?: CompanyUserCountOrderByAggregateInput
+    _max?: CompanyUserMaxOrderByAggregateInput
+    _min?: CompanyUserMinOrderByAggregateInput
+  }
+
+  export type CompanyUserScalarWhereWithAggregatesInput = {
+    AND?: CompanyUserScalarWhereWithAggregatesInput | CompanyUserScalarWhereWithAggregatesInput[]
+    OR?: CompanyUserScalarWhereWithAggregatesInput[]
+    NOT?: CompanyUserScalarWhereWithAggregatesInput | CompanyUserScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CompanyUser"> | string
+    email?: StringWithAggregatesFilter<"CompanyUser"> | string
+    created_at?: DateTimeNullableWithAggregatesFilter<"CompanyUser"> | Date | string | null
+    companyName?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    phoneNumber?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    password?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    passwordResetCode?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    lastLogin?: DateTimeNullableWithAggregatesFilter<"CompanyUser"> | Date | string | null
+    passportImg?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    isActive?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"CompanyUser"> | Date | string | null
+    verificationCode?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    status?: EnumUserStatusWithAggregatesFilter<"CompanyUser"> | $Enums.UserStatus
+    address?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    emailNotification?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
+    campaignNtification?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
+    termsConditions?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
+  }
+
   export type UserWhereInput = {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
-    name?: StringNullableFilter<"User"> | string | null
-    phone_number?: StringNullableFilter<"User"> | string | null
+    created_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
+    phoneNumber?: StringNullableFilter<"User"> | string | null
+    ageRange?: StringNullableFilter<"User"> | string | null
+    ethnicity?: StringNullableFilter<"User"> | string | null
+    gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
+    maritalStatus?: StringNullableFilter<"User"> | string | null
+    disability?: StringNullableFilter<"User"> | string | null
+    DOB?: StringNullableFilter<"User"> | string | null
+    accountType?: EnumUserAccountFilter<"User"> | $Enums.UserAccount
+    department?: StringNullableFilter<"User"> | string | null
+    jobRole?: StringNullableFilter<"User"> | string | null
+    password?: StringNullableFilter<"User"> | string | null
+    role?: EnumSystemRoleFilter<"User"> | $Enums.SystemRole
+    passwordResetCode?: StringNullableFilter<"User"> | string | null
+    createdBy?: StringNullableFilter<"User"> | string | null
+    lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
+    passportImg?: StringNullableFilter<"User"> | string | null
+    isActive?: BoolNullableFilter<"User"> | boolean | null
+    updated_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    isEmailVerified?: BoolNullableFilter<"User"> | boolean | null
+    verificationCode?: StringNullableFilter<"User"> | string | null
+    status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
+    address?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    emailNotification?: BoolNullableFilter<"User"> | boolean | null
+    campaignNtification?: BoolNullableFilter<"User"> | boolean | null
+    termsConditions?: BoolNullableFilter<"User"> | boolean | null
+    addedBy?: StringNullableFilter<"User"> | string | null
+    circleName?: StringNullableFilter<"User"> | string | null
+    circleId?: StringNullableFilter<"User"> | string | null
+    companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
+    myCircles?: CirclesListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     email?: SortOrder
-    name?: SortOrderInput | SortOrder
-    phone_number?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
+    ageRange?: SortOrderInput | SortOrder
+    ethnicity?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
+    maritalStatus?: SortOrderInput | SortOrder
+    disability?: SortOrderInput | SortOrder
+    DOB?: SortOrderInput | SortOrder
+    accountType?: SortOrder
+    department?: SortOrderInput | SortOrder
+    jobRole?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+    role?: SortOrder
+    passwordResetCode?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    lastLogin?: SortOrderInput | SortOrder
+    passportImg?: SortOrderInput | SortOrder
+    isActive?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    isEmailVerified?: SortOrderInput | SortOrder
+    verificationCode?: SortOrderInput | SortOrder
+    status?: SortOrder
+    address?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    emailNotification?: SortOrderInput | SortOrder
+    campaignNtification?: SortOrderInput | SortOrder
+    termsConditions?: SortOrderInput | SortOrder
+    addedBy?: SortOrderInput | SortOrder
+    circleName?: SortOrderInput | SortOrder
+    circleId?: SortOrderInput | SortOrder
+    companyUser?: CompanyUserOrderByWithRelationInput
+    myCircles?: CirclesOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
-    phone_number?: string
+    phoneNumber?: string
+    passwordResetCode?: string
+    verificationCode?: string
+    addedBy?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    name?: StringNullableFilter<"User"> | string | null
-  }, "id" | "email" | "phone_number">
+    created_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
+    ageRange?: StringNullableFilter<"User"> | string | null
+    ethnicity?: StringNullableFilter<"User"> | string | null
+    gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
+    maritalStatus?: StringNullableFilter<"User"> | string | null
+    disability?: StringNullableFilter<"User"> | string | null
+    DOB?: StringNullableFilter<"User"> | string | null
+    accountType?: EnumUserAccountFilter<"User"> | $Enums.UserAccount
+    department?: StringNullableFilter<"User"> | string | null
+    jobRole?: StringNullableFilter<"User"> | string | null
+    password?: StringNullableFilter<"User"> | string | null
+    role?: EnumSystemRoleFilter<"User"> | $Enums.SystemRole
+    createdBy?: StringNullableFilter<"User"> | string | null
+    lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
+    passportImg?: StringNullableFilter<"User"> | string | null
+    isActive?: BoolNullableFilter<"User"> | boolean | null
+    updated_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    isEmailVerified?: BoolNullableFilter<"User"> | boolean | null
+    status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
+    address?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    emailNotification?: BoolNullableFilter<"User"> | boolean | null
+    campaignNtification?: BoolNullableFilter<"User"> | boolean | null
+    termsConditions?: BoolNullableFilter<"User"> | boolean | null
+    circleName?: StringNullableFilter<"User"> | string | null
+    circleId?: StringNullableFilter<"User"> | string | null
+    companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
+    myCircles?: CirclesListRelationFilter
+  }, "id" | "id" | "email" | "phoneNumber" | "passwordResetCode" | "verificationCode" | "addedBy">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
-    name?: SortOrderInput | SortOrder
-    phone_number?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
+    ageRange?: SortOrderInput | SortOrder
+    ethnicity?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
+    maritalStatus?: SortOrderInput | SortOrder
+    disability?: SortOrderInput | SortOrder
+    DOB?: SortOrderInput | SortOrder
+    accountType?: SortOrder
+    department?: SortOrderInput | SortOrder
+    jobRole?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+    role?: SortOrder
+    passwordResetCode?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    lastLogin?: SortOrderInput | SortOrder
+    passportImg?: SortOrderInput | SortOrder
+    isActive?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    isEmailVerified?: SortOrderInput | SortOrder
+    verificationCode?: SortOrderInput | SortOrder
+    status?: SortOrder
+    address?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    emailNotification?: SortOrderInput | SortOrder
+    campaignNtification?: SortOrderInput | SortOrder
+    termsConditions?: SortOrderInput | SortOrder
+    addedBy?: SortOrderInput | SortOrder
+    circleName?: SortOrderInput | SortOrder
+    circleId?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -1842,57 +5112,645 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
-    name?: StringNullableWithAggregatesFilter<"User"> | string | null
-    phone_number?: StringNullableWithAggregatesFilter<"User"> | string | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
+    ageRange?: StringNullableWithAggregatesFilter<"User"> | string | null
+    ethnicity?: StringNullableWithAggregatesFilter<"User"> | string | null
+    gender?: EnumUserGenderNullableWithAggregatesFilter<"User"> | $Enums.UserGender | null
+    maritalStatus?: StringNullableWithAggregatesFilter<"User"> | string | null
+    disability?: StringNullableWithAggregatesFilter<"User"> | string | null
+    DOB?: StringNullableWithAggregatesFilter<"User"> | string | null
+    accountType?: EnumUserAccountWithAggregatesFilter<"User"> | $Enums.UserAccount
+    department?: StringNullableWithAggregatesFilter<"User"> | string | null
+    jobRole?: StringNullableWithAggregatesFilter<"User"> | string | null
+    password?: StringNullableWithAggregatesFilter<"User"> | string | null
+    role?: EnumSystemRoleWithAggregatesFilter<"User"> | $Enums.SystemRole
+    passwordResetCode?: StringNullableWithAggregatesFilter<"User"> | string | null
+    createdBy?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    passportImg?: StringNullableWithAggregatesFilter<"User"> | string | null
+    isActive?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    isEmailVerified?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
+    verificationCode?: StringNullableWithAggregatesFilter<"User"> | string | null
+    status?: EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
+    address?: StringNullableWithAggregatesFilter<"User"> | string | null
+    bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    emailNotification?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
+    campaignNtification?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
+    termsConditions?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
+    addedBy?: StringNullableWithAggregatesFilter<"User"> | string | null
+    circleName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    circleId?: StringNullableWithAggregatesFilter<"User"> | string | null
+  }
+
+  export type CirclesWhereInput = {
+    AND?: CirclesWhereInput | CirclesWhereInput[]
+    OR?: CirclesWhereInput[]
+    NOT?: CirclesWhereInput | CirclesWhereInput[]
+    id?: StringFilter<"Circles"> | string
+    created_at?: DateTimeNullableFilter<"Circles"> | Date | string | null
+    circleName?: StringNullableFilter<"Circles"> | string | null
+    circleDescription?: StringNullableFilter<"Circles"> | string | null
+    circleShareLink?: StringNullableFilter<"Circles"> | string | null
+    wellbeingScore?: StringNullableFilter<"Circles"> | string | null
+    activityLevel?: EnumActivityLevelFilter<"Circles"> | $Enums.ActivityLevel
+    companyUserId?: StringNullableFilter<"Circles"> | string | null
+    userId?: StringNullableFilter<"Circles"> | string | null
+    createdBy?: StringNullableFilter<"Circles"> | string | null
+    circleStatus?: EnumUserStatusFilter<"Circles"> | $Enums.UserStatus
+    circleNos?: StringNullableFilter<"Circles"> | string | null
+    companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }
+
+  export type CirclesOrderByWithRelationInput = {
+    id?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    circleName?: SortOrderInput | SortOrder
+    circleDescription?: SortOrderInput | SortOrder
+    circleShareLink?: SortOrderInput | SortOrder
+    wellbeingScore?: SortOrderInput | SortOrder
+    activityLevel?: SortOrder
+    companyUserId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    circleStatus?: SortOrder
+    circleNos?: SortOrderInput | SortOrder
+    companyUser?: CompanyUserOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type CirclesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    circleName?: string
+    id_circleName?: CirclesIdCircleNameCompoundUniqueInput
+    AND?: CirclesWhereInput | CirclesWhereInput[]
+    OR?: CirclesWhereInput[]
+    NOT?: CirclesWhereInput | CirclesWhereInput[]
+    created_at?: DateTimeNullableFilter<"Circles"> | Date | string | null
+    circleDescription?: StringNullableFilter<"Circles"> | string | null
+    circleShareLink?: StringNullableFilter<"Circles"> | string | null
+    wellbeingScore?: StringNullableFilter<"Circles"> | string | null
+    activityLevel?: EnumActivityLevelFilter<"Circles"> | $Enums.ActivityLevel
+    companyUserId?: StringNullableFilter<"Circles"> | string | null
+    userId?: StringNullableFilter<"Circles"> | string | null
+    createdBy?: StringNullableFilter<"Circles"> | string | null
+    circleStatus?: EnumUserStatusFilter<"Circles"> | $Enums.UserStatus
+    circleNos?: StringNullableFilter<"Circles"> | string | null
+    companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }, "id" | "id" | "circleName" | "id_circleName">
+
+  export type CirclesOrderByWithAggregationInput = {
+    id?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    circleName?: SortOrderInput | SortOrder
+    circleDescription?: SortOrderInput | SortOrder
+    circleShareLink?: SortOrderInput | SortOrder
+    wellbeingScore?: SortOrderInput | SortOrder
+    activityLevel?: SortOrder
+    companyUserId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    circleStatus?: SortOrder
+    circleNos?: SortOrderInput | SortOrder
+    _count?: CirclesCountOrderByAggregateInput
+    _max?: CirclesMaxOrderByAggregateInput
+    _min?: CirclesMinOrderByAggregateInput
+  }
+
+  export type CirclesScalarWhereWithAggregatesInput = {
+    AND?: CirclesScalarWhereWithAggregatesInput | CirclesScalarWhereWithAggregatesInput[]
+    OR?: CirclesScalarWhereWithAggregatesInput[]
+    NOT?: CirclesScalarWhereWithAggregatesInput | CirclesScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Circles"> | string
+    created_at?: DateTimeNullableWithAggregatesFilter<"Circles"> | Date | string | null
+    circleName?: StringNullableWithAggregatesFilter<"Circles"> | string | null
+    circleDescription?: StringNullableWithAggregatesFilter<"Circles"> | string | null
+    circleShareLink?: StringNullableWithAggregatesFilter<"Circles"> | string | null
+    wellbeingScore?: StringNullableWithAggregatesFilter<"Circles"> | string | null
+    activityLevel?: EnumActivityLevelWithAggregatesFilter<"Circles"> | $Enums.ActivityLevel
+    companyUserId?: StringNullableWithAggregatesFilter<"Circles"> | string | null
+    userId?: StringNullableWithAggregatesFilter<"Circles"> | string | null
+    createdBy?: StringNullableWithAggregatesFilter<"Circles"> | string | null
+    circleStatus?: EnumUserStatusWithAggregatesFilter<"Circles"> | $Enums.UserStatus
+    circleNos?: StringNullableWithAggregatesFilter<"Circles"> | string | null
+  }
+
+  export type CompanyUserCreateInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    companyName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    membersList?: UserCreateNestedManyWithoutCompanyUserInput
+    company_circle?: CirclesCreateNestedManyWithoutCompanyUserInput
+  }
+
+  export type CompanyUserUncheckedCreateInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    companyName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    membersList?: UserUncheckedCreateNestedManyWithoutCompanyUserInput
+    company_circle?: CirclesUncheckedCreateNestedManyWithoutCompanyUserInput
+  }
+
+  export type CompanyUserUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    membersList?: UserUpdateManyWithoutCompanyUserNestedInput
+    company_circle?: CirclesUpdateManyWithoutCompanyUserNestedInput
+  }
+
+  export type CompanyUserUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    membersList?: UserUncheckedUpdateManyWithoutCompanyUserNestedInput
+    company_circle?: CirclesUncheckedUpdateManyWithoutCompanyUserNestedInput
+  }
+
+  export type CompanyUserCreateManyInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    companyName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+  }
+
+  export type CompanyUserUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+  }
+
+  export type CompanyUserUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type UserCreateInput = {
     id?: string
     email: string
-    name?: string | null
-    phone_number?: string | null
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: string | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    circleName?: string | null
+    circleId?: string | null
+    companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
+    myCircles?: CirclesCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     email: string
-    name?: string | null
-    phone_number?: string | null
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: string | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    createdBy?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    circleName?: string | null
+    circleId?: string | null
+    myCircles?: CirclesUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleId?: NullableStringFieldUpdateOperationsInput | string | null
+    companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
+    myCircles?: CirclesUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleId?: NullableStringFieldUpdateOperationsInput | string | null
+    myCircles?: CirclesUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     email: string
-    name?: string | null
-    phone_number?: string | null
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: string | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    createdBy?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    circleName?: string | null
+    circleId?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CirclesCreateInput = {
+    id?: string
+    created_at?: Date | string | null
+    circleName?: string | null
+    circleDescription?: string | null
+    circleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel: $Enums.ActivityLevel
+    createdBy?: string | null
+    circleStatus?: $Enums.UserStatus
+    circleNos?: string | null
+    companyUser?: CompanyUserCreateNestedOneWithoutCompany_circleInput
+    user?: UserCreateNestedOneWithoutMyCirclesInput
+  }
+
+  export type CirclesUncheckedCreateInput = {
+    id?: string
+    created_at?: Date | string | null
+    circleName?: string | null
+    circleDescription?: string | null
+    circleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel: $Enums.ActivityLevel
+    companyUserId?: string | null
+    userId?: string | null
+    createdBy?: string | null
+    circleStatus?: $Enums.UserStatus
+    circleNos?: string | null
+  }
+
+  export type CirclesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    circleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    circleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    companyUser?: CompanyUserUpdateOneWithoutCompany_circleNestedInput
+    user?: UserUpdateOneWithoutMyCirclesNestedInput
+  }
+
+  export type CirclesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    circleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    companyUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    circleNos?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CirclesCreateManyInput = {
+    id?: string
+    created_at?: Date | string | null
+    circleName?: string | null
+    circleDescription?: string | null
+    circleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel: $Enums.ActivityLevel
+    companyUserId?: string | null
+    userId?: string | null
+    createdBy?: string | null
+    circleStatus?: $Enums.UserStatus
+    circleNos?: string | null
+  }
+
+  export type CirclesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    circleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    circleNos?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CirclesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    circleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    companyUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    circleNos?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -1910,6 +5768,17 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -1925,30 +5794,101 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type EnumUserStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
+  }
+
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
+  export type CirclesListRelationFilter = {
+    every?: CirclesWhereInput
+    some?: CirclesWhereInput
+    none?: CirclesWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
-  export type UserCountOrderByAggregateInput = {
-    id?: SortOrder
-    email?: SortOrder
-    name?: SortOrder
-    phone_number?: SortOrder
+  export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
-  export type UserMaxOrderByAggregateInput = {
-    id?: SortOrder
-    email?: SortOrder
-    name?: SortOrder
-    phone_number?: SortOrder
+  export type CirclesOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
-  export type UserMinOrderByAggregateInput = {
+  export type CompanyUserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
-    name?: SortOrder
-    phone_number?: SortOrder
+    created_at?: SortOrder
+    companyName?: SortOrder
+    phoneNumber?: SortOrder
+    password?: SortOrder
+    passwordResetCode?: SortOrder
+    lastLogin?: SortOrder
+    passportImg?: SortOrder
+    isActive?: SortOrder
+    updated_at?: SortOrder
+    verificationCode?: SortOrder
+    status?: SortOrder
+    address?: SortOrder
+    emailNotification?: SortOrder
+    campaignNtification?: SortOrder
+    termsConditions?: SortOrder
+  }
+
+  export type CompanyUserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrder
+    companyName?: SortOrder
+    phoneNumber?: SortOrder
+    password?: SortOrder
+    passwordResetCode?: SortOrder
+    lastLogin?: SortOrder
+    passportImg?: SortOrder
+    isActive?: SortOrder
+    updated_at?: SortOrder
+    verificationCode?: SortOrder
+    status?: SortOrder
+    address?: SortOrder
+    emailNotification?: SortOrder
+    campaignNtification?: SortOrder
+    termsConditions?: SortOrder
+  }
+
+  export type CompanyUserMinOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrder
+    companyName?: SortOrder
+    phoneNumber?: SortOrder
+    password?: SortOrder
+    passwordResetCode?: SortOrder
+    lastLogin?: SortOrder
+    passportImg?: SortOrder
+    isActive?: SortOrder
+    updated_at?: SortOrder
+    verificationCode?: SortOrder
+    status?: SortOrder
+    address?: SortOrder
+    emailNotification?: SortOrder
+    campaignNtification?: SortOrder
+    termsConditions?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -1969,6 +5909,20 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -1987,12 +5941,471 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type EnumUserStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusWithAggregatesFilter<$PrismaModel> | $Enums.UserStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserStatusFilter<$PrismaModel>
+    _max?: NestedEnumUserStatusFilter<$PrismaModel>
+  }
+
+  export type EnumUserGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableFilter<$PrismaModel> | $Enums.UserGender | null
+  }
+
+  export type EnumUserAccountFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel>
+    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserAccountFilter<$PrismaModel> | $Enums.UserAccount
+  }
+
+  export type EnumSystemRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSystemRoleFilter<$PrismaModel> | $Enums.SystemRole
+  }
+
+  export type CompanyUserNullableRelationFilter = {
+    is?: CompanyUserWhereInput | null
+    isNot?: CompanyUserWhereInput | null
+  }
+
+  export type UserCountOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
+    ageRange?: SortOrder
+    ethnicity?: SortOrder
+    gender?: SortOrder
+    maritalStatus?: SortOrder
+    disability?: SortOrder
+    DOB?: SortOrder
+    accountType?: SortOrder
+    department?: SortOrder
+    jobRole?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    passwordResetCode?: SortOrder
+    createdBy?: SortOrder
+    lastLogin?: SortOrder
+    passportImg?: SortOrder
+    isActive?: SortOrder
+    updated_at?: SortOrder
+    isEmailVerified?: SortOrder
+    verificationCode?: SortOrder
+    status?: SortOrder
+    address?: SortOrder
+    bio?: SortOrder
+    emailNotification?: SortOrder
+    campaignNtification?: SortOrder
+    termsConditions?: SortOrder
+    addedBy?: SortOrder
+    circleName?: SortOrder
+    circleId?: SortOrder
+  }
+
+  export type UserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
+    ageRange?: SortOrder
+    ethnicity?: SortOrder
+    gender?: SortOrder
+    maritalStatus?: SortOrder
+    disability?: SortOrder
+    DOB?: SortOrder
+    accountType?: SortOrder
+    department?: SortOrder
+    jobRole?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    passwordResetCode?: SortOrder
+    createdBy?: SortOrder
+    lastLogin?: SortOrder
+    passportImg?: SortOrder
+    isActive?: SortOrder
+    updated_at?: SortOrder
+    isEmailVerified?: SortOrder
+    verificationCode?: SortOrder
+    status?: SortOrder
+    address?: SortOrder
+    bio?: SortOrder
+    emailNotification?: SortOrder
+    campaignNtification?: SortOrder
+    termsConditions?: SortOrder
+    addedBy?: SortOrder
+    circleName?: SortOrder
+    circleId?: SortOrder
+  }
+
+  export type UserMinOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
+    ageRange?: SortOrder
+    ethnicity?: SortOrder
+    gender?: SortOrder
+    maritalStatus?: SortOrder
+    disability?: SortOrder
+    DOB?: SortOrder
+    accountType?: SortOrder
+    department?: SortOrder
+    jobRole?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    passwordResetCode?: SortOrder
+    createdBy?: SortOrder
+    lastLogin?: SortOrder
+    passportImg?: SortOrder
+    isActive?: SortOrder
+    updated_at?: SortOrder
+    isEmailVerified?: SortOrder
+    verificationCode?: SortOrder
+    status?: SortOrder
+    address?: SortOrder
+    bio?: SortOrder
+    emailNotification?: SortOrder
+    campaignNtification?: SortOrder
+    termsConditions?: SortOrder
+    addedBy?: SortOrder
+    circleName?: SortOrder
+    circleId?: SortOrder
+  }
+
+  export type EnumUserGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserGender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+  }
+
+  export type EnumUserAccountWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel>
+    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserAccountWithAggregatesFilter<$PrismaModel> | $Enums.UserAccount
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserAccountFilter<$PrismaModel>
+    _max?: NestedEnumUserAccountFilter<$PrismaModel>
+  }
+
+  export type EnumSystemRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel> | $Enums.SystemRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSystemRoleFilter<$PrismaModel>
+    _max?: NestedEnumSystemRoleFilter<$PrismaModel>
+  }
+
+  export type EnumActivityLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActivityLevel | EnumActivityLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.ActivityLevel[] | ListEnumActivityLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActivityLevel[] | ListEnumActivityLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumActivityLevelFilter<$PrismaModel> | $Enums.ActivityLevel
+  }
+
+  export type UserNullableRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type CirclesIdCircleNameCompoundUniqueInput = {
+    id: string
+    circleName: string
+  }
+
+  export type CirclesCountOrderByAggregateInput = {
+    id?: SortOrder
+    created_at?: SortOrder
+    circleName?: SortOrder
+    circleDescription?: SortOrder
+    circleShareLink?: SortOrder
+    wellbeingScore?: SortOrder
+    activityLevel?: SortOrder
+    companyUserId?: SortOrder
+    userId?: SortOrder
+    createdBy?: SortOrder
+    circleStatus?: SortOrder
+    circleNos?: SortOrder
+  }
+
+  export type CirclesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    created_at?: SortOrder
+    circleName?: SortOrder
+    circleDescription?: SortOrder
+    circleShareLink?: SortOrder
+    wellbeingScore?: SortOrder
+    activityLevel?: SortOrder
+    companyUserId?: SortOrder
+    userId?: SortOrder
+    createdBy?: SortOrder
+    circleStatus?: SortOrder
+    circleNos?: SortOrder
+  }
+
+  export type CirclesMinOrderByAggregateInput = {
+    id?: SortOrder
+    created_at?: SortOrder
+    circleName?: SortOrder
+    circleDescription?: SortOrder
+    circleShareLink?: SortOrder
+    wellbeingScore?: SortOrder
+    activityLevel?: SortOrder
+    companyUserId?: SortOrder
+    userId?: SortOrder
+    createdBy?: SortOrder
+    circleStatus?: SortOrder
+    circleNos?: SortOrder
+  }
+
+  export type EnumActivityLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActivityLevel | EnumActivityLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.ActivityLevel[] | ListEnumActivityLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActivityLevel[] | ListEnumActivityLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumActivityLevelWithAggregatesFilter<$PrismaModel> | $Enums.ActivityLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumActivityLevelFilter<$PrismaModel>
+    _max?: NestedEnumActivityLevelFilter<$PrismaModel>
+  }
+
+  export type UserCreateNestedManyWithoutCompanyUserInput = {
+    create?: XOR<UserCreateWithoutCompanyUserInput, UserUncheckedCreateWithoutCompanyUserInput> | UserCreateWithoutCompanyUserInput[] | UserUncheckedCreateWithoutCompanyUserInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyUserInput | UserCreateOrConnectWithoutCompanyUserInput[]
+    createMany?: UserCreateManyCompanyUserInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type CirclesCreateNestedManyWithoutCompanyUserInput = {
+    create?: XOR<CirclesCreateWithoutCompanyUserInput, CirclesUncheckedCreateWithoutCompanyUserInput> | CirclesCreateWithoutCompanyUserInput[] | CirclesUncheckedCreateWithoutCompanyUserInput[]
+    connectOrCreate?: CirclesCreateOrConnectWithoutCompanyUserInput | CirclesCreateOrConnectWithoutCompanyUserInput[]
+    createMany?: CirclesCreateManyCompanyUserInputEnvelope
+    connect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutCompanyUserInput = {
+    create?: XOR<UserCreateWithoutCompanyUserInput, UserUncheckedCreateWithoutCompanyUserInput> | UserCreateWithoutCompanyUserInput[] | UserUncheckedCreateWithoutCompanyUserInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyUserInput | UserCreateOrConnectWithoutCompanyUserInput[]
+    createMany?: UserCreateManyCompanyUserInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type CirclesUncheckedCreateNestedManyWithoutCompanyUserInput = {
+    create?: XOR<CirclesCreateWithoutCompanyUserInput, CirclesUncheckedCreateWithoutCompanyUserInput> | CirclesCreateWithoutCompanyUserInput[] | CirclesUncheckedCreateWithoutCompanyUserInput[]
+    connectOrCreate?: CirclesCreateOrConnectWithoutCompanyUserInput | CirclesCreateOrConnectWithoutCompanyUserInput[]
+    createMany?: CirclesCreateManyCompanyUserInputEnvelope
+    connect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
+  export type EnumUserStatusFieldUpdateOperationsInput = {
+    set?: $Enums.UserStatus
+  }
+
+  export type UserUpdateManyWithoutCompanyUserNestedInput = {
+    create?: XOR<UserCreateWithoutCompanyUserInput, UserUncheckedCreateWithoutCompanyUserInput> | UserCreateWithoutCompanyUserInput[] | UserUncheckedCreateWithoutCompanyUserInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyUserInput | UserCreateOrConnectWithoutCompanyUserInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCompanyUserInput | UserUpsertWithWhereUniqueWithoutCompanyUserInput[]
+    createMany?: UserCreateManyCompanyUserInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCompanyUserInput | UserUpdateWithWhereUniqueWithoutCompanyUserInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCompanyUserInput | UserUpdateManyWithWhereWithoutCompanyUserInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type CirclesUpdateManyWithoutCompanyUserNestedInput = {
+    create?: XOR<CirclesCreateWithoutCompanyUserInput, CirclesUncheckedCreateWithoutCompanyUserInput> | CirclesCreateWithoutCompanyUserInput[] | CirclesUncheckedCreateWithoutCompanyUserInput[]
+    connectOrCreate?: CirclesCreateOrConnectWithoutCompanyUserInput | CirclesCreateOrConnectWithoutCompanyUserInput[]
+    upsert?: CirclesUpsertWithWhereUniqueWithoutCompanyUserInput | CirclesUpsertWithWhereUniqueWithoutCompanyUserInput[]
+    createMany?: CirclesCreateManyCompanyUserInputEnvelope
+    set?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    disconnect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    delete?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    connect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    update?: CirclesUpdateWithWhereUniqueWithoutCompanyUserInput | CirclesUpdateWithWhereUniqueWithoutCompanyUserInput[]
+    updateMany?: CirclesUpdateManyWithWhereWithoutCompanyUserInput | CirclesUpdateManyWithWhereWithoutCompanyUserInput[]
+    deleteMany?: CirclesScalarWhereInput | CirclesScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutCompanyUserNestedInput = {
+    create?: XOR<UserCreateWithoutCompanyUserInput, UserUncheckedCreateWithoutCompanyUserInput> | UserCreateWithoutCompanyUserInput[] | UserUncheckedCreateWithoutCompanyUserInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyUserInput | UserCreateOrConnectWithoutCompanyUserInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCompanyUserInput | UserUpsertWithWhereUniqueWithoutCompanyUserInput[]
+    createMany?: UserCreateManyCompanyUserInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCompanyUserInput | UserUpdateWithWhereUniqueWithoutCompanyUserInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCompanyUserInput | UserUpdateManyWithWhereWithoutCompanyUserInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type CirclesUncheckedUpdateManyWithoutCompanyUserNestedInput = {
+    create?: XOR<CirclesCreateWithoutCompanyUserInput, CirclesUncheckedCreateWithoutCompanyUserInput> | CirclesCreateWithoutCompanyUserInput[] | CirclesUncheckedCreateWithoutCompanyUserInput[]
+    connectOrCreate?: CirclesCreateOrConnectWithoutCompanyUserInput | CirclesCreateOrConnectWithoutCompanyUserInput[]
+    upsert?: CirclesUpsertWithWhereUniqueWithoutCompanyUserInput | CirclesUpsertWithWhereUniqueWithoutCompanyUserInput[]
+    createMany?: CirclesCreateManyCompanyUserInputEnvelope
+    set?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    disconnect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    delete?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    connect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    update?: CirclesUpdateWithWhereUniqueWithoutCompanyUserInput | CirclesUpdateWithWhereUniqueWithoutCompanyUserInput[]
+    updateMany?: CirclesUpdateManyWithWhereWithoutCompanyUserInput | CirclesUpdateManyWithWhereWithoutCompanyUserInput[]
+    deleteMany?: CirclesScalarWhereInput | CirclesScalarWhereInput[]
+  }
+
+  export type CompanyUserCreateNestedOneWithoutMembersListInput = {
+    create?: XOR<CompanyUserCreateWithoutMembersListInput, CompanyUserUncheckedCreateWithoutMembersListInput>
+    connectOrCreate?: CompanyUserCreateOrConnectWithoutMembersListInput
+    connect?: CompanyUserWhereUniqueInput
+  }
+
+  export type CirclesCreateNestedManyWithoutUserInput = {
+    create?: XOR<CirclesCreateWithoutUserInput, CirclesUncheckedCreateWithoutUserInput> | CirclesCreateWithoutUserInput[] | CirclesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CirclesCreateOrConnectWithoutUserInput | CirclesCreateOrConnectWithoutUserInput[]
+    createMany?: CirclesCreateManyUserInputEnvelope
+    connect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+  }
+
+  export type CirclesUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CirclesCreateWithoutUserInput, CirclesUncheckedCreateWithoutUserInput> | CirclesCreateWithoutUserInput[] | CirclesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CirclesCreateOrConnectWithoutUserInput | CirclesCreateOrConnectWithoutUserInput[]
+    createMany?: CirclesCreateManyUserInputEnvelope
+    connect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+  }
+
+  export type NullableEnumUserGenderFieldUpdateOperationsInput = {
+    set?: $Enums.UserGender | null
+  }
+
+  export type EnumUserAccountFieldUpdateOperationsInput = {
+    set?: $Enums.UserAccount
+  }
+
+  export type EnumSystemRoleFieldUpdateOperationsInput = {
+    set?: $Enums.SystemRole
+  }
+
+  export type CompanyUserUpdateOneWithoutMembersListNestedInput = {
+    create?: XOR<CompanyUserCreateWithoutMembersListInput, CompanyUserUncheckedCreateWithoutMembersListInput>
+    connectOrCreate?: CompanyUserCreateOrConnectWithoutMembersListInput
+    upsert?: CompanyUserUpsertWithoutMembersListInput
+    disconnect?: CompanyUserWhereInput | boolean
+    delete?: CompanyUserWhereInput | boolean
+    connect?: CompanyUserWhereUniqueInput
+    update?: XOR<XOR<CompanyUserUpdateToOneWithWhereWithoutMembersListInput, CompanyUserUpdateWithoutMembersListInput>, CompanyUserUncheckedUpdateWithoutMembersListInput>
+  }
+
+  export type CirclesUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CirclesCreateWithoutUserInput, CirclesUncheckedCreateWithoutUserInput> | CirclesCreateWithoutUserInput[] | CirclesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CirclesCreateOrConnectWithoutUserInput | CirclesCreateOrConnectWithoutUserInput[]
+    upsert?: CirclesUpsertWithWhereUniqueWithoutUserInput | CirclesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CirclesCreateManyUserInputEnvelope
+    set?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    disconnect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    delete?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    connect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    update?: CirclesUpdateWithWhereUniqueWithoutUserInput | CirclesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CirclesUpdateManyWithWhereWithoutUserInput | CirclesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CirclesScalarWhereInput | CirclesScalarWhereInput[]
+  }
+
+  export type CirclesUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CirclesCreateWithoutUserInput, CirclesUncheckedCreateWithoutUserInput> | CirclesCreateWithoutUserInput[] | CirclesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CirclesCreateOrConnectWithoutUserInput | CirclesCreateOrConnectWithoutUserInput[]
+    upsert?: CirclesUpsertWithWhereUniqueWithoutUserInput | CirclesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CirclesCreateManyUserInputEnvelope
+    set?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    disconnect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    delete?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    connect?: CirclesWhereUniqueInput | CirclesWhereUniqueInput[]
+    update?: CirclesUpdateWithWhereUniqueWithoutUserInput | CirclesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CirclesUpdateManyWithWhereWithoutUserInput | CirclesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CirclesScalarWhereInput | CirclesScalarWhereInput[]
+  }
+
+  export type CompanyUserCreateNestedOneWithoutCompany_circleInput = {
+    create?: XOR<CompanyUserCreateWithoutCompany_circleInput, CompanyUserUncheckedCreateWithoutCompany_circleInput>
+    connectOrCreate?: CompanyUserCreateOrConnectWithoutCompany_circleInput
+    connect?: CompanyUserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMyCirclesInput = {
+    create?: XOR<UserCreateWithoutMyCirclesInput, UserUncheckedCreateWithoutMyCirclesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMyCirclesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumActivityLevelFieldUpdateOperationsInput = {
+    set?: $Enums.ActivityLevel
+  }
+
+  export type CompanyUserUpdateOneWithoutCompany_circleNestedInput = {
+    create?: XOR<CompanyUserCreateWithoutCompany_circleInput, CompanyUserUncheckedCreateWithoutCompany_circleInput>
+    connectOrCreate?: CompanyUserCreateOrConnectWithoutCompany_circleInput
+    upsert?: CompanyUserUpsertWithoutCompany_circleInput
+    disconnect?: CompanyUserWhereInput | boolean
+    delete?: CompanyUserWhereInput | boolean
+    connect?: CompanyUserWhereUniqueInput
+    update?: XOR<XOR<CompanyUserUpdateToOneWithWhereWithoutCompany_circleInput, CompanyUserUpdateWithoutCompany_circleInput>, CompanyUserUncheckedUpdateWithoutCompany_circleInput>
+  }
+
+  export type UserUpdateOneWithoutMyCirclesNestedInput = {
+    create?: XOR<UserCreateWithoutMyCirclesInput, UserUncheckedCreateWithoutMyCirclesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMyCirclesInput
+    upsert?: UserUpsertWithoutMyCirclesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMyCirclesInput, UserUpdateWithoutMyCirclesInput>, UserUncheckedUpdateWithoutMyCirclesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -2009,6 +6422,17 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -2021,6 +6445,18 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedEnumUserStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -2051,6 +6487,31 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -2068,15 +6529,978 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusWithAggregatesFilter<$PrismaModel> | $Enums.UserStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserStatusFilter<$PrismaModel>
+    _max?: NestedEnumUserStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableFilter<$PrismaModel> | $Enums.UserGender | null
+  }
+
+  export type NestedEnumUserAccountFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel>
+    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserAccountFilter<$PrismaModel> | $Enums.UserAccount
+  }
+
+  export type NestedEnumSystemRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSystemRoleFilter<$PrismaModel> | $Enums.SystemRole
+  }
+
+  export type NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserGender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserAccountWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel>
+    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserAccountWithAggregatesFilter<$PrismaModel> | $Enums.UserAccount
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserAccountFilter<$PrismaModel>
+    _max?: NestedEnumUserAccountFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel> | $Enums.SystemRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSystemRoleFilter<$PrismaModel>
+    _max?: NestedEnumSystemRoleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumActivityLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActivityLevel | EnumActivityLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.ActivityLevel[] | ListEnumActivityLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActivityLevel[] | ListEnumActivityLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumActivityLevelFilter<$PrismaModel> | $Enums.ActivityLevel
+  }
+
+  export type NestedEnumActivityLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActivityLevel | EnumActivityLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.ActivityLevel[] | ListEnumActivityLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActivityLevel[] | ListEnumActivityLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumActivityLevelWithAggregatesFilter<$PrismaModel> | $Enums.ActivityLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumActivityLevelFilter<$PrismaModel>
+    _max?: NestedEnumActivityLevelFilter<$PrismaModel>
+  }
+
+  export type UserCreateWithoutCompanyUserInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: string | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    circleName?: string | null
+    circleId?: string | null
+    myCircles?: CirclesCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCompanyUserInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: string | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    circleName?: string | null
+    circleId?: string | null
+    myCircles?: CirclesUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCompanyUserInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCompanyUserInput, UserUncheckedCreateWithoutCompanyUserInput>
+  }
+
+  export type UserCreateManyCompanyUserInputEnvelope = {
+    data: UserCreateManyCompanyUserInput | UserCreateManyCompanyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CirclesCreateWithoutCompanyUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    circleName?: string | null
+    circleDescription?: string | null
+    circleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel: $Enums.ActivityLevel
+    createdBy?: string | null
+    circleStatus?: $Enums.UserStatus
+    circleNos?: string | null
+    user?: UserCreateNestedOneWithoutMyCirclesInput
+  }
+
+  export type CirclesUncheckedCreateWithoutCompanyUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    circleName?: string | null
+    circleDescription?: string | null
+    circleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel: $Enums.ActivityLevel
+    userId?: string | null
+    createdBy?: string | null
+    circleStatus?: $Enums.UserStatus
+    circleNos?: string | null
+  }
+
+  export type CirclesCreateOrConnectWithoutCompanyUserInput = {
+    where: CirclesWhereUniqueInput
+    create: XOR<CirclesCreateWithoutCompanyUserInput, CirclesUncheckedCreateWithoutCompanyUserInput>
+  }
+
+  export type CirclesCreateManyCompanyUserInputEnvelope = {
+    data: CirclesCreateManyCompanyUserInput | CirclesCreateManyCompanyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutCompanyUserInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutCompanyUserInput, UserUncheckedUpdateWithoutCompanyUserInput>
+    create: XOR<UserCreateWithoutCompanyUserInput, UserUncheckedCreateWithoutCompanyUserInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutCompanyUserInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutCompanyUserInput, UserUncheckedUpdateWithoutCompanyUserInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutCompanyUserInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutCompanyUserInput>
+  }
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    created_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
+    phoneNumber?: StringNullableFilter<"User"> | string | null
+    ageRange?: StringNullableFilter<"User"> | string | null
+    ethnicity?: StringNullableFilter<"User"> | string | null
+    gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
+    maritalStatus?: StringNullableFilter<"User"> | string | null
+    disability?: StringNullableFilter<"User"> | string | null
+    DOB?: StringNullableFilter<"User"> | string | null
+    accountType?: EnumUserAccountFilter<"User"> | $Enums.UserAccount
+    department?: StringNullableFilter<"User"> | string | null
+    jobRole?: StringNullableFilter<"User"> | string | null
+    password?: StringNullableFilter<"User"> | string | null
+    role?: EnumSystemRoleFilter<"User"> | $Enums.SystemRole
+    passwordResetCode?: StringNullableFilter<"User"> | string | null
+    createdBy?: StringNullableFilter<"User"> | string | null
+    lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
+    passportImg?: StringNullableFilter<"User"> | string | null
+    isActive?: BoolNullableFilter<"User"> | boolean | null
+    updated_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    isEmailVerified?: BoolNullableFilter<"User"> | boolean | null
+    verificationCode?: StringNullableFilter<"User"> | string | null
+    status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
+    address?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    emailNotification?: BoolNullableFilter<"User"> | boolean | null
+    campaignNtification?: BoolNullableFilter<"User"> | boolean | null
+    termsConditions?: BoolNullableFilter<"User"> | boolean | null
+    addedBy?: StringNullableFilter<"User"> | string | null
+    circleName?: StringNullableFilter<"User"> | string | null
+    circleId?: StringNullableFilter<"User"> | string | null
+  }
+
+  export type CirclesUpsertWithWhereUniqueWithoutCompanyUserInput = {
+    where: CirclesWhereUniqueInput
+    update: XOR<CirclesUpdateWithoutCompanyUserInput, CirclesUncheckedUpdateWithoutCompanyUserInput>
+    create: XOR<CirclesCreateWithoutCompanyUserInput, CirclesUncheckedCreateWithoutCompanyUserInput>
+  }
+
+  export type CirclesUpdateWithWhereUniqueWithoutCompanyUserInput = {
+    where: CirclesWhereUniqueInput
+    data: XOR<CirclesUpdateWithoutCompanyUserInput, CirclesUncheckedUpdateWithoutCompanyUserInput>
+  }
+
+  export type CirclesUpdateManyWithWhereWithoutCompanyUserInput = {
+    where: CirclesScalarWhereInput
+    data: XOR<CirclesUpdateManyMutationInput, CirclesUncheckedUpdateManyWithoutCompanyUserInput>
+  }
+
+  export type CirclesScalarWhereInput = {
+    AND?: CirclesScalarWhereInput | CirclesScalarWhereInput[]
+    OR?: CirclesScalarWhereInput[]
+    NOT?: CirclesScalarWhereInput | CirclesScalarWhereInput[]
+    id?: StringFilter<"Circles"> | string
+    created_at?: DateTimeNullableFilter<"Circles"> | Date | string | null
+    circleName?: StringNullableFilter<"Circles"> | string | null
+    circleDescription?: StringNullableFilter<"Circles"> | string | null
+    circleShareLink?: StringNullableFilter<"Circles"> | string | null
+    wellbeingScore?: StringNullableFilter<"Circles"> | string | null
+    activityLevel?: EnumActivityLevelFilter<"Circles"> | $Enums.ActivityLevel
+    companyUserId?: StringNullableFilter<"Circles"> | string | null
+    userId?: StringNullableFilter<"Circles"> | string | null
+    createdBy?: StringNullableFilter<"Circles"> | string | null
+    circleStatus?: EnumUserStatusFilter<"Circles"> | $Enums.UserStatus
+    circleNos?: StringNullableFilter<"Circles"> | string | null
+  }
+
+  export type CompanyUserCreateWithoutMembersListInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    companyName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    company_circle?: CirclesCreateNestedManyWithoutCompanyUserInput
+  }
+
+  export type CompanyUserUncheckedCreateWithoutMembersListInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    companyName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    company_circle?: CirclesUncheckedCreateNestedManyWithoutCompanyUserInput
+  }
+
+  export type CompanyUserCreateOrConnectWithoutMembersListInput = {
+    where: CompanyUserWhereUniqueInput
+    create: XOR<CompanyUserCreateWithoutMembersListInput, CompanyUserUncheckedCreateWithoutMembersListInput>
+  }
+
+  export type CirclesCreateWithoutUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    circleName?: string | null
+    circleDescription?: string | null
+    circleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel: $Enums.ActivityLevel
+    createdBy?: string | null
+    circleStatus?: $Enums.UserStatus
+    circleNos?: string | null
+    companyUser?: CompanyUserCreateNestedOneWithoutCompany_circleInput
+  }
+
+  export type CirclesUncheckedCreateWithoutUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    circleName?: string | null
+    circleDescription?: string | null
+    circleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel: $Enums.ActivityLevel
+    companyUserId?: string | null
+    createdBy?: string | null
+    circleStatus?: $Enums.UserStatus
+    circleNos?: string | null
+  }
+
+  export type CirclesCreateOrConnectWithoutUserInput = {
+    where: CirclesWhereUniqueInput
+    create: XOR<CirclesCreateWithoutUserInput, CirclesUncheckedCreateWithoutUserInput>
+  }
+
+  export type CirclesCreateManyUserInputEnvelope = {
+    data: CirclesCreateManyUserInput | CirclesCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CompanyUserUpsertWithoutMembersListInput = {
+    update: XOR<CompanyUserUpdateWithoutMembersListInput, CompanyUserUncheckedUpdateWithoutMembersListInput>
+    create: XOR<CompanyUserCreateWithoutMembersListInput, CompanyUserUncheckedCreateWithoutMembersListInput>
+    where?: CompanyUserWhereInput
+  }
+
+  export type CompanyUserUpdateToOneWithWhereWithoutMembersListInput = {
+    where?: CompanyUserWhereInput
+    data: XOR<CompanyUserUpdateWithoutMembersListInput, CompanyUserUncheckedUpdateWithoutMembersListInput>
+  }
+
+  export type CompanyUserUpdateWithoutMembersListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    company_circle?: CirclesUpdateManyWithoutCompanyUserNestedInput
+  }
+
+  export type CompanyUserUncheckedUpdateWithoutMembersListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    company_circle?: CirclesUncheckedUpdateManyWithoutCompanyUserNestedInput
+  }
+
+  export type CirclesUpsertWithWhereUniqueWithoutUserInput = {
+    where: CirclesWhereUniqueInput
+    update: XOR<CirclesUpdateWithoutUserInput, CirclesUncheckedUpdateWithoutUserInput>
+    create: XOR<CirclesCreateWithoutUserInput, CirclesUncheckedCreateWithoutUserInput>
+  }
+
+  export type CirclesUpdateWithWhereUniqueWithoutUserInput = {
+    where: CirclesWhereUniqueInput
+    data: XOR<CirclesUpdateWithoutUserInput, CirclesUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CirclesUpdateManyWithWhereWithoutUserInput = {
+    where: CirclesScalarWhereInput
+    data: XOR<CirclesUpdateManyMutationInput, CirclesUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CompanyUserCreateWithoutCompany_circleInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    companyName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    membersList?: UserCreateNestedManyWithoutCompanyUserInput
+  }
+
+  export type CompanyUserUncheckedCreateWithoutCompany_circleInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    companyName?: string | null
+    phoneNumber?: string | null
+    password?: string | null
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    membersList?: UserUncheckedCreateNestedManyWithoutCompanyUserInput
+  }
+
+  export type CompanyUserCreateOrConnectWithoutCompany_circleInput = {
+    where: CompanyUserWhereUniqueInput
+    create: XOR<CompanyUserCreateWithoutCompany_circleInput, CompanyUserUncheckedCreateWithoutCompany_circleInput>
+  }
+
+  export type UserCreateWithoutMyCirclesInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: string | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    circleName?: string | null
+    circleId?: string | null
+    companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
+  }
+
+  export type UserUncheckedCreateWithoutMyCirclesInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: string | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    createdBy?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    circleName?: string | null
+    circleId?: string | null
+  }
+
+  export type UserCreateOrConnectWithoutMyCirclesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMyCirclesInput, UserUncheckedCreateWithoutMyCirclesInput>
+  }
+
+  export type CompanyUserUpsertWithoutCompany_circleInput = {
+    update: XOR<CompanyUserUpdateWithoutCompany_circleInput, CompanyUserUncheckedUpdateWithoutCompany_circleInput>
+    create: XOR<CompanyUserCreateWithoutCompany_circleInput, CompanyUserUncheckedCreateWithoutCompany_circleInput>
+    where?: CompanyUserWhereInput
+  }
+
+  export type CompanyUserUpdateToOneWithWhereWithoutCompany_circleInput = {
+    where?: CompanyUserWhereInput
+    data: XOR<CompanyUserUpdateWithoutCompany_circleInput, CompanyUserUncheckedUpdateWithoutCompany_circleInput>
+  }
+
+  export type CompanyUserUpdateWithoutCompany_circleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    membersList?: UserUpdateManyWithoutCompanyUserNestedInput
+  }
+
+  export type CompanyUserUncheckedUpdateWithoutCompany_circleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    membersList?: UserUncheckedUpdateManyWithoutCompanyUserNestedInput
+  }
+
+  export type UserUpsertWithoutMyCirclesInput = {
+    update: XOR<UserUpdateWithoutMyCirclesInput, UserUncheckedUpdateWithoutMyCirclesInput>
+    create: XOR<UserCreateWithoutMyCirclesInput, UserUncheckedCreateWithoutMyCirclesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMyCirclesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMyCirclesInput, UserUncheckedUpdateWithoutMyCirclesInput>
+  }
+
+  export type UserUpdateWithoutMyCirclesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleId?: NullableStringFieldUpdateOperationsInput | string | null
+    companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMyCirclesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserCreateManyCompanyUserInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: string | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    circleName?: string | null
+    circleId?: string | null
+  }
+
+  export type CirclesCreateManyCompanyUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    circleName?: string | null
+    circleDescription?: string | null
+    circleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel: $Enums.ActivityLevel
+    userId?: string | null
+    createdBy?: string | null
+    circleStatus?: $Enums.UserStatus
+    circleNos?: string | null
+  }
+
+  export type UserUpdateWithoutCompanyUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleId?: NullableStringFieldUpdateOperationsInput | string | null
+    myCircles?: CirclesUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCompanyUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleId?: NullableStringFieldUpdateOperationsInput | string | null
+    myCircles?: CirclesUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutCompanyUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CirclesUpdateWithoutCompanyUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    circleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    circleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneWithoutMyCirclesNestedInput
+  }
+
+  export type CirclesUncheckedUpdateWithoutCompanyUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    circleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    circleNos?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CirclesUncheckedUpdateManyWithoutCompanyUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    circleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    circleNos?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CirclesCreateManyUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    circleName?: string | null
+    circleDescription?: string | null
+    circleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel: $Enums.ActivityLevel
+    companyUserId?: string | null
+    createdBy?: string | null
+    circleStatus?: $Enums.UserStatus
+    circleNos?: string | null
+  }
+
+  export type CirclesUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    circleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    circleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    companyUser?: CompanyUserUpdateOneWithoutCompany_circleNestedInput
+  }
+
+  export type CirclesUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    circleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    companyUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    circleNos?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CirclesUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    circleName?: NullableStringFieldUpdateOperationsInput | string | null
+    circleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    circleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    companyUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    circleNos?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
@@ -2085,9 +7509,25 @@ export namespace Prisma {
    * Aliases for legacy arg types
    */
     /**
+     * @deprecated Use CompanyUserCountOutputTypeDefaultArgs instead
+     */
+    export type CompanyUserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CompanyUserCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use UserCountOutputTypeDefaultArgs instead
+     */
+    export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CompanyUserDefaultArgs instead
+     */
+    export type CompanyUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CompanyUserDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CirclesDefaultArgs instead
+     */
+    export type CirclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CirclesDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

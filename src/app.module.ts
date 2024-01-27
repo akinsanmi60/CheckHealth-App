@@ -12,7 +12,6 @@ import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { JwtService } from "@nestjs/jwt";
 import { APP_GUARD } from "@nestjs/core";
 
-
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, load: [config] }),

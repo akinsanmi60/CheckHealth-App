@@ -1,24 +1,15 @@
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsAlpha,
-  IsAlphanumeric,
   IsEmail,
   IsNotEmpty,
   IsNumber,
-  IsOptional,
   IsString,
   IsUUID,
   Length,
   MinLength,
 } from "class-validator";
 
-export class BNVDto {
-  @ApiProperty({ example: "12345679012" })
-  @IsNotEmpty({ message: "BVN cannot be empty." })
-  @Length(11, 11, { message: "BVN must be 11 characters" })
-  @IsAlphanumeric()
-  bvn_number: string;
-}
 export class LoginDto {
   @ApiProperty({ example: "test1@example.com" })
   @IsEmail({}, { message: "Please provide a valid email address." })
@@ -30,15 +21,42 @@ export class LoginDto {
   password: string;
 }
 
-export class PhoneVerifyDto {
-  @ApiProperty({ example: "+2348123456789" })
-  @Length(11, 11, {
-    message: "Phone number must be at must be 11 characters long.",
-  })
-  phone_number: string;
+export class VerifyEmailDto {
+  @ApiProperty({ example: "873412" })
+  @IsNotEmpty({ message: "Code cannot be empty." })
+  @Length(6, 6, { message: "Code must be 6 characters" })
+  code: string;
 }
 
-export class GettingStartedDto extends PhoneVerifyDto {
+export class CompanyGettingStartedDto {
+  @ApiProperty()
+  @IsEmail({}, { message: "Please provide a valid email address." })
+  @IsNotEmpty({ message: "Email cannot be empty." })
+  email: string;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: "Company name cannot be empty." })
+  @IsAlpha()
+  @IsNotEmpty({ message: "Company name cannot be empty." })
+  companyName: string;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: "Company address cannot be empty." })
+  @IsAlpha()
+  @IsNotEmpty({ message: "Company address cannot be empty." })
+  companyaddress: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Age range cannot be empty." })
+  ageRange: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Password cannot be empty." })
+  password: string;
+}
+export class GettingStartedDto {
   @ApiProperty()
   @IsEmail({}, { message: "Please provide a valid email address." })
   @IsNotEmpty({ message: "Email cannot be empty." })
@@ -48,38 +66,67 @@ export class GettingStartedDto extends PhoneVerifyDto {
   @IsNotEmpty({ message: "First name cannot be empty." })
   @IsAlpha()
   @IsNotEmpty({ message: "First name cannot be empty." })
-  first_name: string;
+  firstName: string;
 
   @ApiProperty()
   @IsNotEmpty({ message: "Last name cannot be empty." })
   @IsAlpha()
-  last_name: string;
-
-  @ApiProperty()
-  @IsAlpha()
-  @IsOptional()
-  referral_code: string;
+  lastName: string;
 
   @ApiProperty()
   @IsAlpha()
   @IsNotEmpty({ message: "Role cannot be empty." })
   role: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Age range cannot be empty." })
+  ageRange: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Ethnicity cannot be empty." })
+  ethnicity: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Marital status cannot be empty." })
+  maritalStatus: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Department cannot be empty." })
+  department: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Job role cannot be empty." })
+  jobRole: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Password cannot be empty." })
+  password: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Account type cannot be empty." })
+  accountType: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Gender cannot be empty." })
+  gender: string;
 }
 
-export class VerifyEmailDto {
-  @ApiProperty({ example: "873412" })
-  @IsNotEmpty({ message: "Code cannot be empty." })
-  @Length(6, 6, { message: "Code must be 6 characters" })
-  code: string;
+export class ForgotPasswordDto {
+  @ApiProperty()
+  @IsEmail({}, { message: "Please provide a valid email address." })
+  @IsNotEmpty({ message: "Email cannot be empty." })
+  email: string;
 }
-export class ForgotPasswordDto extends PhoneVerifyDto {}
-export class ForgotPasswordPhoneVerifyDto extends PhoneVerifyDto {
-  @ApiProperty({ example: "239856" })
-  @IsNotEmpty({ message: "Code cannot be empty." })
-  @Length(6, 6, { message: "Code must be 6 characters" })
-  code: string;
-}
-export class ResetPasswordDto extends PhoneVerifyDto {
+
+export class ResetPasswordDto extends VerifyEmailDto {
   @ApiProperty({ example: "120945" })
   @IsNotEmpty({ message: "Code cannot be empty." })
   @Length(6, 6, { message: "Code must be 6 characters" })
@@ -91,68 +138,11 @@ export class ResetPasswordDto extends PhoneVerifyDto {
   new_password: string;
 }
 
-export class CreatePasswordDto extends PhoneVerifyDto {
+export class CreatePasswordDto extends VerifyEmailDto {
   @ApiProperty({ example: "test1@example" })
   @IsNotEmpty({ message: "Password cannot be empty." })
   @MinLength(8, { message: "Password must be at least 8 characters long." })
   password: string;
-}
-
-export class CreateTransactionPinDto extends PhoneVerifyDto {
-  @ApiProperty({ example: "1234" })
-  @IsNotEmpty({ message: "user_pin cannot be empty." })
-  @MinLength(4, { message: "user_pin must be at least 4 characters long." })
-  user_pin: string;
-}
-
-export class IdentityVerificationDto extends PhoneVerifyDto {
-  @ApiProperty()
-  @IsNotEmpty({ message: "User name cannot be empty." })
-  user_name: string;
-
-  @ApiProperty()
-  @IsNotEmpty({ message: "Driver-license cannot be empty." })
-  driver_license: string;
-
-  @ApiProperty()
-  @IsNotEmpty({ message: "Please add upload license image." })
-  uploaded_license_img: string;
-
-  @ApiProperty()
-  @IsNotEmpty({ message: "NIN number cannot be empty." })
-  @IsAlphanumeric()
-  @Length(11, 11, { message: "NIN must be 11 characters" })
-  nin_number: string;
-
-  @ApiProperty()
-  @IsNotEmpty({ message: "BVN number cannot be empty." })
-  @IsAlphanumeric()
-  @Length(11, 11, { message: "BVN must be 11 characters" })
-  bvn: string;
-
-  @ApiProperty()
-  @IsNotEmpty({ message: "Please add NIN-Card image." })
-  uploaded_nin_card: string;
-
-  @ApiProperty()
-  @IsNotEmpty({ message: "Please add NIN image." })
-  @IsAlphanumeric()
-  @Length(9, 9, { message: "NIN must be 9 characters" })
-  passport_number: string;
-
-  @ApiProperty()
-  @IsNotEmpty({ message: "Please add passport image." })
-  uploaded_passport_img: string;
-
-  @ApiProperty()
-  @IsNotEmpty({ message: "Gender cannot be empty." })
-  @IsAlpha()
-  gender: string;
-
-  @ApiProperty()
-  @IsNotEmpty({ message: "Please add  DOB." })
-  @IsAlphanumeric()
-  DOB: string;
 }
 
 export class GetAllUserDto {
@@ -201,4 +191,16 @@ export class GetAllUserDto {
     enum: ["verified", "unverified"],
   })
   account_status: string;
+}
+
+export class ChangePasswordDto {
+  @ApiProperty()
+  @IsNotEmpty({ message: "Password cannot be empty." })
+  @MinLength(8, { message: "Password must be at least 8 characters long." })
+  current_password: string;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: "Password cannot be empty." })
+  @MinLength(8, { message: "Password must be at least 8 characters long." })
+  new_password: string;
 }

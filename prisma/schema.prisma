@@ -7,14 +7,134 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
+model CompanyUser {
+  id                  String     @id @unique @default(cuid())
+  email               String     @unique
+  created_at          DateTime?  @default(now())
+  companyName         String?
+  phoneNumber         String?
+  password            String?
+  passwordResetCode   String?    @unique
+  lastLogin           DateTime?
+  passportImg         String?
+  isActive            Boolean?   @default(false)
+  updated_at          DateTime?  @updatedAt
+  verificationCode    String?    @unique
+  status              UserStatus @default(inactive)
+  address             String?
+  emailNotification   Boolean?   @default(false)
+  campaignNtification Boolean?   @default(false)
+  termsConditions     Boolean?   @default(false)
+  membersList         User[]
+  company_circle      Circles[]
+}
 
 model User {
-  id    String     @id @default(cuid())
-  email String  @unique
-  name  String?
-  phone_number String? @unique
-} 
+  id                  String       @id @unique @default(cuid())
+  email               String       @unique
+  created_at          DateTime?    @default(now())
+  firstName           String?
+  lastName            String?
+  phoneNumber         String?      @unique
+  ageRange            String?
+  ethnicity           String?
+  gender              UserGender?
+  maritalStatus       String?
+  disability          String?
+  DOB                 String?
+  accountType         UserAccount  @default(personalUser)
+  department          String?
+  jobRole             String?
+  password            String?
+  role                SystemRole   @default(user)
+  passwordResetCode   String?      @unique
+  companyUser         CompanyUser? @relation(fields: [createdBy], references: [id])
+  createdBy           String?
+  lastLogin           DateTime?
+  passportImg         String?
+  isActive            Boolean?     @default(false)
+  updated_at          DateTime?    @updatedAt
+  isEmailVerified     Boolean?     @default(false)
+  verificationCode    String?      @unique
+  status              UserStatus   @default(inactive)
+  address             String?
+  bio                 String?
+  emailNotification   Boolean?     @default(false)
+  campaignNtification Boolean?     @default(false)
+  termsConditions     Boolean?     @default(false)
+  addedBy             String?      @unique
+  circleName          String?
+  circleId            String?
+  myCircles           Circles[]
+}
+
+model Circles {
+  id                String        @id @unique @default(cuid())
+  created_at        DateTime?     @default(now())
+  circleName        String?       @unique
+  circleDescription String?       @db.VarChar(1000)
+  circleShareLink   String?
+  wellbeingScore    String?
+  activityLevel     ActivityLevel
+  companyUser       CompanyUser?  @relation(fields: [companyUserId], references: [id], map: "circles_company_user_fkey")
+  user              User?         @relation(fields: [userId], references: [id], map: "circles_user_fkey")
+  companyUserId     String?
+  userId            String?
+  createdBy         String?
+  circleStatus      UserStatus    @default(inactive)
+  circleNos         String?
+
+  @@unique([id, circleName])
+}
+
+enum SystemRole {
+  superAdmin
+  admin
+  user
+}
+
+enum UserGender {
+  male
+  female
+}
+
+enum UserStatus {
+  active
+  pending
+  inactive
+}
+
+enum AccountStatus {
+  verified
+  unverified
+}
+
+enum CircleStatus {
+  ongoing
+  completed
+  unenrolled
+}
+
+enum ActivityLevel {
+  high
+  moderate
+  excellent
+  moderatelyHigh
+  low
+}
+
+enum UserAccount {
+  personalUser
+  clientUser
+}
+
+enum MaitalStatus {
+  married
+  single
+  divorce
+}
