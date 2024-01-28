@@ -6,15 +6,18 @@ import * as path from "path";
 
 @Injectable()
 export class MailService {
+  private readonly app_name;
   constructor(
     private readonly mailerService: MailerService,
     private readonly configService: ConfigService,
-  ) {}
+  ) {
+    this.app_name = this.configService.get("APP", { infer: true });
+  }
 
   async userSignUp(
     mailData: MailData<{ name?: string; code: string }>,
   ): Promise<void> {
-    const emailConfirmTitle = "Thank you for joining employ";
+    const emailConfirmTitle = `Thank you for signing up on ${this.app_name}`;
 
     // const url = new URL(
     //   this.configService.getOrThrow("FRONTEND_DOMAIN", {
@@ -47,12 +50,7 @@ export class MailService {
   async forgotPassword(
     mailData: MailData<{ name: string; code: string }>,
   ): Promise<void> {
-    //appName
-    const app_name = this.configService.get("APP", {
-      infer: true,
-    }) as string;
-
-    const resetPasswordTitle = `Password Reset Instructions for ${app_name}`;
+    const resetPasswordTitle = `Password Reset Instructions for ${this.app_name}`;
     // const url = new URL(
     //   this.configService.getOrThrow("app.frontendDomain", {
     //     infer: true,
@@ -74,7 +72,7 @@ export class MailService {
         title: resetPasswordTitle,
         // url: url.toString(),
         actionTitle: resetPasswordTitle,
-        app_name,
+        app_name: this.app_name,
         name: mailData.data.name,
         code: mailData.data.code,
       },
@@ -84,11 +82,7 @@ export class MailService {
   async deactiveVariousUsers(
     mailData: MailData<{ name: string }>,
   ): Promise<void> {
-    const app_name = this.configService.get("APP", {
-      infer: true,
-    }) as string;
-
-    const decativationTitle = `Notification for Deactivation of Account on ${app_name}`;
+    const decativationTitle = `Notification for Deactivation of Account on ${this.app_name}`;
 
     await this.mailerService.sendMail({
       to: mailData.to,
@@ -103,7 +97,7 @@ export class MailService {
       context: {
         title: decativationTitle,
         actionTitle: decativationTitle,
-        app_name,
+        app_name: this.app_name,
         name: mailData.data.name,
       },
     });
@@ -111,11 +105,7 @@ export class MailService {
   async activeVariousUsers(
     mailData: MailData<{ name: string }>,
   ): Promise<void> {
-    const app_name = this.configService.get("APP", {
-      infer: true,
-    }) as string;
-
-    const decativationTitle = `Notification for Activation of Account on ${app_name}`;
+    const decativationTitle = `Notification for Activation of Account on ${this.app_name}`;
 
     await this.mailerService.sendMail({
       to: mailData.to,
@@ -130,7 +120,7 @@ export class MailService {
       context: {
         title: decativationTitle,
         actionTitle: decativationTitle,
-        app_name,
+        app_name: this.app_name,
         name: mailData.data.name,
       },
     });
