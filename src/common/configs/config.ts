@@ -9,10 +9,10 @@ const config: Config = {
   },
   swagger: {
     enabled: true,
-    title: "Employ API",
+    title: "Empylo API",
     description: "The Employ API description",
     version: "1.5",
-    path: "/api/employ-docs",
+    path: "/api/empylo-docs",
   },
   security: {
     expiresIn: "2m",

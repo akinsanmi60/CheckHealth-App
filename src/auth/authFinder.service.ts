@@ -10,59 +10,24 @@ type FiledToUpdate =
   | "password"
   | "email"
   | "phoneNumber"
-  | "firstName"
   | "id"
-  | "verificationCode";
+  | "passwordResetCode"
+  | "verificationCode"
+  | "lastLogin";
+
+type SystemUsers = "user" | "companyUser";
 
 @Injectable()
 export class AuthResolver {
   constructor(private prisma: PrismaService) {}
 
-  // findOneClientUserById(id: string): Promise<Users | null> {
-  //   return this.prisma.companyUser.findUnique({ where: { id } });
-  // }
-
-  // findOneClientUserByEmail(email: string): Promise<ClientUser | null> {
-  //   return this.prisma.clientUser.findUnique({ where: { email } });
-  // }
-
-  // findOneClientUserByPhone(phoneNumber: string): Promise<ClientUser | null> {
-  //   return this.prisma.clientUser.findUnique({ where: { phoneNumber } });
-  // }
-  // findOnePersonalUserById(id: string): Promise<PersonalUser | null> {
-  //   return this.prisma.personalUser.findUnique({ where: { id } });
-  // }
-
-  // findOnePersonalUserByEmail(email: string): Promise<PersonalUser | null> {
-  //   return this.prisma.personalUser.findUnique({ where: { email } });
-  // }
-
-  // findOnePersonalUserByPhone(
-  //   phoneNumber: string,
-  // ): Promise<PersonalUser | null> {
-  //   return this.prisma.personalUser.findUnique({ where: { phoneNumber } });
-  // }
-
   async findUserWithField(
     value: string,
-    field:
-      | "id"
-      | "email"
-      | "phone_number"
-      | "password_resetCode"
-      | "verificationCode",
-    entity: "user" | "companyUser",
+    field: FiledToUpdate,
+    entity: SystemUsers,
   ): Promise<CompanyUser | Users | null> {
     const whereClause: Record<string, string> = {};
     whereClause[field] = value;
-
-    // const foundUser = await this.prisma[entity].findUnique({
-    //   where: whereClause,
-    // })
-
-    // if (foundUser) {
-    //   return foundUser as CompanyUser | Users;;
-    // }
 
     let foundUser: CompanyUser | Users | null;
 
@@ -83,19 +48,13 @@ export class AuthResolver {
 
   async findAndUpdateField(
     data: any,
-    entity: "user" | "companyUser",
+    entity: SystemUsers,
     field: FiledToUpdate,
     value: string,
   ): Promise<CompanyUser | Users | null> {
     const whereClause: Record<string, string> = {};
     whereClause[field] = value;
 
-    // const foundUser = await this.prisma[entity].update({
-    //   where: whereClause,
-    //   data: {
-    //     ...data,
-    //   },
-    // });
     let foundUser: CompanyUser | Users | null;
 
     if (entity === "user") {

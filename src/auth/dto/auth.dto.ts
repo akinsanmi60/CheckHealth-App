@@ -4,6 +4,7 @@ import {
   IsEmail,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   IsUUID,
   Length,
@@ -22,9 +23,9 @@ export class LoginDto {
 }
 
 export class VerifyEmailDto {
-  @ApiProperty({ example: "873412" })
+  @ApiProperty({ example: "8734" })
   @IsNotEmpty({ message: "Code cannot be empty." })
-  @Length(6, 6, { message: "Code must be 6 characters" })
+  @Length(4, 4, { message: "Code must be 4 characters" })
   code: string;
 }
 
@@ -44,39 +45,50 @@ export class CompanyGettingStartedDto {
   @IsNotEmpty({ message: "Company address cannot be empty." })
   @IsAlpha()
   @IsNotEmpty({ message: "Company address cannot be empty." })
-  companyaddress: string;
+  address: string;
 
   @ApiProperty()
+  @IsNotEmpty({ message: "Company address cannot be empty." })
   @IsAlpha()
-  @IsNotEmpty({ message: "Age range cannot be empty." })
-  ageRange: string;
+  @IsNotEmpty({ message: "Company state cannot be empty." })
+  addressState: string;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: "Company address cannot be empty." })
+  @IsAlpha()
+  @IsNotEmpty({ message: "Company city cannot be empty." })
+  addressCity: string;
 
   @ApiProperty()
   @IsAlpha()
   @IsNotEmpty({ message: "Password cannot be empty." })
   password: string;
-}
-export class GettingStartedDto {
-  @ApiProperty()
-  @IsEmail({}, { message: "Please provide a valid email address." })
-  @IsNotEmpty({ message: "Email cannot be empty." })
-  email: string;
 
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Indusstry cannot be empty." })
+  industry: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsOptional()
+  website: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Company description cannot be empty." })
+  companyDescription: string;
+}
+export class GettingStartedUpdateProfileDto {
   @ApiProperty()
   @IsNotEmpty({ message: "First name cannot be empty." })
   @IsAlpha()
-  @IsNotEmpty({ message: "First name cannot be empty." })
   firstName: string;
 
   @ApiProperty()
   @IsNotEmpty({ message: "Last name cannot be empty." })
   @IsAlpha()
   lastName: string;
-
-  @ApiProperty()
-  @IsAlpha()
-  @IsNotEmpty({ message: "Role cannot be empty." })
-  role: string;
 
   @ApiProperty()
   @IsAlpha()
@@ -95,18 +107,13 @@ export class GettingStartedDto {
 
   @ApiProperty()
   @IsAlpha()
-  @IsNotEmpty({ message: "Department cannot be empty." })
+  @IsOptional()
   department: string;
 
   @ApiProperty()
   @IsAlpha()
-  @IsNotEmpty({ message: "Job role cannot be empty." })
+  @IsOptional()
   jobRole: string;
-
-  @ApiProperty()
-  @IsAlpha()
-  @IsNotEmpty({ message: "Password cannot be empty." })
-  password: string;
 
   @ApiProperty()
   @IsAlpha()
@@ -117,6 +124,26 @@ export class GettingStartedDto {
   @IsAlpha()
   @IsNotEmpty({ message: "Gender cannot be empty." })
   gender: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Date of birth cannot be empty." })
+  DOB: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Address cannot be empty." })
+  address: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Disability cannot be empty." })
+  disability: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Passport cannot be empty." })
+  passportImg: string;
 }
 
 export class ForgotPasswordDto {

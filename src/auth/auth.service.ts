@@ -7,15 +7,13 @@ import {
 import {
   ForgotPasswordDto,
   LoginDto,
-  GettingStartedDto,
   ResetPasswordDto,
   GetAllUserDto,
   ChangePasswordDto,
   VerifyEmailDto,
+  GettingStartedUpdateProfileDto,
 } from "./dto/auth.dto";
 import { PrismaService } from "src/prisma/prisma.service";
-import { JwtService } from "@nestjs/jwt";
-import { ConfigService } from "@nestjs/config";
 import { v4 as uuidv4 } from "uuid";
 import * as crypto from "crypto";
 import { PasswordService } from "./password.service";
@@ -30,26 +28,13 @@ import { Users } from "src/types/appUsers.type";
 export class AuthService {
   constructor(
     private prisma: PrismaService,
-    private readonly jwtService: JwtService,
-    private readonly configService: ConfigService,
     private readonly passwordService: PasswordService,
     private readonly mailService: MailService,
     private readonly authResolver: AuthResolver,
   ) {}
 
-  async userGettingStarted(dto: GettingStartedDto) {
-    const {
-      firstName,
-      email,
-      password,
-      accountType,
-      lastName,
-      ethnicity,
-      maritalStatus,
-      department,
-      jobRole,
-      gender,
-    } = dto;
+  async userGettingStarted(dto: LoginDto) {
+    const { email, password } = dto;
 
     const foundUser = (await this.authResolver.findUserWithField(
       email,
@@ -61,7 +46,7 @@ export class AuthService {
       throw new BadRequestException("Email is already taken");
     }
 
-    const code = crypto.randomInt(100000, 999999).toString();
+    const code = crypto.randomInt(1000, 9999).toString();
     const hashedPassword = await this.passwordService.hashPassword(password);
 
     const newCreatedEntity = await this.prisma.user.create({
@@ -70,17 +55,10 @@ export class AuthService {
         email: dto.email,
         created_at: new Date(),
         password: hashedPassword,
-        firstName: firstName,
-        lastName: lastName,
         status: "pending",
         isEmailVerified: false,
         verificationCode: code,
-        ethnicity: ethnicity,
-        jobRole: jobRole,
-        maritalStatus: maritalStatus,
-        department: department,
-        accountType: accountType as string as UserAccount,
-        gender: gender as string as UserGender,
+        termsConditions: true,
       },
     });
 
@@ -88,13 +66,42 @@ export class AuthService {
       await this.mailService.userSignUp({
         to: email,
         data: {
-          name: firstName,
           code: code.toString(),
         },
       });
 
       return {
         message: `Account successfully created. Check email for verification code`,
+      };
+    }
+  }
+  async userUpdateProfile(id: string, dto: GettingStartedUpdateProfileDto) {
+    const data = {
+      firstName: dto.firstName,
+      accountType: dto.accountType as string as UserAccount,
+      lastName: dto.lastName,
+      ethnicity: dto.ethnicity,
+      maritalStatus: dto.maritalStatus,
+      department: dto.department,
+      jobRole: dto.jobRole,
+      gender: dto.gender as string as UserGender,
+      address: dto.address,
+      DOB: dto.DOB,
+      ageRange: dto.ageRange,
+      disability: dto.disability,
+      passportImg: dto.passportImg,
+    };
+
+    const updatedUser = (await this.authResolver.findAndUpdateField(
+      data,
+      "user",
+      "id",
+      id,
+    )) as Users;
+
+    if (updatedUser) {
+      return {
+        message: "Profile updated successfully",
       };
     }
   }
@@ -125,8 +132,6 @@ export class AuthService {
       "verificationCode",
       code,
     )) as Users;
-
-    console.log(updatedUser.isEmailVerified);
 
     if (!updatedUser) {
       throw new BadRequestException("Failed to update user");
@@ -227,12 +232,25 @@ export class AuthService {
 
     const allToken = this.passwordService.generateTokens(payload);
 
-    return {
-      message: "You have login successfully",
-      data: {
-        ...allToken,
-      },
+    const data = {
+      lastLogin: new Date(),
     };
+
+    if (allToken) {
+      await this.authResolver.findAndUpdateField(
+        data,
+        "user",
+        "email",
+        foundUser.email,
+      );
+
+      return {
+        message: "You have login successfully",
+        data: {
+          ...allToken,
+        },
+      };
+    }
   }
 
   async forgotPassword(dto: ForgotPasswordDto) {
@@ -289,7 +307,7 @@ export class AuthService {
 
     const foundUser = await this.authResolver.findUserWithField(
       code,
-      "password_resetCode",
+      "passwordResetCode",
       "user",
     );
 

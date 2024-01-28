@@ -12,10 +12,10 @@ import {
   ForgotPasswordDto,
   LoginDto,
   ResetPasswordDto,
-  GettingStartedDto,
   GetAllUserDto,
   ChangePasswordDto,
   VerifyEmailDto,
+  GettingStartedUpdateProfileDto,
 } from "./dto/auth.dto";
 import {
   ApiBearerAuth,
@@ -43,10 +43,18 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post("/user/signup")
-  @ApiBody({ type: GettingStartedDto })
+  @ApiBody({ type: LoginDto })
   @ApiResponse({ type: GenericResponse })
-  gettingStarted(@Body() dto: GettingStartedDto) {
+  gettingStarted(@Body() dto: LoginDto) {
     return this.authService.userGettingStarted(dto);
+  }
+
+  @Post("/:id/update-profile")
+  @ApiBody({ type: GettingStartedUpdateProfileDto })
+  @ApiResponse({ type: GenericResponse })
+  @ApiParam({ name: "id", type: "string" })
+  updateProfile(@Param("id") id: string, @Body() dto) {
+    return this.authService.userUpdateProfile(id, dto);
   }
 
   @Post("/user/verify")

@@ -1189,9 +1189,15 @@ export namespace Prisma {
     passportImg: string | null
     isActive: boolean | null
     updated_at: Date | null
+    isEmailVerified: boolean | null
     verificationCode: string | null
+    industry: string | null
+    website: string | null
+    companyDescription: string | null
     status: $Enums.UserStatus | null
     address: string | null
+    addressCity: string | null
+    addressState: string | null
     emailNotification: boolean | null
     campaignNtification: boolean | null
     termsConditions: boolean | null
@@ -1209,9 +1215,15 @@ export namespace Prisma {
     passportImg: string | null
     isActive: boolean | null
     updated_at: Date | null
+    isEmailVerified: boolean | null
     verificationCode: string | null
+    industry: string | null
+    website: string | null
+    companyDescription: string | null
     status: $Enums.UserStatus | null
     address: string | null
+    addressCity: string | null
+    addressState: string | null
     emailNotification: boolean | null
     campaignNtification: boolean | null
     termsConditions: boolean | null
@@ -1229,9 +1241,15 @@ export namespace Prisma {
     passportImg: number
     isActive: number
     updated_at: number
+    isEmailVerified: number
     verificationCode: number
+    industry: number
+    website: number
+    companyDescription: number
     status: number
     address: number
+    addressCity: number
+    addressState: number
     emailNotification: number
     campaignNtification: number
     termsConditions: number
@@ -1251,9 +1269,15 @@ export namespace Prisma {
     passportImg?: true
     isActive?: true
     updated_at?: true
+    isEmailVerified?: true
     verificationCode?: true
+    industry?: true
+    website?: true
+    companyDescription?: true
     status?: true
     address?: true
+    addressCity?: true
+    addressState?: true
     emailNotification?: true
     campaignNtification?: true
     termsConditions?: true
@@ -1271,9 +1295,15 @@ export namespace Prisma {
     passportImg?: true
     isActive?: true
     updated_at?: true
+    isEmailVerified?: true
     verificationCode?: true
+    industry?: true
+    website?: true
+    companyDescription?: true
     status?: true
     address?: true
+    addressCity?: true
+    addressState?: true
     emailNotification?: true
     campaignNtification?: true
     termsConditions?: true
@@ -1291,9 +1321,15 @@ export namespace Prisma {
     passportImg?: true
     isActive?: true
     updated_at?: true
+    isEmailVerified?: true
     verificationCode?: true
+    industry?: true
+    website?: true
+    companyDescription?: true
     status?: true
     address?: true
+    addressCity?: true
+    addressState?: true
     emailNotification?: true
     campaignNtification?: true
     termsConditions?: true
@@ -1384,9 +1420,15 @@ export namespace Prisma {
     passportImg: string | null
     isActive: boolean | null
     updated_at: Date | null
+    isEmailVerified: boolean | null
     verificationCode: string | null
+    industry: string | null
+    website: string | null
+    companyDescription: string | null
     status: $Enums.UserStatus
     address: string | null
+    addressCity: string | null
+    addressState: string | null
     emailNotification: boolean | null
     campaignNtification: boolean | null
     termsConditions: boolean | null
@@ -1421,9 +1463,15 @@ export namespace Prisma {
     passportImg?: boolean
     isActive?: boolean
     updated_at?: boolean
+    isEmailVerified?: boolean
     verificationCode?: boolean
+    industry?: boolean
+    website?: boolean
+    companyDescription?: boolean
     status?: boolean
     address?: boolean
+    addressCity?: boolean
+    addressState?: boolean
     emailNotification?: boolean
     campaignNtification?: boolean
     termsConditions?: boolean
@@ -1444,9 +1492,15 @@ export namespace Prisma {
     passportImg?: boolean
     isActive?: boolean
     updated_at?: boolean
+    isEmailVerified?: boolean
     verificationCode?: boolean
+    industry?: boolean
+    website?: boolean
+    companyDescription?: boolean
     status?: boolean
     address?: boolean
+    addressCity?: boolean
+    addressState?: boolean
     emailNotification?: boolean
     campaignNtification?: boolean
     termsConditions?: boolean
@@ -1477,9 +1531,15 @@ export namespace Prisma {
       passportImg: string | null
       isActive: boolean | null
       updated_at: Date | null
+      isEmailVerified: boolean | null
       verificationCode: string | null
+      industry: string | null
+      website: string | null
+      companyDescription: string | null
       status: $Enums.UserStatus
       address: string | null
+      addressCity: string | null
+      addressState: string | null
       emailNotification: boolean | null
       campaignNtification: boolean | null
       termsConditions: boolean | null
@@ -1891,9 +1951,15 @@ export namespace Prisma {
     readonly passportImg: FieldRef<"CompanyUser", 'String'>
     readonly isActive: FieldRef<"CompanyUser", 'Boolean'>
     readonly updated_at: FieldRef<"CompanyUser", 'DateTime'>
+    readonly isEmailVerified: FieldRef<"CompanyUser", 'Boolean'>
     readonly verificationCode: FieldRef<"CompanyUser", 'String'>
+    readonly industry: FieldRef<"CompanyUser", 'String'>
+    readonly website: FieldRef<"CompanyUser", 'String'>
+    readonly companyDescription: FieldRef<"CompanyUser", 'String'>
     readonly status: FieldRef<"CompanyUser", 'UserStatus'>
     readonly address: FieldRef<"CompanyUser", 'String'>
+    readonly addressCity: FieldRef<"CompanyUser", 'String'>
+    readonly addressState: FieldRef<"CompanyUser", 'String'>
     readonly emailNotification: FieldRef<"CompanyUser", 'Boolean'>
     readonly campaignNtification: FieldRef<"CompanyUser", 'Boolean'>
     readonly termsConditions: FieldRef<"CompanyUser", 'Boolean'>
@@ -4605,9 +4671,15 @@ export namespace Prisma {
     passportImg: 'passportImg',
     isActive: 'isActive',
     updated_at: 'updated_at',
+    isEmailVerified: 'isEmailVerified',
     verificationCode: 'verificationCode',
+    industry: 'industry',
+    website: 'website',
+    companyDescription: 'companyDescription',
     status: 'status',
     address: 'address',
+    addressCity: 'addressCity',
+    addressState: 'addressState',
     emailNotification: 'emailNotification',
     campaignNtification: 'campaignNtification',
     termsConditions: 'termsConditions'
@@ -4840,9 +4912,15 @@ export namespace Prisma {
     passportImg?: StringNullableFilter<"CompanyUser"> | string | null
     isActive?: BoolNullableFilter<"CompanyUser"> | boolean | null
     updated_at?: DateTimeNullableFilter<"CompanyUser"> | Date | string | null
+    isEmailVerified?: BoolNullableFilter<"CompanyUser"> | boolean | null
     verificationCode?: StringNullableFilter<"CompanyUser"> | string | null
+    industry?: StringNullableFilter<"CompanyUser"> | string | null
+    website?: StringNullableFilter<"CompanyUser"> | string | null
+    companyDescription?: StringNullableFilter<"CompanyUser"> | string | null
     status?: EnumUserStatusFilter<"CompanyUser"> | $Enums.UserStatus
     address?: StringNullableFilter<"CompanyUser"> | string | null
+    addressCity?: StringNullableFilter<"CompanyUser"> | string | null
+    addressState?: StringNullableFilter<"CompanyUser"> | string | null
     emailNotification?: BoolNullableFilter<"CompanyUser"> | boolean | null
     campaignNtification?: BoolNullableFilter<"CompanyUser"> | boolean | null
     termsConditions?: BoolNullableFilter<"CompanyUser"> | boolean | null
@@ -4862,9 +4940,15 @@ export namespace Prisma {
     passportImg?: SortOrderInput | SortOrder
     isActive?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    isEmailVerified?: SortOrderInput | SortOrder
     verificationCode?: SortOrderInput | SortOrder
+    industry?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    companyDescription?: SortOrderInput | SortOrder
     status?: SortOrder
     address?: SortOrderInput | SortOrder
+    addressCity?: SortOrderInput | SortOrder
+    addressState?: SortOrderInput | SortOrder
     emailNotification?: SortOrderInput | SortOrder
     campaignNtification?: SortOrderInput | SortOrder
     termsConditions?: SortOrderInput | SortOrder
@@ -4888,8 +4972,14 @@ export namespace Prisma {
     passportImg?: StringNullableFilter<"CompanyUser"> | string | null
     isActive?: BoolNullableFilter<"CompanyUser"> | boolean | null
     updated_at?: DateTimeNullableFilter<"CompanyUser"> | Date | string | null
+    isEmailVerified?: BoolNullableFilter<"CompanyUser"> | boolean | null
+    industry?: StringNullableFilter<"CompanyUser"> | string | null
+    website?: StringNullableFilter<"CompanyUser"> | string | null
+    companyDescription?: StringNullableFilter<"CompanyUser"> | string | null
     status?: EnumUserStatusFilter<"CompanyUser"> | $Enums.UserStatus
     address?: StringNullableFilter<"CompanyUser"> | string | null
+    addressCity?: StringNullableFilter<"CompanyUser"> | string | null
+    addressState?: StringNullableFilter<"CompanyUser"> | string | null
     emailNotification?: BoolNullableFilter<"CompanyUser"> | boolean | null
     campaignNtification?: BoolNullableFilter<"CompanyUser"> | boolean | null
     termsConditions?: BoolNullableFilter<"CompanyUser"> | boolean | null
@@ -4909,9 +4999,15 @@ export namespace Prisma {
     passportImg?: SortOrderInput | SortOrder
     isActive?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
+    isEmailVerified?: SortOrderInput | SortOrder
     verificationCode?: SortOrderInput | SortOrder
+    industry?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    companyDescription?: SortOrderInput | SortOrder
     status?: SortOrder
     address?: SortOrderInput | SortOrder
+    addressCity?: SortOrderInput | SortOrder
+    addressState?: SortOrderInput | SortOrder
     emailNotification?: SortOrderInput | SortOrder
     campaignNtification?: SortOrderInput | SortOrder
     termsConditions?: SortOrderInput | SortOrder
@@ -4935,9 +5031,15 @@ export namespace Prisma {
     passportImg?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
     isActive?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
     updated_at?: DateTimeNullableWithAggregatesFilter<"CompanyUser"> | Date | string | null
+    isEmailVerified?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
     verificationCode?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    industry?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    website?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    companyDescription?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
     status?: EnumUserStatusWithAggregatesFilter<"CompanyUser"> | $Enums.UserStatus
     address?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    addressCity?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    addressState?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
     emailNotification?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
     campaignNtification?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
     termsConditions?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
@@ -5252,9 +5354,15 @@ export namespace Prisma {
     passportImg?: string | null
     isActive?: boolean | null
     updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
     verificationCode?: string | null
+    industry?: string | null
+    website?: string | null
+    companyDescription?: string | null
     status?: $Enums.UserStatus
     address?: string | null
+    addressCity?: string | null
+    addressState?: string | null
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
@@ -5274,9 +5382,15 @@ export namespace Prisma {
     passportImg?: string | null
     isActive?: boolean | null
     updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
     verificationCode?: string | null
+    industry?: string | null
+    website?: string | null
+    companyDescription?: string | null
     status?: $Enums.UserStatus
     address?: string | null
+    addressCity?: string | null
+    addressState?: string | null
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
@@ -5296,9 +5410,15 @@ export namespace Prisma {
     passportImg?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    addressCity?: NullableStringFieldUpdateOperationsInput | string | null
+    addressState?: NullableStringFieldUpdateOperationsInput | string | null
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -5318,9 +5438,15 @@ export namespace Prisma {
     passportImg?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    addressCity?: NullableStringFieldUpdateOperationsInput | string | null
+    addressState?: NullableStringFieldUpdateOperationsInput | string | null
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -5340,9 +5466,15 @@ export namespace Prisma {
     passportImg?: string | null
     isActive?: boolean | null
     updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
     verificationCode?: string | null
+    industry?: string | null
+    website?: string | null
+    companyDescription?: string | null
     status?: $Enums.UserStatus
     address?: string | null
+    addressCity?: string | null
+    addressState?: string | null
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
@@ -5360,9 +5492,15 @@ export namespace Prisma {
     passportImg?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    addressCity?: NullableStringFieldUpdateOperationsInput | string | null
+    addressState?: NullableStringFieldUpdateOperationsInput | string | null
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -5380,9 +5518,15 @@ export namespace Prisma {
     passportImg?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    addressCity?: NullableStringFieldUpdateOperationsInput | string | null
+    addressState?: NullableStringFieldUpdateOperationsInput | string | null
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -5843,9 +5987,15 @@ export namespace Prisma {
     passportImg?: SortOrder
     isActive?: SortOrder
     updated_at?: SortOrder
+    isEmailVerified?: SortOrder
     verificationCode?: SortOrder
+    industry?: SortOrder
+    website?: SortOrder
+    companyDescription?: SortOrder
     status?: SortOrder
     address?: SortOrder
+    addressCity?: SortOrder
+    addressState?: SortOrder
     emailNotification?: SortOrder
     campaignNtification?: SortOrder
     termsConditions?: SortOrder
@@ -5863,9 +6013,15 @@ export namespace Prisma {
     passportImg?: SortOrder
     isActive?: SortOrder
     updated_at?: SortOrder
+    isEmailVerified?: SortOrder
     verificationCode?: SortOrder
+    industry?: SortOrder
+    website?: SortOrder
+    companyDescription?: SortOrder
     status?: SortOrder
     address?: SortOrder
+    addressCity?: SortOrder
+    addressState?: SortOrder
     emailNotification?: SortOrder
     campaignNtification?: SortOrder
     termsConditions?: SortOrder
@@ -5883,9 +6039,15 @@ export namespace Prisma {
     passportImg?: SortOrder
     isActive?: SortOrder
     updated_at?: SortOrder
+    isEmailVerified?: SortOrder
     verificationCode?: SortOrder
+    industry?: SortOrder
+    website?: SortOrder
+    companyDescription?: SortOrder
     status?: SortOrder
     address?: SortOrder
+    addressCity?: SortOrder
+    addressState?: SortOrder
     emailNotification?: SortOrder
     campaignNtification?: SortOrder
     termsConditions?: SortOrder
@@ -6839,9 +7001,15 @@ export namespace Prisma {
     passportImg?: string | null
     isActive?: boolean | null
     updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
     verificationCode?: string | null
+    industry?: string | null
+    website?: string | null
+    companyDescription?: string | null
     status?: $Enums.UserStatus
     address?: string | null
+    addressCity?: string | null
+    addressState?: string | null
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
@@ -6860,9 +7028,15 @@ export namespace Prisma {
     passportImg?: string | null
     isActive?: boolean | null
     updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
     verificationCode?: string | null
+    industry?: string | null
+    website?: string | null
+    companyDescription?: string | null
     status?: $Enums.UserStatus
     address?: string | null
+    addressCity?: string | null
+    addressState?: string | null
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
@@ -6935,9 +7109,15 @@ export namespace Prisma {
     passportImg?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    addressCity?: NullableStringFieldUpdateOperationsInput | string | null
+    addressState?: NullableStringFieldUpdateOperationsInput | string | null
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -6956,9 +7136,15 @@ export namespace Prisma {
     passportImg?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    addressCity?: NullableStringFieldUpdateOperationsInput | string | null
+    addressState?: NullableStringFieldUpdateOperationsInput | string | null
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -6993,9 +7179,15 @@ export namespace Prisma {
     passportImg?: string | null
     isActive?: boolean | null
     updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
     verificationCode?: string | null
+    industry?: string | null
+    website?: string | null
+    companyDescription?: string | null
     status?: $Enums.UserStatus
     address?: string | null
+    addressCity?: string | null
+    addressState?: string | null
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
@@ -7014,9 +7206,15 @@ export namespace Prisma {
     passportImg?: string | null
     isActive?: boolean | null
     updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
     verificationCode?: string | null
+    industry?: string | null
+    website?: string | null
+    companyDescription?: string | null
     status?: $Enums.UserStatus
     address?: string | null
+    addressCity?: string | null
+    addressState?: string | null
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
@@ -7130,9 +7328,15 @@ export namespace Prisma {
     passportImg?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    addressCity?: NullableStringFieldUpdateOperationsInput | string | null
+    addressState?: NullableStringFieldUpdateOperationsInput | string | null
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -7151,9 +7355,15 @@ export namespace Prisma {
     passportImg?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    addressCity?: NullableStringFieldUpdateOperationsInput | string | null
+    addressState?: NullableStringFieldUpdateOperationsInput | string | null
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null

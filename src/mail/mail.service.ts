@@ -12,7 +12,7 @@ export class MailService {
   ) {}
 
   async userSignUp(
-    mailData: MailData<{ name: string; code: string }>,
+    mailData: MailData<{ name?: string; code: string }>,
   ): Promise<void> {
     const emailConfirmTitle = "Thank you for joining employ";
 
@@ -38,7 +38,7 @@ export class MailService {
         // url: url?.toString(),
         actionTitle: emailConfirmTitle,
         app_name: this.configService.get("APP", { infer: true }),
-        name: mailData.data.name,
+        // name: mailData.data.name,
         code: mailData.data.code,
       },
     });

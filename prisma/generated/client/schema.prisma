@@ -24,9 +24,15 @@ model CompanyUser {
   passportImg         String?
   isActive            Boolean?   @default(false)
   updated_at          DateTime?  @updatedAt
+  isEmailVerified     Boolean?   @default(false)
   verificationCode    String?    @unique
+  industry            String?
+  website             String?
+  companyDescription  String?
   status              UserStatus @default(inactive)
   address             String?
+  addressCity         String?
+  addressState        String?
   emailNotification   Boolean?   @default(false)
   campaignNtification Boolean?   @default(false)
   termsConditions     Boolean?   @default(false)
