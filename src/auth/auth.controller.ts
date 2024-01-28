@@ -171,6 +171,17 @@ export class AuthController {
     return this.companyService.login(dto);
   }
 
+  @Post("/user/change-password")
+  @ApiBody({ type: ChangePasswordDto })
+  @ApiResponse({ type: GenericResponse })
+  @ApiParam({ name: "id", type: "string" })
+  companyCreatePassword(
+    @Param("id") id: string,
+    @Body() dto: ChangePasswordDto,
+  ) {
+    return this.companyService.changePassword(id, dto);
+  }
+
   @Post("/company/forgot-password")
   companyForgotPassword(@Body() dto: ForgotPasswordDto) {
     return this.companyService.forgotPassword(dto);
