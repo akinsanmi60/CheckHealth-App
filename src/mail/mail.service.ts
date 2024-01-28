@@ -102,7 +102,7 @@ export class MailService {
       },
     });
   }
-  async activeVariousUsers(
+  async activateVariousUsers(
     mailData: MailData<{ name: string }>,
   ): Promise<void> {
     const decativationTitle = `Notification for Activation of Account on ${this.app_name}`;
@@ -115,7 +115,7 @@ export class MailService {
         "src",
         "mail",
         "mail-templates",
-        "accountActivation.hbs",
+        "accountReactivation.hbs",
       ),
       context: {
         title: decativationTitle,

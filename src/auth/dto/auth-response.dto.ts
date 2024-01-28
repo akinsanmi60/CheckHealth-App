@@ -40,16 +40,16 @@ export class UserInfoDto {
   created_at: Date;
 
   @ApiProperty()
-  is_active: boolean;
+  isActive: boolean;
 
   @ApiProperty()
-  first_name: string;
+  firstName: string;
 
   @ApiProperty()
-  last_name: string;
+  lastName: string;
 
   @ApiProperty()
-  phone_number: string;
+  phoneNumber: string;
 
   @ApiProperty()
   gender: string;
@@ -61,7 +61,7 @@ export class UserInfoDto {
   address: string;
 
   @ApiProperty()
-  last_login: string;
+  lastLogin: string;
 
   @ApiProperty()
   DOB: string;
@@ -87,9 +87,7 @@ class UserDataResponse {
   users_list: UserInfoDto[];
 }
 
-export class GetAllUserResponse {
-  @ApiProperty()
-  message: string;
+export class GetAllUserResponse extends GenericResponse {
   @ApiProperty()
   data: UserDataResponse;
 }
@@ -110,4 +108,85 @@ export class LoginResponse extends GenericResponse {
 export class IGetIndividualUser extends GenericResponse {
   @ApiProperty()
   data: UserInfoDto;
+}
+
+//Comapny response
+
+class CompanyDataResponse {
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  created_at: Date;
+
+  @ApiProperty()
+  lastLogin: Date;
+
+  @ApiProperty()
+  phoneNumber: string;
+
+  @ApiProperty()
+  status: string;
+
+  @ApiProperty()
+  email: string;
+
+  @ApiProperty()
+  updated_at: Date;
+
+  @ApiProperty()
+  isActive: boolean;
+
+  @ApiProperty()
+  companyName: string;
+
+  @ApiProperty()
+  address: string;
+
+  @ApiProperty()
+  addressCity: string;
+
+  @ApiProperty()
+  addressState: string;
+
+  @ApiProperty()
+  industry: string;
+
+  @ApiProperty()
+  website: string;
+
+  @ApiProperty()
+  passportImg: string;
+
+  @ApiProperty()
+  companyDescription: string;
+}
+
+class CompanyData {
+  @ApiProperty()
+  total: number;
+
+  @ApiProperty()
+  total_pages: number;
+
+  @ApiProperty()
+  current_page: number;
+
+  @ApiProperty()
+  page_size: number;
+
+  @ApiProperty({
+    type: () => CompanyDataResponse,
+    isArray: true,
+  })
+  companies_list: CompanyDataResponse[];
+}
+export class IGetCompanyUser extends GenericResponse {
+  @ApiProperty()
+  data: CompanyDataResponse;
+}
+
+export class GetAllCompanyResponse extends GenericResponse {
+  @ApiProperty()
+  data: CompanyData;
 }

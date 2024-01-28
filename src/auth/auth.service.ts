@@ -27,12 +27,16 @@ import { Users } from "src/types/appUsers.type";
 @UseInterceptors(ResponseInterceptor)
 @Injectable()
 export class AuthService {
+  private readonly timeGenerated: string;
+
   constructor(
     private prisma: PrismaService,
     private readonly passwordService: PasswordService,
     private readonly mailService: MailService,
     private readonly authResolver: AuthResolver,
-  ) {}
+  ) {
+    this.timeGenerated = new Date().toISOString();
+  }
 
   async userGettingStarted(dto: UserGettingStartedDto) {
     const { email, password, termsConditions } = dto;
@@ -54,7 +58,7 @@ export class AuthService {
       data: {
         id: uuidv4(),
         email: dto.email,
-        created_at: new Date(),
+        created_at: this.timeGenerated,
         password: hashedPassword,
         status: "pending",
         isEmailVerified: false,
@@ -125,6 +129,7 @@ export class AuthService {
       verificationCode: null,
       status: "active",
       isActive: true,
+      updated_at: this.timeGenerated,
     };
 
     const updatedUser = (await this.authResolver.findAndUpdateField(
@@ -174,6 +179,7 @@ export class AuthService {
         const data = {
           password: hashedPassword,
           password_resetCode: null,
+          updated_at: this.timeGenerated,
         };
 
         const updatedUser = await this.authResolver.findAndUpdateField(
@@ -229,12 +235,16 @@ export class AuthService {
       department: foundUser.department,
       maritalStatus: foundUser.maritalStatus,
       ethnicity: foundUser.ethnicity,
+      lastLogin: this.timeGenerated,
+      isEmailVerified: foundUser.isEmailVerified,
+      updated_at: foundUser.updated_at,
+      isActive: foundUser.isActive,
     } as Partial<Users>;
 
     const allToken = this.passwordService.generateTokens(payload);
 
     const data = {
-      lastLogin: new Date(),
+      lastLogin: this.timeGenerated,
     };
 
     if (allToken) {
@@ -322,6 +332,7 @@ export class AuthService {
     const data = {
       password: hashedPassword,
       password_resetCode: null,
+      updated_at: this.timeGenerated,
     };
 
     const updatedUser = await this.authResolver.findAndUpdateField(
@@ -341,34 +352,39 @@ export class AuthService {
   }
 
   async activateUser(id: string) {
-    const user_time_created = new Date();
-
     const data = {
       isActive: true,
-      updated_at: user_time_created,
+      updated_at: this.timeGenerated,
     };
 
-    const activatedUser = await this.authResolver.findAndUpdateField(
+    const activatedUser = (await this.authResolver.findAndUpdateField(
       data,
       "user",
       "id",
       id,
-    );
+    )) as Users;
 
     if (!activatedUser) {
       throw new BadRequestException("Failed to  activate  user");
     }
 
-    return {
-      message: "User activated successfully",
-    };
+    if (activatedUser) {
+      await this.mailService.activateVariousUsers({
+        to: activatedUser.email,
+        data: {
+          name: activatedUser.firstName,
+        },
+      });
+      return {
+        message: "User activated successfully",
+      };
+    }
   }
 
   async deactivateUser(id: string) {
-    const user_time_created = new Date();
     const data = {
       isActive: true,
-      updated_at: user_time_created,
+      updated_at: this.timeGenerated,
     };
 
     const deactivatedUser = (await this.authResolver.findAndUpdateField(
@@ -435,9 +451,9 @@ export class AuthService {
       id,
       search,
       status,
-      phone_number,
+      phoneNumber,
       gender,
-      account_status,
+      accountStatus,
     } = dto;
 
     try {
@@ -461,17 +477,17 @@ export class AuthService {
         };
       }
 
-      if (phone_number) {
-        where.phone_number = {
-          contains: phone_number,
+      if (phoneNumber) {
+        where.phoneNumber = {
+          contains: phoneNumber,
         };
       }
 
       if (gender) {
         where.gender = gender;
       }
-      if (account_status) {
-        where.account_status = account_status;
+      if (accountStatus) {
+        where.accountStatus = accountStatus;
       }
 
       // Exclude users with the "admin" role
@@ -484,16 +500,16 @@ export class AuthService {
       if (search) {
         where.OR = [
           {
-            first_name: search.toString(),
+            firstName: search.toString(),
           },
           {
-            last_name: search.toString(),
+            lastName: search.toString(),
           },
           {
-            phone_number: search.toString(),
+            phoneNumber: search.toString(),
           },
           {
-            account_status: search.toString(),
+            accountStatus: search.toString(),
           },
           { id: { contains: search.toString(), mode: "insensitive" } },
           // Add more fields as needed

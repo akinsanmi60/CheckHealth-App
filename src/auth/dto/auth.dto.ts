@@ -222,14 +222,14 @@ export class GetAllUserDto {
   @Length(11, 11, {
     message: "Phone number must be at must be 11 characters long.",
   })
-  phone_number: string;
+  phoneNumber: string;
 
   @ApiProperty({
     example: "verified",
     required: false,
     enum: ["verified", "unverified"],
   })
-  account_status: string;
+  accountStatus: string;
 }
 
 export class ChangePasswordDto {
@@ -242,4 +242,48 @@ export class ChangePasswordDto {
   @IsNotEmpty({ message: "Password cannot be empty." })
   @MinLength(8, { message: "Password must be at least 8 characters long." })
   new_password: string;
+}
+
+export class GetAllCompanyDto {
+  @IsUUID("4", { message: "ID must be a valid UUID." })
+  @ApiProperty({
+    example: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    required: false,
+  })
+  id: string;
+
+  @ApiProperty({ example: 1, required: false })
+  @IsNumber()
+  page: number;
+
+  @ApiProperty({ example: 10, required: false })
+  @IsNumber()
+  limit: number;
+
+  @ApiProperty({ example: "", required: false })
+  @IsString()
+  search: string;
+
+  @ApiProperty({ example: "08-12-2023", required: false })
+  created_at: string;
+
+  @ApiProperty({
+    example: "active",
+    required: false,
+    enum: ["active", "inactive"],
+  })
+  status: string;
+
+  @ApiProperty({ required: false })
+  @Length(11, 11, {
+    message: "Phone number must be at must be 11 characters long.",
+  })
+  phoneNumber: string;
+
+  @ApiProperty({
+    example: "verified",
+    required: false,
+    enum: ["verified", "unverified"],
+  })
+  accountStatus: string;
 }

@@ -10,6 +10,7 @@ import { JwtStrategy } from "./auth.jwt.strategy";
 import { MailModule } from "../mail/mail.module";
 import { AuthResolver } from "./authFinder.service";
 import { AuthService } from "./auth.service";
+import { CompanyAuthService } from "./company.service";
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { AuthService } from "./auth.service";
   controllers: [AuthController],
   providers: [
     AuthService,
+    CompanyAuthService,
     PrismaService,
     JwtStrategy,
     PasswordService,

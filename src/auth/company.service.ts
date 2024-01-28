@@ -8,10 +8,10 @@ import {
   ForgotPasswordDto,
   LoginDto,
   ResetPasswordDto,
-  GetAllUserDto,
   ChangePasswordDto,
   VerifyEmailDto,
   CompanyGettingStartedDto,
+  GetAllCompanyDto,
 } from "./dto/auth.dto";
 import { PrismaService } from "src/prisma/prisma.service";
 import { v4 as uuidv4 } from "uuid";
@@ -20,19 +20,22 @@ import { PasswordService } from "./password.service";
 import { MailService } from "../mail/mail.service";
 import { ResponseInterceptor } from "../responeFilter/respone.service";
 import { AuthResolver } from "./authFinder.service";
-import { CompanyUser, Users } from "src/types/appUsers.type";
+import { CompanyUser } from "src/types/appUsers.type";
 
 @UseInterceptors(ResponseInterceptor)
 @Injectable()
-export class AuthService {
+export class CompanyAuthService {
+  private readonly timeGenerated: string;
   constructor(
     private prisma: PrismaService,
     private readonly passwordService: PasswordService,
     private readonly mailService: MailService,
     private readonly authResolver: AuthResolver,
-  ) {}
+  ) {
+    this.timeGenerated = new Date().toISOString();
+  }
 
-  async userGettingStarted(dto: CompanyGettingStartedDto) {
+  async companyGettingStarted(dto: CompanyGettingStartedDto) {
     const {
       companyName,
       address,
@@ -43,6 +46,7 @@ export class AuthService {
       addressState,
       industry,
       website,
+      termsConditions,
     } = dto;
 
     const foundCompany = (await this.authResolver.findUserWithField(
@@ -62,7 +66,7 @@ export class AuthService {
       data: {
         id: uuidv4(),
         email: dto.email,
-        created_at: new Date(),
+        created_at: this.timeGenerated,
         password: hashedPassword,
         status: "pending",
         isEmailVerified: false,
@@ -74,7 +78,7 @@ export class AuthService {
         companyDescription: companyDescription,
         industry: industry,
         website: website,
-        termsConditions: true,
+        termsConditions: termsConditions,
       },
     });
 
@@ -111,6 +115,7 @@ export class AuthService {
       verificationCode: null,
       status: "active",
       isActive: true,
+      updated_at: this.timeGenerated,
     };
 
     const updatedCompany = (await this.authResolver.findAndUpdateField(
@@ -159,7 +164,8 @@ export class AuthService {
 
         const data = {
           password: hashedPassword,
-          password_resetCode: null,
+          passwordResetCode: null,
+          updated_at: this.timeGenerated,
         };
 
         const updatedUser = await this.authResolver.findAndUpdateField(
@@ -183,19 +189,19 @@ export class AuthService {
   async login(dto: LoginDto) {
     const { email, password } = dto;
 
-    const foundUser = (await this.authResolver.findUserWithField(
+    const foundCompany = (await this.authResolver.findUserWithField(
       email,
       "email",
-      "user",
-    )) as Users;
+      "companyUser",
+    )) as CompanyUser;
 
-    if (!foundUser) {
+    if (!foundCompany) {
       throw new BadRequestException("Wrong email credential");
     }
 
     const isMatch = this.passwordService.validatePassword(
       password,
-      foundUser.password,
+      foundCompany.password,
     );
 
     if (!isMatch) {
@@ -203,28 +209,37 @@ export class AuthService {
     }
 
     const payload = {
-      accountType: foundUser.accountType,
-      id: foundUser.id,
-      email: foundUser.email,
-      firstName: foundUser.firstName,
-      lastName: foundUser.lastName,
-      status: foundUser.status,
-      created_at: foundUser.created_at,
-      gender: foundUser.gender,
-      jobRole: foundUser.jobRole,
-      department: foundUser.department,
-      maritalStatus: foundUser.maritalStatus,
-      ethnicity: foundUser.ethnicity,
-    } as Partial<Users>;
+      id: foundCompany.id,
+      email: foundCompany.email,
+      status: foundCompany.status,
+      created_at: foundCompany.created_at,
+      isActive: foundCompany.isActive,
+      lastLogin: this.timeGenerated,
+      isEmailVerified: foundCompany.isEmailVerified,
+      updated_at: foundCompany.updated_at,
+    } as Partial<CompanyUser>;
 
     const allToken = this.passwordService.generateTokens(payload);
 
-    return {
-      message: "You have login successfully",
-      data: {
-        ...allToken,
-      },
+    const data = {
+      lastLogin: this.timeGenerated,
     };
+
+    if (allToken) {
+      await this.authResolver.findAndUpdateField(
+        data,
+        "companyUser",
+        "email",
+        foundCompany.email,
+      );
+
+      return {
+        message: "You have login successfully",
+        data: {
+          ...allToken,
+        },
+      };
+    }
   }
 
   async forgotPassword(dto: ForgotPasswordDto) {
@@ -237,30 +252,30 @@ export class AuthService {
       // );
 
       const data = {
-        password_resetCode: codeGenerated,
+        passwordResetCode: codeGenerated,
       };
 
-      const foundUserChecked = (await this.authResolver.findUserWithField(
+      const foundCompanyChecked = (await this.authResolver.findUserWithField(
         email,
         "email",
-        "user",
-      )) as Users;
+        "companyUser",
+      )) as CompanyUser;
 
-      const updatedfoundUser = (await this.authResolver.findAndUpdateField(
+      const updatedCompany = (await this.authResolver.findAndUpdateField(
         data,
-        "user",
+        "companyUser",
         "email",
         email,
-      )) as Users;
+      )) as CompanyUser;
 
-      if (!updatedfoundUser) {
+      if (!updatedCompany) {
         throw new BadRequestException("Failed to send forgot code");
       }
 
       await this.mailService.forgotPassword({
-        to: foundUserChecked.email,
+        to: foundCompanyChecked.email,
         data: {
-          name: foundUserChecked.firstName,
+          name: foundCompanyChecked.companyName,
           code: codeGenerated,
         },
       });
@@ -279,13 +294,13 @@ export class AuthService {
   async resetPassword(dto: ResetPasswordDto) {
     const { code, new_password } = dto;
 
-    const foundUser = await this.authResolver.findUserWithField(
+    const foundCompanny = await this.authResolver.findUserWithField(
       code,
       "passwordResetCode",
-      "user",
+      "companyUser",
     );
 
-    if (!foundUser) {
+    if (!foundCompanny) {
       throw new BadRequestException("Invalid code");
     }
 
@@ -294,18 +309,19 @@ export class AuthService {
 
     const data = {
       password: hashedPassword,
-      password_resetCode: null,
+      passwordResetCode: null,
+      updated_at: this.timeGenerated,
     };
 
-    const updatedUser = await this.authResolver.findAndUpdateField(
+    const updatedCompany = await this.authResolver.findAndUpdateField(
       data,
-      "user",
+      "companyUser",
       "id",
-      foundUser.id,
+      foundCompanny.id,
     );
 
-    if (!updatedUser) {
-      throw new BadRequestException("Failed to update user password");
+    if (!updatedCompany) {
+      throw new BadRequestException("Failed to update company password");
     }
 
     return {
@@ -313,94 +329,104 @@ export class AuthService {
     };
   }
 
-  async activateUser(id: string) {
-    const user_time_created = new Date();
-
+  async activateCompany(id: string) {
     const data = {
       isActive: true,
-      updated_at: user_time_created,
+      updated_at: this.timeGenerated,
     };
 
-    const activatedUser = await this.authResolver.findAndUpdateField(
+    const activatedCompany = (await this.authResolver.findAndUpdateField(
       data,
-      "user",
+      "companyUser",
       "id",
       id,
-    );
+    )) as CompanyUser;
 
-    if (!activatedUser) {
-      throw new BadRequestException("Failed to  activate  user");
+    if (!activatedCompany) {
+      throw new BadRequestException("Failed to  activate  company");
+    }
+
+    if (activatedCompany) {
+      await this.mailService.activateVariousUsers({
+        to: activatedCompany.email,
+        data: {
+          name: activatedCompany.companyName,
+        },
+      });
     }
 
     return {
-      message: "User activated successfully",
+      message: "Company activated successfully",
     };
   }
 
-  async deactivateUser(id: string) {
-    const user_time_created = new Date();
+  async deactivateCompany(id: string) {
     const data = {
       isActive: true,
-      updated_at: user_time_created,
+      updated_at: this.timeGenerated,
     };
 
     const deactivatedUser = (await this.authResolver.findAndUpdateField(
       data,
-      "user",
+      "companyUser",
       "id",
       id,
-    )) as Users;
+    )) as CompanyUser;
 
     if (!deactivatedUser) {
-      throw new BadRequestException("Failed to deactivate user");
+      throw new BadRequestException("Failed to deactivate company");
     }
 
     if (deactivatedUser) {
       await this.mailService.deactiveVariousUsers({
         to: deactivatedUser.email,
         data: {
-          name: deactivatedUser.firstName,
+          name: deactivatedUser.companyName,
         },
       });
 
       return {
-        message: "User deactivated successfully",
+        message: "Company deactivated successfully",
       };
     }
   }
 
-  async getUserById(id: string) {
-    const user = await this.prisma.user.findUnique({
+  async getCompanyById(id: string) {
+    const company = await this.prisma.companyUser.findUnique({
       where: { id },
       select: {
         id: true,
         created_at: true,
-        firstName: true,
         lastLogin: true,
-        lastName: true,
         phoneNumber: true,
         status: true,
         email: true,
         updated_at: true,
         isActive: true,
-        gender: true,
+        companyName: true,
         address: true,
+        addressCity: true,
+        addressState: true,
+        industry: true,
+        website: true,
+        passportImg: true,
+        companyDescription: true,
       },
     });
 
-    if (!user) {
-      throw new BadRequestException("User not found");
+    if (!company) {
+      throw new BadRequestException("Company not found");
     }
 
     return {
-      message: "User fetched successfully",
+      message: "Company fetched successfully",
       data: {
-        ...user,
+        ...company,
       },
     };
   }
 
-  async getAllUsers(dto: GetAllUserDto) {
+  async getAllCompanies(dto: GetAllCompanyDto) {
     const {
       created_at,
       page = 1,
@@ -408,9 +434,8 @@ export class AuthService {
       id,
       search,
       status,
-      phone_number,
-      gender,
-      account_status,
+      phoneNumber,
+      accountStatus,
     } = dto;
 
     try {
@@ -434,77 +459,69 @@ export class AuthService {
         };
       }
 
-      if (phone_number) {
-        where.phone_number = {
-          contains: phone_number,
+      if (phoneNumber) {
+        where.phoneNumber = {
+          contains: phoneNumber,
         };
       }
 
-      if (gender) {
-        where.gender = gender;
+      if (accountStatus) {
+        where.account_status = accountStatus;
       }
-      if (account_status) {
-        where.account_status = account_status;
-      }
-
-      // Exclude users with the "admin" role
-      where.role = {
-        not: {
-          not: "admin",
-        },
-      };
 
       if (search) {
         where.OR = [
           {
-            first_name: search.toString(),
+            companyName: search.toString(),
+          },
+
+          {
+            phoneNumber: search.toString(),
           },
           {
-            last_name: search.toString(),
-          },
-          {
-            phone_number: search.toString(),
-          },
-          {
-            account_status: search.toString(),
+            accountStatus: search.toString(),
           },
           { id: { contains: search.toString(), mode: "insensitive" } },
           // Add more fields as needed
         ];
       }
 
-      const [allUsers, totalCount] = await Promise.all([
-        this.prisma.user.findMany({
+      const [allCompanies, totalCount] = await Promise.all([
+        this.prisma.companyUser.findMany({
           where,
           select: {
             id: true,
             created_at: true,
-            firstName: true,
             lastLogin: true,
-            lastName: true,
             phoneNumber: true,
             status: true,
             email: true,
             updated_at: true,
             isActive: true,
-            gender: true,
+            companyName: true,
             address: true,
+            addressCity: true,
+            addressState: true,
+            industry: true,
+            website: true,
+            passportImg: true,
+            companyDescription: true,
           },
           orderBy: { created_at: "desc" },
           skip,
           take: offset as number,
         }),
-        this.prisma.user.count({
+        this.prisma.companyUser.count({
           where,
         }),
       ]);
 
       const totalPages = Math.ceil(totalCount / limitNumber);
 
-      const message = allUsers.length
-        ? "Users fetched successfully"
-        : "No Users Found";
-      const success = allUsers?.length ? true : false;
+      const message = allCompanies.length
+        ? "Companies fetched successfully"
+        : "No Companies Found";
+      const success = allCompanies?.length ? true : false;
 
       return {
         message,
@@ -513,11 +530,11 @@ export class AuthService {
           total_pages: success ? totalPages : 0,
           current_page: success ? Number(page) : 0,
           page_size: success ? offset : 0,
-          users_list: allUsers,
+          comapnies_list: allCompanies,
         },
       };
     } catch (error) {
-      console.error("Error in get all users:", error);
+      console.error("Error in get all companies:", error);
       throw error;
     }
   }
