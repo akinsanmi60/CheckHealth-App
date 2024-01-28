@@ -78,6 +78,11 @@ export class CompanyGettingStartedDto {
   @IsAlpha()
   @IsNotEmpty({ message: "Company description cannot be empty." })
   companyDescription: string;
+
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Terms and conditions cannot be unchecked." })
+  termsConditions: boolean;
 }
 export class GettingStartedUpdateProfileDto {
   @ApiProperty()
@@ -144,6 +149,13 @@ export class GettingStartedUpdateProfileDto {
   @IsAlpha()
   @IsNotEmpty({ message: "Passport cannot be empty." })
   passportImg: string;
+}
+
+export class UserGettingStartedDto extends LoginDto {
+  @ApiProperty()
+  @IsAlpha()
+  @IsNotEmpty({ message: "Terms and conditions cannot be unchecked." })
+  termsConditions: boolean;
 }
 
 export class ForgotPasswordDto {

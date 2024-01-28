@@ -16,6 +16,7 @@ import {
   ChangePasswordDto,
   VerifyEmailDto,
   GettingStartedUpdateProfileDto,
+  UserGettingStartedDto,
 } from "./dto/auth.dto";
 import {
   ApiBearerAuth,
@@ -45,7 +46,7 @@ export class AuthController {
   @Post("/user/signup")
   @ApiBody({ type: LoginDto })
   @ApiResponse({ type: GenericResponse })
-  gettingStarted(@Body() dto: LoginDto) {
+  gettingStarted(@Body() dto: UserGettingStartedDto) {
     return this.authService.userGettingStarted(dto);
   }
 

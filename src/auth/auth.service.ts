@@ -12,6 +12,7 @@ import {
   ChangePasswordDto,
   VerifyEmailDto,
   GettingStartedUpdateProfileDto,
+  UserGettingStartedDto,
 } from "./dto/auth.dto";
 import { PrismaService } from "src/prisma/prisma.service";
 import { v4 as uuidv4 } from "uuid";
@@ -33,8 +34,8 @@ export class AuthService {
     private readonly authResolver: AuthResolver,
   ) {}
 
-  async userGettingStarted(dto: LoginDto) {
-    const { email, password } = dto;
+  async userGettingStarted(dto: UserGettingStartedDto) {
+    const { email, password, termsConditions } = dto;
 
     const foundUser = (await this.authResolver.findUserWithField(
       email,
@@ -58,7 +59,7 @@ export class AuthService {
         status: "pending",
         isEmailVerified: false,
         verificationCode: code,
-        termsConditions: true,
+        termsConditions: termsConditions,
       },
     });
 
