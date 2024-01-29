@@ -29,7 +29,7 @@ export class VerifyEmailDto {
   code: string;
 }
 
-export class CompanyGettingStartedDto {
+export class CompanySignupDto {
   @ApiProperty()
   @IsEmail({}, { message: "Please provide a valid email address." })
   @IsNotEmpty({ message: "Email cannot be empty." })

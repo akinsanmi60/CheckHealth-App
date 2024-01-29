@@ -17,7 +17,7 @@ import {
   VerifyEmailDto,
   GettingStartedUpdateProfileDto,
   UserGettingStartedDto,
-  CompanyGettingStartedDto,
+  CompanySignupDto,
   GetAllCompanyDto,
   ForgotPasswordDto,
   ResetPasswordDto,
@@ -36,6 +36,7 @@ import {
   GetAllUserResponse,
   IGetCompanyUser,
   IGetIndividualUser,
+  LoginResponse,
   UserInfoDto,
 } from "./dto/auth-response.dto";
 import { JwtAuthGuard } from "./jwtAuth.guard";
@@ -95,6 +96,9 @@ export class AuthController {
 
   @Post("/user/login")
   @ApiBody({ type: LoginDto })
+  @ApiResponse({
+    type: LoginResponse,
+  })
   login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
@@ -160,9 +164,8 @@ export class AuthController {
   }
 
   //Company starts here
-
   @Post("/company/signup")
-  @ApiBody({ type: CompanyGettingStartedDto })
+  @ApiBody({ type: CompanySignupDto })
   @ApiResponse({ type: GenericResponse })
   companyGettingStarted(@Body() dto) {
     return this.companyService.companyGettingStarted(dto);
@@ -181,6 +184,9 @@ export class AuthController {
 
   @Post("/company/login")
   @ApiBody({ type: LoginDto })
+  @ApiResponse({
+    type: LoginResponse,
+  })
   companyLogin(@Body() dto: LoginDto) {
     return this.companyService.login(dto);
   }

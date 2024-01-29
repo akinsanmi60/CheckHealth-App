@@ -10,8 +10,8 @@ import {
   ResetPasswordDto,
   ChangePasswordDto,
   VerifyEmailDto,
-  CompanyGettingStartedDto,
   GetAllCompanyDto,
+  CompanySignupDto,
 } from "./dto/auth.dto";
 import { PrismaService } from "src/prisma/prisma.service";
 import { v4 as uuidv4 } from "uuid";
@@ -35,7 +35,7 @@ export class CompanyAuthService {
     this.timeGenerated = new Date().toISOString();
   }
 
-  async companyGettingStarted(dto: CompanyGettingStartedDto) {
+  async companyGettingStarted(dto: CompanySignupDto) {
     const {
       companyName,
       address,
