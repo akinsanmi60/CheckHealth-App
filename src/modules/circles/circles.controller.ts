@@ -16,8 +16,8 @@ import {
 import { CirclesService } from "./circles.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Express } from "express";
-import { fileMimetypeFilter } from "src/filter/file-mimetype/file--mimetype-filter";
-import { MAX_IMAGE_SIZE } from "src/filter/file-mimetype/file-config";
+import { fileMimetypeFilter } from "../../filter/file-mimetype/file--mimetype-filter";
+import { MAX_IMAGE_SIZE } from "../../filter/file-mimetype/file-config";
 import { CompanyGettingStartedDto } from "./dto/circle.dto";
 
 @ApiTags("Circles")
