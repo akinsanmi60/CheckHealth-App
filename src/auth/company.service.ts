@@ -18,7 +18,7 @@ import { v4 as uuidv4 } from "uuid";
 import * as crypto from "crypto";
 import { PasswordService } from "./password.service";
 import { MailService } from "../mail/mail.service";
-import { ResponseInterceptor } from "../responeFilter/respone.service";
+import { ResponseInterceptor } from "../filter/responseFilter/respone.service";
 import { AuthResolver } from "./authFinder.service";
 import { CompanyUser } from "src/types/appUsers.type";
 
@@ -48,7 +48,7 @@ export class CompanyAuthService {
       website,
       termsConditions,
     } = dto;
-
+    console.log(dto);
     const foundCompany = (await this.authResolver.findUserWithField(
       email,
       "email",
@@ -59,7 +59,7 @@ export class CompanyAuthService {
       throw new BadRequestException("Email is already taken");
     }
 
-    const code = crypto.randomInt(100000, 999999).toString();
+    const code = crypto.randomInt(1000, 9999).toString();
     const hashedPassword = await this.passwordService.hashPassword(password);
 
     const newCreatedEntity = await this.prisma.companyUser.create({

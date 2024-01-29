@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from "uuid";
 import * as crypto from "crypto";
 import { PasswordService } from "./password.service";
 import { MailService } from "../mail/mail.service";
-import { ResponseInterceptor } from "../responeFilter/respone.service";
+import { ResponseInterceptor } from "../filter/responseFilter/respone.service";
 import { UserGender, UserAccount } from "../../prisma/generated/client";
 import { AuthResolver } from "./authFinder.service";
 import { Users } from "src/types/appUsers.type";
@@ -80,7 +80,11 @@ export class AuthService {
       };
     }
   }
-  async userUpdateProfile(id: string, dto: GettingStartedUpdateProfileDto) {
+  async userUpdateProfile(
+    id: string,
+    dto: GettingStartedUpdateProfileDto,
+    file: Express.Multer.File,
+  ) {
     const data = {
       firstName: dto.firstName,
       accountType: dto.accountType as string as UserAccount,
@@ -94,7 +98,7 @@ export class AuthService {
       DOB: dto.DOB,
       ageRange: dto.ageRange,
       disability: dto.disability,
-      passportImg: dto.passportImg,
+      passportImg: file.filename,
     };
 
     const updatedUser = (await this.authResolver.findAndUpdateField(

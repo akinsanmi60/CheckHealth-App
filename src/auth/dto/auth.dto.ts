@@ -144,11 +144,6 @@ export class GettingStartedUpdateProfileDto {
   @IsAlpha()
   @IsNotEmpty({ message: "Disability cannot be empty." })
   disability: string;
-
-  @ApiProperty()
-  @IsAlpha()
-  @IsNotEmpty({ message: "Passport cannot be empty." })
-  passportImg: string;
 }
 
 export class UserGettingStartedDto extends LoginDto {

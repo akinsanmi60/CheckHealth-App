@@ -5,13 +5,13 @@ import {
   Param,
   Post,
   Query,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import {
-  ForgotPasswordDto,
   LoginDto,
-  ResetPasswordDto,
   GetAllUserDto,
   ChangePasswordDto,
   VerifyEmailDto,
@@ -19,6 +19,8 @@ import {
   UserGettingStartedDto,
   CompanyGettingStartedDto,
   GetAllCompanyDto,
+  ForgotPasswordDto,
+  ResetPasswordDto,
 } from "./dto/auth.dto";
 import {
   ApiBearerAuth,
@@ -41,6 +43,7 @@ import { RolesGuard } from "../roles/roles.guard";
 import { Roles } from "../roles/roles.decorator";
 import { Role } from "../roles/role.enum";
 import { CompanyAuthService } from "./company.service";
+import { FileInterceptor } from "@nestjs/platform-express";
 
 @ApiTags("Auth")
 @ApiBearerAuth()
@@ -52,9 +55,9 @@ export class AuthController {
   ) {}
 
   @Post("/user/signup")
-  @ApiBody({ type: LoginDto })
+  @ApiBody({ type: UserGettingStartedDto })
   @ApiResponse({ type: GenericResponse })
-  gettingStarted(@Body() dto: UserGettingStartedDto) {
+  gettingStarted(@Body() dto) {
     return this.authService.userGettingStarted(dto);
   }
 
@@ -62,8 +65,13 @@ export class AuthController {
   @ApiBody({ type: GettingStartedUpdateProfileDto })
   @ApiResponse({ type: GenericResponse })
   @ApiParam({ name: "id", type: "string" })
-  updateProfile(@Param("id") id: string, @Body() dto) {
-    return this.authService.userUpdateProfile(id, dto);
+  @UseInterceptors(FileInterceptor("file"))
+  updateProfile(
+    @Param("id") id: string,
+    @Body() dto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.authService.userUpdateProfile(id, dto, file);
   }
 
   @Post("/user/verify")
@@ -81,7 +89,7 @@ export class AuthController {
   @ApiBody({ type: ChangePasswordDto })
   @ApiResponse({ type: GenericResponse })
   @ApiParam({ name: "id", type: "string" })
-  createPassword(@Param("id") id: string, @Body() dto: ChangePasswordDto) {
+  createPassword(@Param("id") id: string, @Body() dto) {
     return this.authService.changePassword(id, dto);
   }
 
@@ -92,12 +100,18 @@ export class AuthController {
   }
 
   @Post("/user/forgot-password")
-  ForgotPassword(@Body() dto: ForgotPasswordDto) {
+  @ApiBody({
+    type: ForgotPasswordDto,
+  })
+  ForgotPassword(@Body() dto) {
     return this.authService.forgotPassword(dto);
   }
 
   @Post("/user/reset-password")
-  resetPassword(@Body() dto: ResetPasswordDto) {
+  @ApiBody({
+    type: ResetPasswordDto,
+  })
+  resetPassword(@Body() dto) {
     return this.authService.resetPassword(dto);
   }
 
@@ -150,7 +164,7 @@ export class AuthController {
   @Post("/company/signup")
   @ApiBody({ type: CompanyGettingStartedDto })
   @ApiResponse({ type: GenericResponse })
-  companyGettingStarted(@Body() dto: CompanyGettingStartedDto) {
+  companyGettingStarted(@Body() dto) {
     return this.companyService.companyGettingStarted(dto);
   }
 
@@ -183,12 +197,18 @@ export class AuthController {
   }
 
   @Post("/company/forgot-password")
-  companyForgotPassword(@Body() dto: ForgotPasswordDto) {
+  @ApiBody({
+    type: ForgotPasswordDto,
+  })
+  companyForgotPassword(@Body() dto) {
     return this.companyService.forgotPassword(dto);
   }
 
   @Post("/company/reset-password")
-  companyResetPassword(@Body() dto: ResetPasswordDto) {
+  @ApiBody({
+    type: ResetPasswordDto,
+  })
+  companyResetPassword(@Body() dto) {
     return this.companyService.resetPassword(dto);
   }
 

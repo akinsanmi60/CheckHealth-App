@@ -133,6 +133,21 @@ exports.Prisma.CompanyUserScalarFieldEnum = {
   termsConditions: 'termsConditions'
 };
 
+exports.Prisma.CompanyCirclesScalarFieldEnum = {
+  id: 'id',
+  created_at: 'created_at',
+  coyCircleName: 'coyCircleName',
+  coyCircleDescription: 'coyCircleDescription',
+  coyCircleShareLink: 'coyCircleShareLink',
+  wellbeingScore: 'wellbeingScore',
+  activityLevel: 'activityLevel',
+  companyUserId: 'companyUserId',
+  createdBy: 'createdBy',
+  coyCircleStatus: 'coyCircleStatus',
+  coyCircleNos: 'coyCircleNos',
+  circleImg: 'circleImg'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -166,23 +181,24 @@ exports.Prisma.UserScalarFieldEnum = {
   campaignNtification: 'campaignNtification',
   termsConditions: 'termsConditions',
   addedBy: 'addedBy',
+  userCircleId: 'userCircleId',
   circleName: 'circleName',
-  circleId: 'circleId'
+  circleId: 'circleId',
+  coyCircleAttachedTo: 'coyCircleAttachedTo'
 };
 
-exports.Prisma.CirclesScalarFieldEnum = {
+exports.Prisma.UserCirclesScalarFieldEnum = {
   id: 'id',
   created_at: 'created_at',
-  circleName: 'circleName',
-  circleDescription: 'circleDescription',
-  circleShareLink: 'circleShareLink',
+  userCircleName: 'userCircleName',
+  userCircleDescription: 'userCircleDescription',
+  userCircleShareLink: 'userCircleShareLink',
   wellbeingScore: 'wellbeingScore',
   activityLevel: 'activityLevel',
-  companyUserId: 'companyUserId',
   userId: 'userId',
   createdBy: 'createdBy',
-  circleStatus: 'circleStatus',
-  circleNos: 'circleNos'
+  coyCircleStatus: 'coyCircleStatus',
+  coyCircleNos: 'coyCircleNos'
 };
 
 exports.Prisma.SortOrder = {
@@ -205,6 +221,14 @@ exports.UserStatus = exports.$Enums.UserStatus = {
   inactive: 'inactive'
 };
 
+exports.ActivityLevel = exports.$Enums.ActivityLevel = {
+  high: 'high',
+  moderate: 'moderate',
+  excellent: 'excellent',
+  moderatelyHigh: 'moderatelyHigh',
+  low: 'low'
+};
+
 exports.UserGender = exports.$Enums.UserGender = {
   male: 'male',
   female: 'female'
@@ -221,18 +245,11 @@ exports.SystemRole = exports.$Enums.SystemRole = {
   user: 'user'
 };
 
-exports.ActivityLevel = exports.$Enums.ActivityLevel = {
-  high: 'high',
-  moderate: 'moderate',
-  excellent: 'excellent',
-  moderatelyHigh: 'moderatelyHigh',
-  low: 'low'
-};
-
 exports.Prisma.ModelName = {
   CompanyUser: 'CompanyUser',
+  CompanyCircles: 'CompanyCircles',
   User: 'User',
-  Circles: 'Circles'
+  UserCircles: 'UserCircles'
 };
 
 /**

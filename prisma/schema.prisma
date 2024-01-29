@@ -6,6 +6,15 @@ generator client {
   output   = "./generated/client"
 }
 
+generator dbml {
+  provider            = "prisma-dbml-generator"
+  output              = "../dbml"
+  outputName          = "awesome.dbml"
+  projectName         = "Project Name"
+  projectDatabaseType = "PostgreSQL"
+  projectNote         = "Empylo description"
+}
+
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
@@ -13,89 +22,107 @@ datasource db {
 }
 
 model CompanyUser {
-  id                  String     @id @unique @default(cuid())
-  email               String     @unique
-  created_at          DateTime?  @default(now())
+  id                  String           @id @unique @default(cuid())
+  email               String           @unique
+  created_at          DateTime?        @default(now())
   companyName         String?
   phoneNumber         String?
   password            String?
-  passwordResetCode   String?    @unique
+  passwordResetCode   String?          @unique
   lastLogin           DateTime?
   passportImg         String?
-  isActive            Boolean?   @default(false)
-  updated_at          DateTime?  @updatedAt
-  isEmailVerified     Boolean?   @default(false)
-  verificationCode    String?    @unique
+  isActive            Boolean?         @default(false)
+  updated_at          DateTime?        @updatedAt
+  isEmailVerified     Boolean?         @default(false)
+  verificationCode    String?          @unique
   industry            String?
   website             String?
   companyDescription  String?
-  status              UserStatus @default(inactive)
+  status              UserStatus       @default(inactive)
   address             String?
   addressCity         String?
   addressState        String?
-  emailNotification   Boolean?   @default(false)
-  campaignNtification Boolean?   @default(false)
-  termsConditions     Boolean?   @default(false)
+  emailNotification   Boolean?         @default(false)
+  campaignNtification Boolean?         @default(false)
+  termsConditions     Boolean?         @default(false)
   membersList         User[]
-  company_circle      Circles[]
+  company_circle      CompanyCircles[]
+}
+
+model CompanyCircles {
+  id                   String        @id @unique @default(cuid())
+  created_at           DateTime?     @default(now())
+  coyCircleName        String?       @unique
+  coyCircleDescription String?       @db.VarChar(1000)
+  coyCircleShareLink   String?
+  wellbeingScore       String?
+  activityLevel        ActivityLevel @default(low)
+  companyUser          CompanyUser?  @relation(fields: [companyUserId], references: [id], map: "circles_company_user_fkey")
+  companyUserId        String?
+  createdBy            String?
+  coyCircleStatus      UserStatus    @default(inactive)
+  coyCircleNos         String?
+  memberList           User[]
+  circleImg             String?
 }
 
 model User {
-  id                  String       @id @unique @default(cuid())
-  email               String       @unique
-  created_at          DateTime?    @default(now())
+  id                  String          @id @unique @default(cuid())
+  email               String          @unique
+  created_at          DateTime?       @default(now())
   firstName           String?
   lastName            String?
-  phoneNumber         String?      @unique
+  phoneNumber         String?         @unique
   ageRange            String?
   ethnicity           String?
   gender              UserGender?
   maritalStatus       String?
   disability          String?
   DOB                 String?
-  accountType         UserAccount  @default(personalUser)
+  accountType         UserAccount     @default(personalUser)
   department          String?
   jobRole             String?
   password            String?
-  role                SystemRole   @default(user)
-  passwordResetCode   String?      @unique
-  companyUser         CompanyUser? @relation(fields: [createdBy], references: [id])
+  role                SystemRole      @default(user)
+  passwordResetCode   String?         @unique
+  companyUser         CompanyUser?    @relation(fields: [createdBy], references: [id])
   createdBy           String?
   lastLogin           DateTime?
   passportImg         String?
-  isActive            Boolean?     @default(false)
-  updated_at          DateTime?    @updatedAt
-  isEmailVerified     Boolean?     @default(false)
-  verificationCode    String?      @unique
-  status              UserStatus   @default(inactive)
+  isActive            Boolean?        @default(false)
+  updated_at          DateTime?       @updatedAt
+  isEmailVerified     Boolean?        @default(false)
+  verificationCode    String?         @unique
+  status              UserStatus      @default(inactive)
   address             String?
   bio                 String?
-  emailNotification   Boolean?     @default(false)
-  campaignNtification Boolean?     @default(false)
-  termsConditions     Boolean?     @default(false)
-  addedBy             String?      @unique
+  emailNotification   Boolean?        @default(false)
+  campaignNtification Boolean?        @default(false)
+  termsConditions     Boolean?        @default(false)
+  addedBy             String?         @unique
+  userCircleIn        UserCircles?     @relation("memberInCrircle", fields: [userCircleId], references: [id])
+  userCircleId        String?
   circleName          String?
   circleId            String?
-  myCircles           Circles[]
+  companyCirle        CompanyCircles? @relation(fields: [coyCircleAttachedTo], references: [id])
+  coyCircleAttachedTo String?
+  userCircles         UserCircles[]   @relation("userCircles")
 }
 
-model Circles {
-  id                String        @id @unique @default(cuid())
-  created_at        DateTime?     @default(now())
-  circleName        String?       @unique
-  circleDescription String?       @db.VarChar(1000)
-  circleShareLink   String?
-  wellbeingScore    String?
-  activityLevel     ActivityLevel
-  companyUser       CompanyUser?  @relation(fields: [companyUserId], references: [id], map: "circles_company_user_fkey")
-  user              User?         @relation(fields: [userId], references: [id], map: "circles_user_fkey")
-  companyUserId     String?
-  userId            String?
-  createdBy         String?
-  circleStatus      UserStatus    @default(inactive)
-  circleNos         String?
-
-  @@unique([id, circleName])
+model UserCircles {
+  id                    String        @id @unique @default(cuid())
+  created_at            DateTime?     @default(now())
+  userCircleName        String?       @unique
+  userCircleDescription String?       @db.VarChar(1000)
+  userCircleShareLink   String?
+  wellbeingScore        String?
+  activityLevel         ActivityLevel
+  user                  User?         @relation("userCircles", fields: [userId], references: [id])
+  userId                String?
+  createdBy             String?
+  coyCircleStatus       UserStatus    @default(inactive)
+  coyCircleNos          String?
+  membersList           User[]        @relation("memberInCrircle")
 }
 
 enum SystemRole {

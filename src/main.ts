@@ -9,7 +9,7 @@ import {
   NestConfig,
   SwaggerConfig,
 } from "./common/configs/config.interface";
-import { ResponseInterceptor } from "./responeFilter/respone.service";
+import { ResponseInterceptor } from "./filter/responseFilter/respone.service";
 
 async function bootstrap() {
   const CSS_URL =
