@@ -35,7 +35,7 @@ export class PasswordService {
   generateTokens(payload: IPayload) {
     return {
       accessToken: this.generateAccessToken(payload),
-      refreshToken: this.generateRefreshToken(payload),
+      // refreshToken: this.generateRefreshToken(payload),
     };
   }
 
