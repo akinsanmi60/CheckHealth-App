@@ -22,7 +22,7 @@ import { MailService } from "../mail/mail.service";
 import { ResponseInterceptor } from "../filter/responseFilter/respone.service";
 import { UserGender, UserAccount } from "../../prisma/generated/client";
 import { AuthResolver } from "./authFinder.service";
-import { Users } from "src/types/appUsers.type";
+import { Users } from "src/types/appModel.type";
 
 @UseInterceptors(ResponseInterceptor)
 @Injectable()
@@ -441,9 +441,7 @@ export class AuthService {
 
     return {
       message: "User fetched successfully",
-      data: {
-        ...user,
-      },
+      data: user,
     };
   }
 

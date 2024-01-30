@@ -20,7 +20,7 @@ import { PasswordService } from "./password.service";
 import { MailService } from "../mail/mail.service";
 import { ResponseInterceptor } from "../filter/responseFilter/respone.service";
 import { AuthResolver } from "./authFinder.service";
-import { CompanyUser } from "src/types/appUsers.type";
+import { CompanyUser } from "src/types/appModel.type";
 
 @UseInterceptors(ResponseInterceptor)
 @Injectable()
@@ -420,9 +420,7 @@ export class CompanyAuthService {
 
     return {
       message: "Company fetched successfully",
-      data: {
-        ...company,
-      },
+      data: company,
     };
   }
 

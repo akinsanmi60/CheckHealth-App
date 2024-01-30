@@ -2,6 +2,7 @@ import { Prisma } from "./../../prisma/generated/client/index.d";
 import { Injectable } from "@nestjs/common";
 
 import { PrismaService } from "src/prisma/prisma.service";
+import { CompanyCirle, UserCircle } from "src/types/appModel.type";
 
 type CompanyUser = Prisma.CompanyUserCreateInput;
 type Users = Prisma.UserCreateInput;
@@ -13,9 +14,11 @@ type FiledToUpdate =
   | "id"
   | "passwordResetCode"
   | "verificationCode"
-  | "lastLogin";
+  | "lastLogin"
+  | "coyCircleName";
 
 type SystemUsers = "user" | "companyUser";
+type SystemCircles = "companyCircle" | "userCircle";
 
 @Injectable()
 export class AuthResolver {
@@ -74,5 +77,60 @@ export class AuthResolver {
     }
 
     return foundUser as CompanyUser | Users;
+  }
+
+  async findCirlceWithField(
+    value: string,
+    field: FiledToUpdate,
+    entity: SystemCircles,
+  ): Promise<CompanyCirle | UserCircle | null> {
+    const whereClause: Record<string, string> = {};
+    whereClause[field] = value;
+
+    let foundCircle: CompanyCirle | UserCircle | null;
+
+    if (entity === "companyCircle") {
+      foundCircle = await this.prisma.companyCircles.findUnique({
+        where: whereClause as unknown as Prisma.CompanyCirclesWhereUniqueInput,
+      });
+    } else if (entity === "userCircle") {
+      foundCircle = await this.prisma.userCircles.findUnique({
+        where: whereClause as unknown as Prisma.UserCirclesWhereUniqueInput,
+      });
+    } else {
+      throw new Error("Invalid entity specified");
+    }
+
+    return foundCircle;
+  }
+
+  async findAndUpdateCircleField(
+    data: any,
+    entity: SystemCircles,
+    field: FiledToUpdate,
+    value: string,
+  ): Promise<CompanyCirle | UserCircle | null> {
+    const whereClause: Record<string, string> = {};
+    whereClause[field] = value;
+
+    let foundCircle: CompanyCirle | UserCircle | null;
+
+    if (entity === "companyCircle") {
+      foundCircle = (await this.prisma.companyCircles.update({
+        where: whereClause as unknown as Prisma.CompanyCirclesWhereUniqueInput,
+        data: {
+          ...data,
+        },
+      })) as CompanyCirle;
+    } else if (entity === "userCircle") {
+      foundCircle = (await this.prisma.userCircles.update({
+        where: whereClause as unknown as Prisma.UserCirclesWhereUniqueInput,
+        data: {
+          ...data,
+        },
+      })) as UserCircle;
+    }
+
+    return foundCircle as CompanyCirle | UserCircle;
   }
 }

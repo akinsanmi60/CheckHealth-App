@@ -52,6 +52,7 @@ model CompanyUser {
 model CompanyCircles {
   id                   String        @id @unique @default(cuid())
   created_at           DateTime?     @default(now())
+    updated_at          DateTime?       @updatedAt
   coyCircleName        String?       @unique
   coyCircleDescription String?       @db.VarChar(1000)
   coyCircleShareLink   String?
@@ -59,7 +60,6 @@ model CompanyCircles {
   activityLevel        ActivityLevel @default(low)
   companyUser          CompanyUser?  @relation(fields: [companyUserId], references: [id], map: "circles_company_user_fkey")
   companyUserId        String?
-  createdBy            String?
   coyCircleStatus      UserStatus    @default(inactive)
   coyCircleNos         String?
   memberList           User[]

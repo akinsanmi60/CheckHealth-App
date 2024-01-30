@@ -142,7 +142,6 @@ exports.Prisma.CompanyCirclesScalarFieldEnum = {
   wellbeingScore: 'wellbeingScore',
   activityLevel: 'activityLevel',
   companyUserId: 'companyUserId',
-  createdBy: 'createdBy',
   coyCircleStatus: 'coyCircleStatus',
   coyCircleNos: 'coyCircleNos',
   circleImg: 'circleImg'

@@ -2501,7 +2501,6 @@ export namespace Prisma {
     wellbeingScore: string | null
     activityLevel: $Enums.ActivityLevel | null
     companyUserId: string | null
-    createdBy: string | null
     coyCircleStatus: $Enums.UserStatus | null
     coyCircleNos: string | null
     circleImg: string | null
@@ -2516,7 +2515,6 @@ export namespace Prisma {
     wellbeingScore: string | null
     activityLevel: $Enums.ActivityLevel | null
     companyUserId: string | null
-    createdBy: string | null
     coyCircleStatus: $Enums.UserStatus | null
     coyCircleNos: string | null
     circleImg: string | null
@@ -2531,7 +2529,6 @@ export namespace Prisma {
     wellbeingScore: number
     activityLevel: number
     companyUserId: number
-    createdBy: number
     coyCircleStatus: number
     coyCircleNos: number
     circleImg: number
@@ -2548,7 +2545,6 @@ export namespace Prisma {
     wellbeingScore?: true
     activityLevel?: true
     companyUserId?: true
-    createdBy?: true
     coyCircleStatus?: true
     coyCircleNos?: true
     circleImg?: true
@@ -2563,7 +2559,6 @@ export namespace Prisma {
     wellbeingScore?: true
     activityLevel?: true
     companyUserId?: true
-    createdBy?: true
     coyCircleStatus?: true
     coyCircleNos?: true
     circleImg?: true
@@ -2578,7 +2573,6 @@ export namespace Prisma {
     wellbeingScore?: true
     activityLevel?: true
     companyUserId?: true
-    createdBy?: true
     coyCircleStatus?: true
     coyCircleNos?: true
     circleImg?: true
@@ -2666,7 +2660,6 @@ export namespace Prisma {
     wellbeingScore: string | null
     activityLevel: $Enums.ActivityLevel
     companyUserId: string | null
-    createdBy: string | null
     coyCircleStatus: $Enums.UserStatus
     coyCircleNos: string | null
     circleImg: string | null
@@ -2698,7 +2691,6 @@ export namespace Prisma {
     wellbeingScore?: boolean
     activityLevel?: boolean
     companyUserId?: boolean
-    createdBy?: boolean
     coyCircleStatus?: boolean
     coyCircleNos?: boolean
     circleImg?: boolean
@@ -2716,7 +2708,6 @@ export namespace Prisma {
     wellbeingScore?: boolean
     activityLevel?: boolean
     companyUserId?: boolean
-    createdBy?: boolean
     coyCircleStatus?: boolean
     coyCircleNos?: boolean
     circleImg?: boolean
@@ -2744,7 +2735,6 @@ export namespace Prisma {
       wellbeingScore: string | null
       activityLevel: $Enums.ActivityLevel
       companyUserId: string | null
-      createdBy: string | null
       coyCircleStatus: $Enums.UserStatus
       coyCircleNos: string | null
       circleImg: string | null
@@ -3153,7 +3143,6 @@ export namespace Prisma {
     readonly wellbeingScore: FieldRef<"CompanyCircles", 'String'>
     readonly activityLevel: FieldRef<"CompanyCircles", 'ActivityLevel'>
     readonly companyUserId: FieldRef<"CompanyCircles", 'String'>
-    readonly createdBy: FieldRef<"CompanyCircles", 'String'>
     readonly coyCircleStatus: FieldRef<"CompanyCircles", 'UserStatus'>
     readonly coyCircleNos: FieldRef<"CompanyCircles", 'String'>
     readonly circleImg: FieldRef<"CompanyCircles", 'String'>
@@ -5946,7 +5935,6 @@ export namespace Prisma {
     wellbeingScore: 'wellbeingScore',
     activityLevel: 'activityLevel',
     companyUserId: 'companyUserId',
-    createdBy: 'createdBy',
     coyCircleStatus: 'coyCircleStatus',
     coyCircleNos: 'coyCircleNos',
     circleImg: 'circleImg'
@@ -6325,7 +6313,6 @@ export namespace Prisma {
     wellbeingScore?: StringNullableFilter<"CompanyCircles"> | string | null
     activityLevel?: EnumActivityLevelFilter<"CompanyCircles"> | $Enums.ActivityLevel
     companyUserId?: StringNullableFilter<"CompanyCircles"> | string | null
-    createdBy?: StringNullableFilter<"CompanyCircles"> | string | null
     coyCircleStatus?: EnumUserStatusFilter<"CompanyCircles"> | $Enums.UserStatus
     coyCircleNos?: StringNullableFilter<"CompanyCircles"> | string | null
     circleImg?: StringNullableFilter<"CompanyCircles"> | string | null
@@ -6342,7 +6329,6 @@ export namespace Prisma {
     wellbeingScore?: SortOrderInput | SortOrder
     activityLevel?: SortOrder
     companyUserId?: SortOrderInput | SortOrder
-    createdBy?: SortOrderInput | SortOrder
     coyCircleStatus?: SortOrder
     coyCircleNos?: SortOrderInput | SortOrder
     circleImg?: SortOrderInput | SortOrder
@@ -6362,7 +6348,6 @@ export namespace Prisma {
     wellbeingScore?: StringNullableFilter<"CompanyCircles"> | string | null
     activityLevel?: EnumActivityLevelFilter<"CompanyCircles"> | $Enums.ActivityLevel
     companyUserId?: StringNullableFilter<"CompanyCircles"> | string | null
-    createdBy?: StringNullableFilter<"CompanyCircles"> | string | null
     coyCircleStatus?: EnumUserStatusFilter<"CompanyCircles"> | $Enums.UserStatus
     coyCircleNos?: StringNullableFilter<"CompanyCircles"> | string | null
     circleImg?: StringNullableFilter<"CompanyCircles"> | string | null
@@ -6379,7 +6364,6 @@ export namespace Prisma {
     wellbeingScore?: SortOrderInput | SortOrder
     activityLevel?: SortOrder
     companyUserId?: SortOrderInput | SortOrder
-    createdBy?: SortOrderInput | SortOrder
     coyCircleStatus?: SortOrder
     coyCircleNos?: SortOrderInput | SortOrder
     circleImg?: SortOrderInput | SortOrder
@@ -6400,7 +6384,6 @@ export namespace Prisma {
     wellbeingScore?: StringNullableWithAggregatesFilter<"CompanyCircles"> | string | null
     activityLevel?: EnumActivityLevelWithAggregatesFilter<"CompanyCircles"> | $Enums.ActivityLevel
     companyUserId?: StringNullableWithAggregatesFilter<"CompanyCircles"> | string | null
-    createdBy?: StringNullableWithAggregatesFilter<"CompanyCircles"> | string | null
     coyCircleStatus?: EnumUserStatusWithAggregatesFilter<"CompanyCircles"> | $Enums.UserStatus
     coyCircleNos?: StringNullableWithAggregatesFilter<"CompanyCircles"> | string | null
     circleImg?: StringNullableWithAggregatesFilter<"CompanyCircles"> | string | null
@@ -6911,7 +6894,6 @@ export namespace Prisma {
     coyCircleShareLink?: string | null
     wellbeingScore?: string | null
     activityLevel?: $Enums.ActivityLevel
-    createdBy?: string | null
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
@@ -6928,7 +6910,6 @@ export namespace Prisma {
     wellbeingScore?: string | null
     activityLevel?: $Enums.ActivityLevel
     companyUserId?: string | null
-    createdBy?: string | null
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
@@ -6943,7 +6924,6 @@ export namespace Prisma {
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
-    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6960,7 +6940,6 @@ export namespace Prisma {
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     companyUserId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6976,7 +6955,6 @@ export namespace Prisma {
     wellbeingScore?: string | null
     activityLevel?: $Enums.ActivityLevel
     companyUserId?: string | null
-    createdBy?: string | null
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
@@ -6990,7 +6968,6 @@ export namespace Prisma {
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
-    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7005,7 +6982,6 @@ export namespace Prisma {
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     companyUserId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7631,7 +7607,6 @@ export namespace Prisma {
     wellbeingScore?: SortOrder
     activityLevel?: SortOrder
     companyUserId?: SortOrder
-    createdBy?: SortOrder
     coyCircleStatus?: SortOrder
     coyCircleNos?: SortOrder
     circleImg?: SortOrder
@@ -7646,7 +7621,6 @@ export namespace Prisma {
     wellbeingScore?: SortOrder
     activityLevel?: SortOrder
     companyUserId?: SortOrder
-    createdBy?: SortOrder
     coyCircleStatus?: SortOrder
     coyCircleNos?: SortOrder
     circleImg?: SortOrder
@@ -7661,7 +7635,6 @@ export namespace Prisma {
     wellbeingScore?: SortOrder
     activityLevel?: SortOrder
     companyUserId?: SortOrder
-    createdBy?: SortOrder
     coyCircleStatus?: SortOrder
     coyCircleNos?: SortOrder
     circleImg?: SortOrder
@@ -8541,7 +8514,6 @@ export namespace Prisma {
     coyCircleShareLink?: string | null
     wellbeingScore?: string | null
     activityLevel?: $Enums.ActivityLevel
-    createdBy?: string | null
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
@@ -8556,7 +8528,6 @@ export namespace Prisma {
     coyCircleShareLink?: string | null
     wellbeingScore?: string | null
     activityLevel?: $Enums.ActivityLevel
-    createdBy?: string | null
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
@@ -8659,7 +8630,6 @@ export namespace Prisma {
     wellbeingScore?: StringNullableFilter<"CompanyCircles"> | string | null
     activityLevel?: EnumActivityLevelFilter<"CompanyCircles"> | $Enums.ActivityLevel
     companyUserId?: StringNullableFilter<"CompanyCircles"> | string | null
-    createdBy?: StringNullableFilter<"CompanyCircles"> | string | null
     coyCircleStatus?: EnumUserStatusFilter<"CompanyCircles"> | $Enums.UserStatus
     coyCircleNos?: StringNullableFilter<"CompanyCircles"> | string | null
     circleImg?: StringNullableFilter<"CompanyCircles"> | string | null
@@ -8993,7 +8963,6 @@ export namespace Prisma {
     coyCircleShareLink?: string | null
     wellbeingScore?: string | null
     activityLevel?: $Enums.ActivityLevel
-    createdBy?: string | null
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
@@ -9009,7 +8978,6 @@ export namespace Prisma {
     wellbeingScore?: string | null
     activityLevel?: $Enums.ActivityLevel
     companyUserId?: string | null
-    createdBy?: string | null
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
@@ -9181,7 +9149,6 @@ export namespace Prisma {
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
-    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9197,7 +9164,6 @@ export namespace Prisma {
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     companyUserId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9558,7 +9524,6 @@ export namespace Prisma {
     coyCircleShareLink?: string | null
     wellbeingScore?: string | null
     activityLevel?: $Enums.ActivityLevel
-    createdBy?: string | null
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
@@ -9688,7 +9653,6 @@ export namespace Prisma {
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
-    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9703,7 +9667,6 @@ export namespace Prisma {
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
-    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9718,7 +9681,6 @@ export namespace Prisma {
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
-    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null

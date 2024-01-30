@@ -45,7 +45,6 @@ Table CompanyCircles {
   activityLevel ActivityLevel [not null, default: 'low']
   companyUser CompanyUser
   companyUserId String
-  createdBy String
   coyCircleStatus UserStatus [not null, default: 'inactive']
   coyCircleNos String
   memberList User [not null]
