@@ -3,8 +3,10 @@ import {
   IsNotEmpty,
   IsAlpha,
   IsArray,
-  //   ArrayNotEmpty,
   IsString,
+  IsUUID,
+  IsNumber,
+  Length,
 } from "class-validator";
 
 export class CompanyGettingStartedDto {
@@ -18,22 +20,58 @@ export class CompanyGettingStartedDto {
   circleDescription: string;
 
   @ApiProperty({
+    example: ["akintunde60@gmail.com"],
     type: "array",
-    items: {
-      type: "string",
-      example: "akintunde60@gmail.com",
-    },
+    items: { type: "string" },
+    required: true,
+    format: "array",
+    isArray: true,
   })
   @IsArray()
   @IsString({
     each: true,
     message: "Each item in the participants list must be a string.",
   })
-  readonly participantsList: string[];
+  participantsList: string[];
+}
+
+export class GetAllCirclesDto {
+  @IsUUID("4", { message: "ID must be a valid UUID." })
+  @ApiProperty({
+    example: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    required: false,
+  })
+  id: string;
+
+  @ApiProperty({ example: 1, required: false })
+  @IsNumber()
+  page: number;
+
+  @ApiProperty({ example: 10, required: false })
+  @IsNumber()
+  limit: number;
+
+  @ApiProperty({ example: "", required: false })
+  @IsString()
+  search: string;
+
+  @ApiProperty({ example: "male", required: false })
+  @IsString()
+  activityLevel: string;
+
+  @ApiProperty({ example: "08-12-2023", required: false })
+  created_at: string;
 
   @ApiProperty({
-    type: "string",
-    format: "binary",
+    example: "active",
+    required: false,
+    enum: ["active", "inactive"],
   })
-  file: Express.Multer.File;
+  coyCircleStatus: string;
+
+  @ApiProperty({ required: false })
+  @Length(11, 11, {
+    message: "Phone number must be at must be 11 characters long.",
+  })
+  coyCircleNos: string;
 }
