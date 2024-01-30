@@ -152,6 +152,10 @@ export class AuthService {
         meassage: "Email verification success",
       };
     }
+
+    return {
+      meassage: "Email verification success",
+    };
   }
 
   async changePassword(id: string, dto: ChangePasswordDto) {
