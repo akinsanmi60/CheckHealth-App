@@ -15,7 +15,9 @@ type FiledToUpdate =
   | "passwordResetCode"
   | "verificationCode"
   | "lastLogin"
-  | "coyCircleName";
+  | "coyCircleName"
+  | "userCircleName"
+  | "userCircleNos";
 
 type SystemUsers = "user" | "companyUser";
 type SystemCircles = "companyCircle" | "userCircle";

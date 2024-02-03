@@ -36,7 +36,7 @@ export class CompanyGettingStartedDto {
   participantsList: string[];
 }
 
-export class GetAllCirclesDto {
+export class GetAllUserCirclesDto {
   @IsUUID("4", { message: "ID must be a valid UUID." })
   @ApiProperty({
     example: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -57,7 +57,7 @@ export class GetAllCirclesDto {
   search: string;
 
   @ApiProperty({
-    example: "male",
+    example: "low",
     required: false,
     enum: ["low", "moderate", "high", "moderatelyHigh", "excellent"],
   })
@@ -72,13 +72,13 @@ export class GetAllCirclesDto {
     required: false,
     enum: ["active", "inactive"],
   })
-  coyCircleStatus: string;
+  userCircleStatus: string;
 
   @ApiProperty({ required: false })
   @Length(9, 9, {
-    message: "Coy circle number must be at must be 9 characters long.",
+    message: "Circle number must be at must be 9 characters long.",
   })
-  coyCircleNos: string;
+  userCircleNos: string;
 }
 
 export class GetSingleCirclesDto {

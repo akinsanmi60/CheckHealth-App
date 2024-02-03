@@ -4,22 +4,19 @@ import {
   UseInterceptors,
 } from "@nestjs/common";
 import { AuthResolver } from "src/auth/authFinder.service";
-import { ResponseInterceptor } from "src/filter/responseFilter/respone.service";
-import { PrismaService } from "src/prisma/prisma.service";
-import {
-  AddMemberToCircleDto,
-  CompanyGettingStartedDto,
-  GetAllCirclesDto,
-} from "./dto/circle.dto";
-import { CompanyCirle } from "src/types/appModel.type";
-import * as crypto from "crypto";
-import { MailService } from "../../mail/mail.service";
 import { PasswordService } from "src/auth/password.service";
+import { ResponseInterceptor } from "src/filter/responseFilter/respone.service";
+import { MailService } from "../../mail/mail.service";
+import { PrismaService } from "src/prisma/prisma.service";
+import { UserCircle } from "src/types/appModel.type";
+import { CompanyGettingStartedDto } from "../circles/dto/circle.dto";
+import * as crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
+import { GetAllUserCirclesDto } from "./dto/usercircle.dto";
 
 @Injectable()
 @UseInterceptors(ResponseInterceptor)
-export class CirclesService {
+export class UserService {
   private readonly timeGenerated: string;
 
   constructor(
@@ -31,7 +28,7 @@ export class CirclesService {
     this.timeGenerated = new Date().toISOString();
   }
 
-  async createCirlce(
+  async createUserCirlce(
     dto: CompanyGettingStartedDto,
     id: string,
     file: Express.Multer.File,
@@ -62,7 +59,7 @@ export class CirclesService {
       throw new BadRequestException("Participants list cannot be empty.");
     }
 
-    if (participantsList.length > 10) {
+    if (participantsList.length > 5) {
       throw new BadRequestException("Maximum of 10 participants allowed.");
     }
 
@@ -73,9 +70,9 @@ export class CirclesService {
 
     const foundCircle = (await this.authResolver.findCirlceWithField(
       dto.circleName,
-      "coyCircleName",
-      "companyCircle",
-    )) as CompanyCirle;
+      "userCircleName",
+      "userCircle",
+    )) as UserCircle;
 
     if (foundCircle) {
       throw new BadRequestException(
@@ -99,23 +96,23 @@ export class CirclesService {
           throw new BadRequestException("One or more participants not found.");
         }
 
-        const circleCreated = await this.prisma.companyCircles.create({
+        const circleCreated = await this.prisma.userCircles.create({
           data: {
             id: uuidv4(),
             circleImg: file.filename,
-            coyCircleName: dto.circleName,
-            coyCircleDescription: dto.circleDescription,
-            coyCircleNos: `${firstThreeLetters}-${code}${lastTwo}`,
-            companyUser: {
+            userCircleName: dto.circleName,
+            userCircleDescription: dto.circleDescription,
+            userCircleNos: `${firstThreeLetters}-${code}${lastTwo}`,
+            user: {
               connect: { id: id },
             },
-            memberList: {
+            membersList: {
               connect: foundUsers.map(user => ({
                 id: user.id,
               })),
             },
             created_at: this.timeGenerated,
-            coyCircleStatus: "active",
+            userCircleStatus: "active",
           },
         });
 
@@ -132,16 +129,16 @@ export class CirclesService {
     }
   }
 
-  async getAllCompanyCircles(dto: GetAllCirclesDto) {
+  async getAllUserCircles(dto: GetAllUserCirclesDto) {
     const {
       created_at,
       page = 1,
       limit = 10,
       id,
       search,
-      coyCircleNos,
+      userCircleNos,
       activityLevel,
-      coyCircleStatus,
+      userCircleStatus,
     } = dto;
 
     try {
@@ -161,15 +158,15 @@ export class CirclesService {
         };
       }
 
-      if (coyCircleNos) {
-        where.coyCircleNos = {
-          contains: coyCircleNos,
+      if (userCircleNos) {
+        where.userCircleNos = {
+          contains: userCircleNos,
           mode: "insensitive",
         };
       }
 
-      if (coyCircleStatus) {
-        where.coyCircleStatus = coyCircleStatus;
+      if (userCircleStatus) {
+        where.userCircleStatus = userCircleStatus;
       }
 
       if (activityLevel) {
@@ -179,39 +176,39 @@ export class CirclesService {
       if (search) {
         where.OR = [
           {
-            coyCircleStatus: search.toString(),
+            userCircleStatus: search.toString(),
           },
 
           {
-            coyCircleNos: search.toString(),
+            userCircleNos: search.toString(),
           },
 
           {
             activityLevel: search.toString(),
           },
           {
-            coyCircleName: search.toString(),
+            userCircleName: search.toString(),
           },
           { id: { contains: search.toString(), mode: "insensitive" } },
           // Add more fields as needed
         ];
       }
 
-      const [allCoyCircles, totalCount] = await Promise.all([
-        this.prisma.companyCircles.findMany({
+      const [allUserCircles, totalCount] = await Promise.all([
+        this.prisma.userCircles.findMany({
           where,
           select: {
             id: true,
             created_at: true,
             activityLevel: true,
-            coyCircleDescription: true,
+            userCircleDescription: true,
             circleImg: true,
-            coyCircleName: true,
-            companyUserId: true,
+            userCircleName: true,
+            userId: true,
             wellbeingScore: true,
-            coyCircleStatus: true,
-            coyCircleNos: true,
-            memberList: {
+            userCircleStatus: true,
+            userCircleNos: true,
+            membersList: {
               select: {
                 email: true,
                 passportImg: true,
@@ -228,17 +225,17 @@ export class CirclesService {
           skip,
           take: offset as number,
         }),
-        this.prisma.companyCircles.count({
+        this.prisma.userCircles.count({
           where,
         }),
       ]);
 
       const totalPages = Math.ceil(totalCount / limitNumber);
 
-      const message = allCoyCircles.length
-        ? "Company circles fetched successfully"
-        : "No Company circles Found";
-      const success = allCoyCircles?.length ? true : false;
+      const message = allUserCircles.length
+        ? "User circles fetched successfully"
+        : "No user circles Found";
+      const success = allUserCircles?.length ? true : false;
 
       return {
         message,
@@ -247,32 +244,31 @@ export class CirclesService {
           total_pages: success ? totalPages : 0,
           current_page: success ? Number(page) : 0,
           page_size: success ? offset : 0,
-          comapnyCircle_list: allCoyCircles,
+          comapnyCircle_list: allUserCircles,
         },
       };
     } catch (error) {
-      console.error("Error in get all company circles:", error);
+      console.error("Error in get all user circles:", error);
       throw error;
     }
   }
 
-  async getCompanyCircleById(id: string) {
-    const companyCircle = await this.prisma.companyCircles.findUnique({
+  async getUserCircleById(id: string) {
+    const userCircle = await this.prisma.userCircles.findUnique({
       where: { id },
       select: {
         id: true,
         created_at: true,
         activityLevel: true,
-        coyCircleDescription: true,
+        userCircleDescription: true,
         circleImg: true,
-        coyCircleName: true,
-        companyUserId: true,
+        userCircleName: true,
+        userId: true,
         wellbeingScore: true,
-        coyCircleStatus: true,
-        coyCircleNos: true,
-        memberList: {
+        userCircleStatus: true,
+        userCircleNos: true,
+        membersList: {
           select: {
-            id: true,
             email: true,
             passportImg: true,
             ageRange: true,
@@ -282,148 +278,121 @@ export class CirclesService {
             jobRole: true,
             role: true,
           },
+          orderBy: { created_at: "desc" },
         },
       },
     });
 
-    if (!companyCircle) {
-      throw new BadRequestException("Company circle not found");
+    if (!userCircle) {
+      throw new BadRequestException("User circle not found");
     }
 
     return {
-      message: "Company circle fetched successfully",
-      data: companyCircle,
+      message: "User circle fetched successfully",
+      data: userCircle,
     };
   }
 
-  async deactivateCompanyCircle(id: string) {
-    const data = {
-      coyCircleStatus: "inactive",
-      updated_at: this.timeGenerated,
-    };
-
-    const deactivatedUser = (await this.authResolver.findAndUpdateCircleField(
-      data,
-      "companyCircle",
-      "id",
-      id,
-    )) as CompanyCirle;
-
-    if (!deactivatedUser) {
-      throw new BadRequestException(
-        `Failed to deactivate company circle ${deactivatedUser.coyCircleNos}`,
-      );
-    }
-
-    if (deactivatedUser) {
-      return {
-        message: `Company circle ${deactivatedUser.coyCircleNos} deactivated successfully`,
-      };
-    }
-  }
-
-  async activateCompanyCircle(id: string) {
+  async activateUserCircle(id: string) {
     const data = {
       coyCircleStatus: "active",
       updated_at: this.timeGenerated,
     };
 
-    const activatedCompany = (await this.authResolver.findAndUpdateCircleField(
+    const activatedCircle = (await this.authResolver.findAndUpdateCircleField(
       data,
-      "companyCircle",
+      "userCircle",
       "id",
       id,
-    )) as CompanyCirle;
+    )) as UserCircle;
 
-    if (!activatedCompany) {
+    if (!activatedCircle) {
       throw new BadRequestException(
-        `Failed to activate company ${activatedCompany.coyCircleNos}`,
+        `Failed to activate company ${activatedCircle.userCircleNos}`,
       );
     }
 
-    if (activatedCompany) {
+    if (activatedCircle) {
       return {
-        message: `Company circle ${activatedCompany.coyCircleNos} activated successfully`,
+        message: `Company circle ${activatedCircle.userCircleNos} activated successfully`,
       };
     }
   }
 
-  async deleteCompanyCircle(id: string) {
-    const companyCircle = await this.prisma.companyCircles.delete({
-      where: { id },
-    });
+  async deactivateUserCircle(id: string) {
+    const data = {
+      coyCircleStatus: "inactive",
+      updated_at: this.timeGenerated,
+    };
 
-    if (!companyCircle) {
+    const deactivatedCircle = (await this.authResolver.findAndUpdateCircleField(
+      data,
+      "userCircle",
+      "id",
+      id,
+    )) as UserCircle;
+
+    if (!deactivatedCircle) {
       throw new BadRequestException(
-        "Failed to delete company circle. Please try again later",
+        `Failed to deactivate company circle ${deactivatedCircle.userCircleNos}`,
       );
     }
 
-    return {
-      message: "Company circle deleted successfully",
-    };
+    if (deactivatedCircle) {
+      return {
+        message: `Company circle ${deactivatedCircle.userCircleNos} deactivated successfully`,
+      };
+    }
   }
 
-  async addMemberToCircle(id: string, dto: AddMemberToCircleDto) {
-    const foundUser = await this.authResolver.findUserWithField(
-      dto.email,
-      "email",
-      "user",
-    );
-
-    if (!foundUser) {
-      const randomPassword = crypto.randomBytes(6).toString("hex");
-      const hashedPassword =
-        await this.passwordService.hashPassword(randomPassword);
-      const code = crypto.randomInt(1000, 9999).toString();
-
-      const newCreatedEntity = await this.prisma.user.create({
-        data: {
-          id: uuidv4(),
-          email: dto.email,
-          created_at: this.timeGenerated,
-          password: hashedPassword,
-          status: "pending",
-          isEmailVerified: false,
-          verificationCode: code,
-          termsConditions: true,
-          accountType: "clientUser",
-        },
-      });
-
-      if (newCreatedEntity) {
-        await this.mailService.userSignUp({
-          to: dto.email,
-          data: {
-            code: code.toString(),
+  async leaveUserCircle(id: string, dto: any) {
+    try {
+      await this.prisma.$transaction(async () => {
+        const findCirlceWithCircleNos = await this.prisma.userCircles.update({
+          where: {
+            userCircleNos: dto.userCircleNos,
           },
-        });
-      }
-    }
-
-    const memberInCircle = await this.prisma.companyCircles.update({
-      where: {
-        id: id,
-      },
-      data: {
-        memberList: {
-          create: {
-            id: uuidv4(),
-            email: dto.email,
-            companyUser: {
-              connect: {
+          data: {
+            membersList: {
+              disconnect: {
                 id: id,
               },
             },
           },
-        },
-      },
-    });
+        });
 
-    if (!memberInCircle) {
-      throw new BadRequestException(
-        "Failed to add member to company circle. Please try again later",
-      );
+        if (!findCirlceWithCircleNos) {
+          throw new BadRequestException(
+            `Failed to remove you from company circle ${findCirlceWithCircleNos.userCircleNos}`,
+          );
+        }
+
+        const disconnectFromUser = await this.prisma.user.update({
+          where: {
+            id: id,
+          },
+          data: {
+            userCircles: {
+              disconnect: {
+                userCircleNos: findCirlceWithCircleNos.userCircleNos,
+              },
+            },
+          },
+        });
+
+        if (!disconnectFromUser) {
+          throw new BadRequestException(
+            `Failed to remove you from company circle ${findCirlceWithCircleNos.userCircleNos}`,
+          );
+        }
+
+        return {
+          message: `Successfully removed you from company circle ${findCirlceWithCircleNos.userCircleNos}`,
+        };
+      });
+    } catch (error) {
+      console.error("Error in leave user circle:", error);
+      throw error || new Error("Failed to leave user circle");
     }
   }
 }

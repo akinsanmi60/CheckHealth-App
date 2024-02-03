@@ -38,6 +38,7 @@ Table CompanyUser {
 Table CompanyCircles {
   id String [pk]
   created_at DateTime [default: `now()`]
+  updated_at DateTime
   coyCircleName String [unique]
   coyCircleDescription String
   coyCircleShareLink String
@@ -49,6 +50,8 @@ Table CompanyCircles {
   coyCircleNos String
   memberList User [not null]
   circleImg String
+  user User
+  userAttachedID String
 }
 
 Table User {
@@ -87,26 +90,27 @@ Table User {
   addedBy String [unique]
   userCircleIn UserCircles
   userCircleId String
-  circleName String
-  circleId String
   companyCirle CompanyCircles
-  coyCircleAttachedTo String
+  coyCircleAttachedTo String [not null]
   userCircles UserCircles [not null]
+  coyCirclesList CompanyCircles [not null]
 }
 
 Table UserCircles {
   id String [pk]
+  circleImg String
   created_at DateTime [default: `now()`]
+  updated_at DateTime
   userCircleName String [unique]
   userCircleDescription String
   userCircleShareLink String
   wellbeingScore String
-  activityLevel ActivityLevel [not null]
+  activityLevel ActivityLevel [not null, default: 'low']
   user User
   userId String
   createdBy String
-  coyCircleStatus UserStatus [not null, default: 'inactive']
-  coyCircleNos String
+  userCircleStatus UserStatus [not null, default: 'inactive']
+  userCircleNos String [unique]
   membersList User [not null]
 }
 
@@ -158,6 +162,8 @@ Enum MaitalStatus {
 }
 
 Ref: CompanyCircles.companyUserId > CompanyUser.id
+
+Ref: CompanyCircles.userAttachedID - User.id
 
 Ref: User.createdBy > CompanyUser.id
 

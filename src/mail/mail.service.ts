@@ -46,6 +46,38 @@ export class MailService {
       },
     });
   }
+  async addUserSignUp(
+    mailData: MailData<{ name?: string; code: string }>,
+  ): Promise<void> {
+    const emailConfirmTitle = `Thank you for signing up on ${this.app_name}`;
+
+    // const url = new URL(
+    //   this.configService.getOrThrow("FRONTEND_DOMAIN", {
+    //     infer: true,
+    //   }) + "/confirm-email",
+    // );
+    // url.searchParams.set("hash", mailData.data.hash);
+
+    await this.mailerService.sendMail({
+      to: mailData.to,
+      subject: emailConfirmTitle,
+      templatePath: path.join(
+        process.cwd(),
+        "src",
+        "mail",
+        "mail-templates",
+        "addMemberActivation.hbs",
+      ),
+      context: {
+        title: emailConfirmTitle,
+        // url: url?.toString(),
+        actionTitle: emailConfirmTitle,
+        app_name: this.configService.get("APP", { infer: true }),
+        // name: mailData.data.name,
+        code: mailData.data.code,
+      },
+    });
+  }
 
   async forgotPassword(
     mailData: MailData<{ name: string; code: string }>,

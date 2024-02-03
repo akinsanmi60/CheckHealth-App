@@ -11,7 +11,6 @@ import { HttpModule } from "@nestjs/axios";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { JwtService } from "@nestjs/jwt";
 import { APP_GUARD } from "@nestjs/core";
-import { CampaignModule } from "./modules/campaign/campaign.module";
 import { CirclesModule } from "./modules/circles/circles.module";
 
 @Module({
@@ -19,7 +18,6 @@ import { CirclesModule } from "./modules/circles/circles.module";
     ConfigModule.forRoot({ isGlobal: true, load: [config] }),
     HttpModule.register({ timeout: 5000, maxRedirects: 5 }),
     AuthModule,
-    CampaignModule,
     CirclesModule,
     ThrottlerModule.forRoot([
       {

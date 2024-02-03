@@ -136,6 +136,7 @@ exports.Prisma.CompanyUserScalarFieldEnum = {
 exports.Prisma.CompanyCirclesScalarFieldEnum = {
   id: 'id',
   created_at: 'created_at',
+  updated_at: 'updated_at',
   coyCircleName: 'coyCircleName',
   coyCircleDescription: 'coyCircleDescription',
   coyCircleShareLink: 'coyCircleShareLink',
@@ -144,7 +145,8 @@ exports.Prisma.CompanyCirclesScalarFieldEnum = {
   companyUserId: 'companyUserId',
   coyCircleStatus: 'coyCircleStatus',
   coyCircleNos: 'coyCircleNos',
-  circleImg: 'circleImg'
+  circleImg: 'circleImg',
+  userAttachedID: 'userAttachedID'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -181,14 +183,14 @@ exports.Prisma.UserScalarFieldEnum = {
   termsConditions: 'termsConditions',
   addedBy: 'addedBy',
   userCircleId: 'userCircleId',
-  circleName: 'circleName',
-  circleId: 'circleId',
   coyCircleAttachedTo: 'coyCircleAttachedTo'
 };
 
 exports.Prisma.UserCirclesScalarFieldEnum = {
   id: 'id',
+  circleImg: 'circleImg',
   created_at: 'created_at',
+  updated_at: 'updated_at',
   userCircleName: 'userCircleName',
   userCircleDescription: 'userCircleDescription',
   userCircleShareLink: 'userCircleShareLink',
@@ -196,8 +198,8 @@ exports.Prisma.UserCirclesScalarFieldEnum = {
   activityLevel: 'activityLevel',
   userId: 'userId',
   createdBy: 'createdBy',
-  coyCircleStatus: 'coyCircleStatus',
-  coyCircleNos: 'coyCircleNos'
+  userCircleStatus: 'userCircleStatus',
+  userCircleNos: 'userCircleNos'
 };
 
 exports.Prisma.SortOrder = {

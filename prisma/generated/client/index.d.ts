@@ -1251,10 +1251,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     userCircles: number
+    coyCirclesList: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userCircles?: boolean | UserCountOutputTypeCountUserCirclesArgs
+    coyCirclesList?: boolean | UserCountOutputTypeCountCoyCirclesListArgs
   }
 
   // Custom InputTypes
@@ -1275,6 +1277,14 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountUserCirclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserCirclesWhereInput
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCoyCirclesListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanyCirclesWhereInput
   }
 
 
@@ -2495,6 +2505,7 @@ export namespace Prisma {
   export type CompanyCirclesMinAggregateOutputType = {
     id: string | null
     created_at: Date | null
+    updated_at: Date | null
     coyCircleName: string | null
     coyCircleDescription: string | null
     coyCircleShareLink: string | null
@@ -2504,11 +2515,13 @@ export namespace Prisma {
     coyCircleStatus: $Enums.UserStatus | null
     coyCircleNos: string | null
     circleImg: string | null
+    userAttachedID: string | null
   }
 
   export type CompanyCirclesMaxAggregateOutputType = {
     id: string | null
     created_at: Date | null
+    updated_at: Date | null
     coyCircleName: string | null
     coyCircleDescription: string | null
     coyCircleShareLink: string | null
@@ -2518,11 +2531,13 @@ export namespace Prisma {
     coyCircleStatus: $Enums.UserStatus | null
     coyCircleNos: string | null
     circleImg: string | null
+    userAttachedID: string | null
   }
 
   export type CompanyCirclesCountAggregateOutputType = {
     id: number
     created_at: number
+    updated_at: number
     coyCircleName: number
     coyCircleDescription: number
     coyCircleShareLink: number
@@ -2532,6 +2547,7 @@ export namespace Prisma {
     coyCircleStatus: number
     coyCircleNos: number
     circleImg: number
+    userAttachedID: number
     _all: number
   }
 
@@ -2539,6 +2555,7 @@ export namespace Prisma {
   export type CompanyCirclesMinAggregateInputType = {
     id?: true
     created_at?: true
+    updated_at?: true
     coyCircleName?: true
     coyCircleDescription?: true
     coyCircleShareLink?: true
@@ -2548,11 +2565,13 @@ export namespace Prisma {
     coyCircleStatus?: true
     coyCircleNos?: true
     circleImg?: true
+    userAttachedID?: true
   }
 
   export type CompanyCirclesMaxAggregateInputType = {
     id?: true
     created_at?: true
+    updated_at?: true
     coyCircleName?: true
     coyCircleDescription?: true
     coyCircleShareLink?: true
@@ -2562,11 +2581,13 @@ export namespace Prisma {
     coyCircleStatus?: true
     coyCircleNos?: true
     circleImg?: true
+    userAttachedID?: true
   }
 
   export type CompanyCirclesCountAggregateInputType = {
     id?: true
     created_at?: true
+    updated_at?: true
     coyCircleName?: true
     coyCircleDescription?: true
     coyCircleShareLink?: true
@@ -2576,6 +2597,7 @@ export namespace Prisma {
     coyCircleStatus?: true
     coyCircleNos?: true
     circleImg?: true
+    userAttachedID?: true
     _all?: true
   }
 
@@ -2654,6 +2676,7 @@ export namespace Prisma {
   export type CompanyCirclesGroupByOutputType = {
     id: string
     created_at: Date | null
+    updated_at: Date | null
     coyCircleName: string | null
     coyCircleDescription: string | null
     coyCircleShareLink: string | null
@@ -2663,6 +2686,7 @@ export namespace Prisma {
     coyCircleStatus: $Enums.UserStatus
     coyCircleNos: string | null
     circleImg: string | null
+    userAttachedID: string | null
     _count: CompanyCirclesCountAggregateOutputType | null
     _min: CompanyCirclesMinAggregateOutputType | null
     _max: CompanyCirclesMaxAggregateOutputType | null
@@ -2685,6 +2709,7 @@ export namespace Prisma {
   export type CompanyCirclesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     created_at?: boolean
+    updated_at?: boolean
     coyCircleName?: boolean
     coyCircleDescription?: boolean
     coyCircleShareLink?: boolean
@@ -2694,14 +2719,17 @@ export namespace Prisma {
     coyCircleStatus?: boolean
     coyCircleNos?: boolean
     circleImg?: boolean
+    userAttachedID?: boolean
     companyUser?: boolean | CompanyCircles$companyUserArgs<ExtArgs>
     memberList?: boolean | CompanyCircles$memberListArgs<ExtArgs>
+    user?: boolean | CompanyCircles$userArgs<ExtArgs>
     _count?: boolean | CompanyCirclesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["companyCircles"]>
 
   export type CompanyCirclesSelectScalar = {
     id?: boolean
     created_at?: boolean
+    updated_at?: boolean
     coyCircleName?: boolean
     coyCircleDescription?: boolean
     coyCircleShareLink?: boolean
@@ -2711,11 +2739,13 @@ export namespace Prisma {
     coyCircleStatus?: boolean
     coyCircleNos?: boolean
     circleImg?: boolean
+    userAttachedID?: boolean
   }
 
   export type CompanyCirclesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     companyUser?: boolean | CompanyCircles$companyUserArgs<ExtArgs>
     memberList?: boolean | CompanyCircles$memberListArgs<ExtArgs>
+    user?: boolean | CompanyCircles$userArgs<ExtArgs>
     _count?: boolean | CompanyCirclesCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2725,10 +2755,12 @@ export namespace Prisma {
     objects: {
       companyUser: Prisma.$CompanyUserPayload<ExtArgs> | null
       memberList: Prisma.$UserPayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       created_at: Date | null
+      updated_at: Date | null
       coyCircleName: string | null
       coyCircleDescription: string | null
       coyCircleShareLink: string | null
@@ -2738,6 +2770,7 @@ export namespace Prisma {
       coyCircleStatus: $Enums.UserStatus
       coyCircleNos: string | null
       circleImg: string | null
+      userAttachedID: string | null
     }, ExtArgs["result"]["companyCircles"]>
     composites: {}
   }
@@ -3107,6 +3140,8 @@ export namespace Prisma {
 
     memberList<T extends CompanyCircles$memberListArgs<ExtArgs> = {}>(args?: Subset<T, CompanyCircles$memberListArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    user<T extends CompanyCircles$userArgs<ExtArgs> = {}>(args?: Subset<T, CompanyCircles$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3137,6 +3172,7 @@ export namespace Prisma {
   interface CompanyCirclesFieldRefs {
     readonly id: FieldRef<"CompanyCircles", 'String'>
     readonly created_at: FieldRef<"CompanyCircles", 'DateTime'>
+    readonly updated_at: FieldRef<"CompanyCircles", 'DateTime'>
     readonly coyCircleName: FieldRef<"CompanyCircles", 'String'>
     readonly coyCircleDescription: FieldRef<"CompanyCircles", 'String'>
     readonly coyCircleShareLink: FieldRef<"CompanyCircles", 'String'>
@@ -3146,6 +3182,7 @@ export namespace Prisma {
     readonly coyCircleStatus: FieldRef<"CompanyCircles", 'UserStatus'>
     readonly coyCircleNos: FieldRef<"CompanyCircles", 'String'>
     readonly circleImg: FieldRef<"CompanyCircles", 'String'>
+    readonly userAttachedID: FieldRef<"CompanyCircles", 'String'>
   }
     
 
@@ -3495,6 +3532,22 @@ export namespace Prisma {
 
 
   /**
+   * CompanyCircles.user
+   */
+  export type CompanyCircles$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+
+  /**
    * CompanyCircles without action
    */
   export type CompanyCirclesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3554,8 +3607,6 @@ export namespace Prisma {
     termsConditions: boolean | null
     addedBy: string | null
     userCircleId: string | null
-    circleName: string | null
-    circleId: string | null
     coyCircleAttachedTo: string | null
   }
 
@@ -3593,8 +3644,6 @@ export namespace Prisma {
     termsConditions: boolean | null
     addedBy: string | null
     userCircleId: string | null
-    circleName: string | null
-    circleId: string | null
     coyCircleAttachedTo: string | null
   }
 
@@ -3632,8 +3681,6 @@ export namespace Prisma {
     termsConditions: number
     addedBy: number
     userCircleId: number
-    circleName: number
-    circleId: number
     coyCircleAttachedTo: number
     _all: number
   }
@@ -3673,8 +3720,6 @@ export namespace Prisma {
     termsConditions?: true
     addedBy?: true
     userCircleId?: true
-    circleName?: true
-    circleId?: true
     coyCircleAttachedTo?: true
   }
 
@@ -3712,8 +3757,6 @@ export namespace Prisma {
     termsConditions?: true
     addedBy?: true
     userCircleId?: true
-    circleName?: true
-    circleId?: true
     coyCircleAttachedTo?: true
   }
 
@@ -3751,8 +3794,6 @@ export namespace Prisma {
     termsConditions?: true
     addedBy?: true
     userCircleId?: true
-    circleName?: true
-    circleId?: true
     coyCircleAttachedTo?: true
     _all?: true
   }
@@ -3863,9 +3904,7 @@ export namespace Prisma {
     termsConditions: boolean | null
     addedBy: string | null
     userCircleId: string | null
-    circleName: string | null
-    circleId: string | null
-    coyCircleAttachedTo: string | null
+    coyCircleAttachedTo: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -3919,13 +3958,12 @@ export namespace Prisma {
     termsConditions?: boolean
     addedBy?: boolean
     userCircleId?: boolean
-    circleName?: boolean
-    circleId?: boolean
     coyCircleAttachedTo?: boolean
     companyUser?: boolean | User$companyUserArgs<ExtArgs>
     userCircleIn?: boolean | User$userCircleInArgs<ExtArgs>
     companyCirle?: boolean | User$companyCirleArgs<ExtArgs>
     userCircles?: boolean | User$userCirclesArgs<ExtArgs>
+    coyCirclesList?: boolean | User$coyCirclesListArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3963,8 +4001,6 @@ export namespace Prisma {
     termsConditions?: boolean
     addedBy?: boolean
     userCircleId?: boolean
-    circleName?: boolean
-    circleId?: boolean
     coyCircleAttachedTo?: boolean
   }
 
@@ -3973,6 +4009,7 @@ export namespace Prisma {
     userCircleIn?: boolean | User$userCircleInArgs<ExtArgs>
     companyCirle?: boolean | User$companyCirleArgs<ExtArgs>
     userCircles?: boolean | User$userCirclesArgs<ExtArgs>
+    coyCirclesList?: boolean | User$coyCirclesListArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3984,6 +4021,7 @@ export namespace Prisma {
       userCircleIn: Prisma.$UserCirclesPayload<ExtArgs> | null
       companyCirle: Prisma.$CompanyCirclesPayload<ExtArgs> | null
       userCircles: Prisma.$UserCirclesPayload<ExtArgs>[]
+      coyCirclesList: Prisma.$CompanyCirclesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4019,9 +4057,7 @@ export namespace Prisma {
       termsConditions: boolean | null
       addedBy: string | null
       userCircleId: string | null
-      circleName: string | null
-      circleId: string | null
-      coyCircleAttachedTo: string | null
+      coyCircleAttachedTo: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4395,6 +4431,8 @@ export namespace Prisma {
 
     userCircles<T extends User$userCirclesArgs<ExtArgs> = {}>(args?: Subset<T, User$userCirclesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCirclesPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    coyCirclesList<T extends User$coyCirclesListArgs<ExtArgs> = {}>(args?: Subset<T, User$coyCirclesListArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyCirclesPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4456,8 +4494,6 @@ export namespace Prisma {
     readonly termsConditions: FieldRef<"User", 'Boolean'>
     readonly addedBy: FieldRef<"User", 'String'>
     readonly userCircleId: FieldRef<"User", 'String'>
-    readonly circleName: FieldRef<"User", 'String'>
-    readonly circleId: FieldRef<"User", 'String'>
     readonly coyCircleAttachedTo: FieldRef<"User", 'String'>
   }
     
@@ -4840,6 +4876,27 @@ export namespace Prisma {
 
 
   /**
+   * User.coyCirclesList
+   */
+  export type User$coyCirclesListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyCircles
+     */
+    select?: CompanyCirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyCirclesInclude<ExtArgs> | null
+    where?: CompanyCirclesWhereInput
+    orderBy?: CompanyCirclesOrderByWithRelationInput | CompanyCirclesOrderByWithRelationInput[]
+    cursor?: CompanyCirclesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CompanyCirclesScalarFieldEnum | CompanyCirclesScalarFieldEnum[]
+  }
+
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4867,7 +4924,9 @@ export namespace Prisma {
 
   export type UserCirclesMinAggregateOutputType = {
     id: string | null
+    circleImg: string | null
     created_at: Date | null
+    updated_at: Date | null
     userCircleName: string | null
     userCircleDescription: string | null
     userCircleShareLink: string | null
@@ -4875,13 +4934,15 @@ export namespace Prisma {
     activityLevel: $Enums.ActivityLevel | null
     userId: string | null
     createdBy: string | null
-    coyCircleStatus: $Enums.UserStatus | null
-    coyCircleNos: string | null
+    userCircleStatus: $Enums.UserStatus | null
+    userCircleNos: string | null
   }
 
   export type UserCirclesMaxAggregateOutputType = {
     id: string | null
+    circleImg: string | null
     created_at: Date | null
+    updated_at: Date | null
     userCircleName: string | null
     userCircleDescription: string | null
     userCircleShareLink: string | null
@@ -4889,13 +4950,15 @@ export namespace Prisma {
     activityLevel: $Enums.ActivityLevel | null
     userId: string | null
     createdBy: string | null
-    coyCircleStatus: $Enums.UserStatus | null
-    coyCircleNos: string | null
+    userCircleStatus: $Enums.UserStatus | null
+    userCircleNos: string | null
   }
 
   export type UserCirclesCountAggregateOutputType = {
     id: number
+    circleImg: number
     created_at: number
+    updated_at: number
     userCircleName: number
     userCircleDescription: number
     userCircleShareLink: number
@@ -4903,15 +4966,17 @@ export namespace Prisma {
     activityLevel: number
     userId: number
     createdBy: number
-    coyCircleStatus: number
-    coyCircleNos: number
+    userCircleStatus: number
+    userCircleNos: number
     _all: number
   }
 
 
   export type UserCirclesMinAggregateInputType = {
     id?: true
+    circleImg?: true
     created_at?: true
+    updated_at?: true
     userCircleName?: true
     userCircleDescription?: true
     userCircleShareLink?: true
@@ -4919,13 +4984,15 @@ export namespace Prisma {
     activityLevel?: true
     userId?: true
     createdBy?: true
-    coyCircleStatus?: true
-    coyCircleNos?: true
+    userCircleStatus?: true
+    userCircleNos?: true
   }
 
   export type UserCirclesMaxAggregateInputType = {
     id?: true
+    circleImg?: true
     created_at?: true
+    updated_at?: true
     userCircleName?: true
     userCircleDescription?: true
     userCircleShareLink?: true
@@ -4933,13 +5000,15 @@ export namespace Prisma {
     activityLevel?: true
     userId?: true
     createdBy?: true
-    coyCircleStatus?: true
-    coyCircleNos?: true
+    userCircleStatus?: true
+    userCircleNos?: true
   }
 
   export type UserCirclesCountAggregateInputType = {
     id?: true
+    circleImg?: true
     created_at?: true
+    updated_at?: true
     userCircleName?: true
     userCircleDescription?: true
     userCircleShareLink?: true
@@ -4947,8 +5016,8 @@ export namespace Prisma {
     activityLevel?: true
     userId?: true
     createdBy?: true
-    coyCircleStatus?: true
-    coyCircleNos?: true
+    userCircleStatus?: true
+    userCircleNos?: true
     _all?: true
   }
 
@@ -5026,7 +5095,9 @@ export namespace Prisma {
 
   export type UserCirclesGroupByOutputType = {
     id: string
+    circleImg: string | null
     created_at: Date | null
+    updated_at: Date | null
     userCircleName: string | null
     userCircleDescription: string | null
     userCircleShareLink: string | null
@@ -5034,8 +5105,8 @@ export namespace Prisma {
     activityLevel: $Enums.ActivityLevel
     userId: string | null
     createdBy: string | null
-    coyCircleStatus: $Enums.UserStatus
-    coyCircleNos: string | null
+    userCircleStatus: $Enums.UserStatus
+    userCircleNos: string | null
     _count: UserCirclesCountAggregateOutputType | null
     _min: UserCirclesMinAggregateOutputType | null
     _max: UserCirclesMaxAggregateOutputType | null
@@ -5057,7 +5128,9 @@ export namespace Prisma {
 
   export type UserCirclesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    circleImg?: boolean
     created_at?: boolean
+    updated_at?: boolean
     userCircleName?: boolean
     userCircleDescription?: boolean
     userCircleShareLink?: boolean
@@ -5065,8 +5138,8 @@ export namespace Prisma {
     activityLevel?: boolean
     userId?: boolean
     createdBy?: boolean
-    coyCircleStatus?: boolean
-    coyCircleNos?: boolean
+    userCircleStatus?: boolean
+    userCircleNos?: boolean
     user?: boolean | UserCircles$userArgs<ExtArgs>
     membersList?: boolean | UserCircles$membersListArgs<ExtArgs>
     _count?: boolean | UserCirclesCountOutputTypeDefaultArgs<ExtArgs>
@@ -5074,7 +5147,9 @@ export namespace Prisma {
 
   export type UserCirclesSelectScalar = {
     id?: boolean
+    circleImg?: boolean
     created_at?: boolean
+    updated_at?: boolean
     userCircleName?: boolean
     userCircleDescription?: boolean
     userCircleShareLink?: boolean
@@ -5082,8 +5157,8 @@ export namespace Prisma {
     activityLevel?: boolean
     userId?: boolean
     createdBy?: boolean
-    coyCircleStatus?: boolean
-    coyCircleNos?: boolean
+    userCircleStatus?: boolean
+    userCircleNos?: boolean
   }
 
   export type UserCirclesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5101,7 +5176,9 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      circleImg: string | null
       created_at: Date | null
+      updated_at: Date | null
       userCircleName: string | null
       userCircleDescription: string | null
       userCircleShareLink: string | null
@@ -5109,8 +5186,8 @@ export namespace Prisma {
       activityLevel: $Enums.ActivityLevel
       userId: string | null
       createdBy: string | null
-      coyCircleStatus: $Enums.UserStatus
-      coyCircleNos: string | null
+      userCircleStatus: $Enums.UserStatus
+      userCircleNos: string | null
     }, ExtArgs["result"]["userCircles"]>
     composites: {}
   }
@@ -5509,7 +5586,9 @@ export namespace Prisma {
    */ 
   interface UserCirclesFieldRefs {
     readonly id: FieldRef<"UserCircles", 'String'>
+    readonly circleImg: FieldRef<"UserCircles", 'String'>
     readonly created_at: FieldRef<"UserCircles", 'DateTime'>
+    readonly updated_at: FieldRef<"UserCircles", 'DateTime'>
     readonly userCircleName: FieldRef<"UserCircles", 'String'>
     readonly userCircleDescription: FieldRef<"UserCircles", 'String'>
     readonly userCircleShareLink: FieldRef<"UserCircles", 'String'>
@@ -5517,8 +5596,8 @@ export namespace Prisma {
     readonly activityLevel: FieldRef<"UserCircles", 'ActivityLevel'>
     readonly userId: FieldRef<"UserCircles", 'String'>
     readonly createdBy: FieldRef<"UserCircles", 'String'>
-    readonly coyCircleStatus: FieldRef<"UserCircles", 'UserStatus'>
-    readonly coyCircleNos: FieldRef<"UserCircles", 'String'>
+    readonly userCircleStatus: FieldRef<"UserCircles", 'UserStatus'>
+    readonly userCircleNos: FieldRef<"UserCircles", 'String'>
   }
     
 
@@ -5719,7 +5798,7 @@ export namespace Prisma {
     /**
      * The data needed to create a UserCircles.
      */
-    data: XOR<UserCirclesCreateInput, UserCirclesUncheckedCreateInput>
+    data?: XOR<UserCirclesCreateInput, UserCirclesUncheckedCreateInput>
   }
 
 
@@ -5929,6 +6008,7 @@ export namespace Prisma {
   export const CompanyCirclesScalarFieldEnum: {
     id: 'id',
     created_at: 'created_at',
+    updated_at: 'updated_at',
     coyCircleName: 'coyCircleName',
     coyCircleDescription: 'coyCircleDescription',
     coyCircleShareLink: 'coyCircleShareLink',
@@ -5937,7 +6017,8 @@ export namespace Prisma {
     companyUserId: 'companyUserId',
     coyCircleStatus: 'coyCircleStatus',
     coyCircleNos: 'coyCircleNos',
-    circleImg: 'circleImg'
+    circleImg: 'circleImg',
+    userAttachedID: 'userAttachedID'
   };
 
   export type CompanyCirclesScalarFieldEnum = (typeof CompanyCirclesScalarFieldEnum)[keyof typeof CompanyCirclesScalarFieldEnum]
@@ -5977,8 +6058,6 @@ export namespace Prisma {
     termsConditions: 'termsConditions',
     addedBy: 'addedBy',
     userCircleId: 'userCircleId',
-    circleName: 'circleName',
-    circleId: 'circleId',
     coyCircleAttachedTo: 'coyCircleAttachedTo'
   };
 
@@ -5987,7 +6066,9 @@ export namespace Prisma {
 
   export const UserCirclesScalarFieldEnum: {
     id: 'id',
+    circleImg: 'circleImg',
     created_at: 'created_at',
+    updated_at: 'updated_at',
     userCircleName: 'userCircleName',
     userCircleDescription: 'userCircleDescription',
     userCircleShareLink: 'userCircleShareLink',
@@ -5995,8 +6076,8 @@ export namespace Prisma {
     activityLevel: 'activityLevel',
     userId: 'userId',
     createdBy: 'createdBy',
-    coyCircleStatus: 'coyCircleStatus',
-    coyCircleNos: 'coyCircleNos'
+    userCircleStatus: 'userCircleStatus',
+    userCircleNos: 'userCircleNos'
   };
 
   export type UserCirclesScalarFieldEnum = (typeof UserCirclesScalarFieldEnum)[keyof typeof UserCirclesScalarFieldEnum]
@@ -6307,6 +6388,7 @@ export namespace Prisma {
     NOT?: CompanyCirclesWhereInput | CompanyCirclesWhereInput[]
     id?: StringFilter<"CompanyCircles"> | string
     created_at?: DateTimeNullableFilter<"CompanyCircles"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"CompanyCircles"> | Date | string | null
     coyCircleName?: StringNullableFilter<"CompanyCircles"> | string | null
     coyCircleDescription?: StringNullableFilter<"CompanyCircles"> | string | null
     coyCircleShareLink?: StringNullableFilter<"CompanyCircles"> | string | null
@@ -6316,13 +6398,16 @@ export namespace Prisma {
     coyCircleStatus?: EnumUserStatusFilter<"CompanyCircles"> | $Enums.UserStatus
     coyCircleNos?: StringNullableFilter<"CompanyCircles"> | string | null
     circleImg?: StringNullableFilter<"CompanyCircles"> | string | null
+    userAttachedID?: StringNullableFilter<"CompanyCircles"> | string | null
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     memberList?: UserListRelationFilter
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }
 
   export type CompanyCirclesOrderByWithRelationInput = {
     id?: SortOrder
     created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
     coyCircleName?: SortOrderInput | SortOrder
     coyCircleDescription?: SortOrderInput | SortOrder
     coyCircleShareLink?: SortOrderInput | SortOrder
@@ -6332,8 +6417,10 @@ export namespace Prisma {
     coyCircleStatus?: SortOrder
     coyCircleNos?: SortOrderInput | SortOrder
     circleImg?: SortOrderInput | SortOrder
+    userAttachedID?: SortOrderInput | SortOrder
     companyUser?: CompanyUserOrderByWithRelationInput
     memberList?: UserOrderByRelationAggregateInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type CompanyCirclesWhereUniqueInput = Prisma.AtLeast<{
@@ -6343,6 +6430,7 @@ export namespace Prisma {
     OR?: CompanyCirclesWhereInput[]
     NOT?: CompanyCirclesWhereInput | CompanyCirclesWhereInput[]
     created_at?: DateTimeNullableFilter<"CompanyCircles"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"CompanyCircles"> | Date | string | null
     coyCircleDescription?: StringNullableFilter<"CompanyCircles"> | string | null
     coyCircleShareLink?: StringNullableFilter<"CompanyCircles"> | string | null
     wellbeingScore?: StringNullableFilter<"CompanyCircles"> | string | null
@@ -6351,13 +6439,16 @@ export namespace Prisma {
     coyCircleStatus?: EnumUserStatusFilter<"CompanyCircles"> | $Enums.UserStatus
     coyCircleNos?: StringNullableFilter<"CompanyCircles"> | string | null
     circleImg?: StringNullableFilter<"CompanyCircles"> | string | null
+    userAttachedID?: StringNullableFilter<"CompanyCircles"> | string | null
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     memberList?: UserListRelationFilter
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }, "id" | "id" | "coyCircleName">
 
   export type CompanyCirclesOrderByWithAggregationInput = {
     id?: SortOrder
     created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
     coyCircleName?: SortOrderInput | SortOrder
     coyCircleDescription?: SortOrderInput | SortOrder
     coyCircleShareLink?: SortOrderInput | SortOrder
@@ -6367,6 +6458,7 @@ export namespace Prisma {
     coyCircleStatus?: SortOrder
     coyCircleNos?: SortOrderInput | SortOrder
     circleImg?: SortOrderInput | SortOrder
+    userAttachedID?: SortOrderInput | SortOrder
     _count?: CompanyCirclesCountOrderByAggregateInput
     _max?: CompanyCirclesMaxOrderByAggregateInput
     _min?: CompanyCirclesMinOrderByAggregateInput
@@ -6378,6 +6470,7 @@ export namespace Prisma {
     NOT?: CompanyCirclesScalarWhereWithAggregatesInput | CompanyCirclesScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"CompanyCircles"> | string
     created_at?: DateTimeNullableWithAggregatesFilter<"CompanyCircles"> | Date | string | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"CompanyCircles"> | Date | string | null
     coyCircleName?: StringNullableWithAggregatesFilter<"CompanyCircles"> | string | null
     coyCircleDescription?: StringNullableWithAggregatesFilter<"CompanyCircles"> | string | null
     coyCircleShareLink?: StringNullableWithAggregatesFilter<"CompanyCircles"> | string | null
@@ -6387,6 +6480,7 @@ export namespace Prisma {
     coyCircleStatus?: EnumUserStatusWithAggregatesFilter<"CompanyCircles"> | $Enums.UserStatus
     coyCircleNos?: StringNullableWithAggregatesFilter<"CompanyCircles"> | string | null
     circleImg?: StringNullableWithAggregatesFilter<"CompanyCircles"> | string | null
+    userAttachedID?: StringNullableWithAggregatesFilter<"CompanyCircles"> | string | null
   }
 
   export type UserWhereInput = {
@@ -6426,13 +6520,12 @@ export namespace Prisma {
     termsConditions?: BoolNullableFilter<"User"> | boolean | null
     addedBy?: StringNullableFilter<"User"> | string | null
     userCircleId?: StringNullableFilter<"User"> | string | null
-    circleName?: StringNullableFilter<"User"> | string | null
-    circleId?: StringNullableFilter<"User"> | string | null
-    coyCircleAttachedTo?: StringNullableFilter<"User"> | string | null
+    coyCircleAttachedTo?: StringFilter<"User"> | string
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     userCircleIn?: XOR<UserCirclesNullableRelationFilter, UserCirclesWhereInput> | null
     companyCirle?: XOR<CompanyCirclesNullableRelationFilter, CompanyCirclesWhereInput> | null
     userCircles?: UserCirclesListRelationFilter
+    coyCirclesList?: CompanyCirclesListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -6469,13 +6562,12 @@ export namespace Prisma {
     termsConditions?: SortOrderInput | SortOrder
     addedBy?: SortOrderInput | SortOrder
     userCircleId?: SortOrderInput | SortOrder
-    circleName?: SortOrderInput | SortOrder
-    circleId?: SortOrderInput | SortOrder
-    coyCircleAttachedTo?: SortOrderInput | SortOrder
+    coyCircleAttachedTo?: SortOrder
     companyUser?: CompanyUserOrderByWithRelationInput
     userCircleIn?: UserCirclesOrderByWithRelationInput
     companyCirle?: CompanyCirclesOrderByWithRelationInput
     userCircles?: UserCirclesOrderByRelationAggregateInput
+    coyCirclesList?: CompanyCirclesOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -6515,13 +6607,12 @@ export namespace Prisma {
     campaignNtification?: BoolNullableFilter<"User"> | boolean | null
     termsConditions?: BoolNullableFilter<"User"> | boolean | null
     userCircleId?: StringNullableFilter<"User"> | string | null
-    circleName?: StringNullableFilter<"User"> | string | null
-    circleId?: StringNullableFilter<"User"> | string | null
-    coyCircleAttachedTo?: StringNullableFilter<"User"> | string | null
+    coyCircleAttachedTo?: StringFilter<"User"> | string
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     userCircleIn?: XOR<UserCirclesNullableRelationFilter, UserCirclesWhereInput> | null
     companyCirle?: XOR<CompanyCirclesNullableRelationFilter, CompanyCirclesWhereInput> | null
     userCircles?: UserCirclesListRelationFilter
+    coyCirclesList?: CompanyCirclesListRelationFilter
   }, "id" | "id" | "email" | "phoneNumber" | "passwordResetCode" | "verificationCode" | "addedBy">
 
   export type UserOrderByWithAggregationInput = {
@@ -6558,9 +6649,7 @@ export namespace Prisma {
     termsConditions?: SortOrderInput | SortOrder
     addedBy?: SortOrderInput | SortOrder
     userCircleId?: SortOrderInput | SortOrder
-    circleName?: SortOrderInput | SortOrder
-    circleId?: SortOrderInput | SortOrder
-    coyCircleAttachedTo?: SortOrderInput | SortOrder
+    coyCircleAttachedTo?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -6603,9 +6692,7 @@ export namespace Prisma {
     termsConditions?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
     addedBy?: StringNullableWithAggregatesFilter<"User"> | string | null
     userCircleId?: StringNullableWithAggregatesFilter<"User"> | string | null
-    circleName?: StringNullableWithAggregatesFilter<"User"> | string | null
-    circleId?: StringNullableWithAggregatesFilter<"User"> | string | null
-    coyCircleAttachedTo?: StringNullableWithAggregatesFilter<"User"> | string | null
+    coyCircleAttachedTo?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type UserCirclesWhereInput = {
@@ -6613,7 +6700,9 @@ export namespace Prisma {
     OR?: UserCirclesWhereInput[]
     NOT?: UserCirclesWhereInput | UserCirclesWhereInput[]
     id?: StringFilter<"UserCircles"> | string
+    circleImg?: StringNullableFilter<"UserCircles"> | string | null
     created_at?: DateTimeNullableFilter<"UserCircles"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"UserCircles"> | Date | string | null
     userCircleName?: StringNullableFilter<"UserCircles"> | string | null
     userCircleDescription?: StringNullableFilter<"UserCircles"> | string | null
     userCircleShareLink?: StringNullableFilter<"UserCircles"> | string | null
@@ -6621,15 +6710,17 @@ export namespace Prisma {
     activityLevel?: EnumActivityLevelFilter<"UserCircles"> | $Enums.ActivityLevel
     userId?: StringNullableFilter<"UserCircles"> | string | null
     createdBy?: StringNullableFilter<"UserCircles"> | string | null
-    coyCircleStatus?: EnumUserStatusFilter<"UserCircles"> | $Enums.UserStatus
-    coyCircleNos?: StringNullableFilter<"UserCircles"> | string | null
+    userCircleStatus?: EnumUserStatusFilter<"UserCircles"> | $Enums.UserStatus
+    userCircleNos?: StringNullableFilter<"UserCircles"> | string | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     membersList?: UserListRelationFilter
   }
 
   export type UserCirclesOrderByWithRelationInput = {
     id?: SortOrder
+    circleImg?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
     userCircleName?: SortOrderInput | SortOrder
     userCircleDescription?: SortOrderInput | SortOrder
     userCircleShareLink?: SortOrderInput | SortOrder
@@ -6637,8 +6728,8 @@ export namespace Prisma {
     activityLevel?: SortOrder
     userId?: SortOrderInput | SortOrder
     createdBy?: SortOrderInput | SortOrder
-    coyCircleStatus?: SortOrder
-    coyCircleNos?: SortOrderInput | SortOrder
+    userCircleStatus?: SortOrder
+    userCircleNos?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     membersList?: UserOrderByRelationAggregateInput
   }
@@ -6646,25 +6737,29 @@ export namespace Prisma {
   export type UserCirclesWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     userCircleName?: string
+    userCircleNos?: string
     AND?: UserCirclesWhereInput | UserCirclesWhereInput[]
     OR?: UserCirclesWhereInput[]
     NOT?: UserCirclesWhereInput | UserCirclesWhereInput[]
+    circleImg?: StringNullableFilter<"UserCircles"> | string | null
     created_at?: DateTimeNullableFilter<"UserCircles"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"UserCircles"> | Date | string | null
     userCircleDescription?: StringNullableFilter<"UserCircles"> | string | null
     userCircleShareLink?: StringNullableFilter<"UserCircles"> | string | null
     wellbeingScore?: StringNullableFilter<"UserCircles"> | string | null
     activityLevel?: EnumActivityLevelFilter<"UserCircles"> | $Enums.ActivityLevel
     userId?: StringNullableFilter<"UserCircles"> | string | null
     createdBy?: StringNullableFilter<"UserCircles"> | string | null
-    coyCircleStatus?: EnumUserStatusFilter<"UserCircles"> | $Enums.UserStatus
-    coyCircleNos?: StringNullableFilter<"UserCircles"> | string | null
+    userCircleStatus?: EnumUserStatusFilter<"UserCircles"> | $Enums.UserStatus
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     membersList?: UserListRelationFilter
-  }, "id" | "id" | "userCircleName">
+  }, "id" | "id" | "userCircleName" | "userCircleNos">
 
   export type UserCirclesOrderByWithAggregationInput = {
     id?: SortOrder
+    circleImg?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
     userCircleName?: SortOrderInput | SortOrder
     userCircleDescription?: SortOrderInput | SortOrder
     userCircleShareLink?: SortOrderInput | SortOrder
@@ -6672,8 +6767,8 @@ export namespace Prisma {
     activityLevel?: SortOrder
     userId?: SortOrderInput | SortOrder
     createdBy?: SortOrderInput | SortOrder
-    coyCircleStatus?: SortOrder
-    coyCircleNos?: SortOrderInput | SortOrder
+    userCircleStatus?: SortOrder
+    userCircleNos?: SortOrderInput | SortOrder
     _count?: UserCirclesCountOrderByAggregateInput
     _max?: UserCirclesMaxOrderByAggregateInput
     _min?: UserCirclesMinOrderByAggregateInput
@@ -6684,7 +6779,9 @@ export namespace Prisma {
     OR?: UserCirclesScalarWhereWithAggregatesInput[]
     NOT?: UserCirclesScalarWhereWithAggregatesInput | UserCirclesScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"UserCircles"> | string
+    circleImg?: StringNullableWithAggregatesFilter<"UserCircles"> | string | null
     created_at?: DateTimeNullableWithAggregatesFilter<"UserCircles"> | Date | string | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"UserCircles"> | Date | string | null
     userCircleName?: StringNullableWithAggregatesFilter<"UserCircles"> | string | null
     userCircleDescription?: StringNullableWithAggregatesFilter<"UserCircles"> | string | null
     userCircleShareLink?: StringNullableWithAggregatesFilter<"UserCircles"> | string | null
@@ -6692,8 +6789,8 @@ export namespace Prisma {
     activityLevel?: EnumActivityLevelWithAggregatesFilter<"UserCircles"> | $Enums.ActivityLevel
     userId?: StringNullableWithAggregatesFilter<"UserCircles"> | string | null
     createdBy?: StringNullableWithAggregatesFilter<"UserCircles"> | string | null
-    coyCircleStatus?: EnumUserStatusWithAggregatesFilter<"UserCircles"> | $Enums.UserStatus
-    coyCircleNos?: StringNullableWithAggregatesFilter<"UserCircles"> | string | null
+    userCircleStatus?: EnumUserStatusWithAggregatesFilter<"UserCircles"> | $Enums.UserStatus
+    userCircleNos?: StringNullableWithAggregatesFilter<"UserCircles"> | string | null
   }
 
   export type CompanyUserCreateInput = {
@@ -6889,6 +6986,7 @@ export namespace Prisma {
   export type CompanyCirclesCreateInput = {
     id?: string
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     coyCircleName?: string | null
     coyCircleDescription?: string | null
     coyCircleShareLink?: string | null
@@ -6899,11 +6997,13 @@ export namespace Prisma {
     circleImg?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutCompany_circleInput
     memberList?: UserCreateNestedManyWithoutCompanyCirleInput
+    user?: UserCreateNestedOneWithoutCoyCirclesListInput
   }
 
   export type CompanyCirclesUncheckedCreateInput = {
     id?: string
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     coyCircleName?: string | null
     coyCircleDescription?: string | null
     coyCircleShareLink?: string | null
@@ -6913,12 +7013,14 @@ export namespace Prisma {
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
+    userAttachedID?: string | null
     memberList?: UserUncheckedCreateNestedManyWithoutCompanyCirleInput
   }
 
   export type CompanyCirclesUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6929,11 +7031,13 @@ export namespace Prisma {
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutCompany_circleNestedInput
     memberList?: UserUpdateManyWithoutCompanyCirleNestedInput
+    user?: UserUpdateOneWithoutCoyCirclesListNestedInput
   }
 
   export type CompanyCirclesUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6943,12 +7047,14 @@ export namespace Prisma {
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
+    userAttachedID?: NullableStringFieldUpdateOperationsInput | string | null
     memberList?: UserUncheckedUpdateManyWithoutCompanyCirleNestedInput
   }
 
   export type CompanyCirclesCreateManyInput = {
     id?: string
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     coyCircleName?: string | null
     coyCircleDescription?: string | null
     coyCircleShareLink?: string | null
@@ -6958,11 +7064,13 @@ export namespace Prisma {
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
+    userAttachedID?: string | null
   }
 
   export type CompanyCirclesUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6976,6 +7084,7 @@ export namespace Prisma {
   export type CompanyCirclesUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6985,6 +7094,7 @@ export namespace Prisma {
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
+    userAttachedID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCreateInput = {
@@ -7019,12 +7129,11 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
-    circleName?: string | null
-    circleId?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
     userCircleIn?: UserCirclesCreateNestedOneWithoutMembersListInput
     companyCirle?: CompanyCirclesCreateNestedOneWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
+    coyCirclesList?: CompanyCirclesCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7061,10 +7170,9 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    circleName?: string | null
-    circleId?: string | null
-    coyCircleAttachedTo?: string | null
+    coyCircleAttachedTo: string
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
+    coyCirclesList?: CompanyCirclesUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7099,12 +7207,11 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
     userCircleIn?: UserCirclesUpdateOneWithoutMembersListNestedInput
     companyCirle?: CompanyCirclesUpdateOneWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
+    coyCirclesList?: CompanyCirclesUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7141,10 +7248,9 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
+    coyCirclesList?: CompanyCirclesUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7181,9 +7287,7 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    circleName?: string | null
-    circleId?: string | null
-    coyCircleAttachedTo?: string | null
+    coyCircleAttachedTo: string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -7218,8 +7322,6 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -7256,59 +7358,65 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCirclesCreateInput = {
     id?: string
+    circleImg?: string | null
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     userCircleName?: string | null
     userCircleDescription?: string | null
     userCircleShareLink?: string | null
     wellbeingScore?: string | null
-    activityLevel: $Enums.ActivityLevel
+    activityLevel?: $Enums.ActivityLevel
     createdBy?: string | null
-    coyCircleStatus?: $Enums.UserStatus
-    coyCircleNos?: string | null
+    userCircleStatus?: $Enums.UserStatus
+    userCircleNos?: string | null
     user?: UserCreateNestedOneWithoutUserCirclesInput
     membersList?: UserCreateNestedManyWithoutUserCircleInInput
   }
 
   export type UserCirclesUncheckedCreateInput = {
     id?: string
+    circleImg?: string | null
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     userCircleName?: string | null
     userCircleDescription?: string | null
     userCircleShareLink?: string | null
     wellbeingScore?: string | null
-    activityLevel: $Enums.ActivityLevel
+    activityLevel?: $Enums.ActivityLevel
     userId?: string | null
     createdBy?: string | null
-    coyCircleStatus?: $Enums.UserStatus
-    coyCircleNos?: string | null
+    userCircleStatus?: $Enums.UserStatus
+    userCircleNos?: string | null
     membersList?: UserUncheckedCreateNestedManyWithoutUserCircleInInput
   }
 
   export type UserCirclesUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneWithoutUserCirclesNestedInput
     membersList?: UserUpdateManyWithoutUserCircleInNestedInput
   }
 
   export type UserCirclesUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7316,41 +7424,47 @@ export namespace Prisma {
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     membersList?: UserUncheckedUpdateManyWithoutUserCircleInNestedInput
   }
 
   export type UserCirclesCreateManyInput = {
     id?: string
+    circleImg?: string | null
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     userCircleName?: string | null
     userCircleDescription?: string | null
     userCircleShareLink?: string | null
     wellbeingScore?: string | null
-    activityLevel: $Enums.ActivityLevel
+    activityLevel?: $Enums.ActivityLevel
     userId?: string | null
     createdBy?: string | null
-    coyCircleStatus?: $Enums.UserStatus
-    coyCircleNos?: string | null
+    userCircleStatus?: $Enums.UserStatus
+    userCircleNos?: string | null
   }
 
   export type UserCirclesUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCirclesUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7358,8 +7472,8 @@ export namespace Prisma {
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7598,9 +7712,15 @@ export namespace Prisma {
     isNot?: CompanyUserWhereInput | null
   }
 
+  export type UserNullableRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
   export type CompanyCirclesCountOrderByAggregateInput = {
     id?: SortOrder
     created_at?: SortOrder
+    updated_at?: SortOrder
     coyCircleName?: SortOrder
     coyCircleDescription?: SortOrder
     coyCircleShareLink?: SortOrder
@@ -7610,11 +7730,13 @@ export namespace Prisma {
     coyCircleStatus?: SortOrder
     coyCircleNos?: SortOrder
     circleImg?: SortOrder
+    userAttachedID?: SortOrder
   }
 
   export type CompanyCirclesMaxOrderByAggregateInput = {
     id?: SortOrder
     created_at?: SortOrder
+    updated_at?: SortOrder
     coyCircleName?: SortOrder
     coyCircleDescription?: SortOrder
     coyCircleShareLink?: SortOrder
@@ -7624,11 +7746,13 @@ export namespace Prisma {
     coyCircleStatus?: SortOrder
     coyCircleNos?: SortOrder
     circleImg?: SortOrder
+    userAttachedID?: SortOrder
   }
 
   export type CompanyCirclesMinOrderByAggregateInput = {
     id?: SortOrder
     created_at?: SortOrder
+    updated_at?: SortOrder
     coyCircleName?: SortOrder
     coyCircleDescription?: SortOrder
     coyCircleShareLink?: SortOrder
@@ -7638,6 +7762,7 @@ export namespace Prisma {
     coyCircleStatus?: SortOrder
     coyCircleNos?: SortOrder
     circleImg?: SortOrder
+    userAttachedID?: SortOrder
   }
 
   export type EnumActivityLevelWithAggregatesFilter<$PrismaModel = never> = {
@@ -7725,8 +7850,6 @@ export namespace Prisma {
     termsConditions?: SortOrder
     addedBy?: SortOrder
     userCircleId?: SortOrder
-    circleName?: SortOrder
-    circleId?: SortOrder
     coyCircleAttachedTo?: SortOrder
   }
 
@@ -7764,8 +7887,6 @@ export namespace Prisma {
     termsConditions?: SortOrder
     addedBy?: SortOrder
     userCircleId?: SortOrder
-    circleName?: SortOrder
-    circleId?: SortOrder
     coyCircleAttachedTo?: SortOrder
   }
 
@@ -7803,8 +7924,6 @@ export namespace Prisma {
     termsConditions?: SortOrder
     addedBy?: SortOrder
     userCircleId?: SortOrder
-    circleName?: SortOrder
-    circleId?: SortOrder
     coyCircleAttachedTo?: SortOrder
   }
 
@@ -7838,14 +7957,11 @@ export namespace Prisma {
     _max?: NestedEnumSystemRoleFilter<$PrismaModel>
   }
 
-  export type UserNullableRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
-  }
-
   export type UserCirclesCountOrderByAggregateInput = {
     id?: SortOrder
+    circleImg?: SortOrder
     created_at?: SortOrder
+    updated_at?: SortOrder
     userCircleName?: SortOrder
     userCircleDescription?: SortOrder
     userCircleShareLink?: SortOrder
@@ -7853,13 +7969,15 @@ export namespace Prisma {
     activityLevel?: SortOrder
     userId?: SortOrder
     createdBy?: SortOrder
-    coyCircleStatus?: SortOrder
-    coyCircleNos?: SortOrder
+    userCircleStatus?: SortOrder
+    userCircleNos?: SortOrder
   }
 
   export type UserCirclesMaxOrderByAggregateInput = {
     id?: SortOrder
+    circleImg?: SortOrder
     created_at?: SortOrder
+    updated_at?: SortOrder
     userCircleName?: SortOrder
     userCircleDescription?: SortOrder
     userCircleShareLink?: SortOrder
@@ -7867,13 +7985,15 @@ export namespace Prisma {
     activityLevel?: SortOrder
     userId?: SortOrder
     createdBy?: SortOrder
-    coyCircleStatus?: SortOrder
-    coyCircleNos?: SortOrder
+    userCircleStatus?: SortOrder
+    userCircleNos?: SortOrder
   }
 
   export type UserCirclesMinOrderByAggregateInput = {
     id?: SortOrder
+    circleImg?: SortOrder
     created_at?: SortOrder
+    updated_at?: SortOrder
     userCircleName?: SortOrder
     userCircleDescription?: SortOrder
     userCircleShareLink?: SortOrder
@@ -7881,8 +8001,8 @@ export namespace Prisma {
     activityLevel?: SortOrder
     userId?: SortOrder
     createdBy?: SortOrder
-    coyCircleStatus?: SortOrder
-    coyCircleNos?: SortOrder
+    userCircleStatus?: SortOrder
+    userCircleNos?: SortOrder
   }
 
   export type UserCreateNestedManyWithoutCompanyUserInput = {
@@ -8002,6 +8122,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type UserCreateNestedOneWithoutCoyCirclesListInput = {
+    create?: XOR<UserCreateWithoutCoyCirclesListInput, UserUncheckedCreateWithoutCoyCirclesListInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCoyCirclesListInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type UserUncheckedCreateNestedManyWithoutCompanyCirleInput = {
     create?: XOR<UserCreateWithoutCompanyCirleInput, UserUncheckedCreateWithoutCompanyCirleInput> | UserCreateWithoutCompanyCirleInput[] | UserUncheckedCreateWithoutCompanyCirleInput[]
     connectOrCreate?: UserCreateOrConnectWithoutCompanyCirleInput | UserCreateOrConnectWithoutCompanyCirleInput[]
@@ -8035,6 +8161,16 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutCompanyCirleInput | UserUpdateWithWhereUniqueWithoutCompanyCirleInput[]
     updateMany?: UserUpdateManyWithWhereWithoutCompanyCirleInput | UserUpdateManyWithWhereWithoutCompanyCirleInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type UserUpdateOneWithoutCoyCirclesListNestedInput = {
+    create?: XOR<UserCreateWithoutCoyCirclesListInput, UserUncheckedCreateWithoutCoyCirclesListInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCoyCirclesListInput
+    upsert?: UserUpsertWithoutCoyCirclesListInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCoyCirclesListInput, UserUpdateWithoutCoyCirclesListInput>, UserUncheckedUpdateWithoutCoyCirclesListInput>
   }
 
   export type UserUncheckedUpdateManyWithoutCompanyCirleNestedInput = {
@@ -8076,11 +8212,25 @@ export namespace Prisma {
     connect?: UserCirclesWhereUniqueInput | UserCirclesWhereUniqueInput[]
   }
 
+  export type CompanyCirclesCreateNestedManyWithoutUserInput = {
+    create?: XOR<CompanyCirclesCreateWithoutUserInput, CompanyCirclesUncheckedCreateWithoutUserInput> | CompanyCirclesCreateWithoutUserInput[] | CompanyCirclesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CompanyCirclesCreateOrConnectWithoutUserInput | CompanyCirclesCreateOrConnectWithoutUserInput[]
+    createMany?: CompanyCirclesCreateManyUserInputEnvelope
+    connect?: CompanyCirclesWhereUniqueInput | CompanyCirclesWhereUniqueInput[]
+  }
+
   export type UserCirclesUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserCirclesCreateWithoutUserInput, UserCirclesUncheckedCreateWithoutUserInput> | UserCirclesCreateWithoutUserInput[] | UserCirclesUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserCirclesCreateOrConnectWithoutUserInput | UserCirclesCreateOrConnectWithoutUserInput[]
     createMany?: UserCirclesCreateManyUserInputEnvelope
     connect?: UserCirclesWhereUniqueInput | UserCirclesWhereUniqueInput[]
+  }
+
+  export type CompanyCirclesUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CompanyCirclesCreateWithoutUserInput, CompanyCirclesUncheckedCreateWithoutUserInput> | CompanyCirclesCreateWithoutUserInput[] | CompanyCirclesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CompanyCirclesCreateOrConnectWithoutUserInput | CompanyCirclesCreateOrConnectWithoutUserInput[]
+    createMany?: CompanyCirclesCreateManyUserInputEnvelope
+    connect?: CompanyCirclesWhereUniqueInput | CompanyCirclesWhereUniqueInput[]
   }
 
   export type NullableEnumUserGenderFieldUpdateOperationsInput = {
@@ -8139,6 +8289,20 @@ export namespace Prisma {
     deleteMany?: UserCirclesScalarWhereInput | UserCirclesScalarWhereInput[]
   }
 
+  export type CompanyCirclesUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CompanyCirclesCreateWithoutUserInput, CompanyCirclesUncheckedCreateWithoutUserInput> | CompanyCirclesCreateWithoutUserInput[] | CompanyCirclesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CompanyCirclesCreateOrConnectWithoutUserInput | CompanyCirclesCreateOrConnectWithoutUserInput[]
+    upsert?: CompanyCirclesUpsertWithWhereUniqueWithoutUserInput | CompanyCirclesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CompanyCirclesCreateManyUserInputEnvelope
+    set?: CompanyCirclesWhereUniqueInput | CompanyCirclesWhereUniqueInput[]
+    disconnect?: CompanyCirclesWhereUniqueInput | CompanyCirclesWhereUniqueInput[]
+    delete?: CompanyCirclesWhereUniqueInput | CompanyCirclesWhereUniqueInput[]
+    connect?: CompanyCirclesWhereUniqueInput | CompanyCirclesWhereUniqueInput[]
+    update?: CompanyCirclesUpdateWithWhereUniqueWithoutUserInput | CompanyCirclesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CompanyCirclesUpdateManyWithWhereWithoutUserInput | CompanyCirclesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CompanyCirclesScalarWhereInput | CompanyCirclesScalarWhereInput[]
+  }
+
   export type UserCirclesUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserCirclesCreateWithoutUserInput, UserCirclesUncheckedCreateWithoutUserInput> | UserCirclesCreateWithoutUserInput[] | UserCirclesUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserCirclesCreateOrConnectWithoutUserInput | UserCirclesCreateOrConnectWithoutUserInput[]
@@ -8151,6 +8315,20 @@ export namespace Prisma {
     update?: UserCirclesUpdateWithWhereUniqueWithoutUserInput | UserCirclesUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserCirclesUpdateManyWithWhereWithoutUserInput | UserCirclesUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserCirclesScalarWhereInput | UserCirclesScalarWhereInput[]
+  }
+
+  export type CompanyCirclesUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CompanyCirclesCreateWithoutUserInput, CompanyCirclesUncheckedCreateWithoutUserInput> | CompanyCirclesCreateWithoutUserInput[] | CompanyCirclesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CompanyCirclesCreateOrConnectWithoutUserInput | CompanyCirclesCreateOrConnectWithoutUserInput[]
+    upsert?: CompanyCirclesUpsertWithWhereUniqueWithoutUserInput | CompanyCirclesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CompanyCirclesCreateManyUserInputEnvelope
+    set?: CompanyCirclesWhereUniqueInput | CompanyCirclesWhereUniqueInput[]
+    disconnect?: CompanyCirclesWhereUniqueInput | CompanyCirclesWhereUniqueInput[]
+    delete?: CompanyCirclesWhereUniqueInput | CompanyCirclesWhereUniqueInput[]
+    connect?: CompanyCirclesWhereUniqueInput | CompanyCirclesWhereUniqueInput[]
+    update?: CompanyCirclesUpdateWithWhereUniqueWithoutUserInput | CompanyCirclesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CompanyCirclesUpdateManyWithWhereWithoutUserInput | CompanyCirclesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CompanyCirclesScalarWhereInput | CompanyCirclesScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutUserCirclesInput = {
@@ -8450,11 +8628,10 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
-    circleName?: string | null
-    circleId?: string | null
     userCircleIn?: UserCirclesCreateNestedOneWithoutMembersListInput
     companyCirle?: CompanyCirclesCreateNestedOneWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
+    coyCirclesList?: CompanyCirclesCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyUserInput = {
@@ -8490,10 +8667,9 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    circleName?: string | null
-    circleId?: string | null
-    coyCircleAttachedTo?: string | null
+    coyCircleAttachedTo: string
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
+    coyCirclesList?: CompanyCirclesUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyUserInput = {
@@ -8509,6 +8685,7 @@ export namespace Prisma {
   export type CompanyCirclesCreateWithoutCompanyUserInput = {
     id?: string
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     coyCircleName?: string | null
     coyCircleDescription?: string | null
     coyCircleShareLink?: string | null
@@ -8518,11 +8695,13 @@ export namespace Prisma {
     coyCircleNos?: string | null
     circleImg?: string | null
     memberList?: UserCreateNestedManyWithoutCompanyCirleInput
+    user?: UserCreateNestedOneWithoutCoyCirclesListInput
   }
 
   export type CompanyCirclesUncheckedCreateWithoutCompanyUserInput = {
     id?: string
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     coyCircleName?: string | null
     coyCircleDescription?: string | null
     coyCircleShareLink?: string | null
@@ -8531,6 +8710,7 @@ export namespace Prisma {
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
+    userAttachedID?: string | null
     memberList?: UserUncheckedCreateNestedManyWithoutCompanyCirleInput
   }
 
@@ -8597,9 +8777,7 @@ export namespace Prisma {
     termsConditions?: BoolNullableFilter<"User"> | boolean | null
     addedBy?: StringNullableFilter<"User"> | string | null
     userCircleId?: StringNullableFilter<"User"> | string | null
-    circleName?: StringNullableFilter<"User"> | string | null
-    circleId?: StringNullableFilter<"User"> | string | null
-    coyCircleAttachedTo?: StringNullableFilter<"User"> | string | null
+    coyCircleAttachedTo?: StringFilter<"User"> | string
   }
 
   export type CompanyCirclesUpsertWithWhereUniqueWithoutCompanyUserInput = {
@@ -8624,6 +8802,7 @@ export namespace Prisma {
     NOT?: CompanyCirclesScalarWhereInput | CompanyCirclesScalarWhereInput[]
     id?: StringFilter<"CompanyCircles"> | string
     created_at?: DateTimeNullableFilter<"CompanyCircles"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"CompanyCircles"> | Date | string | null
     coyCircleName?: StringNullableFilter<"CompanyCircles"> | string | null
     coyCircleDescription?: StringNullableFilter<"CompanyCircles"> | string | null
     coyCircleShareLink?: StringNullableFilter<"CompanyCircles"> | string | null
@@ -8633,6 +8812,7 @@ export namespace Prisma {
     coyCircleStatus?: EnumUserStatusFilter<"CompanyCircles"> | $Enums.UserStatus
     coyCircleNos?: StringNullableFilter<"CompanyCircles"> | string | null
     circleImg?: StringNullableFilter<"CompanyCircles"> | string | null
+    userAttachedID?: StringNullableFilter<"CompanyCircles"> | string | null
   }
 
   export type CompanyUserCreateWithoutCompany_circleInput = {
@@ -8726,11 +8906,10 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
-    circleName?: string | null
-    circleId?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
     userCircleIn?: UserCirclesCreateNestedOneWithoutMembersListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
+    coyCirclesList?: CompanyCirclesCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyCirleInput = {
@@ -8767,9 +8946,8 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    circleName?: string | null
-    circleId?: string | null
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
+    coyCirclesList?: CompanyCirclesUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyCirleInput = {
@@ -8780,6 +8958,87 @@ export namespace Prisma {
   export type UserCreateManyCompanyCirleInputEnvelope = {
     data: UserCreateManyCompanyCirleInput | UserCreateManyCompanyCirleInput[]
     skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutCoyCirclesListInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: string | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
+    userCircleIn?: UserCirclesCreateNestedOneWithoutMembersListInput
+    companyCirle?: CompanyCirclesCreateNestedOneWithoutMemberListInput
+    userCircles?: UserCirclesCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCoyCirclesListInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: string | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    createdBy?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    userCircleId?: string | null
+    coyCircleAttachedTo: string
+    userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCoyCirclesListInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCoyCirclesListInput, UserUncheckedCreateWithoutCoyCirclesListInput>
   }
 
   export type CompanyUserUpsertWithoutCompany_circleInput = {
@@ -8863,6 +9122,93 @@ export namespace Prisma {
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutCompanyCirleInput>
   }
 
+  export type UserUpsertWithoutCoyCirclesListInput = {
+    update: XOR<UserUpdateWithoutCoyCirclesListInput, UserUncheckedUpdateWithoutCoyCirclesListInput>
+    create: XOR<UserCreateWithoutCoyCirclesListInput, UserUncheckedCreateWithoutCoyCirclesListInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCoyCirclesListInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCoyCirclesListInput, UserUncheckedUpdateWithoutCoyCirclesListInput>
+  }
+
+  export type UserUpdateWithoutCoyCirclesListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
+    userCircleIn?: UserCirclesUpdateOneWithoutMembersListNestedInput
+    companyCirle?: CompanyCirclesUpdateOneWithoutMemberListNestedInput
+    userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCoyCirclesListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
+    userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type CompanyUserCreateWithoutMembersListInput = {
     id?: string
     email: string
@@ -8924,30 +9270,34 @@ export namespace Prisma {
 
   export type UserCirclesCreateWithoutMembersListInput = {
     id?: string
+    circleImg?: string | null
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     userCircleName?: string | null
     userCircleDescription?: string | null
     userCircleShareLink?: string | null
     wellbeingScore?: string | null
-    activityLevel: $Enums.ActivityLevel
+    activityLevel?: $Enums.ActivityLevel
     createdBy?: string | null
-    coyCircleStatus?: $Enums.UserStatus
-    coyCircleNos?: string | null
+    userCircleStatus?: $Enums.UserStatus
+    userCircleNos?: string | null
     user?: UserCreateNestedOneWithoutUserCirclesInput
   }
 
   export type UserCirclesUncheckedCreateWithoutMembersListInput = {
     id?: string
+    circleImg?: string | null
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     userCircleName?: string | null
     userCircleDescription?: string | null
     userCircleShareLink?: string | null
     wellbeingScore?: string | null
-    activityLevel: $Enums.ActivityLevel
+    activityLevel?: $Enums.ActivityLevel
     userId?: string | null
     createdBy?: string | null
-    coyCircleStatus?: $Enums.UserStatus
-    coyCircleNos?: string | null
+    userCircleStatus?: $Enums.UserStatus
+    userCircleNos?: string | null
   }
 
   export type UserCirclesCreateOrConnectWithoutMembersListInput = {
@@ -8958,6 +9308,7 @@ export namespace Prisma {
   export type CompanyCirclesCreateWithoutMemberListInput = {
     id?: string
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     coyCircleName?: string | null
     coyCircleDescription?: string | null
     coyCircleShareLink?: string | null
@@ -8967,11 +9318,13 @@ export namespace Prisma {
     coyCircleNos?: string | null
     circleImg?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutCompany_circleInput
+    user?: UserCreateNestedOneWithoutCoyCirclesListInput
   }
 
   export type CompanyCirclesUncheckedCreateWithoutMemberListInput = {
     id?: string
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     coyCircleName?: string | null
     coyCircleDescription?: string | null
     coyCircleShareLink?: string | null
@@ -8981,6 +9334,7 @@ export namespace Prisma {
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
+    userAttachedID?: string | null
   }
 
   export type CompanyCirclesCreateOrConnectWithoutMemberListInput = {
@@ -8990,29 +9344,33 @@ export namespace Prisma {
 
   export type UserCirclesCreateWithoutUserInput = {
     id?: string
+    circleImg?: string | null
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     userCircleName?: string | null
     userCircleDescription?: string | null
     userCircleShareLink?: string | null
     wellbeingScore?: string | null
-    activityLevel: $Enums.ActivityLevel
+    activityLevel?: $Enums.ActivityLevel
     createdBy?: string | null
-    coyCircleStatus?: $Enums.UserStatus
-    coyCircleNos?: string | null
+    userCircleStatus?: $Enums.UserStatus
+    userCircleNos?: string | null
     membersList?: UserCreateNestedManyWithoutUserCircleInInput
   }
 
   export type UserCirclesUncheckedCreateWithoutUserInput = {
     id?: string
+    circleImg?: string | null
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     userCircleName?: string | null
     userCircleDescription?: string | null
     userCircleShareLink?: string | null
     wellbeingScore?: string | null
-    activityLevel: $Enums.ActivityLevel
+    activityLevel?: $Enums.ActivityLevel
     createdBy?: string | null
-    coyCircleStatus?: $Enums.UserStatus
-    coyCircleNos?: string | null
+    userCircleStatus?: $Enums.UserStatus
+    userCircleNos?: string | null
     membersList?: UserUncheckedCreateNestedManyWithoutUserCircleInInput
   }
 
@@ -9023,6 +9381,48 @@ export namespace Prisma {
 
   export type UserCirclesCreateManyUserInputEnvelope = {
     data: UserCirclesCreateManyUserInput | UserCirclesCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CompanyCirclesCreateWithoutUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    coyCircleName?: string | null
+    coyCircleDescription?: string | null
+    coyCircleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel?: $Enums.ActivityLevel
+    coyCircleStatus?: $Enums.UserStatus
+    coyCircleNos?: string | null
+    circleImg?: string | null
+    companyUser?: CompanyUserCreateNestedOneWithoutCompany_circleInput
+    memberList?: UserCreateNestedManyWithoutCompanyCirleInput
+  }
+
+  export type CompanyCirclesUncheckedCreateWithoutUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    coyCircleName?: string | null
+    coyCircleDescription?: string | null
+    coyCircleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel?: $Enums.ActivityLevel
+    companyUserId?: string | null
+    coyCircleStatus?: $Enums.UserStatus
+    coyCircleNos?: string | null
+    circleImg?: string | null
+    memberList?: UserUncheckedCreateNestedManyWithoutCompanyCirleInput
+  }
+
+  export type CompanyCirclesCreateOrConnectWithoutUserInput = {
+    where: CompanyCirclesWhereUniqueInput
+    create: XOR<CompanyCirclesCreateWithoutUserInput, CompanyCirclesUncheckedCreateWithoutUserInput>
+  }
+
+  export type CompanyCirclesCreateManyUserInputEnvelope = {
+    data: CompanyCirclesCreateManyUserInput | CompanyCirclesCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -9104,21 +9504,25 @@ export namespace Prisma {
 
   export type UserCirclesUpdateWithoutMembersListInput = {
     id?: StringFieldUpdateOperationsInput | string
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneWithoutUserCirclesNestedInput
   }
 
   export type UserCirclesUncheckedUpdateWithoutMembersListInput = {
     id?: StringFieldUpdateOperationsInput | string
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9126,8 +9530,8 @@ export namespace Prisma {
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CompanyCirclesUpsertWithoutMemberListInput = {
@@ -9144,6 +9548,7 @@ export namespace Prisma {
   export type CompanyCirclesUpdateWithoutMemberListInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9153,11 +9558,13 @@ export namespace Prisma {
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutCompany_circleNestedInput
+    user?: UserUpdateOneWithoutCoyCirclesListNestedInput
   }
 
   export type CompanyCirclesUncheckedUpdateWithoutMemberListInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9167,6 +9574,7 @@ export namespace Prisma {
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
+    userAttachedID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCirclesUpsertWithWhereUniqueWithoutUserInput = {
@@ -9190,7 +9598,9 @@ export namespace Prisma {
     OR?: UserCirclesScalarWhereInput[]
     NOT?: UserCirclesScalarWhereInput | UserCirclesScalarWhereInput[]
     id?: StringFilter<"UserCircles"> | string
+    circleImg?: StringNullableFilter<"UserCircles"> | string | null
     created_at?: DateTimeNullableFilter<"UserCircles"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"UserCircles"> | Date | string | null
     userCircleName?: StringNullableFilter<"UserCircles"> | string | null
     userCircleDescription?: StringNullableFilter<"UserCircles"> | string | null
     userCircleShareLink?: StringNullableFilter<"UserCircles"> | string | null
@@ -9198,8 +9608,24 @@ export namespace Prisma {
     activityLevel?: EnumActivityLevelFilter<"UserCircles"> | $Enums.ActivityLevel
     userId?: StringNullableFilter<"UserCircles"> | string | null
     createdBy?: StringNullableFilter<"UserCircles"> | string | null
-    coyCircleStatus?: EnumUserStatusFilter<"UserCircles"> | $Enums.UserStatus
-    coyCircleNos?: StringNullableFilter<"UserCircles"> | string | null
+    userCircleStatus?: EnumUserStatusFilter<"UserCircles"> | $Enums.UserStatus
+    userCircleNos?: StringNullableFilter<"UserCircles"> | string | null
+  }
+
+  export type CompanyCirclesUpsertWithWhereUniqueWithoutUserInput = {
+    where: CompanyCirclesWhereUniqueInput
+    update: XOR<CompanyCirclesUpdateWithoutUserInput, CompanyCirclesUncheckedUpdateWithoutUserInput>
+    create: XOR<CompanyCirclesCreateWithoutUserInput, CompanyCirclesUncheckedCreateWithoutUserInput>
+  }
+
+  export type CompanyCirclesUpdateWithWhereUniqueWithoutUserInput = {
+    where: CompanyCirclesWhereUniqueInput
+    data: XOR<CompanyCirclesUpdateWithoutUserInput, CompanyCirclesUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CompanyCirclesUpdateManyWithWhereWithoutUserInput = {
+    where: CompanyCirclesScalarWhereInput
+    data: XOR<CompanyCirclesUpdateManyMutationInput, CompanyCirclesUncheckedUpdateManyWithoutUserInput>
   }
 
   export type UserCreateWithoutUserCirclesInput = {
@@ -9234,11 +9660,10 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
-    circleName?: string | null
-    circleId?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
     userCircleIn?: UserCirclesCreateNestedOneWithoutMembersListInput
     companyCirle?: CompanyCirclesCreateNestedOneWithoutMemberListInput
+    coyCirclesList?: CompanyCirclesCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUserCirclesInput = {
@@ -9275,9 +9700,8 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    circleName?: string | null
-    circleId?: string | null
-    coyCircleAttachedTo?: string | null
+    coyCircleAttachedTo: string
+    coyCirclesList?: CompanyCirclesUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUserCirclesInput = {
@@ -9317,11 +9741,10 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
-    circleName?: string | null
-    circleId?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
     companyCirle?: CompanyCirclesCreateNestedOneWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
+    coyCirclesList?: CompanyCirclesCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUserCircleInInput = {
@@ -9357,10 +9780,9 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
-    circleName?: string | null
-    circleId?: string | null
-    coyCircleAttachedTo?: string | null
+    coyCircleAttachedTo: string
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
+    coyCirclesList?: CompanyCirclesUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUserCircleInInput = {
@@ -9416,11 +9838,10 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
     userCircleIn?: UserCirclesUpdateOneWithoutMembersListNestedInput
     companyCirle?: CompanyCirclesUpdateOneWithoutMemberListNestedInput
+    coyCirclesList?: CompanyCirclesUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserCirclesInput = {
@@ -9457,9 +9878,8 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
+    coyCirclesList?: CompanyCirclesUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutUserCircleInInput = {
@@ -9511,14 +9931,13 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    circleName?: string | null
-    circleId?: string | null
-    coyCircleAttachedTo?: string | null
+    coyCircleAttachedTo: string
   }
 
   export type CompanyCirclesCreateManyCompanyUserInput = {
     id?: string
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     coyCircleName?: string | null
     coyCircleDescription?: string | null
     coyCircleShareLink?: string | null
@@ -9527,6 +9946,7 @@ export namespace Prisma {
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
     circleImg?: string | null
+    userAttachedID?: string | null
   }
 
   export type UserUpdateWithoutCompanyUserInput = {
@@ -9561,11 +9981,10 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleIn?: UserCirclesUpdateOneWithoutMembersListNestedInput
     companyCirle?: CompanyCirclesUpdateOneWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
+    coyCirclesList?: CompanyCirclesUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyUserInput = {
@@ -9601,10 +10020,9 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
+    coyCirclesList?: CompanyCirclesUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCompanyUserInput = {
@@ -9640,14 +10058,13 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
   }
 
   export type CompanyCirclesUpdateWithoutCompanyUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9657,11 +10074,13 @@ export namespace Prisma {
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     memberList?: UserUpdateManyWithoutCompanyCirleNestedInput
+    user?: UserUpdateOneWithoutCoyCirclesListNestedInput
   }
 
   export type CompanyCirclesUncheckedUpdateWithoutCompanyUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9670,12 +10089,14 @@ export namespace Prisma {
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
+    userAttachedID?: NullableStringFieldUpdateOperationsInput | string | null
     memberList?: UserUncheckedUpdateManyWithoutCompanyCirleNestedInput
   }
 
   export type CompanyCirclesUncheckedUpdateManyWithoutCompanyUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9684,6 +10105,7 @@ export namespace Prisma {
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
+    userAttachedID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCreateManyCompanyCirleInput = {
@@ -9720,8 +10142,6 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    circleName?: string | null
-    circleId?: string | null
   }
 
   export type UserUpdateWithoutCompanyCirleInput = {
@@ -9756,11 +10176,10 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
     userCircleIn?: UserCirclesUpdateOneWithoutMembersListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
+    coyCirclesList?: CompanyCirclesUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyCirleInput = {
@@ -9797,9 +10216,8 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
+    coyCirclesList?: CompanyCirclesUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCompanyCirleInput = {
@@ -9836,62 +10254,130 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCirclesCreateManyUserInput = {
     id?: string
+    circleImg?: string | null
     created_at?: Date | string | null
+    updated_at?: Date | string | null
     userCircleName?: string | null
     userCircleDescription?: string | null
     userCircleShareLink?: string | null
     wellbeingScore?: string | null
-    activityLevel: $Enums.ActivityLevel
+    activityLevel?: $Enums.ActivityLevel
     createdBy?: string | null
+    userCircleStatus?: $Enums.UserStatus
+    userCircleNos?: string | null
+  }
+
+  export type CompanyCirclesCreateManyUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    coyCircleName?: string | null
+    coyCircleDescription?: string | null
+    coyCircleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel?: $Enums.ActivityLevel
+    companyUserId?: string | null
     coyCircleStatus?: $Enums.UserStatus
     coyCircleNos?: string | null
+    circleImg?: string | null
   }
 
   export type UserCirclesUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     membersList?: UserUpdateManyWithoutUserCircleInNestedInput
   }
 
   export type UserCirclesUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     membersList?: UserUncheckedUpdateManyWithoutUserCircleInNestedInput
   }
 
   export type UserCirclesUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userCircleName?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
     wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
     activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CompanyCirclesUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
     coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
+    companyUser?: CompanyUserUpdateOneWithoutCompany_circleNestedInput
+    memberList?: UserUpdateManyWithoutCompanyCirleNestedInput
+  }
+
+  export type CompanyCirclesUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    companyUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
+    memberList?: UserUncheckedUpdateManyWithoutCompanyCirleNestedInput
+  }
+
+  export type CompanyCirclesUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    companyUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCreateManyUserCircleInInput = {
@@ -9927,9 +10413,7 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
-    circleName?: string | null
-    circleId?: string | null
-    coyCircleAttachedTo?: string | null
+    coyCircleAttachedTo: string
   }
 
   export type UserUpdateWithoutUserCircleInInput = {
@@ -9964,11 +10448,10 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
     companyCirle?: CompanyCirclesUpdateOneWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
+    coyCirclesList?: CompanyCirclesUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserCircleInInput = {
@@ -10004,10 +10487,9 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
+    coyCirclesList?: CompanyCirclesUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutUserCircleInInput = {
@@ -10043,9 +10525,7 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    circleName?: NullableStringFieldUpdateOperationsInput | string | null
-    circleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
   }
 
 
