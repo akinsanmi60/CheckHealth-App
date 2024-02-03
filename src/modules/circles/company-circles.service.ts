@@ -10,7 +10,7 @@ import {
   AddMemberToCircleDto,
   CompanyGettingStartedDto,
   GetAllCirclesDto,
-} from "./dto/circle.dto";
+} from "./dto/company.dto";
 import { CompanyCirle } from "src/types/appModel.type";
 import * as crypto from "crypto";
 import { MailService } from "../../mail/mail.service";

@@ -61,7 +61,7 @@ model CompanyCircles {
   companyUser          CompanyUser?  @relation("circles_company_user_fkey", fields: [companyUserId], references: [id])
   companyUserId        String?
   coyCircleStatus      UserStatus    @default(inactive)
-  coyCircleNos         String?
+  coyCircleNos         String?       @unique
   memberList           User[]        @relation("coyCircleIn")
   circleImg            String?
   user                 User?         @relation("userCoyCircleList", fields: [userAttachedID], references: [id])
@@ -125,7 +125,7 @@ model UserCircles {
   createdBy             String?
   userCircleStatus      UserStatus    @default(inactive)
   userCircleNos         String?       @unique
-  membersList           User[]        @relation("memberInCrircle")
+  memberList           User[]        @relation("memberInCrircle")
 }
 
 enum SystemRole {

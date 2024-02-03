@@ -10,7 +10,7 @@ import {
   IsEmail,
 } from "class-validator";
 
-export class CompanyGettingStartedDto {
+export class CreatingCircleStartedDto {
   @ApiProperty()
   @IsNotEmpty({ message: "Circle name cannot be empty." })
   circleName: string;
@@ -91,4 +91,10 @@ export class AddMemberToCircleDto {
   @ApiProperty({ example: "test@gmail.com" })
   @IsEmail({}, { message: "Email must be a valid email address." })
   email: string;
+}
+
+export class MemberToLeaveCircleDto {
+  @ApiProperty({ example: "" })
+  @IsString({ message: " Circle number must be a string" })
+  circleNos: string;
 }

@@ -1294,11 +1294,11 @@ export namespace Prisma {
    */
 
   export type UserCirclesCountOutputType = {
-    membersList: number
+    memberList: number
   }
 
   export type UserCirclesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    membersList?: boolean | UserCirclesCountOutputTypeCountMembersListArgs
+    memberList?: boolean | UserCirclesCountOutputTypeCountMemberListArgs
   }
 
   // Custom InputTypes
@@ -1317,7 +1317,7 @@ export namespace Prisma {
   /**
    * UserCirclesCountOutputType without action
    */
-  export type UserCirclesCountOutputTypeCountMembersListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCirclesCountOutputTypeCountMemberListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
   }
 
@@ -5141,7 +5141,7 @@ export namespace Prisma {
     userCircleStatus?: boolean
     userCircleNos?: boolean
     user?: boolean | UserCircles$userArgs<ExtArgs>
-    membersList?: boolean | UserCircles$membersListArgs<ExtArgs>
+    memberList?: boolean | UserCircles$memberListArgs<ExtArgs>
     _count?: boolean | UserCirclesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userCircles"]>
 
@@ -5163,7 +5163,7 @@ export namespace Prisma {
 
   export type UserCirclesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserCircles$userArgs<ExtArgs>
-    membersList?: boolean | UserCircles$membersListArgs<ExtArgs>
+    memberList?: boolean | UserCircles$memberListArgs<ExtArgs>
     _count?: boolean | UserCirclesCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5172,7 +5172,7 @@ export namespace Prisma {
     name: "UserCircles"
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
-      membersList: Prisma.$UserPayload<ExtArgs>[]
+      memberList: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5555,7 +5555,7 @@ export namespace Prisma {
 
     user<T extends UserCircles$userArgs<ExtArgs> = {}>(args?: Subset<T, UserCircles$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
-    membersList<T extends UserCircles$membersListArgs<ExtArgs> = {}>(args?: Subset<T, UserCircles$membersListArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'> | Null>;
+    memberList<T extends UserCircles$memberListArgs<ExtArgs> = {}>(args?: Subset<T, UserCircles$memberListArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5926,9 +5926,9 @@ export namespace Prisma {
 
 
   /**
-   * UserCircles.membersList
+   * UserCircles.memberList
    */
-  export type UserCircles$membersListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCircles$memberListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -6426,6 +6426,7 @@ export namespace Prisma {
   export type CompanyCirclesWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     coyCircleName?: string
+    coyCircleNos?: string
     AND?: CompanyCirclesWhereInput | CompanyCirclesWhereInput[]
     OR?: CompanyCirclesWhereInput[]
     NOT?: CompanyCirclesWhereInput | CompanyCirclesWhereInput[]
@@ -6437,13 +6438,12 @@ export namespace Prisma {
     activityLevel?: EnumActivityLevelFilter<"CompanyCircles"> | $Enums.ActivityLevel
     companyUserId?: StringNullableFilter<"CompanyCircles"> | string | null
     coyCircleStatus?: EnumUserStatusFilter<"CompanyCircles"> | $Enums.UserStatus
-    coyCircleNos?: StringNullableFilter<"CompanyCircles"> | string | null
     circleImg?: StringNullableFilter<"CompanyCircles"> | string | null
     userAttachedID?: StringNullableFilter<"CompanyCircles"> | string | null
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     memberList?: UserListRelationFilter
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
-  }, "id" | "id" | "coyCircleName">
+  }, "id" | "id" | "coyCircleName" | "coyCircleNos">
 
   export type CompanyCirclesOrderByWithAggregationInput = {
     id?: SortOrder
@@ -6713,7 +6713,7 @@ export namespace Prisma {
     userCircleStatus?: EnumUserStatusFilter<"UserCircles"> | $Enums.UserStatus
     userCircleNos?: StringNullableFilter<"UserCircles"> | string | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
-    membersList?: UserListRelationFilter
+    memberList?: UserListRelationFilter
   }
 
   export type UserCirclesOrderByWithRelationInput = {
@@ -6731,7 +6731,7 @@ export namespace Prisma {
     userCircleStatus?: SortOrder
     userCircleNos?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
-    membersList?: UserOrderByRelationAggregateInput
+    memberList?: UserOrderByRelationAggregateInput
   }
 
   export type UserCirclesWhereUniqueInput = Prisma.AtLeast<{
@@ -6752,7 +6752,7 @@ export namespace Prisma {
     createdBy?: StringNullableFilter<"UserCircles"> | string | null
     userCircleStatus?: EnumUserStatusFilter<"UserCircles"> | $Enums.UserStatus
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
-    membersList?: UserListRelationFilter
+    memberList?: UserListRelationFilter
   }, "id" | "id" | "userCircleName" | "userCircleNos">
 
   export type UserCirclesOrderByWithAggregationInput = {
@@ -7130,7 +7130,7 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
-    userCircleIn?: UserCirclesCreateNestedOneWithoutMembersListInput
+    userCircleIn?: UserCirclesCreateNestedOneWithoutMemberListInput
     companyCirle?: CompanyCirclesCreateNestedOneWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
     coyCirclesList?: CompanyCirclesCreateNestedManyWithoutUserInput
@@ -7208,7 +7208,7 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
-    userCircleIn?: UserCirclesUpdateOneWithoutMembersListNestedInput
+    userCircleIn?: UserCirclesUpdateOneWithoutMemberListNestedInput
     companyCirle?: CompanyCirclesUpdateOneWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
     coyCirclesList?: CompanyCirclesUpdateManyWithoutUserNestedInput
@@ -7375,7 +7375,7 @@ export namespace Prisma {
     userCircleStatus?: $Enums.UserStatus
     userCircleNos?: string | null
     user?: UserCreateNestedOneWithoutUserCirclesInput
-    membersList?: UserCreateNestedManyWithoutUserCircleInInput
+    memberList?: UserCreateNestedManyWithoutUserCircleInInput
   }
 
   export type UserCirclesUncheckedCreateInput = {
@@ -7392,7 +7392,7 @@ export namespace Prisma {
     createdBy?: string | null
     userCircleStatus?: $Enums.UserStatus
     userCircleNos?: string | null
-    membersList?: UserUncheckedCreateNestedManyWithoutUserCircleInInput
+    memberList?: UserUncheckedCreateNestedManyWithoutUserCircleInInput
   }
 
   export type UserCirclesUpdateInput = {
@@ -7409,7 +7409,7 @@ export namespace Prisma {
     userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneWithoutUserCirclesNestedInput
-    membersList?: UserUpdateManyWithoutUserCircleInNestedInput
+    memberList?: UserUpdateManyWithoutUserCircleInNestedInput
   }
 
   export type UserCirclesUncheckedUpdateInput = {
@@ -7426,7 +7426,7 @@ export namespace Prisma {
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
-    membersList?: UserUncheckedUpdateManyWithoutUserCircleInNestedInput
+    memberList?: UserUncheckedUpdateManyWithoutUserCircleInNestedInput
   }
 
   export type UserCirclesCreateManyInput = {
@@ -8193,9 +8193,9 @@ export namespace Prisma {
     connect?: CompanyUserWhereUniqueInput
   }
 
-  export type UserCirclesCreateNestedOneWithoutMembersListInput = {
-    create?: XOR<UserCirclesCreateWithoutMembersListInput, UserCirclesUncheckedCreateWithoutMembersListInput>
-    connectOrCreate?: UserCirclesCreateOrConnectWithoutMembersListInput
+  export type UserCirclesCreateNestedOneWithoutMemberListInput = {
+    create?: XOR<UserCirclesCreateWithoutMemberListInput, UserCirclesUncheckedCreateWithoutMemberListInput>
+    connectOrCreate?: UserCirclesCreateOrConnectWithoutMemberListInput
     connect?: UserCirclesWhereUniqueInput
   }
 
@@ -8255,14 +8255,14 @@ export namespace Prisma {
     update?: XOR<XOR<CompanyUserUpdateToOneWithWhereWithoutMembersListInput, CompanyUserUpdateWithoutMembersListInput>, CompanyUserUncheckedUpdateWithoutMembersListInput>
   }
 
-  export type UserCirclesUpdateOneWithoutMembersListNestedInput = {
-    create?: XOR<UserCirclesCreateWithoutMembersListInput, UserCirclesUncheckedCreateWithoutMembersListInput>
-    connectOrCreate?: UserCirclesCreateOrConnectWithoutMembersListInput
-    upsert?: UserCirclesUpsertWithoutMembersListInput
+  export type UserCirclesUpdateOneWithoutMemberListNestedInput = {
+    create?: XOR<UserCirclesCreateWithoutMemberListInput, UserCirclesUncheckedCreateWithoutMemberListInput>
+    connectOrCreate?: UserCirclesCreateOrConnectWithoutMemberListInput
+    upsert?: UserCirclesUpsertWithoutMemberListInput
     disconnect?: UserCirclesWhereInput | boolean
     delete?: UserCirclesWhereInput | boolean
     connect?: UserCirclesWhereUniqueInput
-    update?: XOR<XOR<UserCirclesUpdateToOneWithWhereWithoutMembersListInput, UserCirclesUpdateWithoutMembersListInput>, UserCirclesUncheckedUpdateWithoutMembersListInput>
+    update?: XOR<XOR<UserCirclesUpdateToOneWithWhereWithoutMemberListInput, UserCirclesUpdateWithoutMemberListInput>, UserCirclesUncheckedUpdateWithoutMemberListInput>
   }
 
   export type CompanyCirclesUpdateOneWithoutMemberListNestedInput = {
@@ -8628,7 +8628,7 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
-    userCircleIn?: UserCirclesCreateNestedOneWithoutMembersListInput
+    userCircleIn?: UserCirclesCreateNestedOneWithoutMemberListInput
     companyCirle?: CompanyCirclesCreateNestedOneWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
     coyCirclesList?: CompanyCirclesCreateNestedManyWithoutUserInput
@@ -8907,7 +8907,7 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
-    userCircleIn?: UserCirclesCreateNestedOneWithoutMembersListInput
+    userCircleIn?: UserCirclesCreateNestedOneWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
     coyCirclesList?: CompanyCirclesCreateNestedManyWithoutUserInput
   }
@@ -8993,7 +8993,7 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
-    userCircleIn?: UserCirclesCreateNestedOneWithoutMembersListInput
+    userCircleIn?: UserCirclesCreateNestedOneWithoutMemberListInput
     companyCirle?: CompanyCirclesCreateNestedOneWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
   }
@@ -9166,7 +9166,7 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
-    userCircleIn?: UserCirclesUpdateOneWithoutMembersListNestedInput
+    userCircleIn?: UserCirclesUpdateOneWithoutMemberListNestedInput
     companyCirle?: CompanyCirclesUpdateOneWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
   }
@@ -9268,7 +9268,7 @@ export namespace Prisma {
     create: XOR<CompanyUserCreateWithoutMembersListInput, CompanyUserUncheckedCreateWithoutMembersListInput>
   }
 
-  export type UserCirclesCreateWithoutMembersListInput = {
+  export type UserCirclesCreateWithoutMemberListInput = {
     id?: string
     circleImg?: string | null
     created_at?: Date | string | null
@@ -9284,7 +9284,7 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutUserCirclesInput
   }
 
-  export type UserCirclesUncheckedCreateWithoutMembersListInput = {
+  export type UserCirclesUncheckedCreateWithoutMemberListInput = {
     id?: string
     circleImg?: string | null
     created_at?: Date | string | null
@@ -9300,9 +9300,9 @@ export namespace Prisma {
     userCircleNos?: string | null
   }
 
-  export type UserCirclesCreateOrConnectWithoutMembersListInput = {
+  export type UserCirclesCreateOrConnectWithoutMemberListInput = {
     where: UserCirclesWhereUniqueInput
-    create: XOR<UserCirclesCreateWithoutMembersListInput, UserCirclesUncheckedCreateWithoutMembersListInput>
+    create: XOR<UserCirclesCreateWithoutMemberListInput, UserCirclesUncheckedCreateWithoutMemberListInput>
   }
 
   export type CompanyCirclesCreateWithoutMemberListInput = {
@@ -9355,7 +9355,7 @@ export namespace Prisma {
     createdBy?: string | null
     userCircleStatus?: $Enums.UserStatus
     userCircleNos?: string | null
-    membersList?: UserCreateNestedManyWithoutUserCircleInInput
+    memberList?: UserCreateNestedManyWithoutUserCircleInInput
   }
 
   export type UserCirclesUncheckedCreateWithoutUserInput = {
@@ -9371,7 +9371,7 @@ export namespace Prisma {
     createdBy?: string | null
     userCircleStatus?: $Enums.UserStatus
     userCircleNos?: string | null
-    membersList?: UserUncheckedCreateNestedManyWithoutUserCircleInInput
+    memberList?: UserUncheckedCreateNestedManyWithoutUserCircleInInput
   }
 
   export type UserCirclesCreateOrConnectWithoutUserInput = {
@@ -9491,18 +9491,18 @@ export namespace Prisma {
     company_circle?: CompanyCirclesUncheckedUpdateManyWithoutCompanyUserNestedInput
   }
 
-  export type UserCirclesUpsertWithoutMembersListInput = {
-    update: XOR<UserCirclesUpdateWithoutMembersListInput, UserCirclesUncheckedUpdateWithoutMembersListInput>
-    create: XOR<UserCirclesCreateWithoutMembersListInput, UserCirclesUncheckedCreateWithoutMembersListInput>
+  export type UserCirclesUpsertWithoutMemberListInput = {
+    update: XOR<UserCirclesUpdateWithoutMemberListInput, UserCirclesUncheckedUpdateWithoutMemberListInput>
+    create: XOR<UserCirclesCreateWithoutMemberListInput, UserCirclesUncheckedCreateWithoutMemberListInput>
     where?: UserCirclesWhereInput
   }
 
-  export type UserCirclesUpdateToOneWithWhereWithoutMembersListInput = {
+  export type UserCirclesUpdateToOneWithWhereWithoutMemberListInput = {
     where?: UserCirclesWhereInput
-    data: XOR<UserCirclesUpdateWithoutMembersListInput, UserCirclesUncheckedUpdateWithoutMembersListInput>
+    data: XOR<UserCirclesUpdateWithoutMemberListInput, UserCirclesUncheckedUpdateWithoutMemberListInput>
   }
 
-  export type UserCirclesUpdateWithoutMembersListInput = {
+  export type UserCirclesUpdateWithoutMemberListInput = {
     id?: StringFieldUpdateOperationsInput | string
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9518,7 +9518,7 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutUserCirclesNestedInput
   }
 
-  export type UserCirclesUncheckedUpdateWithoutMembersListInput = {
+  export type UserCirclesUncheckedUpdateWithoutMemberListInput = {
     id?: StringFieldUpdateOperationsInput | string
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9661,7 +9661,7 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
-    userCircleIn?: UserCirclesCreateNestedOneWithoutMembersListInput
+    userCircleIn?: UserCirclesCreateNestedOneWithoutMemberListInput
     companyCirle?: CompanyCirclesCreateNestedOneWithoutMemberListInput
     coyCirclesList?: CompanyCirclesCreateNestedManyWithoutUserInput
   }
@@ -9839,7 +9839,7 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
-    userCircleIn?: UserCirclesUpdateOneWithoutMembersListNestedInput
+    userCircleIn?: UserCirclesUpdateOneWithoutMemberListNestedInput
     companyCirle?: CompanyCirclesUpdateOneWithoutMemberListNestedInput
     coyCirclesList?: CompanyCirclesUpdateManyWithoutUserNestedInput
   }
@@ -9981,7 +9981,7 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    userCircleIn?: UserCirclesUpdateOneWithoutMembersListNestedInput
+    userCircleIn?: UserCirclesUpdateOneWithoutMemberListNestedInput
     companyCirle?: CompanyCirclesUpdateOneWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
     coyCirclesList?: CompanyCirclesUpdateManyWithoutUserNestedInput
@@ -10177,7 +10177,7 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
-    userCircleIn?: UserCirclesUpdateOneWithoutMembersListNestedInput
+    userCircleIn?: UserCirclesUpdateOneWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
     coyCirclesList?: CompanyCirclesUpdateManyWithoutUserNestedInput
   }
@@ -10299,7 +10299,7 @@ export namespace Prisma {
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
-    membersList?: UserUpdateManyWithoutUserCircleInNestedInput
+    memberList?: UserUpdateManyWithoutUserCircleInNestedInput
   }
 
   export type UserCirclesUncheckedUpdateWithoutUserInput = {
@@ -10315,7 +10315,7 @@ export namespace Prisma {
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
-    membersList?: UserUncheckedUpdateManyWithoutUserCircleInNestedInput
+    memberList?: UserUncheckedUpdateManyWithoutUserCircleInNestedInput
   }
 
   export type UserCirclesUncheckedUpdateManyWithoutUserInput = {

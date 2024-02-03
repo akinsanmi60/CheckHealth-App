@@ -30,7 +30,7 @@ class MemberListDto {
   email: string;
 }
 
-class CompanyCirle {
+class UserCirle {
   @ApiProperty()
   id: string;
 
@@ -41,33 +41,33 @@ class CompanyCirle {
   activityLevel: string;
 
   @ApiProperty()
-  coyCircleDescription: string;
+  userCircleDescription: string;
 
   @ApiProperty()
-  coyCircleName: string;
+  userCircleName: string;
 
   @ApiProperty()
-  companyUserId: string;
+  userId: string;
 
   @ApiProperty()
   wellbeingScore: string;
 
   @ApiProperty()
-  coyCircleStatus: string;
+  userCircleStatus: string;
 
   @ApiProperty()
-  coyCircleNos: string;
+  userCircleNos: string;
 
   @ApiProperty()
   memberList: MemberListDto;
 }
 
-export class IGetCompanyCircle extends GenericResponse {
+export class IGetUserCircle extends GenericResponse {
   @ApiProperty()
-  data: CompanyCirle;
+  data: UserCirle;
 }
 
-export class IGetAllCompanyCircle extends GenericResponse {
+export class IGetAllUserCircle extends GenericResponse {
   @ApiProperty()
   total: number;
 
@@ -81,5 +81,5 @@ export class IGetAllCompanyCircle extends GenericResponse {
   page_size: number;
 
   @ApiProperty()
-  comapnyCircle_list: CompanyCirle[];
+  userCircle_list: UserCirle[];
 }

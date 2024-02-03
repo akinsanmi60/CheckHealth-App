@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
-import { CirclesService } from "./circles.service";
-import { CirclesController } from "./circles.controller";
+import { CirclesService } from "./company-circles.service";
+import { CirclesController } from "./company.controller";
 import { AuthResolver } from "../../auth/authFinder.service";
 import { PrismaService } from "src/prisma/prisma.service";
 import { MailModule } from "../../mail/mail.module";
@@ -18,4 +18,4 @@ import { JwtService } from "@nestjs/jwt";
   ],
   controllers: [CirclesController],
 })
-export class CirclesModule {}
+export class CompanyModule {}

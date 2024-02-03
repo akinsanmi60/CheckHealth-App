@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -17,26 +18,29 @@ import {
   ApiResponse,
   ApiQuery,
 } from "@nestjs/swagger";
-import { CirclesService } from "./circles.service";
+import { CirclesService } from "./company-circles.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Express } from "express";
 import { fileMimetypeFilter } from "../../filter/file-mimetype/file--mimetype-filter";
 import { MAX_IMAGE_SIZE } from "../../filter/file-mimetype/file-config";
-import { CompanyGettingStartedDto, GetAllCirclesDto } from "./dto/circle.dto";
+import {
+  AddMemberToCircleDto,
+  CompanyGettingStartedDto,
+  GetAllCirclesDto,
+} from "./dto/company.dto";
 import { GenericResponse } from "src/auth/dto/auth-response.dto";
 import {
   IGetAllCompanyCircle,
   IGetCompanyCircle,
-} from "./dto/circle-response.dto";
+} from "./dto/company-response.dto";
 
-@ApiTags("Company Circle")
+@ApiTags("Company")
 @ApiBearerAuth()
-@Controller("company-circles")
+@Controller("company")
 export class CirclesController {
   constructor(private readonly circlesService: CirclesService) {}
 
   @Post("/:id/create-circle")
-  // @ApiConsumes("multipart/form-data")
   @UseInterceptors(
     FileInterceptor("file", {
       fileFilter: fileMimetypeFilter(["image/jpeg", "image/png", "image/jpg"]),
@@ -96,5 +100,26 @@ export class CirclesController {
   })
   getAllCompanyCircles(@Query() dto) {
     return this.circlesService.getAllCompanyCircles(dto);
+  }
+
+  @Delete("/:id/delete-company-circle")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiResponse({
+    type: GenericResponse,
+  })
+  deleteCompanyCircle(@Param("id") id: string) {
+    return this.circlesService.deleteCompanyCircle(id);
+  }
+
+  @Post("/:id/addmember-company-circle")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiResponse({
+    type: GenericResponse,
+  })
+  @ApiBody({
+    type: AddMemberToCircleDto,
+  })
+  addMemberToCircle(@Param("id") id: string, @Body() dto) {
+    return this.circlesService.addMemberToCircle(id, dto);
   }
 }

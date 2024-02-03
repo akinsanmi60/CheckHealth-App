@@ -11,14 +11,16 @@ import { HttpModule } from "@nestjs/axios";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { JwtService } from "@nestjs/jwt";
 import { APP_GUARD } from "@nestjs/core";
-import { CirclesModule } from "./modules/circles/circles.module";
+import { CompanyModule } from "./modules/circles/company.module";
+import { UserModule } from "./modules/user/user.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, load: [config] }),
     HttpModule.register({ timeout: 5000, maxRedirects: 5 }),
     AuthModule,
-    CirclesModule,
+    CompanyModule,
+    UserModule,
     ThrottlerModule.forRoot([
       {
         name: "short",

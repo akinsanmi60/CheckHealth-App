@@ -141,7 +141,7 @@ export class AuthController {
     return await this.authService.deactivateUser(id);
   }
 
-  @Get("/:id")
+  @Get("/:id/user")
   @ApiResponse({
     type: IGetIndividualUser,
   })
@@ -251,7 +251,7 @@ export class AuthController {
     return await this.companyService.getCompanyById(id);
   }
 
-  @Get("/companies")
+  @Get("/allcompanies")
   @ApiQuery({ type: GetAllCompanyDto, required: false })
   @ApiResponse({
     type: GetAllCompanyResponse,

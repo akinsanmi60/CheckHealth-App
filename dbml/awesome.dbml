@@ -47,7 +47,7 @@ Table CompanyCircles {
   companyUser CompanyUser
   companyUserId String
   coyCircleStatus UserStatus [not null, default: 'inactive']
-  coyCircleNos String
+  coyCircleNos String [unique]
   memberList User [not null]
   circleImg String
   user User
@@ -111,7 +111,7 @@ Table UserCircles {
   createdBy String
   userCircleStatus UserStatus [not null, default: 'inactive']
   userCircleNos String [unique]
-  membersList User [not null]
+  memberList User [not null]
 }
 
 Enum SystemRole {

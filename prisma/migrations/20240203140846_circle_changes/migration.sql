@@ -35,14 +35,39 @@ CREATE TABLE "CompanyUser" (
     "passportImg" TEXT,
     "isActive" BOOLEAN DEFAULT false,
     "updated_at" TIMESTAMP(3),
+    "isEmailVerified" BOOLEAN DEFAULT false,
     "verificationCode" TEXT,
+    "industry" TEXT,
+    "website" TEXT,
+    "companyDescription" TEXT,
     "status" "UserStatus" NOT NULL DEFAULT 'inactive',
     "address" TEXT,
+    "addressCity" TEXT,
+    "addressState" TEXT,
     "emailNotification" BOOLEAN DEFAULT false,
     "campaignNtification" BOOLEAN DEFAULT false,
     "termsConditions" BOOLEAN DEFAULT false,
 
     CONSTRAINT "CompanyUser_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "CompanyCircles" (
+    "id" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3),
+    "coyCircleName" TEXT,
+    "coyCircleDescription" VARCHAR(1000),
+    "coyCircleShareLink" TEXT,
+    "wellbeingScore" TEXT,
+    "activityLevel" "ActivityLevel" NOT NULL DEFAULT 'low',
+    "companyUserId" TEXT,
+    "coyCircleStatus" "UserStatus" NOT NULL DEFAULT 'inactive',
+    "coyCircleNos" TEXT,
+    "circleImg" TEXT,
+    "userAttachedID" TEXT,
+
+    CONSTRAINT "CompanyCircles_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -70,6 +95,7 @@ CREATE TABLE "User" (
     "passportImg" TEXT,
     "isActive" BOOLEAN DEFAULT false,
     "updated_at" TIMESTAMP(3),
+    "isEmailVerified" BOOLEAN DEFAULT false,
     "verificationCode" TEXT,
     "status" "UserStatus" NOT NULL DEFAULT 'inactive',
     "address" TEXT,
@@ -78,28 +104,29 @@ CREATE TABLE "User" (
     "campaignNtification" BOOLEAN DEFAULT false,
     "termsConditions" BOOLEAN DEFAULT false,
     "addedBy" TEXT,
-    "circleName" TEXT,
-    "circleId" TEXT,
+    "userCircleId" TEXT,
+    "coyCircleAttachedTo" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Circles" (
+CREATE TABLE "UserCircles" (
     "id" TEXT NOT NULL,
+    "circleImg" TEXT,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
-    "circleName" TEXT,
-    "circleDescription" VARCHAR(1000),
-    "circleShareLink" TEXT,
+    "updated_at" TIMESTAMP(3),
+    "userCircleName" TEXT,
+    "userCircleDescription" VARCHAR(1000),
+    "userCircleShareLink" TEXT,
     "wellbeingScore" TEXT,
-    "activityLevel" "ActivityLevel" NOT NULL,
-    "companyUserId" TEXT,
+    "activityLevel" "ActivityLevel" NOT NULL DEFAULT 'low',
     "userId" TEXT,
     "createdBy" TEXT,
-    "circleStatus" "UserStatus" NOT NULL DEFAULT 'inactive',
-    "circleNos" TEXT,
+    "userCircleStatus" "UserStatus" NOT NULL DEFAULT 'inactive',
+    "userCircleNos" TEXT,
 
-    CONSTRAINT "Circles_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "UserCircles_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -113,6 +140,15 @@ CREATE UNIQUE INDEX "CompanyUser_passwordResetCode_key" ON "CompanyUser"("passwo
 
 -- CreateIndex
 CREATE UNIQUE INDEX "CompanyUser_verificationCode_key" ON "CompanyUser"("verificationCode");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "CompanyCircles_id_key" ON "CompanyCircles"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "CompanyCircles_coyCircleName_key" ON "CompanyCircles"("coyCircleName");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "CompanyCircles_coyCircleNos_key" ON "CompanyCircles"("coyCircleNos");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_id_key" ON "User"("id");
@@ -133,19 +169,28 @@ CREATE UNIQUE INDEX "User_verificationCode_key" ON "User"("verificationCode");
 CREATE UNIQUE INDEX "User_addedBy_key" ON "User"("addedBy");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Circles_id_key" ON "Circles"("id");
+CREATE UNIQUE INDEX "UserCircles_id_key" ON "UserCircles"("id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Circles_circleName_key" ON "Circles"("circleName");
+CREATE UNIQUE INDEX "UserCircles_userCircleName_key" ON "UserCircles"("userCircleName");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Circles_id_circleName_key" ON "Circles"("id", "circleName");
+CREATE UNIQUE INDEX "UserCircles_userCircleNos_key" ON "UserCircles"("userCircleNos");
+
+-- AddForeignKey
+ALTER TABLE "CompanyCircles" ADD CONSTRAINT "CompanyCircles_companyUserId_fkey" FOREIGN KEY ("companyUserId") REFERENCES "CompanyUser"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CompanyCircles" ADD CONSTRAINT "CompanyCircles_userAttachedID_fkey" FOREIGN KEY ("userAttachedID") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_createdBy_fkey" FOREIGN KEY ("createdBy") REFERENCES "CompanyUser"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Circles" ADD CONSTRAINT "circles_company_user_fkey" FOREIGN KEY ("companyUserId") REFERENCES "CompanyUser"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_userCircleId_fkey" FOREIGN KEY ("userCircleId") REFERENCES "UserCircles"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Circles" ADD CONSTRAINT "circles_user_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_coyCircleAttachedTo_fkey" FOREIGN KEY ("coyCircleAttachedTo") REFERENCES "CompanyCircles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UserCircles" ADD CONSTRAINT "UserCircles_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;

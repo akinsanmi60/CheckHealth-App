@@ -4,15 +4,18 @@ import {
   UseInterceptors,
 } from "@nestjs/common";
 import { AuthResolver } from "src/auth/authFinder.service";
-import { PasswordService } from "src/auth/password.service";
+// import { PasswordService } from "src/auth/password.service";
 import { ResponseInterceptor } from "src/filter/responseFilter/respone.service";
-import { MailService } from "../../mail/mail.service";
+// import { MailService } from "../../mail/mail.service";
 import { PrismaService } from "src/prisma/prisma.service";
 import { UserCircle } from "src/types/appModel.type";
-import { CompanyGettingStartedDto } from "../circles/dto/circle.dto";
+import { CompanyGettingStartedDto } from "../circles/dto/company.dto";
 import * as crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
-import { GetAllUserCirclesDto } from "./dto/usercircle.dto";
+import {
+  GetAllUserCirclesDto,
+  MemberToLeaveCircleDto,
+} from "./dto/usercircle.dto";
 
 @Injectable()
 @UseInterceptors(ResponseInterceptor)
@@ -22,8 +25,8 @@ export class UserService {
   constructor(
     private authResolver: AuthResolver,
     private prisma: PrismaService,
-    private readonly mailService: MailService,
-    private readonly passwordService: PasswordService,
+    // private readonly mailService: MailService,
+    // private readonly passwordService: PasswordService,
   ) {
     this.timeGenerated = new Date().toISOString();
   }
@@ -106,7 +109,7 @@ export class UserService {
             user: {
               connect: { id: id },
             },
-            membersList: {
+            memberList: {
               connect: foundUsers.map(user => ({
                 id: user.id,
               })),
@@ -208,7 +211,7 @@ export class UserService {
             wellbeingScore: true,
             userCircleStatus: true,
             userCircleNos: true,
-            membersList: {
+            memberList: {
               select: {
                 email: true,
                 passportImg: true,
@@ -230,6 +233,10 @@ export class UserService {
         }),
       ]);
 
+      if (!allUserCircles) {
+        throw new BadRequestException("User circles not found");
+      }
+
       const totalPages = Math.ceil(totalCount / limitNumber);
 
       const message = allUserCircles.length
@@ -244,7 +251,7 @@ export class UserService {
           total_pages: success ? totalPages : 0,
           current_page: success ? Number(page) : 0,
           page_size: success ? offset : 0,
-          comapnyCircle_list: allUserCircles,
+          userCircle_list: allUserCircles,
         },
       };
     } catch (error) {
@@ -267,7 +274,7 @@ export class UserService {
         wellbeingScore: true,
         userCircleStatus: true,
         userCircleNos: true,
-        membersList: {
+        memberList: {
           select: {
             email: true,
             passportImg: true,
@@ -345,54 +352,78 @@ export class UserService {
     }
   }
 
-  async leaveUserCircle(id: string, dto: any) {
+  async leaveUserCircle(id: string, dto: MemberToLeaveCircleDto) {
     try {
-      await this.prisma.$transaction(async () => {
-        const findCirlceWithCircleNos = await this.prisma.userCircles.update({
-          where: {
-            userCircleNos: dto.userCircleNos,
-          },
-          data: {
-            membersList: {
-              disconnect: {
-                id: id,
-              },
-            },
-          },
-        });
+      const [findCirlceWithCircleNos, findCoyWithCircleNos] = await Promise.all(
+        [
+          this.prisma.userCircles.update({
+            where: { userCircleNos: dto.circleNos },
+            data: { memberList: { disconnect: { id: id } } },
+          }),
+          this.prisma.companyCircles.update({
+            where: { coyCircleNos: dto.circleNos },
+            data: { memberList: { disconnect: { id: id } } },
+          }),
+        ],
+      );
 
-        if (!findCirlceWithCircleNos) {
-          throw new BadRequestException(
-            `Failed to remove you from company circle ${findCirlceWithCircleNos.userCircleNos}`,
-          );
-        }
+      if (!findCirlceWithCircleNos || !findCoyWithCircleNos) {
+        throw new BadRequestException(
+          `Failed to remove you from company circle ${findCirlceWithCircleNos?.userCircleNos || findCoyWithCircleNos?.coyCircleNos}`,
+        );
+      }
 
-        const disconnectFromUser = await this.prisma.user.update({
-          where: {
-            id: id,
-          },
-          data: {
+      const switchData = () => {
+        if (findCirlceWithCircleNos) {
+          return {
             userCircles: {
               disconnect: {
                 userCircleNos: findCirlceWithCircleNos.userCircleNos,
               },
             },
-          },
-        });
-
-        if (!disconnectFromUser) {
-          throw new BadRequestException(
-            `Failed to remove you from company circle ${findCirlceWithCircleNos.userCircleNos}`,
-          );
+          };
+        } else {
+          return {
+            coyCirclesList: {
+              disconnect: { coyCircleNos: findCoyWithCircleNos.coyCircleNos },
+            },
+          };
         }
+      };
 
-        return {
-          message: `Successfully removed you from company circle ${findCirlceWithCircleNos.userCircleNos}`,
-        };
+      const disconnectFromUser = await this.prisma.user.update({
+        where: { id: id },
+        data: switchData(),
       });
+
+      if (!disconnectFromUser) {
+        throw new BadRequestException(
+          `Failed to remove you from company circle ${findCirlceWithCircleNos?.userCircleNos || findCoyWithCircleNos?.coyCircleNos}`,
+        );
+      }
+
+      return {
+        message: `Successfully removed you from company circle ${findCirlceWithCircleNos?.userCircleNos || findCoyWithCircleNos?.coyCircleNos}`,
+      };
     } catch (error) {
       console.error("Error in leave user circle:", error);
       throw error || new Error("Failed to leave user circle");
     }
+  }
+
+  async deleteUserCircle(id: string) {
+    const userCircle = await this.prisma.userCircles.delete({
+      where: { id },
+    });
+
+    if (!userCircle) {
+      throw new BadRequestException(
+        "Failed to delete user circle. Please try again later",
+      );
+    }
+
+    return {
+      message: "User circle deleted successfully",
+    };
   }
 }
