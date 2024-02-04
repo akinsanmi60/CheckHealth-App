@@ -126,22 +126,6 @@ export class CirclesService {
       }
 
       if (circleCreated) {
-        await Promise.all(
-          foundUsers.map(async user => {
-            await this.prisma.user.update({
-              where: {
-                id: user.id,
-              },
-              data: {
-                coyCirclesList: {
-                  connect: {
-                    id: id,
-                  },
-                },
-              },
-            });
-          }),
-        );
         return {
           message: "Circle created successfully.",
         };
@@ -616,37 +600,6 @@ export class CirclesService {
     }
 
     if (memberInCircle) {
-      // for (const user of allEntities) {
-      //   await this.prisma.user.update({
-      //     where: {
-      //       id: user.id,
-      //     },
-
-      //     data: {
-      //       coyCirclesList: {
-      //         connect: {
-      //           id: id,
-      //         },
-      //       },
-      //     },
-      //   });
-      // }
-      await Promise.all(
-        allEntities.map(async user => {
-          await this.prisma.user.update({
-            where: {
-              id: user.id,
-            },
-            data: {
-              coyCirclesList: {
-                connect: {
-                  id: id,
-                },
-              },
-            },
-          });
-        }),
-      );
       return {
         message: "Members added successfully",
       };

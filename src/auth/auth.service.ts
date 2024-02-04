@@ -443,9 +443,34 @@ export class AuthService {
       throw new BadRequestException("User not found");
     }
 
+    const coyCircleList = await this.prisma.companyCircles.findMany({
+      where: {
+        memberList: {
+          some: {
+            id: user.id,
+          },
+        },
+      },
+      select: {
+        id: true,
+        coyCircleName: true,
+        coyCircleStatus: true,
+        created_at: true,
+        coyCircleNos: true,
+        activityLevel: true,
+        coyCircleDescription: true,
+        coyCircleShareLink: true,
+      },
+    });
+
+    const userObject = {
+      ...user,
+      coyCircleList,
+    };
+
     return {
       message: "User fetched successfully",
-      data: user,
+      data: userObject,
     };
   }
 

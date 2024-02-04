@@ -10,7 +10,7 @@ import {
   SwaggerConfig,
 } from "./common/configs/config.interface";
 import { ResponseInterceptor } from "./filter/responseFilter/respone.service";
-import { credentials } from "./middlewares/cors.middleware";
+// import { credentials } from "./middlewares/cors.middleware";
 
 async function bootstrap() {
   const CSS_URL =
@@ -68,7 +68,7 @@ async function bootstrap() {
 
   // Cors
   if (corsConfig.enabled) {
-    app.enableCors(credentials());
+    app.enableCors();
   }
 
   await app.listen(nestConfig.port || 3300);
