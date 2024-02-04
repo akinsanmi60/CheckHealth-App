@@ -91,7 +91,7 @@ Table User {
   userCircleIn UserCircles
   userCircleId String
   companyCirle CompanyCircles
-  coyCircleAttachedTo String [not null]
+  coyCircleAttachedTo String
   userCircles UserCircles [not null]
   coyCirclesList CompanyCircles [not null]
 }

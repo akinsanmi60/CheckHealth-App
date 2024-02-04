@@ -3904,7 +3904,7 @@ export namespace Prisma {
     termsConditions: boolean | null
     addedBy: string | null
     userCircleId: string | null
-    coyCircleAttachedTo: string
+    coyCircleAttachedTo: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -4057,7 +4057,7 @@ export namespace Prisma {
       termsConditions: boolean | null
       addedBy: string | null
       userCircleId: string | null
-      coyCircleAttachedTo: string
+      coyCircleAttachedTo: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -6520,7 +6520,7 @@ export namespace Prisma {
     termsConditions?: BoolNullableFilter<"User"> | boolean | null
     addedBy?: StringNullableFilter<"User"> | string | null
     userCircleId?: StringNullableFilter<"User"> | string | null
-    coyCircleAttachedTo?: StringFilter<"User"> | string
+    coyCircleAttachedTo?: StringNullableFilter<"User"> | string | null
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     userCircleIn?: XOR<UserCirclesNullableRelationFilter, UserCirclesWhereInput> | null
     companyCirle?: XOR<CompanyCirclesNullableRelationFilter, CompanyCirclesWhereInput> | null
@@ -6562,7 +6562,7 @@ export namespace Prisma {
     termsConditions?: SortOrderInput | SortOrder
     addedBy?: SortOrderInput | SortOrder
     userCircleId?: SortOrderInput | SortOrder
-    coyCircleAttachedTo?: SortOrder
+    coyCircleAttachedTo?: SortOrderInput | SortOrder
     companyUser?: CompanyUserOrderByWithRelationInput
     userCircleIn?: UserCirclesOrderByWithRelationInput
     companyCirle?: CompanyCirclesOrderByWithRelationInput
@@ -6607,7 +6607,7 @@ export namespace Prisma {
     campaignNtification?: BoolNullableFilter<"User"> | boolean | null
     termsConditions?: BoolNullableFilter<"User"> | boolean | null
     userCircleId?: StringNullableFilter<"User"> | string | null
-    coyCircleAttachedTo?: StringFilter<"User"> | string
+    coyCircleAttachedTo?: StringNullableFilter<"User"> | string | null
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     userCircleIn?: XOR<UserCirclesNullableRelationFilter, UserCirclesWhereInput> | null
     companyCirle?: XOR<CompanyCirclesNullableRelationFilter, CompanyCirclesWhereInput> | null
@@ -6649,7 +6649,7 @@ export namespace Prisma {
     termsConditions?: SortOrderInput | SortOrder
     addedBy?: SortOrderInput | SortOrder
     userCircleId?: SortOrderInput | SortOrder
-    coyCircleAttachedTo?: SortOrder
+    coyCircleAttachedTo?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -6692,7 +6692,7 @@ export namespace Prisma {
     termsConditions?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
     addedBy?: StringNullableWithAggregatesFilter<"User"> | string | null
     userCircleId?: StringNullableWithAggregatesFilter<"User"> | string | null
-    coyCircleAttachedTo?: StringWithAggregatesFilter<"User"> | string
+    coyCircleAttachedTo?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type UserCirclesWhereInput = {
@@ -7170,7 +7170,7 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    coyCircleAttachedTo: string
+    coyCircleAttachedTo?: string | null
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
     coyCirclesList?: CompanyCirclesUncheckedCreateNestedManyWithoutUserInput
   }
@@ -7248,7 +7248,7 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
+    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
     coyCirclesList?: CompanyCirclesUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -7287,7 +7287,7 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    coyCircleAttachedTo: string
+    coyCircleAttachedTo?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -7358,7 +7358,7 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
+    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCirclesCreateInput = {
@@ -8667,7 +8667,7 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    coyCircleAttachedTo: string
+    coyCircleAttachedTo?: string | null
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
     coyCirclesList?: CompanyCirclesUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8777,7 +8777,7 @@ export namespace Prisma {
     termsConditions?: BoolNullableFilter<"User"> | boolean | null
     addedBy?: StringNullableFilter<"User"> | string | null
     userCircleId?: StringNullableFilter<"User"> | string | null
-    coyCircleAttachedTo?: StringFilter<"User"> | string
+    coyCircleAttachedTo?: StringNullableFilter<"User"> | string | null
   }
 
   export type CompanyCirclesUpsertWithWhereUniqueWithoutCompanyUserInput = {
@@ -9032,7 +9032,7 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    coyCircleAttachedTo: string
+    coyCircleAttachedTo?: string | null
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -9205,7 +9205,7 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
+    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -9700,7 +9700,7 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    coyCircleAttachedTo: string
+    coyCircleAttachedTo?: string | null
     coyCirclesList?: CompanyCirclesUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -9780,7 +9780,7 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
-    coyCircleAttachedTo: string
+    coyCircleAttachedTo?: string | null
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
     coyCirclesList?: CompanyCirclesUncheckedCreateNestedManyWithoutUserInput
   }
@@ -9878,7 +9878,7 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
+    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
     coyCirclesList?: CompanyCirclesUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -9931,7 +9931,7 @@ export namespace Prisma {
     termsConditions?: boolean | null
     addedBy?: string | null
     userCircleId?: string | null
-    coyCircleAttachedTo: string
+    coyCircleAttachedTo?: string | null
   }
 
   export type CompanyCirclesCreateManyCompanyUserInput = {
@@ -10020,7 +10020,7 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
+    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
     coyCirclesList?: CompanyCirclesUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -10058,7 +10058,7 @@ export namespace Prisma {
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
     userCircleId?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
+    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CompanyCirclesUpdateWithoutCompanyUserInput = {
@@ -10413,7 +10413,7 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
-    coyCircleAttachedTo: string
+    coyCircleAttachedTo?: string | null
   }
 
   export type UserUpdateWithoutUserCircleInInput = {
@@ -10487,7 +10487,7 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
+    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
     coyCirclesList?: CompanyCirclesUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -10525,7 +10525,7 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    coyCircleAttachedTo?: StringFieldUpdateOperationsInput | string
+    coyCircleAttachedTo?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
