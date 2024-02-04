@@ -358,11 +358,11 @@ export class UserService {
         [
           this.prisma.userCircles.update({
             where: { userCircleNos: dto.circleNos },
-            data: { memberList: { disconnect: { id: id } } },
+            data: { memberList: { delete: { id: id } } },
           }),
           this.prisma.companyCircles.update({
             where: { coyCircleNos: dto.circleNos },
-            data: { memberList: { disconnect: { id: id } } },
+            data: { memberList: { delete: { id: id } } },
           }),
         ],
       );
@@ -377,7 +377,7 @@ export class UserService {
         if (findCirlceWithCircleNos) {
           return {
             userCircles: {
-              disconnect: {
+              delete: {
                 userCircleNos: findCirlceWithCircleNos.userCircleNos,
               },
             },
@@ -385,7 +385,7 @@ export class UserService {
         } else {
           return {
             coyCirclesList: {
-              disconnect: { coyCircleNos: findCoyWithCircleNos.coyCircleNos },
+              delete: { coyCircleNos: findCoyWithCircleNos.coyCircleNos },
             },
           };
         }
@@ -425,5 +425,45 @@ export class UserService {
     return {
       message: "User circle deleted successfully",
     };
+  }
+
+  async removeMemberFromCircle(id: string, memberId: string) {
+    const removedMember = await this.prisma.userCircles.update({
+      where: {
+        id: id,
+      },
+      data: {
+        memberList: {
+          delete: {
+            id: memberId,
+          },
+        },
+      },
+    });
+
+    if (!removedMember) {
+      throw new BadRequestException(
+        "Failed to remove member from user circle. Please try again later",
+      );
+    }
+
+    const disconnectFromUser = await this.prisma.user.update({
+      where: { id: memberId },
+      data: {
+        coyCirclesList: {
+          delete: { coyCircleNos: removedMember.userCircleNos },
+        },
+      },
+    });
+
+    if (!disconnectFromUser) {
+      throw new BadRequestException("Please try again later");
+    }
+
+    if (disconnectFromUser) {
+      return {
+        message: "Member removed successfully",
+      };
+    }
   }
 }

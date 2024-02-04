@@ -16,6 +16,9 @@ import * as crypto from "crypto";
 import { MailService } from "../../mail/mail.service";
 import { PasswordService } from "src/auth/password.service";
 import { v4 as uuidv4 } from "uuid";
+import * as fs from "fs";
+import * as csvParser from "csv-parser";
+import { Readable } from "stream";
 
 @Injectable()
 @UseInterceptors(ResponseInterceptor)
@@ -425,5 +428,162 @@ export class CirclesService {
         "Failed to add member to company circle. Please try again later",
       );
     }
+  }
+
+  async removeMemberFromCircle(id: string, memberId: string) {
+    const removedMember = await this.prisma.companyCircles.update({
+      where: {
+        id: id,
+      },
+      data: {
+        memberList: {
+          delete: {
+            id: memberId,
+          },
+        },
+      },
+    });
+
+    if (!removedMember) {
+      throw new BadRequestException(
+        "Failed to remove member from company circle. Please try again later",
+      );
+    }
+
+    const disconnectFromUser = await this.prisma.user.update({
+      where: { id: memberId },
+      data: {
+        coyCirclesList: {
+          delete: { coyCircleNos: removedMember.coyCircleNos },
+        },
+      },
+    });
+
+    if (!disconnectFromUser) {
+      throw new BadRequestException("Please try again later");
+    }
+
+    if (disconnectFromUser) {
+      return {
+        message: "Member removed successfully",
+      };
+    }
+  }
+
+  async tmemberBatchUploadCircles(id: string, file: Express.Multer.File) {
+    try {
+      const results = await new Promise((resolve, reject) => {
+        const stream = fs.createReadStream(file.buffer);
+        const parser = csvParser();
+
+        stream.pipe(parser);
+
+        const data = [];
+        parser
+          .on("data", row => {
+            // Split the paths by newline character
+            const paths = row.split("\n");
+            // Remove empty paths
+            const validPaths = paths.filter(path => path.trim() !== "");
+            // Add valid paths to data
+            data.push(...validPaths);
+          })
+          .on("end", () => {
+            resolve(data);
+          })
+          .on("error", error => {
+            reject(error);
+          });
+
+        stream.on("error", error => {
+          reject(error);
+        });
+      });
+
+      // console.log(results);
+      return {
+        message: "Member batch uploaded successfully",
+        results,
+      };
+    } catch (error) {
+      console.log(error);
+      throw new Error("Failed to upload member batch");
+    }
+  }
+
+  async memberBatchUploadCircles(id: string, file: Express.Multer.File) {
+    // I have to create a Readable stream from the buffer because the csv-parser library does not support reading from files
+    const results = [];
+    await new Promise((resolve, reject) => {
+      // Create a Readable stream from the buffer
+      const bufferStream = Readable.from([file.buffer]);
+
+      bufferStream
+        .pipe(csvParser())
+        .on("data", data => results.push(data))
+        .on("end", () => {
+          if (results.length > 0) {
+            resolve(results);
+          }
+        })
+        .on("error", error => reject(error));
+    });
+
+    // Remove duplicates after flattening the keys and values of the objects in the array
+    const resultArray = Array.from(
+      new Set(
+        results.flatMap(obj => [
+          ...Object.keys(obj).flat(),
+          ...Object.values(obj).flat(),
+        ]),
+      ),
+    );
+
+    const getAllUsersEmail = await this.prisma.user.findMany({
+      select: {
+        email: true,
+      },
+    });
+
+    console.log(getAllUsersEmail);
+    const colors = [
+      "red",
+      "green",
+      "blue",
+      "yellow",
+      "purple",
+      "grey",
+      "lemon",
+      "skyblue",
+    ];
+
+    const lovedColors = [
+      "purple",
+      "darkblue",
+      "grey",
+      "green",
+      "yellow",
+      "slightgrey",
+      "tankred",
+      "lightgrey",
+    ];
+
+    function filterColorsNotInArray(sourceArray, targetArray) {
+      return targetArray.filter(color => !sourceArray.includes(color));
+    }
+    function filterColorsInArray(sourceArray, targetArray) {
+      return targetArray.filter(color => sourceArray.includes(color));
+    }
+
+    const notInColors = filterColorsNotInArray(colors, lovedColors);
+    const InColors = filterColorsInArray(colors, lovedColors);
+
+    console.log(notInColors);
+    console.log(InColors);
+
+    return {
+      message: "Member batch uploaded successfully",
+      data: resultArray,
+    };
   }
 }

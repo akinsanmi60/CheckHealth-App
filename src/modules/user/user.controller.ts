@@ -116,4 +116,17 @@ export class UserController {
   leaveUserCircle(@Param("id") id: string, @Body() dto: any) {
     return this.userService.leaveUserCircle(id, dto);
   }
+
+  @Post("/:id/:memberId/removemember-from-circle")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiParam({ name: "memberId", type: "string" })
+  @ApiResponse({
+    type: GenericResponse,
+  })
+  removeMemberFromCircle(
+    @Param("id") id: string,
+    @Param("memberId") memberId: string,
+  ) {
+    return this.userService.removeMemberFromCircle(id, memberId);
+  }
 }

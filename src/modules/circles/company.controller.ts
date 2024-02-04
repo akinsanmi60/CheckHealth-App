@@ -17,6 +17,7 @@ import {
   ApiBody,
   ApiResponse,
   ApiQuery,
+  ApiConsumes,
 } from "@nestjs/swagger";
 import { CirclesService } from "./company-circles.service";
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -121,5 +122,53 @@ export class CirclesController {
   })
   addMemberToCircle(@Param("id") id: string, @Body() dto) {
     return this.circlesService.addMemberToCircle(id, dto);
+  }
+
+  @Post("/:id/:memberId/removemember-company-circle")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiParam({ name: "memberId", type: "string" })
+  @ApiResponse({
+    type: GenericResponse,
+  })
+  removeMemberFromCircle(
+    @Param("id") id: string,
+    @Param("memberId") memberId: string,
+  ) {
+    return this.circlesService.removeMemberFromCircle(id, memberId);
+  }
+
+  @Post("/:id/batchupload-member")
+  @UseInterceptors(
+    FileInterceptor("file", {
+      fileFilter: fileMimetypeFilter([
+        "csv",
+        "text/csv",
+        "application/vnd.ms-excel",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      ]),
+      limits: { fileSize: MAX_IMAGE_SIZE },
+    }),
+  )
+  @ApiConsumes("multipart/form-data")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiBody({
+    description:
+      "Creating a circle for a company. Note append the file to the formData when posting",
+    schema: {
+      type: "object",
+      properties: {
+        file: {
+          // 👈 this property
+          type: "string",
+          format: "binary",
+        },
+      },
+    },
+  })
+  batchUploadMember(
+    @UploadedFile() file: Express.Multer.File,
+    @Param("id") id: string,
+  ) {
+    return this.circlesService.memberBatchUploadCircles(id, file);
   }
 }
