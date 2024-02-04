@@ -6,15 +6,6 @@ generator client {
   output   = "./generated/client"
 }
 
-generator dbml {
-  provider            = "prisma-dbml-generator"
-  output              = "../dbml"
-  outputName          = "awesome.dbml"
-  projectName         = "Project Name"
-  projectDatabaseType = "PostgreSQL"
-  projectNote         = "Empylo description"
-}
-
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
@@ -105,7 +96,7 @@ model User {
   userCircleIn        UserCircles?     @relation("memberInCrircle", fields: [userCircleId], references: [id])
   userCircleId        String?
   companyCirle        CompanyCircles?  @relation("coyCircleIn", fields: [coyCircleAttachedTo], references: [id])
-  coyCircleAttachedTo String
+  coyCircleAttachedTo String?
   userCircles         UserCircles[]    @relation("userCircles")
   coyCirclesList      CompanyCircles[] @relation("userCoyCircleList")
 }
@@ -125,7 +116,7 @@ model UserCircles {
   createdBy             String?
   userCircleStatus      UserStatus    @default(inactive)
   userCircleNos         String?       @unique
-  memberList           User[]        @relation("memberInCrircle")
+  memberList            User[]        @relation("memberInCrircle")
 }
 
 enum SystemRole {

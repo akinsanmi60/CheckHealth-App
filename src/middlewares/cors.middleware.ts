@@ -1,12 +1,13 @@
 // cors.middleware.ts
 
-import { allowedOrigins } from "./allowedOrigins";
+// import { allowedOrigins } from "./allowedOrigins";
 
 export const credentials = () => {
   return {
     // credentials: true,
-    origin: allowedOrigins,
-    methods: ["PUT", "GET", "POST", "DELETE", "OPTIONS"],
+    // origin: allowedOrigins,
+    origin: "*",
+    methods: ["PUT", "GET", "POST", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: [
       "X-Requested-With",
       "Content-Type",

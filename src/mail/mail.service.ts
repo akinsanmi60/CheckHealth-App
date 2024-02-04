@@ -47,9 +47,9 @@ export class MailService {
     });
   }
   async addUserSignUp(
-    mailData: MailData<{ name?: string; code: string }>,
+    mailData: MailData<{ name?: string; password: string }>,
   ): Promise<void> {
-    const emailConfirmTitle = `Thank you for signing up on ${this.app_name}`;
+    const emailConfirmTitle = `Welcome on ${this.app_name}`;
 
     // const url = new URL(
     //   this.configService.getOrThrow("FRONTEND_DOMAIN", {
@@ -74,7 +74,7 @@ export class MailService {
         actionTitle: emailConfirmTitle,
         app_name: this.configService.get("APP", { infer: true }),
         // name: mailData.data.name,
-        code: mailData.data.code,
+        password: mailData.data.password,
       },
     });
   }

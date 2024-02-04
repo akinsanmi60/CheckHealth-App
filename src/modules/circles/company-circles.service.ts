@@ -11,12 +11,11 @@ import {
   CompanyGettingStartedDto,
   GetAllCirclesDto,
 } from "./dto/company.dto";
-import { CompanyCirle } from "src/types/appModel.type";
+import { CompanyCirle, Users } from "src/types/appModel.type";
 import * as crypto from "crypto";
 import { MailService } from "../../mail/mail.service";
 import { PasswordService } from "src/auth/password.service";
 import { v4 as uuidv4 } from "uuid";
-import * as fs from "fs";
 import * as csvParser from "csv-parser";
 import { Readable } from "stream";
 
@@ -24,6 +23,7 @@ import { Readable } from "stream";
 @UseInterceptors(ResponseInterceptor)
 export class CirclesService {
   private readonly timeGenerated: string;
+  private readonly emailRegex;
 
   constructor(
     private authResolver: AuthResolver,
@@ -32,6 +32,7 @@ export class CirclesService {
     private readonly passwordService: PasswordService,
   ) {
     this.timeGenerated = new Date().toISOString();
+    this.emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   }
 
   async createCirlce(
@@ -42,11 +43,10 @@ export class CirclesService {
     let participantsList = [] as string[];
 
     participantsList = JSON.parse(dto.participantsList as unknown as string);
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     // Check each email in the array
     for (const email of participantsList) {
-      if (!emailRegex.test(email)) {
+      if (!this.emailRegex.test(email)) {
         // If any email does not match the email format, return false
         throw new BadRequestException("Invalid email format.");
       }
@@ -87,50 +87,67 @@ export class CirclesService {
     }
 
     try {
-      await this.prisma.$transaction(async () => {
-        // Find users by email addresses
-        const foundUsers = await this.prisma.user.findMany({
-          where: {
-            email: {
-              in: participantsList,
-            },
+      // Find users by email addresses
+      const foundUsers = await this.prisma.user.findMany({
+        where: {
+          email: {
+            in: participantsList,
           },
-        });
+        },
+      });
 
-        // Ensure all participants are found
-        if (foundUsers.length !== participantsList.length) {
-          throw new BadRequestException("One or more participants not found.");
-        }
+      // Ensure all participants are found
+      if (foundUsers?.length !== participantsList?.length) {
+        throw new BadRequestException("One or more participants not found.");
+      }
 
-        const circleCreated = await this.prisma.companyCircles.create({
-          data: {
-            id: uuidv4(),
-            circleImg: file.filename,
-            coyCircleName: dto.circleName,
-            coyCircleDescription: dto.circleDescription,
-            coyCircleNos: `${firstThreeLetters}-${code}${lastTwo}`,
-            companyUser: {
-              connect: { id: id },
-            },
-            memberList: {
-              connect: foundUsers.map(user => ({
+      const circleCreated = await this.prisma.companyCircles.create({
+        data: {
+          id: uuidv4(),
+          circleImg: file.filename,
+          coyCircleName: dto.circleName,
+          coyCircleDescription: dto.circleDescription,
+          coyCircleNos: `${firstThreeLetters}-${code}${lastTwo}`,
+          companyUser: {
+            connect: { id: id },
+          },
+          memberList: {
+            connect: foundUsers.map(user => ({
+              id: user.id,
+            })),
+          },
+          created_at: this.timeGenerated,
+          coyCircleStatus: "active",
+        },
+      });
+
+      if (!circleCreated) {
+        throw new BadRequestException("Failed to create circle.");
+      }
+
+      if (circleCreated) {
+        await Promise.all(
+          foundUsers.map(async user => {
+            await this.prisma.user.update({
+              where: {
                 id: user.id,
-              })),
-            },
-            created_at: this.timeGenerated,
-            coyCircleStatus: "active",
-          },
-        });
-
-        if (!circleCreated) {
-          throw new BadRequestException("Failed to create circle.");
-        }
-
+              },
+              data: {
+                coyCirclesList: {
+                  connect: {
+                    id: id,
+                  },
+                },
+              },
+            });
+          }),
+        );
         return {
           message: "Circle created successfully.",
         };
-      });
+      }
     } catch (error) {
+      console.error(error);
       throw error || new Error("Failed to create circle.");
     }
   }
@@ -368,19 +385,23 @@ export class CirclesService {
   }
 
   async addMemberToCircle(id: string, dto: AddMemberToCircleDto) {
-    const foundUser = await this.authResolver.findUserWithField(
+    const foundUser = (await this.authResolver.findUserWithField(
       dto.email,
       "email",
       "user",
-    );
+    )) as Users;
+
+    let newCreatedEntity = {} as Users;
 
     if (!foundUser) {
       const randomPassword = crypto.randomBytes(6).toString("hex");
+
       const hashedPassword =
         await this.passwordService.hashPassword(randomPassword);
+
       const code = crypto.randomInt(1000, 9999).toString();
 
-      const newCreatedEntity = await this.prisma.user.create({
+      newCreatedEntity = await this.prisma.user.create({
         data: {
           id: uuidv4(),
           email: dto.email,
@@ -395,10 +416,10 @@ export class CirclesService {
       });
 
       if (newCreatedEntity) {
-        await this.mailService.userSignUp({
+        await this.mailService.addUserSignUp({
           to: dto.email,
           data: {
-            code: code.toString(),
+            password: randomPassword,
           },
         });
       }
@@ -410,14 +431,8 @@ export class CirclesService {
       },
       data: {
         memberList: {
-          create: {
-            id: uuidv4(),
-            email: dto.email,
-            companyUser: {
-              connect: {
-                id: id,
-              },
-            },
+          connect: {
+            id: foundUser?.id || newCreatedEntity?.id,
           },
         },
       },
@@ -427,6 +442,12 @@ export class CirclesService {
       throw new BadRequestException(
         "Failed to add member to company circle. Please try again later",
       );
+    }
+
+    if (memberInCircle) {
+      return {
+        message: "Member added successfully",
+      };
     }
   }
 
@@ -470,47 +491,6 @@ export class CirclesService {
     }
   }
 
-  async tmemberBatchUploadCircles(id: string, file: Express.Multer.File) {
-    try {
-      const results = await new Promise((resolve, reject) => {
-        const stream = fs.createReadStream(file.buffer);
-        const parser = csvParser();
-
-        stream.pipe(parser);
-
-        const data = [];
-        parser
-          .on("data", row => {
-            // Split the paths by newline character
-            const paths = row.split("\n");
-            // Remove empty paths
-            const validPaths = paths.filter(path => path.trim() !== "");
-            // Add valid paths to data
-            data.push(...validPaths);
-          })
-          .on("end", () => {
-            resolve(data);
-          })
-          .on("error", error => {
-            reject(error);
-          });
-
-        stream.on("error", error => {
-          reject(error);
-        });
-      });
-
-      // console.log(results);
-      return {
-        message: "Member batch uploaded successfully",
-        results,
-      };
-    } catch (error) {
-      console.log(error);
-      throw new Error("Failed to upload member batch");
-    }
-  }
-
   async memberBatchUploadCircles(id: string, file: Express.Multer.File) {
     // I have to create a Readable stream from the buffer because the csv-parser library does not support reading from files
     const results = [];
@@ -539,51 +519,140 @@ export class CirclesService {
       ),
     );
 
+    if (resultArray.length === 0) {
+      throw new BadRequestException(
+        "Failed to upload member. Please try again later",
+      );
+    }
+
+    // Check each email in the array
+    for (const email of resultArray) {
+      if (!this.emailRegex.test(email as string)) {
+        // If any email does not match the email format, return false
+        throw new BadRequestException("Invalid email format.");
+      }
+    }
+
     const getAllUsersEmail = await this.prisma.user.findMany({
       select: {
         email: true,
       },
     });
 
-    console.log(getAllUsersEmail);
-    const colors = [
-      "red",
-      "green",
-      "blue",
-      "yellow",
-      "purple",
-      "grey",
-      "lemon",
-      "skyblue",
-    ];
+    const emailArray = getAllUsersEmail.map(user => user.email);
 
-    const lovedColors = [
-      "purple",
-      "darkblue",
-      "grey",
-      "green",
-      "yellow",
-      "slightgrey",
-      "tankred",
-      "lightgrey",
-    ];
-
-    function filterColorsNotInArray(sourceArray, targetArray) {
-      return targetArray.filter(color => !sourceArray.includes(color));
+    function filterEmailNotInArray(sourceArray, targetArray) {
+      return targetArray.filter(email => !sourceArray.includes(email));
     }
-    function filterColorsInArray(sourceArray, targetArray) {
-      return targetArray.filter(color => sourceArray.includes(color));
+    function filterEmailInArray(sourceArray, targetArray) {
+      return targetArray.filter(email => sourceArray.includes(email));
     }
 
-    const notInColors = filterColorsNotInArray(colors, lovedColors);
-    const InColors = filterColorsInArray(colors, lovedColors);
+    const notInEmails = filterEmailNotInArray(emailArray, resultArray);
+    const InEmails = filterEmailInArray(emailArray, resultArray);
 
-    console.log(notInColors);
-    console.log(InColors);
+    const newEntitiesPromises = notInEmails.map(async email => {
+      const randomPassword = crypto.randomBytes(6).toString("hex");
+      const hashedPassword =
+        await this.passwordService.hashPassword(randomPassword);
+      const code = crypto.randomInt(1000, 9999).toString();
 
+      const newCreatedEntity = await this.prisma.user.create({
+        data: {
+          id: uuidv4(),
+          email,
+          created_at: this.timeGenerated,
+          password: hashedPassword,
+          status: "pending",
+          isEmailVerified: false,
+          verificationCode: code,
+          termsConditions: true,
+          accountType: "clientUser",
+        },
+      });
+
+      if (!newCreatedEntity) {
+        throw new BadRequestException("Failed to create user");
+      }
+
+      await this.mailService.addUserSignUp({
+        to: email,
+        data: { password: randomPassword },
+      });
+
+      return newCreatedEntity;
+    });
+
+    const newEntities = await Promise.all(newEntitiesPromises);
+
+    const foundUsers = await this.prisma.user.findMany({
+      where: {
+        email: {
+          in: InEmails,
+        },
+      },
+    });
+
+    // Combine the arrays for updating companyCircles
+    const allEntities = [...newEntities, ...foundUsers] as Users[];
+
+    console.log(allEntities);
+
+    const memberInCircle = await this.prisma.companyCircles.update({
+      where: {
+        id: id,
+      },
+      data: {
+        memberList: {
+          connect: allEntities.map(user => ({ id: user.id })),
+        },
+      },
+    });
+
+    if (!memberInCircle) {
+      throw new BadRequestException(
+        "Failed to add members to company circle. Please try again later",
+      );
+    }
+
+    if (memberInCircle) {
+      // for (const user of allEntities) {
+      //   await this.prisma.user.update({
+      //     where: {
+      //       id: user.id,
+      //     },
+
+      //     data: {
+      //       coyCirclesList: {
+      //         connect: {
+      //           id: id,
+      //         },
+      //       },
+      //     },
+      //   });
+      // }
+      await Promise.all(
+        allEntities.map(async user => {
+          await this.prisma.user.update({
+            where: {
+              id: user.id,
+            },
+            data: {
+              coyCirclesList: {
+                connect: {
+                  id: id,
+                },
+              },
+            },
+          });
+        }),
+      );
+      return {
+        message: "Members added successfully",
+      };
+    }
     return {
-      message: "Member batch uploaded successfully",
-      data: resultArray,
+      message: "Members batch uploaded successfully",
     };
   }
 }
