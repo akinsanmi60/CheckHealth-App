@@ -455,20 +455,7 @@ export class CirclesService {
       );
     }
 
-    const disconnectFromUser = await this.prisma.user.update({
-      where: { id: memberId },
-      data: {
-        coyCirclesList: {
-          delete: { coyCircleNos: removedMember.coyCircleNos },
-        },
-      },
-    });
-
-    if (!disconnectFromUser) {
-      throw new BadRequestException("Please try again later");
-    }
-
-    if (disconnectFromUser) {
+    if (removedMember) {
       return {
         message: "Member removed successfully",
       };

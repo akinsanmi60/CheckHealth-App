@@ -436,6 +436,18 @@ export class AuthService {
         isActive: true,
         gender: true,
         address: true,
+        userCircles: {
+          select: {
+            id: true,
+            userCircleName: true,
+            userCircleStatus: true,
+            created_at: true,
+            userCircleNos: true,
+            activityLevel: true,
+            userCircleDescription: true,
+            userCircleShareLink: true,
+          },
+        },
       },
     });
 
@@ -443,29 +455,51 @@ export class AuthService {
       throw new BadRequestException("User not found");
     }
 
-    const coyCircleList = await this.prisma.companyCircles.findMany({
-      where: {
-        memberList: {
-          some: {
-            id: user.id,
+    const [coyCircleList, userCircleList] = await Promise.all([
+      this.prisma.companyCircles.findMany({
+        where: {
+          memberList: {
+            some: {
+              id: user.id,
+            },
           },
         },
-      },
-      select: {
-        id: true,
-        coyCircleName: true,
-        coyCircleStatus: true,
-        created_at: true,
-        coyCircleNos: true,
-        activityLevel: true,
-        coyCircleDescription: true,
-        coyCircleShareLink: true,
-      },
-    });
+        select: {
+          id: true,
+          coyCircleName: true,
+          coyCircleStatus: true,
+          created_at: true,
+          coyCircleNos: true,
+          activityLevel: true,
+          coyCircleDescription: true,
+          coyCircleShareLink: true,
+        },
+      }),
+      this.prisma.userCircles.findMany({
+        where: {
+          memberList: {
+            some: {
+              id: user.id,
+            },
+          },
+        },
+        select: {
+          id: true,
+          userCircleName: true,
+          userCircleStatus: true,
+          created_at: true,
+          userCircleNos: true,
+          activityLevel: true,
+          userCircleDescription: true,
+          userCircleShareLink: true,
+        },
+      }),
+    ]);
 
     const userObject = {
       ...user,
       coyCircleList,
+      userCircleList,
     };
 
     return {

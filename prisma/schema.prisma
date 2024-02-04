@@ -55,8 +55,6 @@ model CompanyCircles {
   coyCircleNos         String?       @unique
   memberList           User[]        @relation("coyCircleIn")
   circleImg            String?
-  user                 User?         @relation("userCoyCircleList", fields: [userAttachedID], references: [id])
-  userAttachedID       String?
 }
 
 model User {
@@ -98,7 +96,6 @@ model User {
   companyCirle        CompanyCircles?  @relation("coyCircleIn", fields: [coyCircleAttachedTo], references: [id])
   coyCircleAttachedTo String?
   userCircles         UserCircles[]    @relation("userCircles")
-  coyCirclesList      CompanyCircles[] @relation("userCoyCircleList")
 }
 
 model UserCircles {

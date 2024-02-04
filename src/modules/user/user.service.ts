@@ -447,20 +447,7 @@ export class UserService {
       );
     }
 
-    const disconnectFromUser = await this.prisma.user.update({
-      where: { id: memberId },
-      data: {
-        coyCirclesList: {
-          delete: { coyCircleNos: removedMember.userCircleNos },
-        },
-      },
-    });
-
-    if (!disconnectFromUser) {
-      throw new BadRequestException("Please try again later");
-    }
-
-    if (disconnectFromUser) {
+    if (removedMember) {
       return {
         message: "Member removed successfully",
       };

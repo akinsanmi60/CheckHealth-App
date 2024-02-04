@@ -145,8 +145,7 @@ exports.Prisma.CompanyCirclesScalarFieldEnum = {
   companyUserId: 'companyUserId',
   coyCircleStatus: 'coyCircleStatus',
   coyCircleNos: 'coyCircleNos',
-  circleImg: 'circleImg',
-  userAttachedID: 'userAttachedID'
+  circleImg: 'circleImg'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
