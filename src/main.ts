@@ -11,6 +11,8 @@ import {
   SwaggerConfig,
 } from "./common/configs/config.interface";
 import { ResponseInterceptor } from "./filter/responseFilter/respone.service";
+import cors from "cors";
+
 // import { credentials } from "./middlewares/cors.middleware";
 
 async function bootstrap() {
@@ -22,9 +24,7 @@ async function bootstrap() {
     "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.js",
   ];
 
-  const app: NestExpressApplication = await NestFactory.create(AppModule, {
-    cors: true,
-  });
+  const app: NestExpressApplication = await NestFactory.create(AppModule);
 
   // app.enableCors({
   //   origin: "*",
@@ -41,12 +41,14 @@ async function bootstrap() {
   //   optionsSuccessStatus: 200,
   // });
 
-  app.enableCors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  });
+  app.use(
+    cors({
+      origin: "*",
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      preflightContinue: false,
+      // optionsSuccessStatus: 204,
+    }),
+  );
 
   app.useGlobalInterceptors(new ResponseInterceptor());
 
