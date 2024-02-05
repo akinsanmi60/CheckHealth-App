@@ -23,23 +23,16 @@ async function bootstrap() {
     "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.js",
   ];
 
-  const app: NestExpressApplication = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        console.log("allowed cors for:", origin);
-        callback(null, true);
-      } else {
-        console.log("blocked cors for:", origin);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "*",
     allowedHeaders:
       "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe",
     methods: "GET,PUT,POST,DELETE,UPDATE,OPTIONS",
     credentials: true,
   });
+
   app.useGlobalInterceptors(new ResponseInterceptor());
 
   // Validation
@@ -86,6 +79,14 @@ async function bootstrap() {
   // Cors
   // if (corsConfig.enabled) {
   // }
+
+  app.enableCors({
+    origin: "*",
+    allowedHeaders:
+      "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe",
+    methods: "GET,PUT,POST,DELETE,UPDATE,OPTIONS",
+    credentials: true,
+  });
 
   await app.listen(nestConfig.port || 3300);
 }
