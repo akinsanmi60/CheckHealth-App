@@ -80,14 +80,6 @@ async function bootstrap() {
   // if (corsConfig.enabled) {
   // }
 
-  app.enableCors({
-    origin: "*",
-    allowedHeaders:
-      "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe",
-    methods: "GET,PUT,POST,DELETE,UPDATE,OPTIONS",
-    credentials: true,
-  });
-
   await app.listen(nestConfig.port || 3300);
 }
 bootstrap();
