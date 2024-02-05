@@ -5,12 +5,12 @@ import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import {
-  CorsConfig,
+  // CorsConfig,
   NestConfig,
   SwaggerConfig,
 } from "./common/configs/config.interface";
 import { ResponseInterceptor } from "./filter/responseFilter/respone.service";
-import { credentials } from "./middlewares/cors.middleware";
+// import { credentials } from "./middlewares/cors.middleware";
 
 async function bootstrap() {
   const CSS_URL =
@@ -33,7 +33,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const nestConfig = configService.get<NestConfig>("nest");
-  const corsConfig = configService.get<CorsConfig>("cors");
+  // const corsConfig = configService.get<CorsConfig>("cors");
   const swaggerConfig = configService.get<SwaggerConfig>("swagger");
 
   if (swaggerConfig.enabled) {
@@ -67,9 +67,9 @@ async function bootstrap() {
   }
 
   // Cors
-  if (corsConfig.enabled) {
-    app.enableCors(credentials());
-  }
+  // if (corsConfig.enabled) {
+  //   app.enableCors(credentials());
+  // }
 
   await app.listen(nestConfig.port || 3300);
 }
