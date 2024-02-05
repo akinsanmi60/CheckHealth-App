@@ -61,6 +61,11 @@ export class CirclesService {
 
     const lastTwo = dto.circleName.slice(-2);
 
+    const circleGeneratedNos = `${firstThreeLetters}-${code}${lastTwo}`;
+
+    const inviteUrl =
+      crypto.randomBytes(4).toString("hex") + "/" + circleGeneratedNos;
+
     if (participantsList.length === 0) {
       throw new BadRequestException("Participants list cannot be empty.");
     }
@@ -107,7 +112,8 @@ export class CirclesService {
           circleImg: file.filename,
           coyCircleName: dto.circleName,
           coyCircleDescription: dto.circleDescription,
-          coyCircleNos: `${firstThreeLetters}-${code}${lastTwo}`,
+          coyCircleNos: circleGeneratedNos,
+          coyCircleShareLink: inviteUrl,
           companyUser: {
             connect: { id: id },
           },
@@ -369,6 +375,16 @@ export class CirclesService {
   }
 
   async addMemberToCircle(id: string, dto: AddMemberToCircleDto) {
+    const findCircle = await this.prisma.companyCircles.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!findCircle) {
+      throw new BadRequestException("Circle not found");
+    }
+
     const foundUser = (await this.authResolver.findUserWithField(
       dto.email,
       "email",
@@ -423,9 +439,7 @@ export class CirclesService {
     });
 
     if (!memberInCircle) {
-      throw new BadRequestException(
-        "Failed to add member to company circle. Please try again later",
-      );
+      throw new BadRequestException("Failed to add member to company circle.");
     }
 
     if (memberInCircle) {
@@ -592,5 +606,52 @@ export class CirclesService {
     return {
       message: "Members batch uploaded successfully",
     };
+  }
+
+  async addMemberViaURLToCircle(inviteUrl: string, userID: string) {
+    const foundUser = (await this.authResolver.findUserWithField(
+      userID,
+      "id",
+      "user",
+    )) as Users;
+
+    if (!foundUser) {
+      throw new BadRequestException("User not found. Please try again later");
+    }
+
+    const findCircle = await this.prisma.companyCircles.findUnique({
+      where: {
+        coyCircleShareLink: inviteUrl,
+      },
+    });
+
+    if (!findCircle) {
+      throw new BadRequestException("Circle with invite URL not found.");
+    }
+
+    const memberInCircle = await this.prisma.companyCircles.update({
+      where: {
+        coyCircleShareLink: inviteUrl,
+      },
+      data: {
+        memberList: {
+          connect: {
+            id: foundUser?.id,
+          },
+        },
+      },
+    });
+
+    if (!memberInCircle) {
+      throw new BadRequestException(
+        "Failed to add member to company circle. Please try again later",
+      );
+    }
+
+    if (memberInCircle) {
+      return {
+        message: "Member added successfully",
+      };
+    }
   }
 }

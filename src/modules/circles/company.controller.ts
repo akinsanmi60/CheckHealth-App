@@ -7,6 +7,7 @@ import {
   Post,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
 import {
@@ -34,6 +35,10 @@ import {
   IGetAllCompanyCircle,
   IGetCompanyCircle,
 } from "./dto/company-response.dto";
+import { JwtAuthGuard } from "../../auth/jwtAuth.guard";
+import { Role } from "../../roles/role.enum";
+import { Roles } from "../../roles/roles.decorator";
+import { RolesGuard } from "../../roles/roles.guard";
 
 @ApiTags("Company")
 @ApiBearerAuth()
@@ -54,6 +59,8 @@ export class CirclesController {
     description:
       "Creating a circle for a company. Note append the file to the formData when posting",
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
   createCirlce(
     @UploadedFile() file: Express.Multer.File,
     @Body() dto,
@@ -68,6 +75,8 @@ export class CirclesController {
     type: GenericResponse,
     description: "Deactivating a company circle",
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
   deactivateCompanyCircle(@Param("id") id: string) {
     return this.circlesService.deactivateCompanyCircle(id);
   }
@@ -78,6 +87,8 @@ export class CirclesController {
     type: GenericResponse,
     description: "Activating a company circle",
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
   activateCompanyCircle(@Param("id") id: string) {
     return this.circlesService.activateCompanyCircle(id);
   }
@@ -88,6 +99,8 @@ export class CirclesController {
     type: IGetCompanyCircle,
     description: "Get a company circle",
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
   getCompanyCircleById(@Param("id") id: string) {
     return this.circlesService.getCompanyCircleById(id);
   }
@@ -99,6 +112,8 @@ export class CirclesController {
   @ApiQuery({
     type: GetAllCirclesDto,
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
   getAllCompanyCircles(@Query() dto) {
     return this.circlesService.getAllCompanyCircles(dto);
   }
@@ -108,6 +123,8 @@ export class CirclesController {
   @ApiResponse({
     type: GenericResponse,
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
   deleteCompanyCircle(@Param("id") id: string) {
     return this.circlesService.deleteCompanyCircle(id);
   }
@@ -120,6 +137,8 @@ export class CirclesController {
   @ApiBody({
     type: AddMemberToCircleDto,
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
   addMemberToCircle(@Param("id") id: string, @Body() dto) {
     return this.circlesService.addMemberToCircle(id, dto);
   }
@@ -130,11 +149,28 @@ export class CirclesController {
   @ApiResponse({
     type: GenericResponse,
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
   removeMemberFromCircle(
     @Param("id") id: string,
     @Param("memberId") memberId: string,
   ) {
     return this.circlesService.removeMemberFromCircle(id, memberId);
+  }
+
+  @Post("/:inviteUrl/:id/join-company-circle")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiParam({ name: "inviteUrl", type: "string" })
+  @ApiResponse({
+    type: GenericResponse,
+  })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.user)
+  joinCompanyCircle(
+    @Param("inviteUrl") inviteUrl: string,
+    @Param("id") id: string,
+  ) {
+    return this.circlesService.addMemberViaURLToCircle(inviteUrl, id);
   }
 
   @Post("/:id/batchupload-member")
@@ -164,6 +200,11 @@ export class CirclesController {
         },
       },
     },
+  })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
+  @ApiResponse({
+    type: GenericResponse,
   })
   batchUploadMember(
     @UploadedFile() file: Express.Multer.File,

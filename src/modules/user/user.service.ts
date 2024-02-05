@@ -7,7 +7,7 @@ import { AuthResolver } from "src/auth/authFinder.service";
 import { ResponseInterceptor } from "src/filter/responseFilter/respone.service";
 // import { MailService } from "../../mail/mail.service";
 import { PrismaService } from "src/prisma/prisma.service";
-import { UserCircle } from "src/types/appModel.type";
+import { UserCircle, Users } from "src/types/appModel.type";
 import { CompanyGettingStartedDto } from "../circles/dto/company.dto";
 import * as crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
@@ -56,6 +56,11 @@ export class UserService {
 
     const lastTwo = dto.circleName.slice(-2);
 
+    const circleGeneratedNos = `${firstThreeLetters}-${code}${lastTwo}`;
+
+    const inviteUrl =
+      crypto.randomBytes(4).toString("hex") + "/" + circleGeneratedNos;
+
     if (participantsList.length === 0) {
       throw new BadRequestException("Participants list cannot be empty.");
     }
@@ -102,7 +107,8 @@ export class UserService {
           circleImg: file.filename,
           userCircleName: dto.circleName,
           userCircleDescription: dto.circleDescription,
-          userCircleNos: `${firstThreeLetters}-${code}${lastTwo}`,
+          userCircleNos: circleGeneratedNos,
+          userCircleShareLink: inviteUrl,
           user: {
             connect: { id: id },
           },
@@ -446,6 +452,51 @@ export class UserService {
     if (removedMember) {
       return {
         message: "Member removed successfully",
+      };
+    }
+  }
+
+  async addMemberViaURLToCircle(inviteUrl: string, userID: string) {
+    const foundUser = (await this.authResolver.findUserWithField(
+      userID,
+      "id",
+      "user",
+    )) as Users;
+
+    if (!foundUser) {
+      throw new BadRequestException("User not found. Please try again later");
+    }
+
+    const findCircle = await this.prisma.userCircles.findUnique({
+      where: {
+        userCircleShareLink: inviteUrl,
+      },
+    });
+
+    if (!findCircle) {
+      throw new BadRequestException("Circle with invite URL not found.");
+    }
+
+    const memberInCircle = await this.prisma.userCircles.update({
+      where: {
+        userCircleShareLink: inviteUrl,
+      },
+      data: {
+        memberList: {
+          connect: {
+            id: foundUser?.id,
+          },
+        },
+      },
+    });
+
+    if (!memberInCircle) {
+      throw new BadRequestException("Failed to add member to user circle.");
+    }
+
+    if (memberInCircle) {
+      return {
+        message: "Member added successfully",
       };
     }
   }

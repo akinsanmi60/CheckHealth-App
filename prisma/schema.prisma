@@ -46,7 +46,7 @@ model CompanyCircles {
   updated_at           DateTime?     @updatedAt
   coyCircleName        String?       @unique
   coyCircleDescription String?       @db.VarChar(1000)
-  coyCircleShareLink   String?
+  coyCircleShareLink   String?        @unique
   wellbeingScore       String?
   activityLevel        ActivityLevel @default(low)
   companyUser          CompanyUser?  @relation("circles_company_user_fkey", fields: [companyUserId], references: [id])
@@ -103,7 +103,7 @@ model UserCircles {
   updated_at            DateTime?     @updatedAt
   userCircleName        String?       @unique
   userCircleDescription String?       @db.VarChar(1000)
-  userCircleShareLink   String?
+  userCircleShareLink   String?       @unique
   wellbeingScore        String?
   activityLevel         ActivityLevel @default(low)
   user                  User?         @relation("userCircles", fields: [userId], references: [id])

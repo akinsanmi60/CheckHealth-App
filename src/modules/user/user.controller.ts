@@ -7,6 +7,7 @@ import {
   Post,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from "@nestjs/common";
 import { UserService } from "./user.service";
@@ -31,6 +32,11 @@ import {
 } from "./dto/usercircle-response.dto";
 import { GenericResponse } from "src/auth/dto/auth-response.dto";
 
+import { JwtAuthGuard } from "../../auth/jwtAuth.guard";
+import { Role } from "../../roles/role.enum";
+import { Roles } from "../../roles/roles.decorator";
+import { RolesGuard } from "../../roles/roles.guard";
+
 @Controller("user")
 @ApiTags("User")
 export class UserController {
@@ -49,6 +55,8 @@ export class UserController {
     description:
       "Creating a circle for a user. Note append the file to the formData when posting",
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.user)
   createCirlce(
     @UploadedFile() file: Express.Multer.File,
     @Body() dto,
@@ -74,6 +82,8 @@ export class UserController {
   @ApiQuery({
     type: GetAllUserCirclesDto,
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.user)
   getAllUserCircles(@Query() dto) {
     return this.userService.getAllUserCircles(dto);
   }
@@ -84,6 +94,8 @@ export class UserController {
     type: GenericResponse,
     description: "Activating a user circle",
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.user)
   activateUserCircle(@Param("id") id: string) {
     return this.userService.activateUserCircle(id);
   }
@@ -94,6 +106,8 @@ export class UserController {
     type: GenericResponse,
     description: "Deactivating auser circle",
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.user)
   deactivateUserCircle(@Param("id") id: string) {
     return this.userService.deactivateUserCircle(id);
   }
@@ -103,7 +117,9 @@ export class UserController {
   @ApiResponse({
     type: GenericResponse,
   })
-  deleteCompanyCircle(@Param("id") id: string) {
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.user)
+  deleteUserCircle(@Param("id") id: string) {
     return this.userService.deleteUserCircle(id);
   }
 
@@ -113,6 +129,8 @@ export class UserController {
     type: GenericResponse,
   })
   @ApiBody({ type: MemberToLeaveCircleDto })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.user)
   leaveUserCircle(@Param("id") id: string, @Body() dto: any) {
     return this.userService.leaveUserCircle(id, dto);
   }
@@ -123,10 +141,27 @@ export class UserController {
   @ApiResponse({
     type: GenericResponse,
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.user)
   removeMemberFromCircle(
     @Param("id") id: string,
     @Param("memberId") memberId: string,
   ) {
     return this.userService.removeMemberFromCircle(id, memberId);
+  }
+
+  @Post("/:inviteUrl/:id/join-user-circle")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiParam({ name: "inviteUrl", type: "string" })
+  @ApiResponse({
+    type: GenericResponse,
+  })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.user)
+  joinUserCircle(
+    @Param("inviteUrl") inviteUrl: string,
+    @Param("id") id: string,
+  ) {
+    return this.userService.addMemberViaURLToCircle(inviteUrl, id);
   }
 }
