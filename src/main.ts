@@ -58,7 +58,7 @@ async function bootstrap() {
   app.use(credentials);
 
   // Cross Origin Resource Sharing
-  app.use(cors(corsOptions));
+  app.enableCors(corsOptions);
 
   app.useGlobalInterceptors(new ResponseInterceptor());
 
