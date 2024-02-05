@@ -37,6 +37,7 @@ async function bootstrap() {
       "multipart/form-data",
       "application/json",
     ],
+    preflightContinue: false,
   });
 
   app.useGlobalInterceptors(new ResponseInterceptor());
