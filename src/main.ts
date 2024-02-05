@@ -43,23 +43,34 @@ async function bootstrap() {
   //   optionsSuccessStatus: 200,
   // });
 
-  // app.use(
-  //   cors({
-  //     origin: "*",
-  //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  //     preflightContinue: false,
-  //     credentials: true,
-  //     // optionsSuccessStatus: 204,
-  //   }),
-  // );
-
-  // Handle options credentials check - before CORS!
-  // and fetch cookies credentials requirement
-  app.use(credentials);
-
   // Cross Origin Resource Sharing
-  app.enableCors(corsOptions);
-
+  app.enableCors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    credentials: true,
+    allowedHeaders: [
+      "X-Requested-With",
+      "Content-Type",
+      "Accept",
+      "Origin",
+      "multipart/form-data",
+      "application/json",
+      "Authorization",
+      "Access-Control-Allow-Origin",
+    ],
+    optionsSuccessStatus: 200,
+    exposedHeaders: [
+      "X-Requested-With",
+      "Content-Type",
+      "Accept",
+      "Origin",
+      "multipart/form-data",
+      "application/json",
+      "Authorization",
+      "Access-Control-Allow-Origin",
+    ],
+  });
   app.useGlobalInterceptors(new ResponseInterceptor());
 
   // Validation
