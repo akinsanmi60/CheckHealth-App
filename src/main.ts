@@ -12,6 +12,8 @@ import {
 } from "./common/configs/config.interface";
 import { ResponseInterceptor } from "./filter/responseFilter/respone.service";
 import cors from "cors";
+import { credentials } from "./middlewares/cors.middleware";
+import corsOptions from "./middlewares/corsOptions";
 
 // import { credentials } from "./middlewares/cors.middleware";
 
@@ -41,14 +43,22 @@ async function bootstrap() {
   //   optionsSuccessStatus: 200,
   // });
 
-  app.use(
-    cors({
-      origin: "*",
-      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-      preflightContinue: false,
-      // optionsSuccessStatus: 204,
-    }),
-  );
+  // app.use(
+  //   cors({
+  //     origin: "*",
+  //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  //     preflightContinue: false,
+  //     credentials: true,
+  //     // optionsSuccessStatus: 204,
+  //   }),
+  // );
+
+  // Handle options credentials check - before CORS!
+  // and fetch cookies credentials requirement
+  app.use(credentials);
+
+  // Cross Origin Resource Sharing
+  app.use(cors(corsOptions));
 
   app.useGlobalInterceptors(new ResponseInterceptor());
 
