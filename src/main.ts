@@ -12,10 +12,7 @@ import {
 } from "./common/configs/config.interface";
 import { ResponseInterceptor } from "./filter/responseFilter/respone.service";
 import cors from "cors";
-import { credentials } from "./middlewares/cors.middleware";
-import corsOptions from "./middlewares/corsOptions";
-
-// import { credentials } from "./middlewares/cors.middleware";
+import { allowedOrigins } from "./middlewares/allowedOrigins";
 
 async function bootstrap() {
   const CSS_URL =
@@ -28,48 +25,20 @@ async function bootstrap() {
 
   const app: NestExpressApplication = await NestFactory.create(AppModule);
 
-  // app.enableCors({
-  //   origin: "*",
-  //   methods: ["PUT", "GET", "POST", "DELETE", "OPTIONS", "PATCH"],
-  //   allowedHeaders: [
-  //     "X-Requested-With",
-  //     "Content-Type",
-  //     "Accept",
-  //     "Origin",
-  //     "multipart/form-data",
-  //     "application/json",
-  //   ],
-  //   preflightContinue: false,
-  //   optionsSuccessStatus: 200,
-  // });
-
-  // Cross Origin Resource Sharing
   app.enableCors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        console.log("allowed cors for:", origin);
+        callback(null, true);
+      } else {
+        console.log("blocked cors for:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    allowedHeaders:
+      "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe",
+    methods: "GET,PUT,POST,DELETE,UPDATE,OPTIONS",
     credentials: true,
-    allowedHeaders: [
-      "X-Requested-With",
-      "Content-Type",
-      "Accept",
-      "Origin",
-      "multipart/form-data",
-      "application/json",
-      "Authorization",
-      "Access-Control-Allow-Origin",
-    ],
-    optionsSuccessStatus: 200,
-    exposedHeaders: [
-      "X-Requested-With",
-      "Content-Type",
-      "Accept",
-      "Origin",
-      "multipart/form-data",
-      "application/json",
-      "Authorization",
-      "Access-Control-Allow-Origin",
-    ],
   });
   app.useGlobalInterceptors(new ResponseInterceptor());
 
