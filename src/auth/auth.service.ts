@@ -448,6 +448,18 @@ export class AuthService {
             userCircleShareLink: true,
           },
         },
+        coyCircleAttachedTo: {
+          select: {
+            id: true,
+            coyCircleName: true,
+            coyCircleStatus: true,
+            created_at: true,
+            coyCircleNos: true,
+            activityLevel: true,
+            coyCircleDescription: true,
+            coyCircleShareLink: true,
+          },
+        },
       },
     });
 

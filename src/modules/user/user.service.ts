@@ -4,7 +4,6 @@ import {
   UseInterceptors,
 } from "@nestjs/common";
 import { AuthResolver } from "src/auth/authFinder.service";
-// import { PasswordService } from "src/auth/password.service";
 import { ResponseInterceptor } from "src/filter/responseFilter/respone.service";
 // import { MailService } from "../../mail/mail.service";
 import { PrismaService } from "src/prisma/prisma.service";
@@ -26,7 +25,6 @@ export class UserService {
     private authResolver: AuthResolver,
     private prisma: PrismaService,
     // private readonly mailService: MailService,
-    // private readonly passwordService: PasswordService,
   ) {
     this.timeGenerated = new Date().toISOString();
   }
@@ -84,49 +82,47 @@ export class UserService {
     }
 
     try {
-      await this.prisma.$transaction(async () => {
-        // Find users by email addresses
-        const foundUsers = await this.prisma.user.findMany({
-          where: {
-            email: {
-              in: participantsList,
-            },
+      // Find users by email addresses
+      const foundUsers = await this.prisma.user.findMany({
+        where: {
+          email: {
+            in: participantsList,
           },
-        });
-
-        // Ensure all participants are found
-        if (foundUsers.length !== participantsList.length) {
-          throw new BadRequestException("One or more participants not found.");
-        }
-
-        const circleCreated = await this.prisma.userCircles.create({
-          data: {
-            id: uuidv4(),
-            circleImg: file.filename,
-            userCircleName: dto.circleName,
-            userCircleDescription: dto.circleDescription,
-            userCircleNos: `${firstThreeLetters}-${code}${lastTwo}`,
-            user: {
-              connect: { id: id },
-            },
-            memberList: {
-              connect: foundUsers.map(user => ({
-                id: user.id,
-              })),
-            },
-            created_at: this.timeGenerated,
-            userCircleStatus: "active",
-          },
-        });
-
-        if (!circleCreated) {
-          throw new BadRequestException("Failed to create circle.");
-        }
-
-        return {
-          message: "Circle created successfully.",
-        };
+        },
       });
+
+      // Ensure all participants are found
+      if (foundUsers.length !== participantsList.length) {
+        throw new BadRequestException("One or more participants not found.");
+      }
+
+      const circleCreated = await this.prisma.userCircles.create({
+        data: {
+          id: uuidv4(),
+          circleImg: file.filename,
+          userCircleName: dto.circleName,
+          userCircleDescription: dto.circleDescription,
+          userCircleNos: `${firstThreeLetters}-${code}${lastTwo}`,
+          user: {
+            connect: { id: id },
+          },
+          memberList: {
+            connect: foundUsers.map(user => ({
+              id: user.id,
+            })),
+          },
+          created_at: this.timeGenerated,
+          userCircleStatus: "active",
+        },
+      });
+
+      if (!circleCreated) {
+        throw new BadRequestException("Failed to create circle.");
+      }
+
+      return {
+        message: "Circle created successfully.",
+      };
     } catch (error) {
       throw error || new Error("Failed to create circle.");
     }

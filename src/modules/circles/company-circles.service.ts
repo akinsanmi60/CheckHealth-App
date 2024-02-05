@@ -567,8 +567,6 @@ export class CirclesService {
     // Combine the arrays for updating companyCircles
     const allEntities = [...newEntities, ...foundUsers] as Users[];
 
-    console.log(allEntities);
-
     const memberInCircle = await this.prisma.companyCircles.update({
       where: {
         id: id,

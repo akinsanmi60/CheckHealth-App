@@ -146,8 +146,8 @@ export class AuthController {
     type: IGetIndividualUser,
   })
   @ApiParam({ name: "id", type: "string" })
-  // @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(Role.admin, Role.superAdmin, Role.user)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin, Role.superAdmin, Role.user)
   async getUser(@Param("id") id) {
     return await this.authService.getUserById(id);
   }

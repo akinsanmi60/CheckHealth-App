@@ -180,9 +180,7 @@ exports.Prisma.UserScalarFieldEnum = {
   emailNotification: 'emailNotification',
   campaignNtification: 'campaignNtification',
   termsConditions: 'termsConditions',
-  addedBy: 'addedBy',
-  userCircleId: 'userCircleId',
-  coyCircleAttachedTo: 'coyCircleAttachedTo'
+  addedBy: 'addedBy'
 };
 
 exports.Prisma.UserCirclesScalarFieldEnum = {
