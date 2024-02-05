@@ -23,10 +23,13 @@ async function bootstrap() {
     "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.js",
   ];
 
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true,
+  });
 
   app.enableCors({
     origin: "*",
+    // credentials: true,
   });
 
   app.useGlobalInterceptors(new ResponseInterceptor());
