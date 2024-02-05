@@ -11,7 +11,7 @@ import {
   SwaggerConfig,
 } from "./common/configs/config.interface";
 import { ResponseInterceptor } from "./filter/responseFilter/respone.service";
-import { credentials } from "./middlewares/cors.middleware";
+// import { credentials } from "./middlewares/cors.middleware";
 
 async function bootstrap() {
   const CSS_URL =
@@ -26,18 +26,26 @@ async function bootstrap() {
     cors: true,
   });
 
+  // app.enableCors({
+  //   origin: "*",
+  //   methods: ["PUT", "GET", "POST", "DELETE", "OPTIONS", "PATCH"],
+  //   allowedHeaders: [
+  //     "X-Requested-With",
+  //     "Content-Type",
+  //     "Accept",
+  //     "Origin",
+  //     "multipart/form-data",
+  //     "application/json",
+  //   ],
+  //   preflightContinue: false,
+  //   optionsSuccessStatus: 200,
+  // });
+
   app.enableCors({
     origin: "*",
-    methods: ["PUT", "GET", "POST", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: [
-      "X-Requested-With",
-      "Content-Type",
-      "Accept",
-      "Origin",
-      "multipart/form-data",
-      "application/json",
-    ],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
+    optionsSuccessStatus: 204,
   });
 
   app.useGlobalInterceptors(new ResponseInterceptor());
