@@ -247,6 +247,7 @@ export class AuthService {
       isEmailVerified: foundUser.isEmailVerified,
       updated_at: foundUser.updated_at,
       isActive: foundUser.isActive,
+      role: foundUser.role,
     } as Partial<Users>;
 
     const allToken = this.passwordService.generateTokens(payload);

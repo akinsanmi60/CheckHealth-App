@@ -48,7 +48,7 @@ export class CompanyAuthService {
       website,
       termsConditions,
     } = dto;
-    console.log(dto);
+
     const foundCompany = (await this.authResolver.findUserWithField(
       email,
       "email",
@@ -218,6 +218,7 @@ export class CompanyAuthService {
       lastLogin: this.timeGenerated,
       isEmailVerified: foundCompany.isEmailVerified,
       updated_at: foundCompany.updated_at,
+      role: foundCompany.role,
     } as Partial<CompanyUser>;
 
     const allToken = this.passwordService.generateTokens(payload);
