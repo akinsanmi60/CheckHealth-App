@@ -125,6 +125,7 @@ exports.Prisma.CompanyUserScalarFieldEnum = {
   website: 'website',
   companyDescription: 'companyDescription',
   status: 'status',
+  role: 'role',
   address: 'address',
   addressCity: 'addressCity',
   addressState: 'addressState',
@@ -219,6 +220,12 @@ exports.UserStatus = exports.$Enums.UserStatus = {
   inactive: 'inactive'
 };
 
+exports.SystemRole = exports.$Enums.SystemRole = {
+  superAdmin: 'superAdmin',
+  admin: 'admin',
+  user: 'user'
+};
+
 exports.ActivityLevel = exports.$Enums.ActivityLevel = {
   high: 'high',
   moderate: 'moderate',
@@ -235,12 +242,6 @@ exports.UserGender = exports.$Enums.UserGender = {
 exports.UserAccount = exports.$Enums.UserAccount = {
   personalUser: 'personalUser',
   clientUser: 'clientUser'
-};
-
-exports.SystemRole = exports.$Enums.SystemRole = {
-  superAdmin: 'superAdmin',
-  admin: 'admin',
-  user: 'user'
 };
 
 exports.Prisma.ModelName = {

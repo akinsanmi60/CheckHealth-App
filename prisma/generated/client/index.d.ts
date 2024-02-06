@@ -47,6 +47,15 @@ export namespace $Enums {
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 
+export const SystemRole: {
+  superAdmin: 'superAdmin',
+  admin: 'admin',
+  user: 'user'
+};
+
+export type SystemRole = (typeof SystemRole)[keyof typeof SystemRole]
+
+
 export const ActivityLevel: {
   high: 'high',
   moderate: 'moderate',
@@ -73,20 +82,15 @@ export const UserAccount: {
 
 export type UserAccount = (typeof UserAccount)[keyof typeof UserAccount]
 
-
-export const SystemRole: {
-  superAdmin: 'superAdmin',
-  admin: 'admin',
-  user: 'user'
-};
-
-export type SystemRole = (typeof SystemRole)[keyof typeof SystemRole]
-
 }
 
 export type UserStatus = $Enums.UserStatus
 
 export const UserStatus: typeof $Enums.UserStatus
+
+export type SystemRole = $Enums.SystemRole
+
+export const SystemRole: typeof $Enums.SystemRole
 
 export type ActivityLevel = $Enums.ActivityLevel
 
@@ -99,10 +103,6 @@ export const UserGender: typeof $Enums.UserGender
 export type UserAccount = $Enums.UserAccount
 
 export const UserAccount: typeof $Enums.UserAccount
-
-export type SystemRole = $Enums.SystemRole
-
-export const SystemRole: typeof $Enums.SystemRole
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1365,6 +1365,7 @@ export namespace Prisma {
     website: string | null
     companyDescription: string | null
     status: $Enums.UserStatus | null
+    role: $Enums.SystemRole | null
     address: string | null
     addressCity: string | null
     addressState: string | null
@@ -1391,6 +1392,7 @@ export namespace Prisma {
     website: string | null
     companyDescription: string | null
     status: $Enums.UserStatus | null
+    role: $Enums.SystemRole | null
     address: string | null
     addressCity: string | null
     addressState: string | null
@@ -1417,6 +1419,7 @@ export namespace Prisma {
     website: number
     companyDescription: number
     status: number
+    role: number
     address: number
     addressCity: number
     addressState: number
@@ -1445,6 +1448,7 @@ export namespace Prisma {
     website?: true
     companyDescription?: true
     status?: true
+    role?: true
     address?: true
     addressCity?: true
     addressState?: true
@@ -1471,6 +1475,7 @@ export namespace Prisma {
     website?: true
     companyDescription?: true
     status?: true
+    role?: true
     address?: true
     addressCity?: true
     addressState?: true
@@ -1497,6 +1502,7 @@ export namespace Prisma {
     website?: true
     companyDescription?: true
     status?: true
+    role?: true
     address?: true
     addressCity?: true
     addressState?: true
@@ -1596,6 +1602,7 @@ export namespace Prisma {
     website: string | null
     companyDescription: string | null
     status: $Enums.UserStatus
+    role: $Enums.SystemRole
     address: string | null
     addressCity: string | null
     addressState: string | null
@@ -1639,6 +1646,7 @@ export namespace Prisma {
     website?: boolean
     companyDescription?: boolean
     status?: boolean
+    role?: boolean
     address?: boolean
     addressCity?: boolean
     addressState?: boolean
@@ -1668,6 +1676,7 @@ export namespace Prisma {
     website?: boolean
     companyDescription?: boolean
     status?: boolean
+    role?: boolean
     address?: boolean
     addressCity?: boolean
     addressState?: boolean
@@ -1707,6 +1716,7 @@ export namespace Prisma {
       website: string | null
       companyDescription: string | null
       status: $Enums.UserStatus
+      role: $Enums.SystemRole
       address: string | null
       addressCity: string | null
       addressState: string | null
@@ -2127,6 +2137,7 @@ export namespace Prisma {
     readonly website: FieldRef<"CompanyUser", 'String'>
     readonly companyDescription: FieldRef<"CompanyUser", 'String'>
     readonly status: FieldRef<"CompanyUser", 'UserStatus'>
+    readonly role: FieldRef<"CompanyUser", 'SystemRole'>
     readonly address: FieldRef<"CompanyUser", 'String'>
     readonly addressCity: FieldRef<"CompanyUser", 'String'>
     readonly addressState: FieldRef<"CompanyUser", 'String'>
@@ -5934,6 +5945,7 @@ export namespace Prisma {
     website: 'website',
     companyDescription: 'companyDescription',
     status: 'status',
+    role: 'role',
     address: 'address',
     addressCity: 'addressCity',
     addressState: 'addressState',
@@ -6099,6 +6111,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'SystemRole'
+   */
+  export type EnumSystemRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'SystemRole[]'
+   */
+  export type ListEnumSystemRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemRole[]'>
+    
+
+
+  /**
    * Reference to a field of type 'ActivityLevel'
    */
   export type EnumActivityLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityLevel'>
@@ -6141,20 +6167,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'SystemRole'
-   */
-  export type EnumSystemRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemRole'>
-    
-
-
-  /**
-   * Reference to a field of type 'SystemRole[]'
-   */
-  export type ListEnumSystemRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemRole[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -6192,6 +6204,7 @@ export namespace Prisma {
     website?: StringNullableFilter<"CompanyUser"> | string | null
     companyDescription?: StringNullableFilter<"CompanyUser"> | string | null
     status?: EnumUserStatusFilter<"CompanyUser"> | $Enums.UserStatus
+    role?: EnumSystemRoleFilter<"CompanyUser"> | $Enums.SystemRole
     address?: StringNullableFilter<"CompanyUser"> | string | null
     addressCity?: StringNullableFilter<"CompanyUser"> | string | null
     addressState?: StringNullableFilter<"CompanyUser"> | string | null
@@ -6220,6 +6233,7 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     companyDescription?: SortOrderInput | SortOrder
     status?: SortOrder
+    role?: SortOrder
     address?: SortOrderInput | SortOrder
     addressCity?: SortOrderInput | SortOrder
     addressState?: SortOrderInput | SortOrder
@@ -6251,6 +6265,7 @@ export namespace Prisma {
     website?: StringNullableFilter<"CompanyUser"> | string | null
     companyDescription?: StringNullableFilter<"CompanyUser"> | string | null
     status?: EnumUserStatusFilter<"CompanyUser"> | $Enums.UserStatus
+    role?: EnumSystemRoleFilter<"CompanyUser"> | $Enums.SystemRole
     address?: StringNullableFilter<"CompanyUser"> | string | null
     addressCity?: StringNullableFilter<"CompanyUser"> | string | null
     addressState?: StringNullableFilter<"CompanyUser"> | string | null
@@ -6279,6 +6294,7 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     companyDescription?: SortOrderInput | SortOrder
     status?: SortOrder
+    role?: SortOrder
     address?: SortOrderInput | SortOrder
     addressCity?: SortOrderInput | SortOrder
     addressState?: SortOrderInput | SortOrder
@@ -6311,6 +6327,7 @@ export namespace Prisma {
     website?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
     companyDescription?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
     status?: EnumUserStatusWithAggregatesFilter<"CompanyUser"> | $Enums.UserStatus
+    role?: EnumSystemRoleWithAggregatesFilter<"CompanyUser"> | $Enums.SystemRole
     address?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
     addressCity?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
     addressState?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
@@ -6727,6 +6744,7 @@ export namespace Prisma {
     website?: string | null
     companyDescription?: string | null
     status?: $Enums.UserStatus
+    role?: $Enums.SystemRole
     address?: string | null
     addressCity?: string | null
     addressState?: string | null
@@ -6755,6 +6773,7 @@ export namespace Prisma {
     website?: string | null
     companyDescription?: string | null
     status?: $Enums.UserStatus
+    role?: $Enums.SystemRole
     address?: string | null
     addressCity?: string | null
     addressState?: string | null
@@ -6783,6 +6802,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
     address?: NullableStringFieldUpdateOperationsInput | string | null
     addressCity?: NullableStringFieldUpdateOperationsInput | string | null
     addressState?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6811,6 +6831,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
     address?: NullableStringFieldUpdateOperationsInput | string | null
     addressCity?: NullableStringFieldUpdateOperationsInput | string | null
     addressState?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6839,6 +6860,7 @@ export namespace Prisma {
     website?: string | null
     companyDescription?: string | null
     status?: $Enums.UserStatus
+    role?: $Enums.SystemRole
     address?: string | null
     addressCity?: string | null
     addressState?: string | null
@@ -6865,6 +6887,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
     address?: NullableStringFieldUpdateOperationsInput | string | null
     addressCity?: NullableStringFieldUpdateOperationsInput | string | null
     addressState?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6891,6 +6914,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
     address?: NullableStringFieldUpdateOperationsInput | string | null
     addressCity?: NullableStringFieldUpdateOperationsInput | string | null
     addressState?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7431,6 +7455,13 @@ export namespace Prisma {
     not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
   }
 
+  export type EnumSystemRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSystemRoleFilter<$PrismaModel> | $Enums.SystemRole
+  }
+
   export type UserListRelationFilter = {
     every?: UserWhereInput
     some?: UserWhereInput
@@ -7474,6 +7505,7 @@ export namespace Prisma {
     website?: SortOrder
     companyDescription?: SortOrder
     status?: SortOrder
+    role?: SortOrder
     address?: SortOrder
     addressCity?: SortOrder
     addressState?: SortOrder
@@ -7500,6 +7532,7 @@ export namespace Prisma {
     website?: SortOrder
     companyDescription?: SortOrder
     status?: SortOrder
+    role?: SortOrder
     address?: SortOrder
     addressCity?: SortOrder
     addressState?: SortOrder
@@ -7526,6 +7559,7 @@ export namespace Prisma {
     website?: SortOrder
     companyDescription?: SortOrder
     status?: SortOrder
+    role?: SortOrder
     address?: SortOrder
     addressCity?: SortOrder
     addressState?: SortOrder
@@ -7600,6 +7634,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserStatusFilter<$PrismaModel>
     _max?: NestedEnumUserStatusFilter<$PrismaModel>
+  }
+
+  export type EnumSystemRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel> | $Enums.SystemRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSystemRoleFilter<$PrismaModel>
+    _max?: NestedEnumSystemRoleFilter<$PrismaModel>
   }
 
   export type EnumActivityLevelFilter<$PrismaModel = never> = {
@@ -7681,13 +7725,6 @@ export namespace Prisma {
     in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
     notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
     not?: NestedEnumUserAccountFilter<$PrismaModel> | $Enums.UserAccount
-  }
-
-  export type EnumSystemRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumSystemRoleFilter<$PrismaModel> | $Enums.SystemRole
   }
 
   export type UserCirclesListRelationFilter = {
@@ -7825,16 +7862,6 @@ export namespace Prisma {
     _max?: NestedEnumUserAccountFilter<$PrismaModel>
   }
 
-  export type EnumSystemRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel> | $Enums.SystemRole
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSystemRoleFilter<$PrismaModel>
-    _max?: NestedEnumSystemRoleFilter<$PrismaModel>
-  }
-
   export type UserNullableRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -7934,6 +7961,10 @@ export namespace Prisma {
 
   export type EnumUserStatusFieldUpdateOperationsInput = {
     set?: $Enums.UserStatus
+  }
+
+  export type EnumSystemRoleFieldUpdateOperationsInput = {
+    set?: $Enums.SystemRole
   }
 
   export type UserUpdateManyWithoutCompanyUserNestedInput = {
@@ -8100,10 +8131,6 @@ export namespace Prisma {
 
   export type EnumUserAccountFieldUpdateOperationsInput = {
     set?: $Enums.UserAccount
-  }
-
-  export type EnumSystemRoleFieldUpdateOperationsInput = {
-    set?: $Enums.SystemRole
   }
 
   export type CompanyUserUpdateOneWithoutMembersListNestedInput = {
@@ -8301,6 +8328,13 @@ export namespace Prisma {
     not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
   }
 
+  export type NestedEnumSystemRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSystemRoleFilter<$PrismaModel> | $Enums.SystemRole
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -8389,6 +8423,16 @@ export namespace Prisma {
     _max?: NestedEnumUserStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel> | $Enums.SystemRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSystemRoleFilter<$PrismaModel>
+    _max?: NestedEnumSystemRoleFilter<$PrismaModel>
+  }
+
   export type NestedEnumActivityLevelFilter<$PrismaModel = never> = {
     equals?: $Enums.ActivityLevel | EnumActivityLevelFieldRefInput<$PrismaModel>
     in?: $Enums.ActivityLevel[] | ListEnumActivityLevelFieldRefInput<$PrismaModel>
@@ -8420,13 +8464,6 @@ export namespace Prisma {
     not?: NestedEnumUserAccountFilter<$PrismaModel> | $Enums.UserAccount
   }
 
-  export type NestedEnumSystemRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumSystemRoleFilter<$PrismaModel> | $Enums.SystemRole
-  }
-
   export type NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
     in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
@@ -8445,16 +8482,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserAccountFilter<$PrismaModel>
     _max?: NestedEnumUserAccountFilter<$PrismaModel>
-  }
-
-  export type NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel> | $Enums.SystemRole
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSystemRoleFilter<$PrismaModel>
-    _max?: NestedEnumSystemRoleFilter<$PrismaModel>
   }
 
   export type UserCreateWithoutCompanyUserInput = {
@@ -8687,6 +8714,7 @@ export namespace Prisma {
     website?: string | null
     companyDescription?: string | null
     status?: $Enums.UserStatus
+    role?: $Enums.SystemRole
     address?: string | null
     addressCity?: string | null
     addressState?: string | null
@@ -8714,6 +8742,7 @@ export namespace Prisma {
     website?: string | null
     companyDescription?: string | null
     status?: $Enums.UserStatus
+    role?: $Enums.SystemRole
     address?: string | null
     addressCity?: string | null
     addressState?: string | null
@@ -8836,6 +8865,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
     address?: NullableStringFieldUpdateOperationsInput | string | null
     addressCity?: NullableStringFieldUpdateOperationsInput | string | null
     addressState?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8863,6 +8893,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
     address?: NullableStringFieldUpdateOperationsInput | string | null
     addressCity?: NullableStringFieldUpdateOperationsInput | string | null
     addressState?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8906,6 +8937,7 @@ export namespace Prisma {
     website?: string | null
     companyDescription?: string | null
     status?: $Enums.UserStatus
+    role?: $Enums.SystemRole
     address?: string | null
     addressCity?: string | null
     addressState?: string | null
@@ -8933,6 +8965,7 @@ export namespace Prisma {
     website?: string | null
     companyDescription?: string | null
     status?: $Enums.UserStatus
+    role?: $Enums.SystemRole
     address?: string | null
     addressCity?: string | null
     addressState?: string | null
@@ -9090,6 +9123,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
     address?: NullableStringFieldUpdateOperationsInput | string | null
     addressCity?: NullableStringFieldUpdateOperationsInput | string | null
     addressState?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9117,6 +9151,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     companyDescription?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
     address?: NullableStringFieldUpdateOperationsInput | string | null
     addressCity?: NullableStringFieldUpdateOperationsInput | string | null
     addressState?: NullableStringFieldUpdateOperationsInput | string | null

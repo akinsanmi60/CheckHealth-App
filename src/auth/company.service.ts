@@ -79,6 +79,7 @@ export class CompanyAuthService {
         industry: industry,
         website: website,
         termsConditions: termsConditions,
+        role: "admin",
       },
     });
 

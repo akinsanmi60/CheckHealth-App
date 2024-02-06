@@ -30,6 +30,7 @@ model CompanyUser {
   website             String?
   companyDescription  String?
   status              UserStatus       @default(inactive)
+    role                SystemRole       @default(admin)
   address             String?
   addressCity         String?
   addressState        String?
@@ -46,17 +47,15 @@ model CompanyCircles {
   updated_at           DateTime?     @updatedAt
   coyCircleName        String?       @unique
   coyCircleDescription String?       @db.VarChar(1000)
-  coyCircleShareLink   String?
+  coyCircleShareLink   String?        @unique
   wellbeingScore       String?
   activityLevel        ActivityLevel @default(low)
   companyUser          CompanyUser?  @relation("circles_company_user_fkey", fields: [companyUserId], references: [id])
   companyUserId        String?
   coyCircleStatus      UserStatus    @default(inactive)
   coyCircleNos         String?       @unique
-  memberList           User[]        @relation("coyCircleIn")
+  memberList           User[]        
   circleImg            String?
-  user                 User?         @relation("userCoyCircleList", fields: [userAttachedID], references: [id])
-  userAttachedID       String?
 }
 
 model User {
@@ -93,12 +92,9 @@ model User {
   campaignNtification Boolean?         @default(false)
   termsConditions     Boolean?         @default(false)
   addedBy             String?          @unique
-  userCircleIn        UserCircles?     @relation("memberInCrircle", fields: [userCircleId], references: [id])
-  userCircleId        String?
-  companyCirle        CompanyCircles?  @relation("coyCircleIn", fields: [coyCircleAttachedTo], references: [id])
-  coyCircleAttachedTo String?
+  coyCircleAttachedTo CompanyCircles[]
   userCircles         UserCircles[]    @relation("userCircles")
-  coyCirclesList      CompanyCircles[] @relation("userCoyCircleList")
+  otherUserCirclesIn  UserCircles[]    @relation("memberInCrircle")
 }
 
 model UserCircles {
@@ -108,7 +104,7 @@ model UserCircles {
   updated_at            DateTime?     @updatedAt
   userCircleName        String?       @unique
   userCircleDescription String?       @db.VarChar(1000)
-  userCircleShareLink   String?
+  userCircleShareLink   String?       @unique
   wellbeingScore        String?
   activityLevel         ActivityLevel @default(low)
   user                  User?         @relation("userCircles", fields: [userId], references: [id])

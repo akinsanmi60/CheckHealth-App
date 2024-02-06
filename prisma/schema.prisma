@@ -30,6 +30,7 @@ model CompanyUser {
   website             String?
   companyDescription  String?
   status              UserStatus       @default(inactive)
+  role                SystemRole       @default(admin)
   address             String?
   addressCity         String?
   addressState        String?
@@ -46,14 +47,14 @@ model CompanyCircles {
   updated_at           DateTime?     @updatedAt
   coyCircleName        String?       @unique
   coyCircleDescription String?       @db.VarChar(1000)
-  coyCircleShareLink   String?        @unique
+  coyCircleShareLink   String?       @unique
   wellbeingScore       String?
   activityLevel        ActivityLevel @default(low)
   companyUser          CompanyUser?  @relation("circles_company_user_fkey", fields: [companyUserId], references: [id])
   companyUserId        String?
   coyCircleStatus      UserStatus    @default(inactive)
   coyCircleNos         String?       @unique
-  memberList           User[]        
+  memberList           User[]
   circleImg            String?
 }
 
