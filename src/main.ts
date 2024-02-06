@@ -50,12 +50,13 @@ async function bootstrap() {
       .setTitle(swaggerConfig.title || "Employ Project")
       .setDescription(swaggerConfig.description || "The Employ API description")
       .setVersion(swaggerConfig.version || "1.0")
-      .addBasicAuth({
+      .addBearerAuth({
         type: "http",
-        scheme: "basic",
-        bearerFormat: "Basic",
-        name: "Authorization",
-        description: "Enter email and password",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+        name: "JWT",
+        description: "Enter JWT token",
+        in: "header",
       })
       .build();
 
