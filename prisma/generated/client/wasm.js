@@ -146,7 +146,8 @@ exports.Prisma.CompanyCirclesScalarFieldEnum = {
   companyUserId: 'companyUserId',
   coyCircleStatus: 'coyCircleStatus',
   coyCircleNos: 'coyCircleNos',
-  circleImg: 'circleImg'
+  circleImg: 'circleImg',
+  circleStatus: 'circleStatus'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -197,7 +198,8 @@ exports.Prisma.UserCirclesScalarFieldEnum = {
   userId: 'userId',
   createdBy: 'createdBy',
   userCircleStatus: 'userCircleStatus',
-  userCircleNos: 'userCircleNos'
+  userCircleNos: 'userCircleNos',
+  circleStatus: 'circleStatus'
 };
 
 exports.Prisma.SortOrder = {
@@ -232,6 +234,12 @@ exports.ActivityLevel = exports.$Enums.ActivityLevel = {
   excellent: 'excellent',
   moderatelyHigh: 'moderatelyHigh',
   low: 'low'
+};
+
+exports.CircleStatus = exports.$Enums.CircleStatus = {
+  ongoing: 'ongoing',
+  completed: 'completed',
+  unenrolled: 'unenrolled'
 };
 
 exports.UserGender = exports.$Enums.UserGender = {

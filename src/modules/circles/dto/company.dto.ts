@@ -21,7 +21,7 @@ export class CompanyGettingStartedDto {
   circleDescription: string;
 
   @ApiProperty({
-    example: ["akintunde60@gmail.com"],
+    example: ["akin60@gmail.com"],
     type: "array",
     items: { type: "string" },
     required: true,
@@ -39,7 +39,7 @@ export class CompanyGettingStartedDto {
 export class GetAllCirclesDto {
   @IsUUID("4", { message: "ID must be a valid UUID." })
   @ApiProperty({
-    example: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    example: "",
     required: false,
   })
   id: string;
@@ -57,18 +57,18 @@ export class GetAllCirclesDto {
   search: string;
 
   @ApiProperty({
-    example: "male",
+    example: "",
     required: false,
     enum: ["low", "moderate", "high", "moderatelyHigh", "excellent"],
   })
   @IsString()
   activityLevel: string;
 
-  @ApiProperty({ example: "08-12-2023", required: false })
+  @ApiProperty({ example: "", required: false })
   created_at: string;
 
   @ApiProperty({
-    example: "active",
+    example: "",
     required: false,
     enum: ["active", "inactive"],
   })

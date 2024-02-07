@@ -183,7 +183,7 @@ export class CirclesService {
       }
 
       if (activityLevel) {
-        where.activityLevel = activityLevel;
+        where.activityLevel = { contain: activityLevel, mode: "insensitive" };
       }
 
       if (search) {
@@ -221,6 +221,8 @@ export class CirclesService {
             wellbeingScore: true,
             coyCircleStatus: true,
             coyCircleNos: true,
+            circleStatus: true,
+            coyCircleShareLink: true,
             memberList: {
               select: {
                 email: true,
@@ -280,6 +282,8 @@ export class CirclesService {
         wellbeingScore: true,
         coyCircleStatus: true,
         coyCircleNos: true,
+        circleStatus: true,
+        coyCircleShareLink: true,
         memberList: {
           select: {
             id: true,
