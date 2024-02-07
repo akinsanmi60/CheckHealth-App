@@ -413,6 +413,19 @@ export class CompanyAuthService {
         website: true,
         passportImg: true,
         companyDescription: true,
+        company_circle: {
+          select: {
+            id: true,
+            created_at: true,
+            activityLevel: true,
+            circleImg: true,
+            coyCircleName: true,
+            coyCircleStatus: true,
+            coyCircleNos: true,
+            coyCircleDescription: true,
+          },
+          orderBy: { created_at: "desc" },
+        },
       },
     });
 
@@ -506,6 +519,19 @@ export class CompanyAuthService {
             website: true,
             passportImg: true,
             companyDescription: true,
+            company_circle: {
+              select: {
+                id: true,
+                created_at: true,
+                activityLevel: true,
+                circleImg: true,
+                coyCircleName: true,
+                coyCircleStatus: true,
+                coyCircleNos: true,
+                coyCircleDescription: true,
+              },
+              orderBy: { created_at: "desc" },
+            },
           },
           orderBy: { created_at: "desc" },
           skip,
