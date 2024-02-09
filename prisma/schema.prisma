@@ -56,7 +56,7 @@ model CompanyCircles {
   coyCircleNos         String?       @unique
   memberList           User[]
   circleImg            String?
-  circleStatus         CircleStatus  @default(ongoing)
+  circleStatus         CircleStatus?  @default(ongoing)
 }
 
 model User {
@@ -114,7 +114,7 @@ model UserCircles {
   userCircleStatus      UserStatus    @default(inactive)
   userCircleNos         String?       @unique
   memberList            User[]        @relation("memberInCrircle")
-  circleStatus          CircleStatus  @default(ongoing)
+  circleStatus          CircleStatus?  @default(ongoing)
 }
 
 enum SystemRole {
