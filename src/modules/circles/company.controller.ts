@@ -165,12 +165,9 @@ export class CirclesController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.user)
-  joinCompanyCircle(
-    @Param("inviteUrl") inviteUrl: string,
-    @Param("id") id: string,
-  ) {
-    return this.circlesService.addMemberViaURLToCircle(inviteUrl, id);
+  @Roles(Role.user, Role.admin)
+  joinCompanyCircle(@Param("id") id, @Param("inviteUrl") inviteUrl) {
+    return this.circlesService.addMemberViaURLToCircle(id, inviteUrl);
   }
 
   @Post("/:id/batchupload-member")

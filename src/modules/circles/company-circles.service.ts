@@ -612,12 +612,14 @@ export class CirclesService {
     };
   }
 
-  async addMemberViaURLToCircle(inviteUrl: string, userID: string) {
+  async addMemberViaURLToCircle(id: string, inviteUrl: string) {
     const foundUser = (await this.authResolver.findUserWithField(
-      userID,
+      id,
       "id",
       "user",
     )) as Users;
+
+    console.log(foundUser);
 
     if (!foundUser) {
       throw new BadRequestException("User not found. Please try again later");

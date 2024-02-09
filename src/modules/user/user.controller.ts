@@ -162,6 +162,6 @@ export class UserController {
     @Param("inviteUrl") inviteUrl: string,
     @Param("id") id: string,
   ) {
-    return this.userService.addMemberViaURLToCircle(inviteUrl, id);
+    return this.userService.addMemberViaURLToCircle(id, inviteUrl);
   }
 }

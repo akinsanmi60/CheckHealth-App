@@ -7,7 +7,7 @@ import { AuthResolver } from "src/auth/authFinder.service";
 import { ResponseInterceptor } from "src/filter/responseFilter/respone.service";
 // import { MailService } from "../../mail/mail.service";
 import { PrismaService } from "src/prisma/prisma.service";
-import { UserCircle, Users } from "src/types/appModel.type";
+import { UserCircle } from "src/types/appModel.type";
 import { CompanyGettingStartedDto } from "../circles/dto/company.dto";
 import * as crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
@@ -456,12 +456,12 @@ export class UserService {
     }
   }
 
-  async addMemberViaURLToCircle(inviteUrl: string, userID: string) {
-    const foundUser = (await this.authResolver.findUserWithField(
-      userID,
-      "id",
-      "user",
-    )) as Users;
+  async addMemberViaURLToCircle(id: string, inviteUrl: string) {
+    const foundUser = await this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
 
     if (!foundUser) {
       throw new BadRequestException("User not found. Please try again later");
