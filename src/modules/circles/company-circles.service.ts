@@ -64,7 +64,7 @@ export class CirclesService {
     const circleGeneratedNos = `${firstThreeLetters}-${code}${lastTwo}`;
 
     const inviteUrl =
-      crypto.randomBytes(4).toString("hex") + "/" + circleGeneratedNos;
+      crypto.randomBytes(4).toString("hex") + "-" + circleGeneratedNos;
 
     if (participantsList.length === 0) {
       throw new BadRequestException("Participants list cannot be empty.");
