@@ -170,7 +170,7 @@ export class ForgotPasswordDto {
 }
 
 export class ResetPasswordDto extends VerifyEmailDto {
-  @ApiProperty({ example: "120945" })
+  @ApiProperty({ example: "1209" })
   @IsNotEmpty({ message: "Code cannot be empty." })
   @Length(6, 6, { message: "Code must be 6 characters" })
   code: string;
