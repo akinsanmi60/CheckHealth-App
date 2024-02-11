@@ -57,7 +57,7 @@ export class AuthService {
     const newCreatedEntity = await this.prisma.user.create({
       data: {
         id: uuidv4(),
-        email: dto.email,
+        email: email,
         created_at: this.timeGenerated,
         password: hashedPassword,
         status: "pending",
