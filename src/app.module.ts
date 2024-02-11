@@ -13,7 +13,7 @@ import { JwtService } from "@nestjs/jwt";
 import { APP_GUARD } from "@nestjs/core";
 import { CompanyModule } from "./modules/circles/company.module";
 import { UserModule } from "./modules/user/user.module";
-import { AssessmentModule } from "./assessment/assessment.module";
+import { AssessmentModule } from "./modules/assessment/assessment.module";
 
 @Module({
   imports: [
