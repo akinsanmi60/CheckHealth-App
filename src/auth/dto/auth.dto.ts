@@ -146,7 +146,16 @@ export class GettingStartedUpdateProfileDto {
   disability: string;
 }
 
-export class UserGettingStartedDto extends LoginDto {
+export class UserGettingStartedDto {
+  @ApiProperty({ example: "test1@example.com" })
+  @IsEmail({}, { message: "Please provide a valid email address." })
+  email: string;
+
+  @ApiProperty({ example: "testingPassword" })
+  @IsNotEmpty({ message: "Password cannot be empty." })
+  @MinLength(6, { message: "Password must be at least 6 characters long." })
+  password: string;
+
   @ApiProperty()
   @IsAlpha()
   @IsNotEmpty({ message: "Terms and conditions cannot be unchecked." })
