@@ -46,8 +46,8 @@ import { Roles } from "../roles/roles.decorator";
 import { Role } from "../roles/role.enum";
 import { CompanyAuthService } from "./company.service";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { Permission } from "../permission/premission.decorator";
-import { AdminPermissions } from "../permission/permission.enum";
+import { Permission } from "../permissions/premission.decorator";
+import { AdminPermissions } from "../permissions/permission.enum";
 
 @ApiTags("Auth")
 @ApiBearerAuth()
@@ -168,7 +168,7 @@ export class AuthController {
     return await this.authService.getAllUsers(dto);
   }
 
-  @Delete("/:id")
+  @Delete("/:id/user")
   @ApiParam({ name: "id", type: "string" })
   @ApiResponse({
     type: GenericResponse,
@@ -280,5 +280,17 @@ export class AuthController {
   @Permission(AdminPermissions.ReadCompany)
   async getAllCompanies(@Query() dto) {
     return await this.companyService.getAllCompanies(dto);
+  }
+
+  @Delete("/:id/company")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiResponse({
+    type: GenericResponse,
+  })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin, Role.superAdmin)
+  @Permission(AdminPermissions.DeleteCompany)
+  async deleteCompany(@Param("id") id) {
+    return await this.companyService.deleteCompany(id);
   }
 }

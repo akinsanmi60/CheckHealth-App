@@ -29,8 +29,8 @@ import {
   GetAllAdminUserResponse,
   IGetIndividualAdminUser,
 } from "./dto/empylo-response.dto";
-import { Permission } from "../../permission/premission.decorator";
-import { AdminPermissions } from "../../permission/permission.enum";
+import { Permission } from "../../permissions/premission.decorator";
+import { AdminPermissions } from "../../permissions/permission.enum";
 
 @ApiTags("Empylo Admin User")
 @ApiBearerAuth()

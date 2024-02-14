@@ -590,4 +590,20 @@ export class CompanyAuthService {
       throw error;
     }
   }
+
+  async deleteCompany(id: string) {
+    const company = await this.prisma.companyUser.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!company) {
+      throw new BadRequestException("Company not found");
+    }
+
+    return {
+      message: "Company deleted successfully",
+    };
+  }
 }
