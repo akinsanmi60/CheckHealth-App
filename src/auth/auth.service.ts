@@ -392,7 +392,7 @@ export class AuthService {
 
   async deactivateUser(id: string) {
     const data = {
-      isActive: true,
+      isActive: false,
       updated_at: this.timeGenerated,
     };
 
@@ -671,5 +671,21 @@ export class AuthService {
       console.error("Error in get all users:", error);
       throw error;
     }
+  }
+
+  async deleteUser(id: string) {
+    const deletedUser = await this.prisma.user.delete({
+      where: {
+        id,
+      },
+    });
+
+    if (!deletedUser) {
+      throw new BadRequestException("User not deleted");
+    }
+    return {
+      message: "User deleted successfully",
+      data: deletedUser,
+    };
   }
 }

@@ -107,6 +107,29 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.EmpyloUserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  created_at: 'created_at',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  phoneNumber: 'phoneNumber',
+  role: 'role',
+  lastLogin: 'lastLogin',
+  passportImg: 'passportImg',
+  isActive: 'isActive',
+  updated_at: 'updated_at',
+  isEmailVerified: 'isEmailVerified',
+  verificationCode: 'verificationCode',
+  status: 'status',
+  gender: 'gender',
+  maritalStatus: 'maritalStatus',
+  empyloID: 'empyloID',
+  permissions: 'permissions',
+  passwordResetCode: 'passwordResetCode',
+  password: 'password'
+};
+
 exports.Prisma.CompanyUserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -202,6 +225,14 @@ exports.Prisma.UserCirclesScalarFieldEnum = {
   circleStatus: 'circleStatus'
 };
 
+exports.Prisma.AssessmentScalarFieldEnum = {
+  id: 'id',
+  created_at: 'created_at',
+  setNo: 'setNo',
+  assessmentType: 'assessmentType',
+  setQuestion: 'setQuestion'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -216,16 +247,28 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.SystemRole = exports.$Enums.SystemRole = {
+  superAdmin: 'superAdmin',
+  admin: 'admin',
+  user: 'user',
+  company: 'company'
+};
+
 exports.UserStatus = exports.$Enums.UserStatus = {
   active: 'active',
   pending: 'pending',
   inactive: 'inactive'
 };
 
-exports.SystemRole = exports.$Enums.SystemRole = {
-  superAdmin: 'superAdmin',
-  admin: 'admin',
-  user: 'user'
+exports.UserGender = exports.$Enums.UserGender = {
+  male: 'male',
+  female: 'female'
+};
+
+exports.MaitalStatus = exports.$Enums.MaitalStatus = {
+  married: 'married',
+  single: 'single',
+  divorce: 'divorce'
 };
 
 exports.ActivityLevel = exports.$Enums.ActivityLevel = {
@@ -242,21 +285,23 @@ exports.CircleStatus = exports.$Enums.CircleStatus = {
   unenrolled: 'unenrolled'
 };
 
-exports.UserGender = exports.$Enums.UserGender = {
-  male: 'male',
-  female: 'female'
-};
-
 exports.UserAccount = exports.$Enums.UserAccount = {
   personalUser: 'personalUser',
   clientUser: 'clientUser'
 };
 
+exports.AssessmentType = exports.$Enums.AssessmentType = {
+  weekly: 'weekly',
+  dailyCheckin: 'dailyCheckin'
+};
+
 exports.Prisma.ModelName = {
+  EmpyloUser: 'EmpyloUser',
   CompanyUser: 'CompanyUser',
   CompanyCircles: 'CompanyCircles',
   User: 'User',
-  UserCircles: 'UserCircles'
+  UserCircles: 'UserCircles',
+  Assessment: 'Assessment'
 };
 
 /**

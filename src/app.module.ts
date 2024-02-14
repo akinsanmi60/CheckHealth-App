@@ -14,6 +14,7 @@ import { APP_GUARD } from "@nestjs/core";
 import { CompanyModule } from "./modules/circles/company.module";
 import { UserModule } from "./modules/user/user.module";
 import { AssessmentModule } from "./modules/assessment/assessment.module";
+import { EmpyloUserModule } from "./modules/empylo-user/empylo-user.module";
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { AssessmentModule } from "./modules/assessment/assessment.module";
       },
     ]),
     AssessmentModule,
+    EmpyloUserModule,
   ],
   controllers: [AppController],
   providers: [

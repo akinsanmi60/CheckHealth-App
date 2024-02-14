@@ -364,7 +364,7 @@ export class CompanyAuthService {
 
   async deactivateCompany(id: string) {
     const data = {
-      isActive: true,
+      isActive: false,
       updated_at: this.timeGenerated,
     };
 

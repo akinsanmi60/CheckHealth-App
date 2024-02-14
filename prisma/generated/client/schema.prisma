@@ -12,6 +12,29 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model EmpyloUser {
+  id                String        @id @unique @default(cuid())
+  email             String        @unique
+  created_at        DateTime?     @default(now())
+  firstName         String?
+  lastName          String?
+  phoneNumber       String?       @unique
+  role              SystemRole    @default(admin)
+  lastLogin         DateTime?
+  passportImg       String?
+  isActive          Boolean?      @default(false)
+  updated_at        DateTime?     @updatedAt
+  isEmailVerified   Boolean?      @default(false)
+  verificationCode  String?       @unique
+  status            UserStatus    @default(inactive)
+  gender            UserGender?
+  maritalStatus     MaitalStatus?
+  empyloID          String?
+  permissions       String[]
+  passwordResetCode String?       @unique
+  password          String?
+}
+
 model CompanyUser {
   id                  String           @id @unique @default(cuid())
   email               String           @unique
@@ -30,7 +53,7 @@ model CompanyUser {
   website             String?
   companyDescription  String?
   status              UserStatus       @default(inactive)
-  role                SystemRole       @default(admin)
+  role                SystemRole       @default(company)
   address             String?
   addressCity         String?
   addressState        String?
@@ -56,7 +79,7 @@ model CompanyCircles {
   coyCircleNos         String?       @unique
   memberList           User[]
   circleImg            String?
-  circleStatus         CircleStatus?  @default(ongoing)
+  circleStatus         CircleStatus? @default(ongoing)
 }
 
 model User {
@@ -69,7 +92,7 @@ model User {
   ageRange            String?
   ethnicity           String?
   gender              UserGender?
-  maritalStatus       String?
+  maritalStatus       MaitalStatus?
   disability          String?
   DOB                 String?
   accountType         UserAccount      @default(personalUser)
@@ -114,13 +137,27 @@ model UserCircles {
   userCircleStatus      UserStatus    @default(inactive)
   userCircleNos         String?       @unique
   memberList            User[]        @relation("memberInCrircle")
-  circleStatus          CircleStatus?  @default(ongoing)
+  circleStatus          CircleStatus? @default(ongoing)
+}
+
+model Assessment {
+  id             String          @id @unique @default(cuid())
+  created_at     DateTime?       @default(now())
+  setNo          String?
+  assessmentType AssessmentType?
+  setQuestion    String[]
+}
+
+enum AssessmentType {
+  weekly
+  dailyCheckin
 }
 
 enum SystemRole {
   superAdmin
   admin
   user
+  company
 }
 
 enum UserGender {

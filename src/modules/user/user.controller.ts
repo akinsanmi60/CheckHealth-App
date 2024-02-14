@@ -12,6 +12,7 @@ import {
 } from "@nestjs/common";
 import { UserService } from "./user.service";
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiParam,
   ApiQuery,
@@ -39,6 +40,7 @@ import { RolesGuard } from "../../roles/roles.guard";
 
 @Controller("user")
 @ApiTags("User")
+@ApiBearerAuth()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

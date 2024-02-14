@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -37,7 +38,7 @@ import {
   IGetCompanyUser,
   IGetIndividualUser,
   LoginResponse,
-  UserInfoDto,
+  // UserInfoDto,
 } from "./dto/auth-response.dto";
 import { JwtAuthGuard } from "./jwtAuth.guard";
 import { RolesGuard } from "../roles/roles.guard";
@@ -45,6 +46,8 @@ import { Roles } from "../roles/roles.decorator";
 import { Role } from "../roles/role.enum";
 import { CompanyAuthService } from "./company.service";
 import { FileInterceptor } from "@nestjs/platform-express";
+import { Permission } from "../permission/premission.decorator";
+import { AdminPermissions } from "../permission/permission.enum";
 
 @ApiTags("Auth")
 @ApiBearerAuth()
@@ -122,10 +125,11 @@ export class AuthController {
   @Post("/:id/activate-user")
   @ApiParam({ name: "id", type: "string" })
   @ApiResponse({
-    type: UserInfoDto,
+    type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.admin, Role.superAdmin)
+  @Permission(AdminPermissions.UpdateUser)
   async activateUser(@Param("id") id: string) {
     return await this.authService.activateUser(id);
   }
@@ -133,10 +137,11 @@ export class AuthController {
   @Post("/:id/deactivate-user")
   @ApiParam({ name: "id", type: "string" })
   @ApiResponse({
-    type: UserInfoDto,
+    type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.admin, Role.superAdmin)
+  @Permission(AdminPermissions.UpdateUser)
   async deactivateUser(@Param("id") id) {
     return await this.authService.deactivateUser(id);
   }
@@ -147,7 +152,7 @@ export class AuthController {
   })
   @ApiParam({ name: "id", type: "string" })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin, Role.user)
+  @Roles(Role.admin, Role.superAdmin, Role.user, Role.company)
   async getUser(@Param("id") id) {
     return await this.authService.getUserById(id);
   }
@@ -158,9 +163,21 @@ export class AuthController {
     type: GetAllUserResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin)
+  @Roles(Role.admin, Role.superAdmin, Role.company)
   async getAllUsers(@Query() dto) {
     return await this.authService.getAllUsers(dto);
+  }
+
+  @Delete("/:id")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiResponse({
+    type: GenericResponse,
+  })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin, Role.superAdmin)
+  @Permission(AdminPermissions.DeleteUser)
+  async deleteUser(@Param("id") id) {
+    return await this.authService.deleteUser(id);
   }
 
   //Company starts here
@@ -221,10 +238,11 @@ export class AuthController {
   @Post("/:id/activate-company")
   @ApiParam({ name: "id", type: "string" })
   @ApiResponse({
-    type: UserInfoDto,
+    type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.superAdmin)
+  @Roles(Role.superAdmin, Role.admin)
+  @Permission(AdminPermissions.UpdateCompany)
   async activateCompany(@Param("id") id: string) {
     return await this.companyService.activateCompany(id);
   }
@@ -232,10 +250,11 @@ export class AuthController {
   @Post("/:id/deactivate-company")
   @ApiParam({ name: "id", type: "string" })
   @ApiResponse({
-    type: UserInfoDto,
+    type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.superAdmin)
+  @Roles(Role.superAdmin, Role.admin)
+  @Permission(AdminPermissions.UpdateCompany)
   async deactivateCompany(@Param("id") id) {
     return await this.companyService.deactivateCompany(id);
   }
@@ -246,7 +265,7 @@ export class AuthController {
   })
   @ApiParam({ name: "id", type: "string" })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin)
+  @Roles(Role.admin, Role.superAdmin, Role.company)
   async getCompany(@Param("id") id) {
     return await this.companyService.getCompanyById(id);
   }
@@ -258,6 +277,7 @@ export class AuthController {
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.admin, Role.superAdmin)
+  @Permission(AdminPermissions.ReadCompany)
   async getAllCompanies(@Query() dto) {
     return await this.companyService.getAllCompanies(dto);
   }

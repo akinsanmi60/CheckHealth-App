@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model EmpyloUser
+ * 
+ */
+export type EmpyloUser = $Result.DefaultSelection<Prisma.$EmpyloUserPayload>
+/**
  * Model CompanyUser
  * 
  */
@@ -33,12 +38,27 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type UserCircles = $Result.DefaultSelection<Prisma.$UserCirclesPayload>
+/**
+ * Model Assessment
+ * 
+ */
+export type Assessment = $Result.DefaultSelection<Prisma.$AssessmentPayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const UserStatus: {
+  export const SystemRole: {
+  superAdmin: 'superAdmin',
+  admin: 'admin',
+  user: 'user',
+  company: 'company'
+};
+
+export type SystemRole = (typeof SystemRole)[keyof typeof SystemRole]
+
+
+export const UserStatus: {
   active: 'active',
   pending: 'pending',
   inactive: 'inactive'
@@ -47,13 +67,21 @@ export namespace $Enums {
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 
-export const SystemRole: {
-  superAdmin: 'superAdmin',
-  admin: 'admin',
-  user: 'user'
+export const UserGender: {
+  male: 'male',
+  female: 'female'
 };
 
-export type SystemRole = (typeof SystemRole)[keyof typeof SystemRole]
+export type UserGender = (typeof UserGender)[keyof typeof UserGender]
+
+
+export const MaitalStatus: {
+  married: 'married',
+  single: 'single',
+  divorce: 'divorce'
+};
+
+export type MaitalStatus = (typeof MaitalStatus)[keyof typeof MaitalStatus]
 
 
 export const ActivityLevel: {
@@ -76,14 +104,6 @@ export const CircleStatus: {
 export type CircleStatus = (typeof CircleStatus)[keyof typeof CircleStatus]
 
 
-export const UserGender: {
-  male: 'male',
-  female: 'female'
-};
-
-export type UserGender = (typeof UserGender)[keyof typeof UserGender]
-
-
 export const UserAccount: {
   personalUser: 'personalUser',
   clientUser: 'clientUser'
@@ -91,15 +111,31 @@ export const UserAccount: {
 
 export type UserAccount = (typeof UserAccount)[keyof typeof UserAccount]
 
+
+export const AssessmentType: {
+  weekly: 'weekly',
+  dailyCheckin: 'dailyCheckin'
+};
+
+export type AssessmentType = (typeof AssessmentType)[keyof typeof AssessmentType]
+
 }
+
+export type SystemRole = $Enums.SystemRole
+
+export const SystemRole: typeof $Enums.SystemRole
 
 export type UserStatus = $Enums.UserStatus
 
 export const UserStatus: typeof $Enums.UserStatus
 
-export type SystemRole = $Enums.SystemRole
+export type UserGender = $Enums.UserGender
 
-export const SystemRole: typeof $Enums.SystemRole
+export const UserGender: typeof $Enums.UserGender
+
+export type MaitalStatus = $Enums.MaitalStatus
+
+export const MaitalStatus: typeof $Enums.MaitalStatus
 
 export type ActivityLevel = $Enums.ActivityLevel
 
@@ -109,13 +145,13 @@ export type CircleStatus = $Enums.CircleStatus
 
 export const CircleStatus: typeof $Enums.CircleStatus
 
-export type UserGender = $Enums.UserGender
-
-export const UserGender: typeof $Enums.UserGender
-
 export type UserAccount = $Enums.UserAccount
 
 export const UserAccount: typeof $Enums.UserAccount
+
+export type AssessmentType = $Enums.AssessmentType
+
+export const AssessmentType: typeof $Enums.AssessmentType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -124,8 +160,8 @@ export const UserAccount: typeof $Enums.UserAccount
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more CompanyUsers
- * const companyUsers = await prisma.companyUser.findMany()
+ * // Fetch zero or more EmpyloUsers
+ * const empyloUsers = await prisma.empyloUser.findMany()
  * ```
  *
  * 
@@ -145,8 +181,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more CompanyUsers
-   * const companyUsers = await prisma.companyUser.findMany()
+   * // Fetch zero or more EmpyloUsers
+   * const empyloUsers = await prisma.empyloUser.findMany()
    * ```
    *
    * 
@@ -240,6 +276,16 @@ export class PrismaClient<
   $extends: $Extensions.ExtendsHook<'extends', Prisma.TypeMapCb, ExtArgs>
 
       /**
+   * `prisma.empyloUser`: Exposes CRUD operations for the **EmpyloUser** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EmpyloUsers
+    * const empyloUsers = await prisma.empyloUser.findMany()
+    * ```
+    */
+  get empyloUser(): Prisma.EmpyloUserDelegate<ExtArgs>;
+
+  /**
    * `prisma.companyUser`: Exposes CRUD operations for the **CompanyUser** model.
     * Example usage:
     * ```ts
@@ -278,6 +324,16 @@ export class PrismaClient<
     * ```
     */
   get userCircles(): Prisma.UserCirclesDelegate<ExtArgs>;
+
+  /**
+   * `prisma.assessment`: Exposes CRUD operations for the **Assessment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Assessments
+    * const assessments = await prisma.assessment.findMany()
+    * ```
+    */
+  get assessment(): Prisma.AssessmentDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -748,10 +804,12 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    EmpyloUser: 'EmpyloUser',
     CompanyUser: 'CompanyUser',
     CompanyCircles: 'CompanyCircles',
     User: 'User',
-    UserCircles: 'UserCircles'
+    UserCircles: 'UserCircles',
+    Assessment: 'Assessment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -768,10 +826,76 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'companyUser' | 'companyCircles' | 'user' | 'userCircles'
+      modelProps: 'empyloUser' | 'companyUser' | 'companyCircles' | 'user' | 'userCircles' | 'assessment'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
+      EmpyloUser: {
+        payload: Prisma.$EmpyloUserPayload<ExtArgs>
+        fields: Prisma.EmpyloUserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmpyloUserFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$EmpyloUserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmpyloUserFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$EmpyloUserPayload>
+          }
+          findFirst: {
+            args: Prisma.EmpyloUserFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$EmpyloUserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmpyloUserFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$EmpyloUserPayload>
+          }
+          findMany: {
+            args: Prisma.EmpyloUserFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$EmpyloUserPayload>[]
+          }
+          create: {
+            args: Prisma.EmpyloUserCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$EmpyloUserPayload>
+          }
+          createMany: {
+            args: Prisma.EmpyloUserCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.EmpyloUserDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$EmpyloUserPayload>
+          }
+          update: {
+            args: Prisma.EmpyloUserUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$EmpyloUserPayload>
+          }
+          deleteMany: {
+            args: Prisma.EmpyloUserDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmpyloUserUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.EmpyloUserUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$EmpyloUserPayload>
+          }
+          aggregate: {
+            args: Prisma.EmpyloUserAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateEmpyloUser>
+          }
+          groupBy: {
+            args: Prisma.EmpyloUserGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<EmpyloUserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmpyloUserCountArgs<ExtArgs>,
+            result: $Utils.Optional<EmpyloUserCountAggregateOutputType> | number
+          }
+        }
+      }
       CompanyUser: {
         payload: Prisma.$CompanyUserPayload<ExtArgs>
         fields: Prisma.CompanyUserFieldRefs
@@ -1033,6 +1157,72 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCirclesCountArgs<ExtArgs>,
             result: $Utils.Optional<UserCirclesCountAggregateOutputType> | number
+          }
+        }
+      }
+      Assessment: {
+        payload: Prisma.$AssessmentPayload<ExtArgs>
+        fields: Prisma.AssessmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AssessmentFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AssessmentFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          findFirst: {
+            args: Prisma.AssessmentFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AssessmentFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          findMany: {
+            args: Prisma.AssessmentFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>[]
+          }
+          create: {
+            args: Prisma.AssessmentCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          createMany: {
+            args: Prisma.AssessmentCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.AssessmentDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          update: {
+            args: Prisma.AssessmentUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.AssessmentDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AssessmentUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.AssessmentUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          aggregate: {
+            args: Prisma.AssessmentAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateAssessment>
+          }
+          groupBy: {
+            args: Prisma.AssessmentGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<AssessmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AssessmentCountArgs<ExtArgs>,
+            result: $Utils.Optional<AssessmentCountAggregateOutputType> | number
           }
         }
       }
@@ -1349,6 +1539,1037 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model EmpyloUser
+   */
+
+  export type AggregateEmpyloUser = {
+    _count: EmpyloUserCountAggregateOutputType | null
+    _min: EmpyloUserMinAggregateOutputType | null
+    _max: EmpyloUserMaxAggregateOutputType | null
+  }
+
+  export type EmpyloUserMinAggregateOutputType = {
+    id: string | null
+    email: string | null
+    created_at: Date | null
+    firstName: string | null
+    lastName: string | null
+    phoneNumber: string | null
+    role: $Enums.SystemRole | null
+    lastLogin: Date | null
+    passportImg: string | null
+    isActive: boolean | null
+    updated_at: Date | null
+    isEmailVerified: boolean | null
+    verificationCode: string | null
+    status: $Enums.UserStatus | null
+    gender: $Enums.UserGender | null
+    maritalStatus: $Enums.MaitalStatus | null
+    empyloID: string | null
+    passwordResetCode: string | null
+    password: string | null
+  }
+
+  export type EmpyloUserMaxAggregateOutputType = {
+    id: string | null
+    email: string | null
+    created_at: Date | null
+    firstName: string | null
+    lastName: string | null
+    phoneNumber: string | null
+    role: $Enums.SystemRole | null
+    lastLogin: Date | null
+    passportImg: string | null
+    isActive: boolean | null
+    updated_at: Date | null
+    isEmailVerified: boolean | null
+    verificationCode: string | null
+    status: $Enums.UserStatus | null
+    gender: $Enums.UserGender | null
+    maritalStatus: $Enums.MaitalStatus | null
+    empyloID: string | null
+    passwordResetCode: string | null
+    password: string | null
+  }
+
+  export type EmpyloUserCountAggregateOutputType = {
+    id: number
+    email: number
+    created_at: number
+    firstName: number
+    lastName: number
+    phoneNumber: number
+    role: number
+    lastLogin: number
+    passportImg: number
+    isActive: number
+    updated_at: number
+    isEmailVerified: number
+    verificationCode: number
+    status: number
+    gender: number
+    maritalStatus: number
+    empyloID: number
+    permissions: number
+    passwordResetCode: number
+    password: number
+    _all: number
+  }
+
+
+  export type EmpyloUserMinAggregateInputType = {
+    id?: true
+    email?: true
+    created_at?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
+    role?: true
+    lastLogin?: true
+    passportImg?: true
+    isActive?: true
+    updated_at?: true
+    isEmailVerified?: true
+    verificationCode?: true
+    status?: true
+    gender?: true
+    maritalStatus?: true
+    empyloID?: true
+    passwordResetCode?: true
+    password?: true
+  }
+
+  export type EmpyloUserMaxAggregateInputType = {
+    id?: true
+    email?: true
+    created_at?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
+    role?: true
+    lastLogin?: true
+    passportImg?: true
+    isActive?: true
+    updated_at?: true
+    isEmailVerified?: true
+    verificationCode?: true
+    status?: true
+    gender?: true
+    maritalStatus?: true
+    empyloID?: true
+    passwordResetCode?: true
+    password?: true
+  }
+
+  export type EmpyloUserCountAggregateInputType = {
+    id?: true
+    email?: true
+    created_at?: true
+    firstName?: true
+    lastName?: true
+    phoneNumber?: true
+    role?: true
+    lastLogin?: true
+    passportImg?: true
+    isActive?: true
+    updated_at?: true
+    isEmailVerified?: true
+    verificationCode?: true
+    status?: true
+    gender?: true
+    maritalStatus?: true
+    empyloID?: true
+    permissions?: true
+    passwordResetCode?: true
+    password?: true
+    _all?: true
+  }
+
+  export type EmpyloUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmpyloUser to aggregate.
+     */
+    where?: EmpyloUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmpyloUsers to fetch.
+     */
+    orderBy?: EmpyloUserOrderByWithRelationInput | EmpyloUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmpyloUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmpyloUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmpyloUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EmpyloUsers
+    **/
+    _count?: true | EmpyloUserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmpyloUserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmpyloUserMaxAggregateInputType
+  }
+
+  export type GetEmpyloUserAggregateType<T extends EmpyloUserAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmpyloUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmpyloUser[P]>
+      : GetScalarType<T[P], AggregateEmpyloUser[P]>
+  }
+
+
+
+
+  export type EmpyloUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmpyloUserWhereInput
+    orderBy?: EmpyloUserOrderByWithAggregationInput | EmpyloUserOrderByWithAggregationInput[]
+    by: EmpyloUserScalarFieldEnum[] | EmpyloUserScalarFieldEnum
+    having?: EmpyloUserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmpyloUserCountAggregateInputType | true
+    _min?: EmpyloUserMinAggregateInputType
+    _max?: EmpyloUserMaxAggregateInputType
+  }
+
+  export type EmpyloUserGroupByOutputType = {
+    id: string
+    email: string
+    created_at: Date | null
+    firstName: string | null
+    lastName: string | null
+    phoneNumber: string | null
+    role: $Enums.SystemRole
+    lastLogin: Date | null
+    passportImg: string | null
+    isActive: boolean | null
+    updated_at: Date | null
+    isEmailVerified: boolean | null
+    verificationCode: string | null
+    status: $Enums.UserStatus
+    gender: $Enums.UserGender | null
+    maritalStatus: $Enums.MaitalStatus | null
+    empyloID: string | null
+    permissions: string[]
+    passwordResetCode: string | null
+    password: string | null
+    _count: EmpyloUserCountAggregateOutputType | null
+    _min: EmpyloUserMinAggregateOutputType | null
+    _max: EmpyloUserMaxAggregateOutputType | null
+  }
+
+  type GetEmpyloUserGroupByPayload<T extends EmpyloUserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmpyloUserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmpyloUserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmpyloUserGroupByOutputType[P]>
+            : GetScalarType<T[P], EmpyloUserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmpyloUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    created_at?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    phoneNumber?: boolean
+    role?: boolean
+    lastLogin?: boolean
+    passportImg?: boolean
+    isActive?: boolean
+    updated_at?: boolean
+    isEmailVerified?: boolean
+    verificationCode?: boolean
+    status?: boolean
+    gender?: boolean
+    maritalStatus?: boolean
+    empyloID?: boolean
+    permissions?: boolean
+    passwordResetCode?: boolean
+    password?: boolean
+  }, ExtArgs["result"]["empyloUser"]>
+
+  export type EmpyloUserSelectScalar = {
+    id?: boolean
+    email?: boolean
+    created_at?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    phoneNumber?: boolean
+    role?: boolean
+    lastLogin?: boolean
+    passportImg?: boolean
+    isActive?: boolean
+    updated_at?: boolean
+    isEmailVerified?: boolean
+    verificationCode?: boolean
+    status?: boolean
+    gender?: boolean
+    maritalStatus?: boolean
+    empyloID?: boolean
+    permissions?: boolean
+    passwordResetCode?: boolean
+    password?: boolean
+  }
+
+
+  export type $EmpyloUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmpyloUser"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      email: string
+      created_at: Date | null
+      firstName: string | null
+      lastName: string | null
+      phoneNumber: string | null
+      role: $Enums.SystemRole
+      lastLogin: Date | null
+      passportImg: string | null
+      isActive: boolean | null
+      updated_at: Date | null
+      isEmailVerified: boolean | null
+      verificationCode: string | null
+      status: $Enums.UserStatus
+      gender: $Enums.UserGender | null
+      maritalStatus: $Enums.MaitalStatus | null
+      empyloID: string | null
+      permissions: string[]
+      passwordResetCode: string | null
+      password: string | null
+    }, ExtArgs["result"]["empyloUser"]>
+    composites: {}
+  }
+
+
+  type EmpyloUserGetPayload<S extends boolean | null | undefined | EmpyloUserDefaultArgs> = $Result.GetResult<Prisma.$EmpyloUserPayload, S>
+
+  type EmpyloUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<EmpyloUserFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: EmpyloUserCountAggregateInputType | true
+    }
+
+  export interface EmpyloUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmpyloUser'], meta: { name: 'EmpyloUser' } }
+    /**
+     * Find zero or one EmpyloUser that matches the filter.
+     * @param {EmpyloUserFindUniqueArgs} args - Arguments to find a EmpyloUser
+     * @example
+     * // Get one EmpyloUser
+     * const empyloUser = await prisma.empyloUser.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends EmpyloUserFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, EmpyloUserFindUniqueArgs<ExtArgs>>
+    ): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one EmpyloUser that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {EmpyloUserFindUniqueOrThrowArgs} args - Arguments to find a EmpyloUser
+     * @example
+     * // Get one EmpyloUser
+     * const empyloUser = await prisma.empyloUser.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends EmpyloUserFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, EmpyloUserFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first EmpyloUser that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpyloUserFindFirstArgs} args - Arguments to find a EmpyloUser
+     * @example
+     * // Get one EmpyloUser
+     * const empyloUser = await prisma.empyloUser.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends EmpyloUserFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, EmpyloUserFindFirstArgs<ExtArgs>>
+    ): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first EmpyloUser that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpyloUserFindFirstOrThrowArgs} args - Arguments to find a EmpyloUser
+     * @example
+     * // Get one EmpyloUser
+     * const empyloUser = await prisma.empyloUser.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends EmpyloUserFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, EmpyloUserFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more EmpyloUsers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpyloUserFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EmpyloUsers
+     * const empyloUsers = await prisma.empyloUser.findMany()
+     * 
+     * // Get first 10 EmpyloUsers
+     * const empyloUsers = await prisma.empyloUser.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const empyloUserWithIdOnly = await prisma.empyloUser.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends EmpyloUserFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, EmpyloUserFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a EmpyloUser.
+     * @param {EmpyloUserCreateArgs} args - Arguments to create a EmpyloUser.
+     * @example
+     * // Create one EmpyloUser
+     * const EmpyloUser = await prisma.empyloUser.create({
+     *   data: {
+     *     // ... data to create a EmpyloUser
+     *   }
+     * })
+     * 
+    **/
+    create<T extends EmpyloUserCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, EmpyloUserCreateArgs<ExtArgs>>
+    ): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many EmpyloUsers.
+     *     @param {EmpyloUserCreateManyArgs} args - Arguments to create many EmpyloUsers.
+     *     @example
+     *     // Create many EmpyloUsers
+     *     const empyloUser = await prisma.empyloUser.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends EmpyloUserCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, EmpyloUserCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a EmpyloUser.
+     * @param {EmpyloUserDeleteArgs} args - Arguments to delete one EmpyloUser.
+     * @example
+     * // Delete one EmpyloUser
+     * const EmpyloUser = await prisma.empyloUser.delete({
+     *   where: {
+     *     // ... filter to delete one EmpyloUser
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends EmpyloUserDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, EmpyloUserDeleteArgs<ExtArgs>>
+    ): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one EmpyloUser.
+     * @param {EmpyloUserUpdateArgs} args - Arguments to update one EmpyloUser.
+     * @example
+     * // Update one EmpyloUser
+     * const empyloUser = await prisma.empyloUser.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends EmpyloUserUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, EmpyloUserUpdateArgs<ExtArgs>>
+    ): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more EmpyloUsers.
+     * @param {EmpyloUserDeleteManyArgs} args - Arguments to filter EmpyloUsers to delete.
+     * @example
+     * // Delete a few EmpyloUsers
+     * const { count } = await prisma.empyloUser.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends EmpyloUserDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, EmpyloUserDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmpyloUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpyloUserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EmpyloUsers
+     * const empyloUser = await prisma.empyloUser.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends EmpyloUserUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, EmpyloUserUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one EmpyloUser.
+     * @param {EmpyloUserUpsertArgs} args - Arguments to update or create a EmpyloUser.
+     * @example
+     * // Update or create a EmpyloUser
+     * const empyloUser = await prisma.empyloUser.upsert({
+     *   create: {
+     *     // ... data to create a EmpyloUser
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EmpyloUser we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends EmpyloUserUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, EmpyloUserUpsertArgs<ExtArgs>>
+    ): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of EmpyloUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpyloUserCountArgs} args - Arguments to filter EmpyloUsers to count.
+     * @example
+     * // Count the number of EmpyloUsers
+     * const count = await prisma.empyloUser.count({
+     *   where: {
+     *     // ... the filter for the EmpyloUsers we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmpyloUserCountArgs>(
+      args?: Subset<T, EmpyloUserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmpyloUserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EmpyloUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpyloUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmpyloUserAggregateArgs>(args: Subset<T, EmpyloUserAggregateArgs>): Prisma.PrismaPromise<GetEmpyloUserAggregateType<T>>
+
+    /**
+     * Group by EmpyloUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpyloUserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmpyloUserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmpyloUserGroupByArgs['orderBy'] }
+        : { orderBy?: EmpyloUserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmpyloUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmpyloUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EmpyloUser model
+   */
+  readonly fields: EmpyloUserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EmpyloUser.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmpyloUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the EmpyloUser model
+   */ 
+  interface EmpyloUserFieldRefs {
+    readonly id: FieldRef<"EmpyloUser", 'String'>
+    readonly email: FieldRef<"EmpyloUser", 'String'>
+    readonly created_at: FieldRef<"EmpyloUser", 'DateTime'>
+    readonly firstName: FieldRef<"EmpyloUser", 'String'>
+    readonly lastName: FieldRef<"EmpyloUser", 'String'>
+    readonly phoneNumber: FieldRef<"EmpyloUser", 'String'>
+    readonly role: FieldRef<"EmpyloUser", 'SystemRole'>
+    readonly lastLogin: FieldRef<"EmpyloUser", 'DateTime'>
+    readonly passportImg: FieldRef<"EmpyloUser", 'String'>
+    readonly isActive: FieldRef<"EmpyloUser", 'Boolean'>
+    readonly updated_at: FieldRef<"EmpyloUser", 'DateTime'>
+    readonly isEmailVerified: FieldRef<"EmpyloUser", 'Boolean'>
+    readonly verificationCode: FieldRef<"EmpyloUser", 'String'>
+    readonly status: FieldRef<"EmpyloUser", 'UserStatus'>
+    readonly gender: FieldRef<"EmpyloUser", 'UserGender'>
+    readonly maritalStatus: FieldRef<"EmpyloUser", 'MaitalStatus'>
+    readonly empyloID: FieldRef<"EmpyloUser", 'String'>
+    readonly permissions: FieldRef<"EmpyloUser", 'String[]'>
+    readonly passwordResetCode: FieldRef<"EmpyloUser", 'String'>
+    readonly password: FieldRef<"EmpyloUser", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * EmpyloUser findUnique
+   */
+  export type EmpyloUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * Filter, which EmpyloUser to fetch.
+     */
+    where: EmpyloUserWhereUniqueInput
+  }
+
+
+  /**
+   * EmpyloUser findUniqueOrThrow
+   */
+  export type EmpyloUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * Filter, which EmpyloUser to fetch.
+     */
+    where: EmpyloUserWhereUniqueInput
+  }
+
+
+  /**
+   * EmpyloUser findFirst
+   */
+  export type EmpyloUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * Filter, which EmpyloUser to fetch.
+     */
+    where?: EmpyloUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmpyloUsers to fetch.
+     */
+    orderBy?: EmpyloUserOrderByWithRelationInput | EmpyloUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmpyloUsers.
+     */
+    cursor?: EmpyloUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmpyloUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmpyloUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmpyloUsers.
+     */
+    distinct?: EmpyloUserScalarFieldEnum | EmpyloUserScalarFieldEnum[]
+  }
+
+
+  /**
+   * EmpyloUser findFirstOrThrow
+   */
+  export type EmpyloUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * Filter, which EmpyloUser to fetch.
+     */
+    where?: EmpyloUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmpyloUsers to fetch.
+     */
+    orderBy?: EmpyloUserOrderByWithRelationInput | EmpyloUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmpyloUsers.
+     */
+    cursor?: EmpyloUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmpyloUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmpyloUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmpyloUsers.
+     */
+    distinct?: EmpyloUserScalarFieldEnum | EmpyloUserScalarFieldEnum[]
+  }
+
+
+  /**
+   * EmpyloUser findMany
+   */
+  export type EmpyloUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * Filter, which EmpyloUsers to fetch.
+     */
+    where?: EmpyloUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmpyloUsers to fetch.
+     */
+    orderBy?: EmpyloUserOrderByWithRelationInput | EmpyloUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EmpyloUsers.
+     */
+    cursor?: EmpyloUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmpyloUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmpyloUsers.
+     */
+    skip?: number
+    distinct?: EmpyloUserScalarFieldEnum | EmpyloUserScalarFieldEnum[]
+  }
+
+
+  /**
+   * EmpyloUser create
+   */
+  export type EmpyloUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * The data needed to create a EmpyloUser.
+     */
+    data: XOR<EmpyloUserCreateInput, EmpyloUserUncheckedCreateInput>
+  }
+
+
+  /**
+   * EmpyloUser createMany
+   */
+  export type EmpyloUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EmpyloUsers.
+     */
+    data: EmpyloUserCreateManyInput | EmpyloUserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * EmpyloUser update
+   */
+  export type EmpyloUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * The data needed to update a EmpyloUser.
+     */
+    data: XOR<EmpyloUserUpdateInput, EmpyloUserUncheckedUpdateInput>
+    /**
+     * Choose, which EmpyloUser to update.
+     */
+    where: EmpyloUserWhereUniqueInput
+  }
+
+
+  /**
+   * EmpyloUser updateMany
+   */
+  export type EmpyloUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EmpyloUsers.
+     */
+    data: XOR<EmpyloUserUpdateManyMutationInput, EmpyloUserUncheckedUpdateManyInput>
+    /**
+     * Filter which EmpyloUsers to update
+     */
+    where?: EmpyloUserWhereInput
+  }
+
+
+  /**
+   * EmpyloUser upsert
+   */
+  export type EmpyloUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * The filter to search for the EmpyloUser to update in case it exists.
+     */
+    where: EmpyloUserWhereUniqueInput
+    /**
+     * In case the EmpyloUser found by the `where` argument doesn't exist, create a new EmpyloUser with this data.
+     */
+    create: XOR<EmpyloUserCreateInput, EmpyloUserUncheckedCreateInput>
+    /**
+     * In case the EmpyloUser was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmpyloUserUpdateInput, EmpyloUserUncheckedUpdateInput>
+  }
+
+
+  /**
+   * EmpyloUser delete
+   */
+  export type EmpyloUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * Filter which EmpyloUser to delete.
+     */
+    where: EmpyloUserWhereUniqueInput
+  }
+
+
+  /**
+   * EmpyloUser deleteMany
+   */
+  export type EmpyloUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmpyloUsers to delete
+     */
+    where?: EmpyloUserWhereInput
+  }
+
+
+  /**
+   * EmpyloUser without action
+   */
+  export type EmpyloUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+  }
+
+
 
   /**
    * Model CompanyUser
@@ -3596,7 +4817,7 @@ export namespace Prisma {
     ageRange: string | null
     ethnicity: string | null
     gender: $Enums.UserGender | null
-    maritalStatus: string | null
+    maritalStatus: $Enums.MaitalStatus | null
     disability: string | null
     DOB: string | null
     accountType: $Enums.UserAccount | null
@@ -3631,7 +4852,7 @@ export namespace Prisma {
     ageRange: string | null
     ethnicity: string | null
     gender: $Enums.UserGender | null
-    maritalStatus: string | null
+    maritalStatus: $Enums.MaitalStatus | null
     disability: string | null
     DOB: string | null
     accountType: $Enums.UserAccount | null
@@ -3881,7 +5102,7 @@ export namespace Prisma {
     ageRange: string | null
     ethnicity: string | null
     gender: $Enums.UserGender | null
-    maritalStatus: string | null
+    maritalStatus: $Enums.MaitalStatus | null
     disability: string | null
     DOB: string | null
     accountType: $Enums.UserAccount
@@ -4025,7 +5246,7 @@ export namespace Prisma {
       ageRange: string | null
       ethnicity: string | null
       gender: $Enums.UserGender | null
-      maritalStatus: string | null
+      maritalStatus: $Enums.MaitalStatus | null
       disability: string | null
       DOB: string | null
       accountType: $Enums.UserAccount
@@ -4458,7 +5679,7 @@ export namespace Prisma {
     readonly ageRange: FieldRef<"User", 'String'>
     readonly ethnicity: FieldRef<"User", 'String'>
     readonly gender: FieldRef<"User", 'UserGender'>
-    readonly maritalStatus: FieldRef<"User", 'String'>
+    readonly maritalStatus: FieldRef<"User", 'MaitalStatus'>
     readonly disability: FieldRef<"User", 'String'>
     readonly DOB: FieldRef<"User", 'String'>
     readonly accountType: FieldRef<"User", 'UserAccount'>
@@ -5949,6 +7170,872 @@ export namespace Prisma {
 
 
   /**
+   * Model Assessment
+   */
+
+  export type AggregateAssessment = {
+    _count: AssessmentCountAggregateOutputType | null
+    _min: AssessmentMinAggregateOutputType | null
+    _max: AssessmentMaxAggregateOutputType | null
+  }
+
+  export type AssessmentMinAggregateOutputType = {
+    id: string | null
+    created_at: Date | null
+    setNo: string | null
+    assessmentType: $Enums.AssessmentType | null
+  }
+
+  export type AssessmentMaxAggregateOutputType = {
+    id: string | null
+    created_at: Date | null
+    setNo: string | null
+    assessmentType: $Enums.AssessmentType | null
+  }
+
+  export type AssessmentCountAggregateOutputType = {
+    id: number
+    created_at: number
+    setNo: number
+    assessmentType: number
+    setQuestion: number
+    _all: number
+  }
+
+
+  export type AssessmentMinAggregateInputType = {
+    id?: true
+    created_at?: true
+    setNo?: true
+    assessmentType?: true
+  }
+
+  export type AssessmentMaxAggregateInputType = {
+    id?: true
+    created_at?: true
+    setNo?: true
+    assessmentType?: true
+  }
+
+  export type AssessmentCountAggregateInputType = {
+    id?: true
+    created_at?: true
+    setNo?: true
+    assessmentType?: true
+    setQuestion?: true
+    _all?: true
+  }
+
+  export type AssessmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Assessment to aggregate.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Assessments
+    **/
+    _count?: true | AssessmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AssessmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AssessmentMaxAggregateInputType
+  }
+
+  export type GetAssessmentAggregateType<T extends AssessmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateAssessment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAssessment[P]>
+      : GetScalarType<T[P], AggregateAssessment[P]>
+  }
+
+
+
+
+  export type AssessmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssessmentWhereInput
+    orderBy?: AssessmentOrderByWithAggregationInput | AssessmentOrderByWithAggregationInput[]
+    by: AssessmentScalarFieldEnum[] | AssessmentScalarFieldEnum
+    having?: AssessmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AssessmentCountAggregateInputType | true
+    _min?: AssessmentMinAggregateInputType
+    _max?: AssessmentMaxAggregateInputType
+  }
+
+  export type AssessmentGroupByOutputType = {
+    id: string
+    created_at: Date | null
+    setNo: string | null
+    assessmentType: $Enums.AssessmentType | null
+    setQuestion: string[]
+    _count: AssessmentCountAggregateOutputType | null
+    _min: AssessmentMinAggregateOutputType | null
+    _max: AssessmentMaxAggregateOutputType | null
+  }
+
+  type GetAssessmentGroupByPayload<T extends AssessmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AssessmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AssessmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AssessmentGroupByOutputType[P]>
+            : GetScalarType<T[P], AssessmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AssessmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    created_at?: boolean
+    setNo?: boolean
+    assessmentType?: boolean
+    setQuestion?: boolean
+  }, ExtArgs["result"]["assessment"]>
+
+  export type AssessmentSelectScalar = {
+    id?: boolean
+    created_at?: boolean
+    setNo?: boolean
+    assessmentType?: boolean
+    setQuestion?: boolean
+  }
+
+
+  export type $AssessmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Assessment"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      created_at: Date | null
+      setNo: string | null
+      assessmentType: $Enums.AssessmentType | null
+      setQuestion: string[]
+    }, ExtArgs["result"]["assessment"]>
+    composites: {}
+  }
+
+
+  type AssessmentGetPayload<S extends boolean | null | undefined | AssessmentDefaultArgs> = $Result.GetResult<Prisma.$AssessmentPayload, S>
+
+  type AssessmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AssessmentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AssessmentCountAggregateInputType | true
+    }
+
+  export interface AssessmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Assessment'], meta: { name: 'Assessment' } }
+    /**
+     * Find zero or one Assessment that matches the filter.
+     * @param {AssessmentFindUniqueArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AssessmentFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentFindUniqueArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Assessment that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AssessmentFindUniqueOrThrowArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AssessmentFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Assessment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentFindFirstArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AssessmentFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentFindFirstArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Assessment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentFindFirstOrThrowArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AssessmentFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Assessments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Assessments
+     * const assessments = await prisma.assessment.findMany()
+     * 
+     * // Get first 10 Assessments
+     * const assessments = await prisma.assessment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const assessmentWithIdOnly = await prisma.assessment.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AssessmentFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Assessment.
+     * @param {AssessmentCreateArgs} args - Arguments to create a Assessment.
+     * @example
+     * // Create one Assessment
+     * const Assessment = await prisma.assessment.create({
+     *   data: {
+     *     // ... data to create a Assessment
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AssessmentCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentCreateArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Assessments.
+     *     @param {AssessmentCreateManyArgs} args - Arguments to create many Assessments.
+     *     @example
+     *     // Create many Assessments
+     *     const assessment = await prisma.assessment.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AssessmentCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Assessment.
+     * @param {AssessmentDeleteArgs} args - Arguments to delete one Assessment.
+     * @example
+     * // Delete one Assessment
+     * const Assessment = await prisma.assessment.delete({
+     *   where: {
+     *     // ... filter to delete one Assessment
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AssessmentDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentDeleteArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Assessment.
+     * @param {AssessmentUpdateArgs} args - Arguments to update one Assessment.
+     * @example
+     * // Update one Assessment
+     * const assessment = await prisma.assessment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AssessmentUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentUpdateArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Assessments.
+     * @param {AssessmentDeleteManyArgs} args - Arguments to filter Assessments to delete.
+     * @example
+     * // Delete a few Assessments
+     * const { count } = await prisma.assessment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AssessmentDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Assessments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Assessments
+     * const assessment = await prisma.assessment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AssessmentUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Assessment.
+     * @param {AssessmentUpsertArgs} args - Arguments to update or create a Assessment.
+     * @example
+     * // Update or create a Assessment
+     * const assessment = await prisma.assessment.upsert({
+     *   create: {
+     *     // ... data to create a Assessment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Assessment we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AssessmentUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentUpsertArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Assessments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentCountArgs} args - Arguments to filter Assessments to count.
+     * @example
+     * // Count the number of Assessments
+     * const count = await prisma.assessment.count({
+     *   where: {
+     *     // ... the filter for the Assessments we want to count
+     *   }
+     * })
+    **/
+    count<T extends AssessmentCountArgs>(
+      args?: Subset<T, AssessmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AssessmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Assessment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AssessmentAggregateArgs>(args: Subset<T, AssessmentAggregateArgs>): Prisma.PrismaPromise<GetAssessmentAggregateType<T>>
+
+    /**
+     * Group by Assessment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AssessmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AssessmentGroupByArgs['orderBy'] }
+        : { orderBy?: AssessmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AssessmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAssessmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Assessment model
+   */
+  readonly fields: AssessmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Assessment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AssessmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Assessment model
+   */ 
+  interface AssessmentFieldRefs {
+    readonly id: FieldRef<"Assessment", 'String'>
+    readonly created_at: FieldRef<"Assessment", 'DateTime'>
+    readonly setNo: FieldRef<"Assessment", 'String'>
+    readonly assessmentType: FieldRef<"Assessment", 'AssessmentType'>
+    readonly setQuestion: FieldRef<"Assessment", 'String[]'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Assessment findUnique
+   */
+  export type AssessmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+
+  /**
+   * Assessment findUniqueOrThrow
+   */
+  export type AssessmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+
+  /**
+   * Assessment findFirst
+   */
+  export type AssessmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Assessments.
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Assessments.
+     */
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+
+  /**
+   * Assessment findFirstOrThrow
+   */
+  export type AssessmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Assessments.
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Assessments.
+     */
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+
+  /**
+   * Assessment findMany
+   */
+  export type AssessmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Filter, which Assessments to fetch.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Assessments.
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+
+  /**
+   * Assessment create
+   */
+  export type AssessmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * The data needed to create a Assessment.
+     */
+    data?: XOR<AssessmentCreateInput, AssessmentUncheckedCreateInput>
+  }
+
+
+  /**
+   * Assessment createMany
+   */
+  export type AssessmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Assessments.
+     */
+    data: AssessmentCreateManyInput | AssessmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Assessment update
+   */
+  export type AssessmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * The data needed to update a Assessment.
+     */
+    data: XOR<AssessmentUpdateInput, AssessmentUncheckedUpdateInput>
+    /**
+     * Choose, which Assessment to update.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+
+  /**
+   * Assessment updateMany
+   */
+  export type AssessmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Assessments.
+     */
+    data: XOR<AssessmentUpdateManyMutationInput, AssessmentUncheckedUpdateManyInput>
+    /**
+     * Filter which Assessments to update
+     */
+    where?: AssessmentWhereInput
+  }
+
+
+  /**
+   * Assessment upsert
+   */
+  export type AssessmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * The filter to search for the Assessment to update in case it exists.
+     */
+    where: AssessmentWhereUniqueInput
+    /**
+     * In case the Assessment found by the `where` argument doesn't exist, create a new Assessment with this data.
+     */
+    create: XOR<AssessmentCreateInput, AssessmentUncheckedCreateInput>
+    /**
+     * In case the Assessment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AssessmentUpdateInput, AssessmentUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Assessment delete
+   */
+  export type AssessmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Filter which Assessment to delete.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+
+  /**
+   * Assessment deleteMany
+   */
+  export type AssessmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Assessments to delete
+     */
+    where?: AssessmentWhereInput
+  }
+
+
+  /**
+   * Assessment without action
+   */
+  export type AssessmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -5960,6 +8047,32 @@ export namespace Prisma {
   };
 
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+  export const EmpyloUserScalarFieldEnum: {
+    id: 'id',
+    email: 'email',
+    created_at: 'created_at',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    phoneNumber: 'phoneNumber',
+    role: 'role',
+    lastLogin: 'lastLogin',
+    passportImg: 'passportImg',
+    isActive: 'isActive',
+    updated_at: 'updated_at',
+    isEmailVerified: 'isEmailVerified',
+    verificationCode: 'verificationCode',
+    status: 'status',
+    gender: 'gender',
+    maritalStatus: 'maritalStatus',
+    empyloID: 'empyloID',
+    permissions: 'permissions',
+    passwordResetCode: 'passwordResetCode',
+    password: 'password'
+  };
+
+  export type EmpyloUserScalarFieldEnum = (typeof EmpyloUserScalarFieldEnum)[keyof typeof EmpyloUserScalarFieldEnum]
 
 
   export const CompanyUserScalarFieldEnum: {
@@ -6069,6 +8182,17 @@ export namespace Prisma {
   export type UserCirclesScalarFieldEnum = (typeof UserCirclesScalarFieldEnum)[keyof typeof UserCirclesScalarFieldEnum]
 
 
+  export const AssessmentScalarFieldEnum: {
+    id: 'id',
+    created_at: 'created_at',
+    setNo: 'setNo',
+    assessmentType: 'assessmentType',
+    setQuestion: 'setQuestion'
+  };
+
+  export type AssessmentScalarFieldEnum = (typeof AssessmentScalarFieldEnum)[keyof typeof AssessmentScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -6127,6 +8251,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'SystemRole'
+   */
+  export type EnumSystemRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'SystemRole[]'
+   */
+  export type ListEnumSystemRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemRole[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -6148,16 +8286,30 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'SystemRole'
+   * Reference to a field of type 'UserGender'
    */
-  export type EnumSystemRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemRole'>
+  export type EnumUserGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserGender'>
     
 
 
   /**
-   * Reference to a field of type 'SystemRole[]'
+   * Reference to a field of type 'UserGender[]'
    */
-  export type ListEnumSystemRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemRole[]'>
+  export type ListEnumUserGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserGender[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MaitalStatus'
+   */
+  export type EnumMaitalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaitalStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'MaitalStatus[]'
+   */
+  export type ListEnumMaitalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaitalStatus[]'>
     
 
 
@@ -6190,20 +8342,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'UserGender'
-   */
-  export type EnumUserGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserGender'>
-    
-
-
-  /**
-   * Reference to a field of type 'UserGender[]'
-   */
-  export type ListEnumUserGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserGender[]'>
-    
-
-
-  /**
    * Reference to a field of type 'UserAccount'
    */
   export type EnumUserAccountFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserAccount'>
@@ -6214,6 +8352,20 @@ export namespace Prisma {
    * Reference to a field of type 'UserAccount[]'
    */
   export type ListEnumUserAccountFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserAccount[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AssessmentType'
+   */
+  export type EnumAssessmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssessmentType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AssessmentType[]'
+   */
+  export type ListEnumAssessmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssessmentType[]'>
     
 
 
@@ -6233,6 +8385,133 @@ export namespace Prisma {
    * Deep Input Types
    */
 
+
+  export type EmpyloUserWhereInput = {
+    AND?: EmpyloUserWhereInput | EmpyloUserWhereInput[]
+    OR?: EmpyloUserWhereInput[]
+    NOT?: EmpyloUserWhereInput | EmpyloUserWhereInput[]
+    id?: StringFilter<"EmpyloUser"> | string
+    email?: StringFilter<"EmpyloUser"> | string
+    created_at?: DateTimeNullableFilter<"EmpyloUser"> | Date | string | null
+    firstName?: StringNullableFilter<"EmpyloUser"> | string | null
+    lastName?: StringNullableFilter<"EmpyloUser"> | string | null
+    phoneNumber?: StringNullableFilter<"EmpyloUser"> | string | null
+    role?: EnumSystemRoleFilter<"EmpyloUser"> | $Enums.SystemRole
+    lastLogin?: DateTimeNullableFilter<"EmpyloUser"> | Date | string | null
+    passportImg?: StringNullableFilter<"EmpyloUser"> | string | null
+    isActive?: BoolNullableFilter<"EmpyloUser"> | boolean | null
+    updated_at?: DateTimeNullableFilter<"EmpyloUser"> | Date | string | null
+    isEmailVerified?: BoolNullableFilter<"EmpyloUser"> | boolean | null
+    verificationCode?: StringNullableFilter<"EmpyloUser"> | string | null
+    status?: EnumUserStatusFilter<"EmpyloUser"> | $Enums.UserStatus
+    gender?: EnumUserGenderNullableFilter<"EmpyloUser"> | $Enums.UserGender | null
+    maritalStatus?: EnumMaitalStatusNullableFilter<"EmpyloUser"> | $Enums.MaitalStatus | null
+    empyloID?: StringNullableFilter<"EmpyloUser"> | string | null
+    permissions?: StringNullableListFilter<"EmpyloUser">
+    passwordResetCode?: StringNullableFilter<"EmpyloUser"> | string | null
+    password?: StringNullableFilter<"EmpyloUser"> | string | null
+  }
+
+  export type EmpyloUserOrderByWithRelationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
+    role?: SortOrder
+    lastLogin?: SortOrderInput | SortOrder
+    passportImg?: SortOrderInput | SortOrder
+    isActive?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    isEmailVerified?: SortOrderInput | SortOrder
+    verificationCode?: SortOrderInput | SortOrder
+    status?: SortOrder
+    gender?: SortOrderInput | SortOrder
+    maritalStatus?: SortOrderInput | SortOrder
+    empyloID?: SortOrderInput | SortOrder
+    permissions?: SortOrder
+    passwordResetCode?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+  }
+
+  export type EmpyloUserWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email?: string
+    phoneNumber?: string
+    verificationCode?: string
+    passwordResetCode?: string
+    AND?: EmpyloUserWhereInput | EmpyloUserWhereInput[]
+    OR?: EmpyloUserWhereInput[]
+    NOT?: EmpyloUserWhereInput | EmpyloUserWhereInput[]
+    created_at?: DateTimeNullableFilter<"EmpyloUser"> | Date | string | null
+    firstName?: StringNullableFilter<"EmpyloUser"> | string | null
+    lastName?: StringNullableFilter<"EmpyloUser"> | string | null
+    role?: EnumSystemRoleFilter<"EmpyloUser"> | $Enums.SystemRole
+    lastLogin?: DateTimeNullableFilter<"EmpyloUser"> | Date | string | null
+    passportImg?: StringNullableFilter<"EmpyloUser"> | string | null
+    isActive?: BoolNullableFilter<"EmpyloUser"> | boolean | null
+    updated_at?: DateTimeNullableFilter<"EmpyloUser"> | Date | string | null
+    isEmailVerified?: BoolNullableFilter<"EmpyloUser"> | boolean | null
+    status?: EnumUserStatusFilter<"EmpyloUser"> | $Enums.UserStatus
+    gender?: EnumUserGenderNullableFilter<"EmpyloUser"> | $Enums.UserGender | null
+    maritalStatus?: EnumMaitalStatusNullableFilter<"EmpyloUser"> | $Enums.MaitalStatus | null
+    empyloID?: StringNullableFilter<"EmpyloUser"> | string | null
+    permissions?: StringNullableListFilter<"EmpyloUser">
+    password?: StringNullableFilter<"EmpyloUser"> | string | null
+  }, "id" | "id" | "email" | "phoneNumber" | "verificationCode" | "passwordResetCode">
+
+  export type EmpyloUserOrderByWithAggregationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
+    role?: SortOrder
+    lastLogin?: SortOrderInput | SortOrder
+    passportImg?: SortOrderInput | SortOrder
+    isActive?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    isEmailVerified?: SortOrderInput | SortOrder
+    verificationCode?: SortOrderInput | SortOrder
+    status?: SortOrder
+    gender?: SortOrderInput | SortOrder
+    maritalStatus?: SortOrderInput | SortOrder
+    empyloID?: SortOrderInput | SortOrder
+    permissions?: SortOrder
+    passwordResetCode?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+    _count?: EmpyloUserCountOrderByAggregateInput
+    _max?: EmpyloUserMaxOrderByAggregateInput
+    _min?: EmpyloUserMinOrderByAggregateInput
+  }
+
+  export type EmpyloUserScalarWhereWithAggregatesInput = {
+    AND?: EmpyloUserScalarWhereWithAggregatesInput | EmpyloUserScalarWhereWithAggregatesInput[]
+    OR?: EmpyloUserScalarWhereWithAggregatesInput[]
+    NOT?: EmpyloUserScalarWhereWithAggregatesInput | EmpyloUserScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EmpyloUser"> | string
+    email?: StringWithAggregatesFilter<"EmpyloUser"> | string
+    created_at?: DateTimeNullableWithAggregatesFilter<"EmpyloUser"> | Date | string | null
+    firstName?: StringNullableWithAggregatesFilter<"EmpyloUser"> | string | null
+    lastName?: StringNullableWithAggregatesFilter<"EmpyloUser"> | string | null
+    phoneNumber?: StringNullableWithAggregatesFilter<"EmpyloUser"> | string | null
+    role?: EnumSystemRoleWithAggregatesFilter<"EmpyloUser"> | $Enums.SystemRole
+    lastLogin?: DateTimeNullableWithAggregatesFilter<"EmpyloUser"> | Date | string | null
+    passportImg?: StringNullableWithAggregatesFilter<"EmpyloUser"> | string | null
+    isActive?: BoolNullableWithAggregatesFilter<"EmpyloUser"> | boolean | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"EmpyloUser"> | Date | string | null
+    isEmailVerified?: BoolNullableWithAggregatesFilter<"EmpyloUser"> | boolean | null
+    verificationCode?: StringNullableWithAggregatesFilter<"EmpyloUser"> | string | null
+    status?: EnumUserStatusWithAggregatesFilter<"EmpyloUser"> | $Enums.UserStatus
+    gender?: EnumUserGenderNullableWithAggregatesFilter<"EmpyloUser"> | $Enums.UserGender | null
+    maritalStatus?: EnumMaitalStatusNullableWithAggregatesFilter<"EmpyloUser"> | $Enums.MaitalStatus | null
+    empyloID?: StringNullableWithAggregatesFilter<"EmpyloUser"> | string | null
+    permissions?: StringNullableListFilter<"EmpyloUser">
+    passwordResetCode?: StringNullableWithAggregatesFilter<"EmpyloUser"> | string | null
+    password?: StringNullableWithAggregatesFilter<"EmpyloUser"> | string | null
+  }
 
   export type CompanyUserWhereInput = {
     AND?: CompanyUserWhereInput | CompanyUserWhereInput[]
@@ -6498,7 +8777,7 @@ export namespace Prisma {
     ageRange?: StringNullableFilter<"User"> | string | null
     ethnicity?: StringNullableFilter<"User"> | string | null
     gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
-    maritalStatus?: StringNullableFilter<"User"> | string | null
+    maritalStatus?: EnumMaitalStatusNullableFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableFilter<"User"> | string | null
     DOB?: StringNullableFilter<"User"> | string | null
     accountType?: EnumUserAccountFilter<"User"> | $Enums.UserAccount
@@ -6582,7 +8861,7 @@ export namespace Prisma {
     ageRange?: StringNullableFilter<"User"> | string | null
     ethnicity?: StringNullableFilter<"User"> | string | null
     gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
-    maritalStatus?: StringNullableFilter<"User"> | string | null
+    maritalStatus?: EnumMaitalStatusNullableFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableFilter<"User"> | string | null
     DOB?: StringNullableFilter<"User"> | string | null
     accountType?: EnumUserAccountFilter<"User"> | $Enums.UserAccount
@@ -6659,7 +8938,7 @@ export namespace Prisma {
     ageRange?: StringNullableWithAggregatesFilter<"User"> | string | null
     ethnicity?: StringNullableWithAggregatesFilter<"User"> | string | null
     gender?: EnumUserGenderNullableWithAggregatesFilter<"User"> | $Enums.UserGender | null
-    maritalStatus?: StringNullableWithAggregatesFilter<"User"> | string | null
+    maritalStatus?: EnumMaitalStatusNullableWithAggregatesFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableWithAggregatesFilter<"User"> | string | null
     DOB?: StringNullableWithAggregatesFilter<"User"> | string | null
     accountType?: EnumUserAccountWithAggregatesFilter<"User"> | $Enums.UserAccount
@@ -6785,6 +9064,219 @@ export namespace Prisma {
     userCircleStatus?: EnumUserStatusWithAggregatesFilter<"UserCircles"> | $Enums.UserStatus
     userCircleNos?: StringNullableWithAggregatesFilter<"UserCircles"> | string | null
     circleStatus?: EnumCircleStatusNullableWithAggregatesFilter<"UserCircles"> | $Enums.CircleStatus | null
+  }
+
+  export type AssessmentWhereInput = {
+    AND?: AssessmentWhereInput | AssessmentWhereInput[]
+    OR?: AssessmentWhereInput[]
+    NOT?: AssessmentWhereInput | AssessmentWhereInput[]
+    id?: StringFilter<"Assessment"> | string
+    created_at?: DateTimeNullableFilter<"Assessment"> | Date | string | null
+    setNo?: StringNullableFilter<"Assessment"> | string | null
+    assessmentType?: EnumAssessmentTypeNullableFilter<"Assessment"> | $Enums.AssessmentType | null
+    setQuestion?: StringNullableListFilter<"Assessment">
+  }
+
+  export type AssessmentOrderByWithRelationInput = {
+    id?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    setNo?: SortOrderInput | SortOrder
+    assessmentType?: SortOrderInput | SortOrder
+    setQuestion?: SortOrder
+  }
+
+  export type AssessmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AssessmentWhereInput | AssessmentWhereInput[]
+    OR?: AssessmentWhereInput[]
+    NOT?: AssessmentWhereInput | AssessmentWhereInput[]
+    created_at?: DateTimeNullableFilter<"Assessment"> | Date | string | null
+    setNo?: StringNullableFilter<"Assessment"> | string | null
+    assessmentType?: EnumAssessmentTypeNullableFilter<"Assessment"> | $Enums.AssessmentType | null
+    setQuestion?: StringNullableListFilter<"Assessment">
+  }, "id" | "id">
+
+  export type AssessmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    setNo?: SortOrderInput | SortOrder
+    assessmentType?: SortOrderInput | SortOrder
+    setQuestion?: SortOrder
+    _count?: AssessmentCountOrderByAggregateInput
+    _max?: AssessmentMaxOrderByAggregateInput
+    _min?: AssessmentMinOrderByAggregateInput
+  }
+
+  export type AssessmentScalarWhereWithAggregatesInput = {
+    AND?: AssessmentScalarWhereWithAggregatesInput | AssessmentScalarWhereWithAggregatesInput[]
+    OR?: AssessmentScalarWhereWithAggregatesInput[]
+    NOT?: AssessmentScalarWhereWithAggregatesInput | AssessmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Assessment"> | string
+    created_at?: DateTimeNullableWithAggregatesFilter<"Assessment"> | Date | string | null
+    setNo?: StringNullableWithAggregatesFilter<"Assessment"> | string | null
+    assessmentType?: EnumAssessmentTypeNullableWithAggregatesFilter<"Assessment"> | $Enums.AssessmentType | null
+    setQuestion?: StringNullableListFilter<"Assessment">
+  }
+
+  export type EmpyloUserCreateInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    role?: $Enums.SystemRole
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    gender?: $Enums.UserGender | null
+    maritalStatus?: $Enums.MaitalStatus | null
+    empyloID?: string | null
+    permissions?: EmpyloUserCreatepermissionsInput | string[]
+    passwordResetCode?: string | null
+    password?: string | null
+  }
+
+  export type EmpyloUserUncheckedCreateInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    role?: $Enums.SystemRole
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    gender?: $Enums.UserGender | null
+    maritalStatus?: $Enums.MaitalStatus | null
+    empyloID?: string | null
+    permissions?: EmpyloUserCreatepermissionsInput | string[]
+    passwordResetCode?: string | null
+    password?: string | null
+  }
+
+  export type EmpyloUserUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
+    empyloID?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: EmpyloUserUpdatepermissionsInput | string[]
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmpyloUserUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
+    empyloID?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: EmpyloUserUpdatepermissionsInput | string[]
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmpyloUserCreateManyInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    role?: $Enums.SystemRole
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    gender?: $Enums.UserGender | null
+    maritalStatus?: $Enums.MaitalStatus | null
+    empyloID?: string | null
+    permissions?: EmpyloUserCreatepermissionsInput | string[]
+    passwordResetCode?: string | null
+    password?: string | null
+  }
+
+  export type EmpyloUserUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
+    empyloID?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: EmpyloUserUpdatepermissionsInput | string[]
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmpyloUserUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
+    empyloID?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: EmpyloUserUpdatepermissionsInput | string[]
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CompanyUserCreateInput = {
@@ -7109,7 +9601,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -7147,7 +9639,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -7185,7 +9677,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -7223,7 +9715,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -7261,7 +9753,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -7296,7 +9788,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -7330,7 +9822,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -7477,6 +9969,62 @@ export namespace Prisma {
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
   }
 
+  export type AssessmentCreateInput = {
+    id?: string
+    created_at?: Date | string | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    setQuestion?: AssessmentCreatesetQuestionInput | string[]
+  }
+
+  export type AssessmentUncheckedCreateInput = {
+    id?: string
+    created_at?: Date | string | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    setQuestion?: AssessmentCreatesetQuestionInput | string[]
+  }
+
+  export type AssessmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestion?: AssessmentUpdatesetQuestionInput | string[]
+  }
+
+  export type AssessmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestion?: AssessmentUpdatesetQuestionInput | string[]
+  }
+
+  export type AssessmentCreateManyInput = {
+    id?: string
+    created_at?: Date | string | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    setQuestion?: AssessmentCreatesetQuestionInput | string[]
+  }
+
+  export type AssessmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestion?: AssessmentUpdatesetQuestionInput | string[]
+  }
+
+  export type AssessmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestion?: AssessmentUpdatesetQuestionInput | string[]
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -7518,6 +10066,13 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type EnumSystemRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSystemRoleFilter<$PrismaModel> | $Enums.SystemRole
+  }
+
   export type BoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
@@ -7530,11 +10085,196 @@ export namespace Prisma {
     not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
   }
 
-  export type EnumSystemRoleFilter<$PrismaModel = never> = {
+  export type EnumUserGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableFilter<$PrismaModel> | $Enums.UserGender | null
+  }
+
+  export type EnumMaitalStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaitalStatus | EnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MaitalStatus[] | ListEnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MaitalStatus[] | ListEnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMaitalStatusNullableFilter<$PrismaModel> | $Enums.MaitalStatus | null
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type EmpyloUserCountOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
+    role?: SortOrder
+    lastLogin?: SortOrder
+    passportImg?: SortOrder
+    isActive?: SortOrder
+    updated_at?: SortOrder
+    isEmailVerified?: SortOrder
+    verificationCode?: SortOrder
+    status?: SortOrder
+    gender?: SortOrder
+    maritalStatus?: SortOrder
+    empyloID?: SortOrder
+    permissions?: SortOrder
+    passwordResetCode?: SortOrder
+    password?: SortOrder
+  }
+
+  export type EmpyloUserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
+    role?: SortOrder
+    lastLogin?: SortOrder
+    passportImg?: SortOrder
+    isActive?: SortOrder
+    updated_at?: SortOrder
+    isEmailVerified?: SortOrder
+    verificationCode?: SortOrder
+    status?: SortOrder
+    gender?: SortOrder
+    maritalStatus?: SortOrder
+    empyloID?: SortOrder
+    passwordResetCode?: SortOrder
+    password?: SortOrder
+  }
+
+  export type EmpyloUserMinOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    created_at?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    phoneNumber?: SortOrder
+    role?: SortOrder
+    lastLogin?: SortOrder
+    passportImg?: SortOrder
+    isActive?: SortOrder
+    updated_at?: SortOrder
+    isEmailVerified?: SortOrder
+    verificationCode?: SortOrder
+    status?: SortOrder
+    gender?: SortOrder
+    maritalStatus?: SortOrder
+    empyloID?: SortOrder
+    passwordResetCode?: SortOrder
+    password?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumSystemRoleWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
     in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumSystemRoleFilter<$PrismaModel> | $Enums.SystemRole
+    not?: NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel> | $Enums.SystemRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSystemRoleFilter<$PrismaModel>
+    _max?: NestedEnumSystemRoleFilter<$PrismaModel>
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type EnumUserStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusWithAggregatesFilter<$PrismaModel> | $Enums.UserStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserStatusFilter<$PrismaModel>
+    _max?: NestedEnumUserStatusFilter<$PrismaModel>
+  }
+
+  export type EnumUserGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserGender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+  }
+
+  export type EnumMaitalStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaitalStatus | EnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MaitalStatus[] | ListEnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MaitalStatus[] | ListEnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMaitalStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.MaitalStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumMaitalStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumMaitalStatusNullableFilter<$PrismaModel>
   }
 
   export type UserListRelationFilter = {
@@ -7547,11 +10287,6 @@ export namespace Prisma {
     every?: CompanyCirclesWhereInput
     some?: CompanyCirclesWhereInput
     none?: CompanyCirclesWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type UserOrderByRelationAggregateInput = {
@@ -7643,84 +10378,6 @@ export namespace Prisma {
     termsConditions?: SortOrder
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
-  export type EnumUserStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserStatusWithAggregatesFilter<$PrismaModel> | $Enums.UserStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumUserStatusFilter<$PrismaModel>
-    _max?: NestedEnumUserStatusFilter<$PrismaModel>
-  }
-
-  export type EnumSystemRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel> | $Enums.SystemRole
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSystemRoleFilter<$PrismaModel>
-    _max?: NestedEnumSystemRoleFilter<$PrismaModel>
-  }
-
   export type EnumActivityLevelFilter<$PrismaModel = never> = {
     equals?: $Enums.ActivityLevel | EnumActivityLevelFieldRefInput<$PrismaModel>
     in?: $Enums.ActivityLevel[] | ListEnumActivityLevelFieldRefInput<$PrismaModel>
@@ -7806,13 +10463,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumCircleStatusNullableFilter<$PrismaModel>
     _max?: NestedEnumCircleStatusNullableFilter<$PrismaModel>
-  }
-
-  export type EnumUserGenderNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
-    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumUserGenderNullableFilter<$PrismaModel> | $Enums.UserGender | null
   }
 
   export type EnumUserAccountFilter<$PrismaModel = never> = {
@@ -7937,16 +10587,6 @@ export namespace Prisma {
     addedBy?: SortOrder
   }
 
-  export type EnumUserGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
-    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserGender | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumUserGenderNullableFilter<$PrismaModel>
-    _max?: NestedEnumUserGenderNullableFilter<$PrismaModel>
-  }
-
   export type EnumUserAccountWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel>
     in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
@@ -8013,6 +10653,86 @@ export namespace Prisma {
     circleStatus?: SortOrder
   }
 
+  export type EnumAssessmentTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssessmentType | EnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel> | $Enums.AssessmentType | null
+  }
+
+  export type AssessmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    created_at?: SortOrder
+    setNo?: SortOrder
+    assessmentType?: SortOrder
+    setQuestion?: SortOrder
+  }
+
+  export type AssessmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    created_at?: SortOrder
+    setNo?: SortOrder
+    assessmentType?: SortOrder
+  }
+
+  export type AssessmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    created_at?: SortOrder
+    setNo?: SortOrder
+    assessmentType?: SortOrder
+  }
+
+  export type EnumAssessmentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssessmentType | EnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAssessmentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.AssessmentType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
+  }
+
+  export type EmpyloUserCreatepermissionsInput = {
+    set: string[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type EnumSystemRoleFieldUpdateOperationsInput = {
+    set?: $Enums.SystemRole
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
+  export type EnumUserStatusFieldUpdateOperationsInput = {
+    set?: $Enums.UserStatus
+  }
+
+  export type NullableEnumUserGenderFieldUpdateOperationsInput = {
+    set?: $Enums.UserGender | null
+  }
+
+  export type NullableEnumMaitalStatusFieldUpdateOperationsInput = {
+    set?: $Enums.MaitalStatus | null
+  }
+
+  export type EmpyloUserUpdatepermissionsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type UserCreateNestedManyWithoutCompanyUserInput = {
     create?: XOR<UserCreateWithoutCompanyUserInput, UserUncheckedCreateWithoutCompanyUserInput> | UserCreateWithoutCompanyUserInput[] | UserUncheckedCreateWithoutCompanyUserInput[]
     connectOrCreate?: UserCreateOrConnectWithoutCompanyUserInput | UserCreateOrConnectWithoutCompanyUserInput[]
@@ -8039,30 +10759,6 @@ export namespace Prisma {
     connectOrCreate?: CompanyCirclesCreateOrConnectWithoutCompanyUserInput | CompanyCirclesCreateOrConnectWithoutCompanyUserInput[]
     createMany?: CompanyCirclesCreateManyCompanyUserInputEnvelope
     connect?: CompanyCirclesWhereUniqueInput | CompanyCirclesWhereUniqueInput[]
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
-  export type NullableBoolFieldUpdateOperationsInput = {
-    set?: boolean | null
-  }
-
-  export type EnumUserStatusFieldUpdateOperationsInput = {
-    set?: $Enums.UserStatus
-  }
-
-  export type EnumSystemRoleFieldUpdateOperationsInput = {
-    set?: $Enums.SystemRole
   }
 
   export type UserUpdateManyWithoutCompanyUserNestedInput = {
@@ -8227,10 +10923,6 @@ export namespace Prisma {
     connect?: UserCirclesWhereUniqueInput | UserCirclesWhereUniqueInput[]
   }
 
-  export type NullableEnumUserGenderFieldUpdateOperationsInput = {
-    set?: $Enums.UserGender | null
-  }
-
   export type EnumUserAccountFieldUpdateOperationsInput = {
     set?: $Enums.UserAccount
   }
@@ -8379,6 +11071,19 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type AssessmentCreatesetQuestionInput = {
+    set: string[]
+  }
+
+  export type NullableEnumAssessmentTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AssessmentType | null
+  }
+
+  export type AssessmentUpdatesetQuestionInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -8418,6 +11123,13 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedEnumSystemRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSystemRoleFilter<$PrismaModel> | $Enums.SystemRole
+  }
+
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
@@ -8430,11 +11142,18 @@ export namespace Prisma {
     not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
   }
 
-  export type NestedEnumSystemRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumSystemRoleFilter<$PrismaModel> | $Enums.SystemRole
+  export type NestedEnumUserGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableFilter<$PrismaModel> | $Enums.UserGender | null
+  }
+
+  export type NestedEnumMaitalStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaitalStatus | EnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MaitalStatus[] | ListEnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MaitalStatus[] | ListEnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMaitalStatusNullableFilter<$PrismaModel> | $Enums.MaitalStatus | null
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -8507,6 +11226,16 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel> | $Enums.SystemRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSystemRoleFilter<$PrismaModel>
+    _max?: NestedEnumSystemRoleFilter<$PrismaModel>
+  }
+
   export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
@@ -8525,14 +11254,24 @@ export namespace Prisma {
     _max?: NestedEnumUserStatusFilter<$PrismaModel>
   }
 
-  export type NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.SystemRole | EnumSystemRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SystemRole[] | ListEnumSystemRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumSystemRoleWithAggregatesFilter<$PrismaModel> | $Enums.SystemRole
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSystemRoleFilter<$PrismaModel>
-    _max?: NestedEnumSystemRoleFilter<$PrismaModel>
+  export type NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserGender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMaitalStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaitalStatus | EnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MaitalStatus[] | ListEnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MaitalStatus[] | ListEnumMaitalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMaitalStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.MaitalStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumMaitalStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumMaitalStatusNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumActivityLevelFilter<$PrismaModel = never> = {
@@ -8569,28 +11308,11 @@ export namespace Prisma {
     _max?: NestedEnumCircleStatusNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumUserGenderNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
-    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumUserGenderNullableFilter<$PrismaModel> | $Enums.UserGender | null
-  }
-
   export type NestedEnumUserAccountFilter<$PrismaModel = never> = {
     equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel>
     in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
     notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
     not?: NestedEnumUserAccountFilter<$PrismaModel> | $Enums.UserAccount
-  }
-
-  export type NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
-    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserGender | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumUserGenderNullableFilter<$PrismaModel>
-    _max?: NestedEnumUserGenderNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumUserAccountWithAggregatesFilter<$PrismaModel = never> = {
@@ -8603,6 +11325,23 @@ export namespace Prisma {
     _max?: NestedEnumUserAccountFilter<$PrismaModel>
   }
 
+  export type NestedEnumAssessmentTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssessmentType | EnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel> | $Enums.AssessmentType | null
+  }
+
+  export type NestedEnumAssessmentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AssessmentType | EnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AssessmentType[] | ListEnumAssessmentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAssessmentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.AssessmentType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutCompanyUserInput = {
     id?: string
     email: string
@@ -8613,7 +11352,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -8650,7 +11389,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -8758,7 +11497,7 @@ export namespace Prisma {
     ageRange?: StringNullableFilter<"User"> | string | null
     ethnicity?: StringNullableFilter<"User"> | string | null
     gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
-    maritalStatus?: StringNullableFilter<"User"> | string | null
+    maritalStatus?: EnumMaitalStatusNullableFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableFilter<"User"> | string | null
     DOB?: StringNullableFilter<"User"> | string | null
     accountType?: EnumUserAccountFilter<"User"> | $Enums.UserAccount
@@ -8889,7 +11628,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -8926,7 +11665,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -9367,7 +12106,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -9404,7 +12143,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -9446,7 +12185,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -9483,7 +12222,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -9536,7 +12275,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -9573,7 +12312,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -9626,7 +12365,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
-    maritalStatus?: string | null
+    maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
     accountType?: $Enums.UserAccount
@@ -9675,7 +12414,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -9712,7 +12451,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -9749,7 +12488,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -9830,7 +12569,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -9867,7 +12606,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -9904,7 +12643,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -10104,7 +12843,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -10141,7 +12880,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -10178,7 +12917,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
@@ -10225,6 +12964,10 @@ export namespace Prisma {
      */
     export type UserCirclesCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCirclesCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use EmpyloUserDefaultArgs instead
+     */
+    export type EmpyloUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EmpyloUserDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use CompanyUserDefaultArgs instead
      */
     export type CompanyUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CompanyUserDefaultArgs<ExtArgs>
@@ -10240,6 +12983,10 @@ export namespace Prisma {
      * @deprecated Use UserCirclesDefaultArgs instead
      */
     export type UserCirclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCirclesDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AssessmentDefaultArgs instead
+     */
+    export type AssessmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AssessmentDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
