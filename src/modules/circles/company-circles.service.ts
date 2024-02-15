@@ -23,7 +23,7 @@ import { Readable } from "stream";
 @UseInterceptors(ResponseInterceptor)
 export class CirclesService {
   private readonly timeGenerated: string;
-  private readonly emailRegex;
+  private readonly emailRegex: RegExp;
 
   constructor(
     private authResolver: AuthResolver,

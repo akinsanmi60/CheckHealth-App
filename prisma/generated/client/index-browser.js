@@ -234,7 +234,9 @@ exports.Prisma.AssessmentScalarFieldEnum = {
   created_at: 'created_at',
   setNo: 'setNo',
   assessmentType: 'assessmentType',
-  setQuestion: 'setQuestion'
+  setQuestions: 'setQuestions',
+  createdWeeklyBy: 'createdWeeklyBy',
+  createdCheckinBy: 'createdCheckinBy'
 };
 
 exports.Prisma.SortOrder = {

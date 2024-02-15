@@ -1371,6 +1371,50 @@ export namespace Prisma {
 
 
   /**
+   * Count Type EmpyloUserCountOutputType
+   */
+
+  export type EmpyloUserCountOutputType = {
+    weeklyAssessment: number
+    checkinAssessment: number
+  }
+
+  export type EmpyloUserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    weeklyAssessment?: boolean | EmpyloUserCountOutputTypeCountWeeklyAssessmentArgs
+    checkinAssessment?: boolean | EmpyloUserCountOutputTypeCountCheckinAssessmentArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * EmpyloUserCountOutputType without action
+   */
+  export type EmpyloUserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUserCountOutputType
+     */
+    select?: EmpyloUserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * EmpyloUserCountOutputType without action
+   */
+  export type EmpyloUserCountOutputTypeCountWeeklyAssessmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssessmentWhereInput
+  }
+
+
+  /**
+   * EmpyloUserCountOutputType without action
+   */
+  export type EmpyloUserCountOutputTypeCountCheckinAssessmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssessmentWhereInput
+  }
+
+
+
+  /**
    * Count Type CompanyUserCountOutputType
    */
 
@@ -1820,6 +1864,9 @@ export namespace Prisma {
     permissions?: boolean
     passwordResetCode?: boolean
     password?: boolean
+    weeklyAssessment?: boolean | EmpyloUser$weeklyAssessmentArgs<ExtArgs>
+    checkinAssessment?: boolean | EmpyloUser$checkinAssessmentArgs<ExtArgs>
+    _count?: boolean | EmpyloUserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["empyloUser"]>
 
   export type EmpyloUserSelectScalar = {
@@ -1845,10 +1892,19 @@ export namespace Prisma {
     password?: boolean
   }
 
+  export type EmpyloUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    weeklyAssessment?: boolean | EmpyloUser$weeklyAssessmentArgs<ExtArgs>
+    checkinAssessment?: boolean | EmpyloUser$checkinAssessmentArgs<ExtArgs>
+    _count?: boolean | EmpyloUserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
 
   export type $EmpyloUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "EmpyloUser"
-    objects: {}
+    objects: {
+      weeklyAssessment: Prisma.$AssessmentPayload<ExtArgs>[]
+      checkinAssessment: Prisma.$AssessmentPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
@@ -2235,6 +2291,9 @@ export namespace Prisma {
   export interface Prisma__EmpyloUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
+    weeklyAssessment<T extends EmpyloUser$weeklyAssessmentArgs<ExtArgs> = {}>(args?: Subset<T, EmpyloUser$weeklyAssessmentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    checkinAssessment<T extends EmpyloUser$checkinAssessmentArgs<ExtArgs> = {}>(args?: Subset<T, EmpyloUser$checkinAssessmentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2298,6 +2357,10 @@ export namespace Prisma {
      */
     select?: EmpyloUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
+    /**
      * Filter, which EmpyloUser to fetch.
      */
     where: EmpyloUserWhereUniqueInput
@@ -2313,6 +2376,10 @@ export namespace Prisma {
      */
     select?: EmpyloUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
+    /**
      * Filter, which EmpyloUser to fetch.
      */
     where: EmpyloUserWhereUniqueInput
@@ -2327,6 +2394,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the EmpyloUser
      */
     select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
     /**
      * Filter, which EmpyloUser to fetch.
      */
@@ -2373,6 +2444,10 @@ export namespace Prisma {
      */
     select?: EmpyloUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
+    /**
      * Filter, which EmpyloUser to fetch.
      */
     where?: EmpyloUserWhereInput
@@ -2418,6 +2493,10 @@ export namespace Prisma {
      */
     select?: EmpyloUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
+    /**
      * Filter, which EmpyloUsers to fetch.
      */
     where?: EmpyloUserWhereInput
@@ -2458,6 +2537,10 @@ export namespace Prisma {
      */
     select?: EmpyloUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
+    /**
      * The data needed to create a EmpyloUser.
      */
     data: XOR<EmpyloUserCreateInput, EmpyloUserUncheckedCreateInput>
@@ -2484,6 +2567,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the EmpyloUser
      */
     select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
     /**
      * The data needed to update a EmpyloUser.
      */
@@ -2519,6 +2606,10 @@ export namespace Prisma {
      */
     select?: EmpyloUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
+    /**
      * The filter to search for the EmpyloUser to update in case it exists.
      */
     where: EmpyloUserWhereUniqueInput
@@ -2542,6 +2633,10 @@ export namespace Prisma {
      */
     select?: EmpyloUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
+    /**
      * Filter which EmpyloUser to delete.
      */
     where: EmpyloUserWhereUniqueInput
@@ -2560,6 +2655,48 @@ export namespace Prisma {
 
 
   /**
+   * EmpyloUser.weeklyAssessment
+   */
+  export type EmpyloUser$weeklyAssessmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    where?: AssessmentWhereInput
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    cursor?: AssessmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+
+  /**
+   * EmpyloUser.checkinAssessment
+   */
+  export type EmpyloUser$checkinAssessmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    where?: AssessmentWhereInput
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    cursor?: AssessmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+
+  /**
    * EmpyloUser without action
    */
   export type EmpyloUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2567,6 +2704,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the EmpyloUser
      */
     select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
   }
 
 
@@ -7228,6 +7369,8 @@ export namespace Prisma {
     created_at: Date | null
     setNo: string | null
     assessmentType: $Enums.AssessmentType | null
+    createdWeeklyBy: string | null
+    createdCheckinBy: string | null
   }
 
   export type AssessmentMaxAggregateOutputType = {
@@ -7235,6 +7378,8 @@ export namespace Prisma {
     created_at: Date | null
     setNo: string | null
     assessmentType: $Enums.AssessmentType | null
+    createdWeeklyBy: string | null
+    createdCheckinBy: string | null
   }
 
   export type AssessmentCountAggregateOutputType = {
@@ -7242,7 +7387,9 @@ export namespace Prisma {
     created_at: number
     setNo: number
     assessmentType: number
-    setQuestion: number
+    setQuestions: number
+    createdWeeklyBy: number
+    createdCheckinBy: number
     _all: number
   }
 
@@ -7252,6 +7399,8 @@ export namespace Prisma {
     created_at?: true
     setNo?: true
     assessmentType?: true
+    createdWeeklyBy?: true
+    createdCheckinBy?: true
   }
 
   export type AssessmentMaxAggregateInputType = {
@@ -7259,6 +7408,8 @@ export namespace Prisma {
     created_at?: true
     setNo?: true
     assessmentType?: true
+    createdWeeklyBy?: true
+    createdCheckinBy?: true
   }
 
   export type AssessmentCountAggregateInputType = {
@@ -7266,7 +7417,9 @@ export namespace Prisma {
     created_at?: true
     setNo?: true
     assessmentType?: true
-    setQuestion?: true
+    setQuestions?: true
+    createdWeeklyBy?: true
+    createdCheckinBy?: true
     _all?: true
   }
 
@@ -7347,7 +7500,9 @@ export namespace Prisma {
     created_at: Date | null
     setNo: string | null
     assessmentType: $Enums.AssessmentType | null
-    setQuestion: string[]
+    setQuestions: string[]
+    createdWeeklyBy: string | null
+    createdCheckinBy: string | null
     _count: AssessmentCountAggregateOutputType | null
     _min: AssessmentMinAggregateOutputType | null
     _max: AssessmentMaxAggregateOutputType | null
@@ -7372,7 +7527,11 @@ export namespace Prisma {
     created_at?: boolean
     setNo?: boolean
     assessmentType?: boolean
-    setQuestion?: boolean
+    setQuestions?: boolean
+    createdWeeklyBy?: boolean
+    createdCheckinBy?: boolean
+    empyloUser?: boolean | Assessment$empyloUserArgs<ExtArgs>
+    empyloUserCheckin?: boolean | Assessment$empyloUserCheckinArgs<ExtArgs>
   }, ExtArgs["result"]["assessment"]>
 
   export type AssessmentSelectScalar = {
@@ -7380,19 +7539,31 @@ export namespace Prisma {
     created_at?: boolean
     setNo?: boolean
     assessmentType?: boolean
-    setQuestion?: boolean
+    setQuestions?: boolean
+    createdWeeklyBy?: boolean
+    createdCheckinBy?: boolean
+  }
+
+  export type AssessmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empyloUser?: boolean | Assessment$empyloUserArgs<ExtArgs>
+    empyloUserCheckin?: boolean | Assessment$empyloUserCheckinArgs<ExtArgs>
   }
 
 
   export type $AssessmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Assessment"
-    objects: {}
+    objects: {
+      empyloUser: Prisma.$EmpyloUserPayload<ExtArgs> | null
+      empyloUserCheckin: Prisma.$EmpyloUserPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       created_at: Date | null
       setNo: string | null
       assessmentType: $Enums.AssessmentType | null
-      setQuestion: string[]
+      setQuestions: string[]
+      createdWeeklyBy: string | null
+      createdCheckinBy: string | null
     }, ExtArgs["result"]["assessment"]>
     composites: {}
   }
@@ -7758,6 +7929,9 @@ export namespace Prisma {
   export interface Prisma__AssessmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
+    empyloUser<T extends Assessment$empyloUserArgs<ExtArgs> = {}>(args?: Subset<T, Assessment$empyloUserArgs<ExtArgs>>): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    empyloUserCheckin<T extends Assessment$empyloUserCheckinArgs<ExtArgs> = {}>(args?: Subset<T, Assessment$empyloUserCheckinArgs<ExtArgs>>): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7791,7 +7965,9 @@ export namespace Prisma {
     readonly created_at: FieldRef<"Assessment", 'DateTime'>
     readonly setNo: FieldRef<"Assessment", 'String'>
     readonly assessmentType: FieldRef<"Assessment", 'AssessmentType'>
-    readonly setQuestion: FieldRef<"Assessment", 'String[]'>
+    readonly setQuestions: FieldRef<"Assessment", 'String[]'>
+    readonly createdWeeklyBy: FieldRef<"Assessment", 'String'>
+    readonly createdCheckinBy: FieldRef<"Assessment", 'String'>
   }
     
 
@@ -7805,6 +7981,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Assessment
      */
     select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
     /**
      * Filter, which Assessment to fetch.
      */
@@ -7821,6 +8001,10 @@ export namespace Prisma {
      */
     select?: AssessmentSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
      * Filter, which Assessment to fetch.
      */
     where: AssessmentWhereUniqueInput
@@ -7835,6 +8019,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Assessment
      */
     select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
     /**
      * Filter, which Assessment to fetch.
      */
@@ -7881,6 +8069,10 @@ export namespace Prisma {
      */
     select?: AssessmentSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
      * Filter, which Assessment to fetch.
      */
     where?: AssessmentWhereInput
@@ -7926,6 +8118,10 @@ export namespace Prisma {
      */
     select?: AssessmentSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
      * Filter, which Assessments to fetch.
      */
     where?: AssessmentWhereInput
@@ -7966,6 +8162,10 @@ export namespace Prisma {
      */
     select?: AssessmentSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
      * The data needed to create a Assessment.
      */
     data?: XOR<AssessmentCreateInput, AssessmentUncheckedCreateInput>
@@ -7992,6 +8192,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Assessment
      */
     select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
     /**
      * The data needed to update a Assessment.
      */
@@ -8027,6 +8231,10 @@ export namespace Prisma {
      */
     select?: AssessmentSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
      * The filter to search for the Assessment to update in case it exists.
      */
     where: AssessmentWhereUniqueInput
@@ -8050,6 +8258,10 @@ export namespace Prisma {
      */
     select?: AssessmentSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
      * Filter which Assessment to delete.
      */
     where: AssessmentWhereUniqueInput
@@ -8068,6 +8280,38 @@ export namespace Prisma {
 
 
   /**
+   * Assessment.empyloUser
+   */
+  export type Assessment$empyloUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
+    where?: EmpyloUserWhereInput
+  }
+
+
+  /**
+   * Assessment.empyloUserCheckin
+   */
+  export type Assessment$empyloUserCheckinArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpyloUser
+     */
+    select?: EmpyloUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: EmpyloUserInclude<ExtArgs> | null
+    where?: EmpyloUserWhereInput
+  }
+
+
+  /**
    * Assessment without action
    */
   export type AssessmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8075,6 +8319,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Assessment
      */
     select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
   }
 
 
@@ -8235,7 +8483,9 @@ export namespace Prisma {
     created_at: 'created_at',
     setNo: 'setNo',
     assessmentType: 'assessmentType',
-    setQuestion: 'setQuestion'
+    setQuestions: 'setQuestions',
+    createdWeeklyBy: 'createdWeeklyBy',
+    createdCheckinBy: 'createdCheckinBy'
   };
 
   export type AssessmentScalarFieldEnum = (typeof AssessmentScalarFieldEnum)[keyof typeof AssessmentScalarFieldEnum]
@@ -8458,6 +8708,8 @@ export namespace Prisma {
     permissions?: StringNullableListFilter<"EmpyloUser">
     passwordResetCode?: StringNullableFilter<"EmpyloUser"> | string | null
     password?: StringNullableFilter<"EmpyloUser"> | string | null
+    weeklyAssessment?: AssessmentListRelationFilter
+    checkinAssessment?: AssessmentListRelationFilter
   }
 
   export type EmpyloUserOrderByWithRelationInput = {
@@ -8481,6 +8733,8 @@ export namespace Prisma {
     permissions?: SortOrder
     passwordResetCode?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
+    weeklyAssessment?: AssessmentOrderByRelationAggregateInput
+    checkinAssessment?: AssessmentOrderByRelationAggregateInput
   }
 
   export type EmpyloUserWhereUniqueInput = Prisma.AtLeast<{
@@ -8507,6 +8761,8 @@ export namespace Prisma {
     empyloID?: StringNullableFilter<"EmpyloUser"> | string | null
     permissions?: StringNullableListFilter<"EmpyloUser">
     password?: StringNullableFilter<"EmpyloUser"> | string | null
+    weeklyAssessment?: AssessmentListRelationFilter
+    checkinAssessment?: AssessmentListRelationFilter
   }, "id" | "id" | "email" | "phoneNumber" | "verificationCode" | "passwordResetCode">
 
   export type EmpyloUserOrderByWithAggregationInput = {
@@ -9142,7 +9398,11 @@ export namespace Prisma {
     created_at?: DateTimeNullableFilter<"Assessment"> | Date | string | null
     setNo?: StringNullableFilter<"Assessment"> | string | null
     assessmentType?: EnumAssessmentTypeNullableFilter<"Assessment"> | $Enums.AssessmentType | null
-    setQuestion?: StringNullableListFilter<"Assessment">
+    setQuestions?: StringNullableListFilter<"Assessment">
+    createdWeeklyBy?: StringNullableFilter<"Assessment"> | string | null
+    createdCheckinBy?: StringNullableFilter<"Assessment"> | string | null
+    empyloUser?: XOR<EmpyloUserNullableRelationFilter, EmpyloUserWhereInput> | null
+    empyloUserCheckin?: XOR<EmpyloUserNullableRelationFilter, EmpyloUserWhereInput> | null
   }
 
   export type AssessmentOrderByWithRelationInput = {
@@ -9150,26 +9410,36 @@ export namespace Prisma {
     created_at?: SortOrderInput | SortOrder
     setNo?: SortOrderInput | SortOrder
     assessmentType?: SortOrderInput | SortOrder
-    setQuestion?: SortOrder
+    setQuestions?: SortOrder
+    createdWeeklyBy?: SortOrderInput | SortOrder
+    createdCheckinBy?: SortOrderInput | SortOrder
+    empyloUser?: EmpyloUserOrderByWithRelationInput
+    empyloUserCheckin?: EmpyloUserOrderByWithRelationInput
   }
 
   export type AssessmentWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    setNo?: string
+    assessmentType?: $Enums.AssessmentType
     AND?: AssessmentWhereInput | AssessmentWhereInput[]
     OR?: AssessmentWhereInput[]
     NOT?: AssessmentWhereInput | AssessmentWhereInput[]
     created_at?: DateTimeNullableFilter<"Assessment"> | Date | string | null
-    setNo?: StringNullableFilter<"Assessment"> | string | null
-    assessmentType?: EnumAssessmentTypeNullableFilter<"Assessment"> | $Enums.AssessmentType | null
-    setQuestion?: StringNullableListFilter<"Assessment">
-  }, "id" | "id">
+    setQuestions?: StringNullableListFilter<"Assessment">
+    createdWeeklyBy?: StringNullableFilter<"Assessment"> | string | null
+    createdCheckinBy?: StringNullableFilter<"Assessment"> | string | null
+    empyloUser?: XOR<EmpyloUserNullableRelationFilter, EmpyloUserWhereInput> | null
+    empyloUserCheckin?: XOR<EmpyloUserNullableRelationFilter, EmpyloUserWhereInput> | null
+  }, "id" | "id" | "setNo" | "assessmentType">
 
   export type AssessmentOrderByWithAggregationInput = {
     id?: SortOrder
     created_at?: SortOrderInput | SortOrder
     setNo?: SortOrderInput | SortOrder
     assessmentType?: SortOrderInput | SortOrder
-    setQuestion?: SortOrder
+    setQuestions?: SortOrder
+    createdWeeklyBy?: SortOrderInput | SortOrder
+    createdCheckinBy?: SortOrderInput | SortOrder
     _count?: AssessmentCountOrderByAggregateInput
     _max?: AssessmentMaxOrderByAggregateInput
     _min?: AssessmentMinOrderByAggregateInput
@@ -9183,7 +9453,9 @@ export namespace Prisma {
     created_at?: DateTimeNullableWithAggregatesFilter<"Assessment"> | Date | string | null
     setNo?: StringNullableWithAggregatesFilter<"Assessment"> | string | null
     assessmentType?: EnumAssessmentTypeNullableWithAggregatesFilter<"Assessment"> | $Enums.AssessmentType | null
-    setQuestion?: StringNullableListFilter<"Assessment">
+    setQuestions?: StringNullableListFilter<"Assessment">
+    createdWeeklyBy?: StringNullableWithAggregatesFilter<"Assessment"> | string | null
+    createdCheckinBy?: StringNullableWithAggregatesFilter<"Assessment"> | string | null
   }
 
   export type EmpyloUserCreateInput = {
@@ -9207,6 +9479,8 @@ export namespace Prisma {
     permissions?: EmpyloUserCreatepermissionsInput | string[]
     passwordResetCode?: string | null
     password?: string | null
+    weeklyAssessment?: AssessmentCreateNestedManyWithoutEmpyloUserInput
+    checkinAssessment?: AssessmentCreateNestedManyWithoutEmpyloUserCheckinInput
   }
 
   export type EmpyloUserUncheckedCreateInput = {
@@ -9230,6 +9504,8 @@ export namespace Prisma {
     permissions?: EmpyloUserCreatepermissionsInput | string[]
     passwordResetCode?: string | null
     password?: string | null
+    weeklyAssessment?: AssessmentUncheckedCreateNestedManyWithoutEmpyloUserInput
+    checkinAssessment?: AssessmentUncheckedCreateNestedManyWithoutEmpyloUserCheckinInput
   }
 
   export type EmpyloUserUpdateInput = {
@@ -9253,6 +9529,8 @@ export namespace Prisma {
     permissions?: EmpyloUserUpdatepermissionsInput | string[]
     passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyAssessment?: AssessmentUpdateManyWithoutEmpyloUserNestedInput
+    checkinAssessment?: AssessmentUpdateManyWithoutEmpyloUserCheckinNestedInput
   }
 
   export type EmpyloUserUncheckedUpdateInput = {
@@ -9276,6 +9554,8 @@ export namespace Prisma {
     permissions?: EmpyloUserUpdatepermissionsInput | string[]
     passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyAssessment?: AssessmentUncheckedUpdateManyWithoutEmpyloUserNestedInput
+    checkinAssessment?: AssessmentUncheckedUpdateManyWithoutEmpyloUserCheckinNestedInput
   }
 
   export type EmpyloUserCreateManyInput = {
@@ -10070,7 +10350,9 @@ export namespace Prisma {
     created_at?: Date | string | null
     setNo?: string | null
     assessmentType?: $Enums.AssessmentType | null
-    setQuestion?: AssessmentCreatesetQuestionInput | string[]
+    setQuestions?: AssessmentCreatesetQuestionsInput | string[]
+    empyloUser?: EmpyloUserCreateNestedOneWithoutWeeklyAssessmentInput
+    empyloUserCheckin?: EmpyloUserCreateNestedOneWithoutCheckinAssessmentInput
   }
 
   export type AssessmentUncheckedCreateInput = {
@@ -10078,7 +10360,9 @@ export namespace Prisma {
     created_at?: Date | string | null
     setNo?: string | null
     assessmentType?: $Enums.AssessmentType | null
-    setQuestion?: AssessmentCreatesetQuestionInput | string[]
+    setQuestions?: AssessmentCreatesetQuestionsInput | string[]
+    createdWeeklyBy?: string | null
+    createdCheckinBy?: string | null
   }
 
   export type AssessmentUpdateInput = {
@@ -10086,7 +10370,9 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
-    setQuestion?: AssessmentUpdatesetQuestionInput | string[]
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
+    empyloUser?: EmpyloUserUpdateOneWithoutWeeklyAssessmentNestedInput
+    empyloUserCheckin?: EmpyloUserUpdateOneWithoutCheckinAssessmentNestedInput
   }
 
   export type AssessmentUncheckedUpdateInput = {
@@ -10094,7 +10380,9 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
-    setQuestion?: AssessmentUpdatesetQuestionInput | string[]
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
+    createdWeeklyBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdCheckinBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AssessmentCreateManyInput = {
@@ -10102,7 +10390,9 @@ export namespace Prisma {
     created_at?: Date | string | null
     setNo?: string | null
     assessmentType?: $Enums.AssessmentType | null
-    setQuestion?: AssessmentCreatesetQuestionInput | string[]
+    setQuestions?: AssessmentCreatesetQuestionsInput | string[]
+    createdWeeklyBy?: string | null
+    createdCheckinBy?: string | null
   }
 
   export type AssessmentUpdateManyMutationInput = {
@@ -10110,7 +10400,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
-    setQuestion?: AssessmentUpdatesetQuestionInput | string[]
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
   }
 
   export type AssessmentUncheckedUpdateManyInput = {
@@ -10118,7 +10408,9 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
-    setQuestion?: AssessmentUpdatesetQuestionInput | string[]
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
+    createdWeeklyBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdCheckinBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -10203,9 +10495,19 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
+  export type AssessmentListRelationFilter = {
+    every?: AssessmentWhereInput
+    some?: AssessmentWhereInput
+    none?: AssessmentWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type AssessmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type EmpyloUserCountOrderByAggregateInput = {
@@ -10768,12 +11070,19 @@ export namespace Prisma {
     not?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel> | $Enums.AssessmentType | null
   }
 
+  export type EmpyloUserNullableRelationFilter = {
+    is?: EmpyloUserWhereInput | null
+    isNot?: EmpyloUserWhereInput | null
+  }
+
   export type AssessmentCountOrderByAggregateInput = {
     id?: SortOrder
     created_at?: SortOrder
     setNo?: SortOrder
     assessmentType?: SortOrder
-    setQuestion?: SortOrder
+    setQuestions?: SortOrder
+    createdWeeklyBy?: SortOrder
+    createdCheckinBy?: SortOrder
   }
 
   export type AssessmentMaxOrderByAggregateInput = {
@@ -10781,6 +11090,8 @@ export namespace Prisma {
     created_at?: SortOrder
     setNo?: SortOrder
     assessmentType?: SortOrder
+    createdWeeklyBy?: SortOrder
+    createdCheckinBy?: SortOrder
   }
 
   export type AssessmentMinOrderByAggregateInput = {
@@ -10788,6 +11099,8 @@ export namespace Prisma {
     created_at?: SortOrder
     setNo?: SortOrder
     assessmentType?: SortOrder
+    createdWeeklyBy?: SortOrder
+    createdCheckinBy?: SortOrder
   }
 
   export type EnumAssessmentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10802,6 +11115,34 @@ export namespace Prisma {
 
   export type EmpyloUserCreatepermissionsInput = {
     set: string[]
+  }
+
+  export type AssessmentCreateNestedManyWithoutEmpyloUserInput = {
+    create?: XOR<AssessmentCreateWithoutEmpyloUserInput, AssessmentUncheckedCreateWithoutEmpyloUserInput> | AssessmentCreateWithoutEmpyloUserInput[] | AssessmentUncheckedCreateWithoutEmpyloUserInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutEmpyloUserInput | AssessmentCreateOrConnectWithoutEmpyloUserInput[]
+    createMany?: AssessmentCreateManyEmpyloUserInputEnvelope
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+  }
+
+  export type AssessmentCreateNestedManyWithoutEmpyloUserCheckinInput = {
+    create?: XOR<AssessmentCreateWithoutEmpyloUserCheckinInput, AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput> | AssessmentCreateWithoutEmpyloUserCheckinInput[] | AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutEmpyloUserCheckinInput | AssessmentCreateOrConnectWithoutEmpyloUserCheckinInput[]
+    createMany?: AssessmentCreateManyEmpyloUserCheckinInputEnvelope
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+  }
+
+  export type AssessmentUncheckedCreateNestedManyWithoutEmpyloUserInput = {
+    create?: XOR<AssessmentCreateWithoutEmpyloUserInput, AssessmentUncheckedCreateWithoutEmpyloUserInput> | AssessmentCreateWithoutEmpyloUserInput[] | AssessmentUncheckedCreateWithoutEmpyloUserInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutEmpyloUserInput | AssessmentCreateOrConnectWithoutEmpyloUserInput[]
+    createMany?: AssessmentCreateManyEmpyloUserInputEnvelope
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+  }
+
+  export type AssessmentUncheckedCreateNestedManyWithoutEmpyloUserCheckinInput = {
+    create?: XOR<AssessmentCreateWithoutEmpyloUserCheckinInput, AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput> | AssessmentCreateWithoutEmpyloUserCheckinInput[] | AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutEmpyloUserCheckinInput | AssessmentCreateOrConnectWithoutEmpyloUserCheckinInput[]
+    createMany?: AssessmentCreateManyEmpyloUserCheckinInputEnvelope
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10839,6 +11180,62 @@ export namespace Prisma {
   export type EmpyloUserUpdatepermissionsInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type AssessmentUpdateManyWithoutEmpyloUserNestedInput = {
+    create?: XOR<AssessmentCreateWithoutEmpyloUserInput, AssessmentUncheckedCreateWithoutEmpyloUserInput> | AssessmentCreateWithoutEmpyloUserInput[] | AssessmentUncheckedCreateWithoutEmpyloUserInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutEmpyloUserInput | AssessmentCreateOrConnectWithoutEmpyloUserInput[]
+    upsert?: AssessmentUpsertWithWhereUniqueWithoutEmpyloUserInput | AssessmentUpsertWithWhereUniqueWithoutEmpyloUserInput[]
+    createMany?: AssessmentCreateManyEmpyloUserInputEnvelope
+    set?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    disconnect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    delete?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    update?: AssessmentUpdateWithWhereUniqueWithoutEmpyloUserInput | AssessmentUpdateWithWhereUniqueWithoutEmpyloUserInput[]
+    updateMany?: AssessmentUpdateManyWithWhereWithoutEmpyloUserInput | AssessmentUpdateManyWithWhereWithoutEmpyloUserInput[]
+    deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+  }
+
+  export type AssessmentUpdateManyWithoutEmpyloUserCheckinNestedInput = {
+    create?: XOR<AssessmentCreateWithoutEmpyloUserCheckinInput, AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput> | AssessmentCreateWithoutEmpyloUserCheckinInput[] | AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutEmpyloUserCheckinInput | AssessmentCreateOrConnectWithoutEmpyloUserCheckinInput[]
+    upsert?: AssessmentUpsertWithWhereUniqueWithoutEmpyloUserCheckinInput | AssessmentUpsertWithWhereUniqueWithoutEmpyloUserCheckinInput[]
+    createMany?: AssessmentCreateManyEmpyloUserCheckinInputEnvelope
+    set?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    disconnect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    delete?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    update?: AssessmentUpdateWithWhereUniqueWithoutEmpyloUserCheckinInput | AssessmentUpdateWithWhereUniqueWithoutEmpyloUserCheckinInput[]
+    updateMany?: AssessmentUpdateManyWithWhereWithoutEmpyloUserCheckinInput | AssessmentUpdateManyWithWhereWithoutEmpyloUserCheckinInput[]
+    deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+  }
+
+  export type AssessmentUncheckedUpdateManyWithoutEmpyloUserNestedInput = {
+    create?: XOR<AssessmentCreateWithoutEmpyloUserInput, AssessmentUncheckedCreateWithoutEmpyloUserInput> | AssessmentCreateWithoutEmpyloUserInput[] | AssessmentUncheckedCreateWithoutEmpyloUserInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutEmpyloUserInput | AssessmentCreateOrConnectWithoutEmpyloUserInput[]
+    upsert?: AssessmentUpsertWithWhereUniqueWithoutEmpyloUserInput | AssessmentUpsertWithWhereUniqueWithoutEmpyloUserInput[]
+    createMany?: AssessmentCreateManyEmpyloUserInputEnvelope
+    set?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    disconnect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    delete?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    update?: AssessmentUpdateWithWhereUniqueWithoutEmpyloUserInput | AssessmentUpdateWithWhereUniqueWithoutEmpyloUserInput[]
+    updateMany?: AssessmentUpdateManyWithWhereWithoutEmpyloUserInput | AssessmentUpdateManyWithWhereWithoutEmpyloUserInput[]
+    deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+  }
+
+  export type AssessmentUncheckedUpdateManyWithoutEmpyloUserCheckinNestedInput = {
+    create?: XOR<AssessmentCreateWithoutEmpyloUserCheckinInput, AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput> | AssessmentCreateWithoutEmpyloUserCheckinInput[] | AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutEmpyloUserCheckinInput | AssessmentCreateOrConnectWithoutEmpyloUserCheckinInput[]
+    upsert?: AssessmentUpsertWithWhereUniqueWithoutEmpyloUserCheckinInput | AssessmentUpsertWithWhereUniqueWithoutEmpyloUserCheckinInput[]
+    createMany?: AssessmentCreateManyEmpyloUserCheckinInputEnvelope
+    set?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    disconnect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    delete?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    update?: AssessmentUpdateWithWhereUniqueWithoutEmpyloUserCheckinInput | AssessmentUpdateWithWhereUniqueWithoutEmpyloUserCheckinInput[]
+    updateMany?: AssessmentUpdateManyWithWhereWithoutEmpyloUserCheckinInput | AssessmentUpdateManyWithWhereWithoutEmpyloUserCheckinInput[]
+    deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
   }
 
   export type UserCreateNestedManyWithoutCompanyUserInput = {
@@ -11179,17 +11576,49 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
-  export type AssessmentCreatesetQuestionInput = {
+  export type AssessmentCreatesetQuestionsInput = {
     set: string[]
+  }
+
+  export type EmpyloUserCreateNestedOneWithoutWeeklyAssessmentInput = {
+    create?: XOR<EmpyloUserCreateWithoutWeeklyAssessmentInput, EmpyloUserUncheckedCreateWithoutWeeklyAssessmentInput>
+    connectOrCreate?: EmpyloUserCreateOrConnectWithoutWeeklyAssessmentInput
+    connect?: EmpyloUserWhereUniqueInput
+  }
+
+  export type EmpyloUserCreateNestedOneWithoutCheckinAssessmentInput = {
+    create?: XOR<EmpyloUserCreateWithoutCheckinAssessmentInput, EmpyloUserUncheckedCreateWithoutCheckinAssessmentInput>
+    connectOrCreate?: EmpyloUserCreateOrConnectWithoutCheckinAssessmentInput
+    connect?: EmpyloUserWhereUniqueInput
   }
 
   export type NullableEnumAssessmentTypeFieldUpdateOperationsInput = {
     set?: $Enums.AssessmentType | null
   }
 
-  export type AssessmentUpdatesetQuestionInput = {
+  export type AssessmentUpdatesetQuestionsInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type EmpyloUserUpdateOneWithoutWeeklyAssessmentNestedInput = {
+    create?: XOR<EmpyloUserCreateWithoutWeeklyAssessmentInput, EmpyloUserUncheckedCreateWithoutWeeklyAssessmentInput>
+    connectOrCreate?: EmpyloUserCreateOrConnectWithoutWeeklyAssessmentInput
+    upsert?: EmpyloUserUpsertWithoutWeeklyAssessmentInput
+    disconnect?: EmpyloUserWhereInput | boolean
+    delete?: EmpyloUserWhereInput | boolean
+    connect?: EmpyloUserWhereUniqueInput
+    update?: XOR<XOR<EmpyloUserUpdateToOneWithWhereWithoutWeeklyAssessmentInput, EmpyloUserUpdateWithoutWeeklyAssessmentInput>, EmpyloUserUncheckedUpdateWithoutWeeklyAssessmentInput>
+  }
+
+  export type EmpyloUserUpdateOneWithoutCheckinAssessmentNestedInput = {
+    create?: XOR<EmpyloUserCreateWithoutCheckinAssessmentInput, EmpyloUserUncheckedCreateWithoutCheckinAssessmentInput>
+    connectOrCreate?: EmpyloUserCreateOrConnectWithoutCheckinAssessmentInput
+    upsert?: EmpyloUserUpsertWithoutCheckinAssessmentInput
+    disconnect?: EmpyloUserWhereInput | boolean
+    delete?: EmpyloUserWhereInput | boolean
+    connect?: EmpyloUserWhereUniqueInput
+    update?: XOR<XOR<EmpyloUserUpdateToOneWithWhereWithoutCheckinAssessmentInput, EmpyloUserUpdateWithoutCheckinAssessmentInput>, EmpyloUserUncheckedUpdateWithoutCheckinAssessmentInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -11448,6 +11877,107 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
     _max?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
+  }
+
+  export type AssessmentCreateWithoutEmpyloUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    setQuestions?: AssessmentCreatesetQuestionsInput | string[]
+    empyloUserCheckin?: EmpyloUserCreateNestedOneWithoutCheckinAssessmentInput
+  }
+
+  export type AssessmentUncheckedCreateWithoutEmpyloUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    setQuestions?: AssessmentCreatesetQuestionsInput | string[]
+    createdCheckinBy?: string | null
+  }
+
+  export type AssessmentCreateOrConnectWithoutEmpyloUserInput = {
+    where: AssessmentWhereUniqueInput
+    create: XOR<AssessmentCreateWithoutEmpyloUserInput, AssessmentUncheckedCreateWithoutEmpyloUserInput>
+  }
+
+  export type AssessmentCreateManyEmpyloUserInputEnvelope = {
+    data: AssessmentCreateManyEmpyloUserInput | AssessmentCreateManyEmpyloUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AssessmentCreateWithoutEmpyloUserCheckinInput = {
+    id?: string
+    created_at?: Date | string | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    setQuestions?: AssessmentCreatesetQuestionsInput | string[]
+    empyloUser?: EmpyloUserCreateNestedOneWithoutWeeklyAssessmentInput
+  }
+
+  export type AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput = {
+    id?: string
+    created_at?: Date | string | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    setQuestions?: AssessmentCreatesetQuestionsInput | string[]
+    createdWeeklyBy?: string | null
+  }
+
+  export type AssessmentCreateOrConnectWithoutEmpyloUserCheckinInput = {
+    where: AssessmentWhereUniqueInput
+    create: XOR<AssessmentCreateWithoutEmpyloUserCheckinInput, AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput>
+  }
+
+  export type AssessmentCreateManyEmpyloUserCheckinInputEnvelope = {
+    data: AssessmentCreateManyEmpyloUserCheckinInput | AssessmentCreateManyEmpyloUserCheckinInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AssessmentUpsertWithWhereUniqueWithoutEmpyloUserInput = {
+    where: AssessmentWhereUniqueInput
+    update: XOR<AssessmentUpdateWithoutEmpyloUserInput, AssessmentUncheckedUpdateWithoutEmpyloUserInput>
+    create: XOR<AssessmentCreateWithoutEmpyloUserInput, AssessmentUncheckedCreateWithoutEmpyloUserInput>
+  }
+
+  export type AssessmentUpdateWithWhereUniqueWithoutEmpyloUserInput = {
+    where: AssessmentWhereUniqueInput
+    data: XOR<AssessmentUpdateWithoutEmpyloUserInput, AssessmentUncheckedUpdateWithoutEmpyloUserInput>
+  }
+
+  export type AssessmentUpdateManyWithWhereWithoutEmpyloUserInput = {
+    where: AssessmentScalarWhereInput
+    data: XOR<AssessmentUpdateManyMutationInput, AssessmentUncheckedUpdateManyWithoutEmpyloUserInput>
+  }
+
+  export type AssessmentScalarWhereInput = {
+    AND?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+    OR?: AssessmentScalarWhereInput[]
+    NOT?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+    id?: StringFilter<"Assessment"> | string
+    created_at?: DateTimeNullableFilter<"Assessment"> | Date | string | null
+    setNo?: StringNullableFilter<"Assessment"> | string | null
+    assessmentType?: EnumAssessmentTypeNullableFilter<"Assessment"> | $Enums.AssessmentType | null
+    setQuestions?: StringNullableListFilter<"Assessment">
+    createdWeeklyBy?: StringNullableFilter<"Assessment"> | string | null
+    createdCheckinBy?: StringNullableFilter<"Assessment"> | string | null
+  }
+
+  export type AssessmentUpsertWithWhereUniqueWithoutEmpyloUserCheckinInput = {
+    where: AssessmentWhereUniqueInput
+    update: XOR<AssessmentUpdateWithoutEmpyloUserCheckinInput, AssessmentUncheckedUpdateWithoutEmpyloUserCheckinInput>
+    create: XOR<AssessmentCreateWithoutEmpyloUserCheckinInput, AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput>
+  }
+
+  export type AssessmentUpdateWithWhereUniqueWithoutEmpyloUserCheckinInput = {
+    where: AssessmentWhereUniqueInput
+    data: XOR<AssessmentUpdateWithoutEmpyloUserCheckinInput, AssessmentUncheckedUpdateWithoutEmpyloUserCheckinInput>
+  }
+
+  export type AssessmentUpdateManyWithWhereWithoutEmpyloUserCheckinInput = {
+    where: AssessmentScalarWhereInput
+    data: XOR<AssessmentUpdateManyMutationInput, AssessmentUncheckedUpdateManyWithoutEmpyloUserCheckinInput>
   }
 
   export type UserCreateWithoutCompanyUserInput = {
@@ -12501,6 +13031,302 @@ export namespace Prisma {
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutOtherUserCirclesInInput>
   }
 
+  export type EmpyloUserCreateWithoutWeeklyAssessmentInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    role?: $Enums.SystemRole
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    gender?: $Enums.UserGender | null
+    maritalStatus?: $Enums.MaitalStatus | null
+    empyloID?: string | null
+    permissions?: EmpyloUserCreatepermissionsInput | string[]
+    passwordResetCode?: string | null
+    password?: string | null
+    checkinAssessment?: AssessmentCreateNestedManyWithoutEmpyloUserCheckinInput
+  }
+
+  export type EmpyloUserUncheckedCreateWithoutWeeklyAssessmentInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    role?: $Enums.SystemRole
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    gender?: $Enums.UserGender | null
+    maritalStatus?: $Enums.MaitalStatus | null
+    empyloID?: string | null
+    permissions?: EmpyloUserCreatepermissionsInput | string[]
+    passwordResetCode?: string | null
+    password?: string | null
+    checkinAssessment?: AssessmentUncheckedCreateNestedManyWithoutEmpyloUserCheckinInput
+  }
+
+  export type EmpyloUserCreateOrConnectWithoutWeeklyAssessmentInput = {
+    where: EmpyloUserWhereUniqueInput
+    create: XOR<EmpyloUserCreateWithoutWeeklyAssessmentInput, EmpyloUserUncheckedCreateWithoutWeeklyAssessmentInput>
+  }
+
+  export type EmpyloUserCreateWithoutCheckinAssessmentInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    role?: $Enums.SystemRole
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    gender?: $Enums.UserGender | null
+    maritalStatus?: $Enums.MaitalStatus | null
+    empyloID?: string | null
+    permissions?: EmpyloUserCreatepermissionsInput | string[]
+    passwordResetCode?: string | null
+    password?: string | null
+    weeklyAssessment?: AssessmentCreateNestedManyWithoutEmpyloUserInput
+  }
+
+  export type EmpyloUserUncheckedCreateWithoutCheckinAssessmentInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    role?: $Enums.SystemRole
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    gender?: $Enums.UserGender | null
+    maritalStatus?: $Enums.MaitalStatus | null
+    empyloID?: string | null
+    permissions?: EmpyloUserCreatepermissionsInput | string[]
+    passwordResetCode?: string | null
+    password?: string | null
+    weeklyAssessment?: AssessmentUncheckedCreateNestedManyWithoutEmpyloUserInput
+  }
+
+  export type EmpyloUserCreateOrConnectWithoutCheckinAssessmentInput = {
+    where: EmpyloUserWhereUniqueInput
+    create: XOR<EmpyloUserCreateWithoutCheckinAssessmentInput, EmpyloUserUncheckedCreateWithoutCheckinAssessmentInput>
+  }
+
+  export type EmpyloUserUpsertWithoutWeeklyAssessmentInput = {
+    update: XOR<EmpyloUserUpdateWithoutWeeklyAssessmentInput, EmpyloUserUncheckedUpdateWithoutWeeklyAssessmentInput>
+    create: XOR<EmpyloUserCreateWithoutWeeklyAssessmentInput, EmpyloUserUncheckedCreateWithoutWeeklyAssessmentInput>
+    where?: EmpyloUserWhereInput
+  }
+
+  export type EmpyloUserUpdateToOneWithWhereWithoutWeeklyAssessmentInput = {
+    where?: EmpyloUserWhereInput
+    data: XOR<EmpyloUserUpdateWithoutWeeklyAssessmentInput, EmpyloUserUncheckedUpdateWithoutWeeklyAssessmentInput>
+  }
+
+  export type EmpyloUserUpdateWithoutWeeklyAssessmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
+    empyloID?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: EmpyloUserUpdatepermissionsInput | string[]
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    checkinAssessment?: AssessmentUpdateManyWithoutEmpyloUserCheckinNestedInput
+  }
+
+  export type EmpyloUserUncheckedUpdateWithoutWeeklyAssessmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
+    empyloID?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: EmpyloUserUpdatepermissionsInput | string[]
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    checkinAssessment?: AssessmentUncheckedUpdateManyWithoutEmpyloUserCheckinNestedInput
+  }
+
+  export type EmpyloUserUpsertWithoutCheckinAssessmentInput = {
+    update: XOR<EmpyloUserUpdateWithoutCheckinAssessmentInput, EmpyloUserUncheckedUpdateWithoutCheckinAssessmentInput>
+    create: XOR<EmpyloUserCreateWithoutCheckinAssessmentInput, EmpyloUserUncheckedCreateWithoutCheckinAssessmentInput>
+    where?: EmpyloUserWhereInput
+  }
+
+  export type EmpyloUserUpdateToOneWithWhereWithoutCheckinAssessmentInput = {
+    where?: EmpyloUserWhereInput
+    data: XOR<EmpyloUserUpdateWithoutCheckinAssessmentInput, EmpyloUserUncheckedUpdateWithoutCheckinAssessmentInput>
+  }
+
+  export type EmpyloUserUpdateWithoutCheckinAssessmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
+    empyloID?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: EmpyloUserUpdatepermissionsInput | string[]
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyAssessment?: AssessmentUpdateManyWithoutEmpyloUserNestedInput
+  }
+
+  export type EmpyloUserUncheckedUpdateWithoutCheckinAssessmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
+    empyloID?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: EmpyloUserUpdatepermissionsInput | string[]
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyAssessment?: AssessmentUncheckedUpdateManyWithoutEmpyloUserNestedInput
+  }
+
+  export type AssessmentCreateManyEmpyloUserInput = {
+    id?: string
+    created_at?: Date | string | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    setQuestions?: AssessmentCreatesetQuestionsInput | string[]
+    createdCheckinBy?: string | null
+  }
+
+  export type AssessmentCreateManyEmpyloUserCheckinInput = {
+    id?: string
+    created_at?: Date | string | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    setQuestions?: AssessmentCreatesetQuestionsInput | string[]
+    createdWeeklyBy?: string | null
+  }
+
+  export type AssessmentUpdateWithoutEmpyloUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
+    empyloUserCheckin?: EmpyloUserUpdateOneWithoutCheckinAssessmentNestedInput
+  }
+
+  export type AssessmentUncheckedUpdateWithoutEmpyloUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
+    createdCheckinBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AssessmentUncheckedUpdateManyWithoutEmpyloUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
+    createdCheckinBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AssessmentUpdateWithoutEmpyloUserCheckinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
+    empyloUser?: EmpyloUserUpdateOneWithoutWeeklyAssessmentNestedInput
+  }
+
+  export type AssessmentUncheckedUpdateWithoutEmpyloUserCheckinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
+    createdWeeklyBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AssessmentUncheckedUpdateManyWithoutEmpyloUserCheckinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
+    createdWeeklyBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type UserCreateManyCompanyUserInput = {
     id?: string
     email: string
@@ -13113,6 +13939,10 @@ export namespace Prisma {
   /**
    * Aliases for legacy arg types
    */
+    /**
+     * @deprecated Use EmpyloUserCountOutputTypeDefaultArgs instead
+     */
+    export type EmpyloUserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EmpyloUserCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use CompanyUserCountOutputTypeDefaultArgs instead
      */

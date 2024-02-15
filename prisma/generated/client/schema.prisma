@@ -33,6 +33,8 @@ model EmpyloUser {
   permissions       String[]
   passwordResetCode String?       @unique
   password          String?
+  weeklyAssessment  Assessment[]  @relation("assessment_weekly")
+  checkinAssessment Assessment[]  @relation("assessment_checkin")
 }
 
 model CompanyUser {
@@ -62,6 +64,8 @@ model CompanyUser {
   termsConditions     Boolean?         @default(false)
   membersList         User[]
   company_circle      CompanyCircles[] @relation("circles_company_user_fkey")
+  socialId            String?
+  socialProvider      String?
 }
 
 model CompanyCircles {
@@ -119,6 +123,8 @@ model User {
   coyCircleAttachedTo CompanyCircles[]
   userCircles         UserCircles[]    @relation("userCircles")
   otherUserCirclesIn  UserCircles[]    @relation("memberInCrircle")
+  socialId            String?
+  socialProvider      String?
 }
 
 model UserCircles {
@@ -141,11 +147,15 @@ model UserCircles {
 }
 
 model Assessment {
-  id             String          @id @unique @default(cuid())
-  created_at     DateTime?       @default(now())
-  setNo          String?
-  assessmentType AssessmentType?
-  setQuestion    String[]
+  id                String          @id @unique @default(cuid())
+  created_at        DateTime?       @default(now())
+  setNo             String?         @unique
+  assessmentType    AssessmentType? @unique
+  setQuestions      String[]
+  empyloUser        EmpyloUser?     @relation("assessment_weekly", fields: [createdWeeklyBy], references: [id])
+  empyloUserCheckin EmpyloUser?     @relation("assessment_checkin", fields: [createdCheckinBy], references: [id])
+  createdWeeklyBy   String?
+  createdCheckinBy  String?
 }
 
 enum AssessmentType {
