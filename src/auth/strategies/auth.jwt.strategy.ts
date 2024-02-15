@@ -2,7 +2,7 @@ import { ExtractJwt, Strategy } from "passport-jwt";
 import { PassportStrategy } from "@nestjs/passport";
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { AuthResolver } from "./authFinder.service";
+import { AuthResolver } from "../authFinder.service";
 
 const cookieExtractor = req => req?.cookies.accessToken;
 

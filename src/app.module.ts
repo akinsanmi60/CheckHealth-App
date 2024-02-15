@@ -15,14 +15,24 @@ import { CompanyModule } from "./modules/circles/company.module";
 import { UserModule } from "./modules/user/user.module";
 import { AssessmentModule } from "./modules/assessment/assessment.module";
 import { EmpyloUserModule } from "./modules/empylo-user/empylo-user.module";
+import { AuthGoogleModule } from "./auth-google/auth-google.module";
+import { AuthFacebookModule } from "./auth-facebook/auth-facebook.module";
+import { AuthAppleModule } from "./auth-apple/auth-apple.module";
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true, load: [config] }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [config],
+      envFilePath: ".env",
+    }),
     HttpModule.register({ timeout: 5000, maxRedirects: 5 }),
     AuthModule,
     CompanyModule,
     UserModule,
+    AuthGoogleModule,
+    AuthFacebookModule,
+    AuthAppleModule,
     ThrottlerModule.forRoot([
       {
         name: "short",

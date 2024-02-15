@@ -2606,6 +2606,8 @@ export namespace Prisma {
     emailNotification: boolean | null
     campaignNtification: boolean | null
     termsConditions: boolean | null
+    socialId: string | null
+    socialProvider: string | null
   }
 
   export type CompanyUserMaxAggregateOutputType = {
@@ -2633,6 +2635,8 @@ export namespace Prisma {
     emailNotification: boolean | null
     campaignNtification: boolean | null
     termsConditions: boolean | null
+    socialId: string | null
+    socialProvider: string | null
   }
 
   export type CompanyUserCountAggregateOutputType = {
@@ -2660,6 +2664,8 @@ export namespace Prisma {
     emailNotification: number
     campaignNtification: number
     termsConditions: number
+    socialId: number
+    socialProvider: number
     _all: number
   }
 
@@ -2689,6 +2695,8 @@ export namespace Prisma {
     emailNotification?: true
     campaignNtification?: true
     termsConditions?: true
+    socialId?: true
+    socialProvider?: true
   }
 
   export type CompanyUserMaxAggregateInputType = {
@@ -2716,6 +2724,8 @@ export namespace Prisma {
     emailNotification?: true
     campaignNtification?: true
     termsConditions?: true
+    socialId?: true
+    socialProvider?: true
   }
 
   export type CompanyUserCountAggregateInputType = {
@@ -2743,6 +2753,8 @@ export namespace Prisma {
     emailNotification?: true
     campaignNtification?: true
     termsConditions?: true
+    socialId?: true
+    socialProvider?: true
     _all?: true
   }
 
@@ -2843,6 +2855,8 @@ export namespace Prisma {
     emailNotification: boolean | null
     campaignNtification: boolean | null
     termsConditions: boolean | null
+    socialId: string | null
+    socialProvider: string | null
     _count: CompanyUserCountAggregateOutputType | null
     _min: CompanyUserMinAggregateOutputType | null
     _max: CompanyUserMaxAggregateOutputType | null
@@ -2887,6 +2901,8 @@ export namespace Prisma {
     emailNotification?: boolean
     campaignNtification?: boolean
     termsConditions?: boolean
+    socialId?: boolean
+    socialProvider?: boolean
     membersList?: boolean | CompanyUser$membersListArgs<ExtArgs>
     company_circle?: boolean | CompanyUser$company_circleArgs<ExtArgs>
     _count?: boolean | CompanyUserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2917,6 +2933,8 @@ export namespace Prisma {
     emailNotification?: boolean
     campaignNtification?: boolean
     termsConditions?: boolean
+    socialId?: boolean
+    socialProvider?: boolean
   }
 
   export type CompanyUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2957,6 +2975,8 @@ export namespace Prisma {
       emailNotification: boolean | null
       campaignNtification: boolean | null
       termsConditions: boolean | null
+      socialId: string | null
+      socialProvider: string | null
     }, ExtArgs["result"]["companyUser"]>
     composites: {}
   }
@@ -3378,6 +3398,8 @@ export namespace Prisma {
     readonly emailNotification: FieldRef<"CompanyUser", 'Boolean'>
     readonly campaignNtification: FieldRef<"CompanyUser", 'Boolean'>
     readonly termsConditions: FieldRef<"CompanyUser", 'Boolean'>
+    readonly socialId: FieldRef<"CompanyUser", 'String'>
+    readonly socialProvider: FieldRef<"CompanyUser", 'String'>
   }
     
 
@@ -4840,6 +4862,8 @@ export namespace Prisma {
     campaignNtification: boolean | null
     termsConditions: boolean | null
     addedBy: string | null
+    socialId: string | null
+    socialProvider: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -4875,6 +4899,8 @@ export namespace Prisma {
     campaignNtification: boolean | null
     termsConditions: boolean | null
     addedBy: string | null
+    socialId: string | null
+    socialProvider: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -4910,6 +4936,8 @@ export namespace Prisma {
     campaignNtification: number
     termsConditions: number
     addedBy: number
+    socialId: number
+    socialProvider: number
     _all: number
   }
 
@@ -4947,6 +4975,8 @@ export namespace Prisma {
     campaignNtification?: true
     termsConditions?: true
     addedBy?: true
+    socialId?: true
+    socialProvider?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4982,6 +5012,8 @@ export namespace Prisma {
     campaignNtification?: true
     termsConditions?: true
     addedBy?: true
+    socialId?: true
+    socialProvider?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -5017,6 +5049,8 @@ export namespace Prisma {
     campaignNtification?: true
     termsConditions?: true
     addedBy?: true
+    socialId?: true
+    socialProvider?: true
     _all?: true
   }
 
@@ -5125,6 +5159,8 @@ export namespace Prisma {
     campaignNtification: boolean | null
     termsConditions: boolean | null
     addedBy: string | null
+    socialId: string | null
+    socialProvider: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -5177,6 +5213,8 @@ export namespace Prisma {
     campaignNtification?: boolean
     termsConditions?: boolean
     addedBy?: boolean
+    socialId?: boolean
+    socialProvider?: boolean
     companyUser?: boolean | User$companyUserArgs<ExtArgs>
     coyCircleAttachedTo?: boolean | User$coyCircleAttachedToArgs<ExtArgs>
     userCircles?: boolean | User$userCirclesArgs<ExtArgs>
@@ -5217,6 +5255,8 @@ export namespace Prisma {
     campaignNtification?: boolean
     termsConditions?: boolean
     addedBy?: boolean
+    socialId?: boolean
+    socialProvider?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5269,6 +5309,8 @@ export namespace Prisma {
       campaignNtification: boolean | null
       termsConditions: boolean | null
       addedBy: string | null
+      socialId: string | null
+      socialProvider: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -5702,6 +5744,8 @@ export namespace Prisma {
     readonly campaignNtification: FieldRef<"User", 'Boolean'>
     readonly termsConditions: FieldRef<"User", 'Boolean'>
     readonly addedBy: FieldRef<"User", 'String'>
+    readonly socialId: FieldRef<"User", 'String'>
+    readonly socialProvider: FieldRef<"User", 'String'>
   }
     
 
@@ -8099,7 +8143,9 @@ export namespace Prisma {
     addressState: 'addressState',
     emailNotification: 'emailNotification',
     campaignNtification: 'campaignNtification',
-    termsConditions: 'termsConditions'
+    termsConditions: 'termsConditions',
+    socialId: 'socialId',
+    socialProvider: 'socialProvider'
   };
 
   export type CompanyUserScalarFieldEnum = (typeof CompanyUserScalarFieldEnum)[keyof typeof CompanyUserScalarFieldEnum]
@@ -8156,7 +8202,9 @@ export namespace Prisma {
     emailNotification: 'emailNotification',
     campaignNtification: 'campaignNtification',
     termsConditions: 'termsConditions',
-    addedBy: 'addedBy'
+    addedBy: 'addedBy',
+    socialId: 'socialId',
+    socialProvider: 'socialProvider'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -8541,6 +8589,8 @@ export namespace Prisma {
     emailNotification?: BoolNullableFilter<"CompanyUser"> | boolean | null
     campaignNtification?: BoolNullableFilter<"CompanyUser"> | boolean | null
     termsConditions?: BoolNullableFilter<"CompanyUser"> | boolean | null
+    socialId?: StringNullableFilter<"CompanyUser"> | string | null
+    socialProvider?: StringNullableFilter<"CompanyUser"> | string | null
     membersList?: UserListRelationFilter
     company_circle?: CompanyCirclesListRelationFilter
   }
@@ -8570,6 +8620,8 @@ export namespace Prisma {
     emailNotification?: SortOrderInput | SortOrder
     campaignNtification?: SortOrderInput | SortOrder
     termsConditions?: SortOrderInput | SortOrder
+    socialId?: SortOrderInput | SortOrder
+    socialProvider?: SortOrderInput | SortOrder
     membersList?: UserOrderByRelationAggregateInput
     company_circle?: CompanyCirclesOrderByRelationAggregateInput
   }
@@ -8602,6 +8654,8 @@ export namespace Prisma {
     emailNotification?: BoolNullableFilter<"CompanyUser"> | boolean | null
     campaignNtification?: BoolNullableFilter<"CompanyUser"> | boolean | null
     termsConditions?: BoolNullableFilter<"CompanyUser"> | boolean | null
+    socialId?: StringNullableFilter<"CompanyUser"> | string | null
+    socialProvider?: StringNullableFilter<"CompanyUser"> | string | null
     membersList?: UserListRelationFilter
     company_circle?: CompanyCirclesListRelationFilter
   }, "id" | "id" | "email" | "passwordResetCode" | "verificationCode">
@@ -8631,6 +8685,8 @@ export namespace Prisma {
     emailNotification?: SortOrderInput | SortOrder
     campaignNtification?: SortOrderInput | SortOrder
     termsConditions?: SortOrderInput | SortOrder
+    socialId?: SortOrderInput | SortOrder
+    socialProvider?: SortOrderInput | SortOrder
     _count?: CompanyUserCountOrderByAggregateInput
     _max?: CompanyUserMaxOrderByAggregateInput
     _min?: CompanyUserMinOrderByAggregateInput
@@ -8664,6 +8720,8 @@ export namespace Prisma {
     emailNotification?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
     campaignNtification?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
     termsConditions?: BoolNullableWithAggregatesFilter<"CompanyUser"> | boolean | null
+    socialId?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
+    socialProvider?: StringNullableWithAggregatesFilter<"CompanyUser"> | string | null
   }
 
   export type CompanyCirclesWhereInput = {
@@ -8800,6 +8858,8 @@ export namespace Prisma {
     campaignNtification?: BoolNullableFilter<"User"> | boolean | null
     termsConditions?: BoolNullableFilter<"User"> | boolean | null
     addedBy?: StringNullableFilter<"User"> | string | null
+    socialId?: StringNullableFilter<"User"> | string | null
+    socialProvider?: StringNullableFilter<"User"> | string | null
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     coyCircleAttachedTo?: CompanyCirclesListRelationFilter
     userCircles?: UserCirclesListRelationFilter
@@ -8839,6 +8899,8 @@ export namespace Prisma {
     campaignNtification?: SortOrderInput | SortOrder
     termsConditions?: SortOrderInput | SortOrder
     addedBy?: SortOrderInput | SortOrder
+    socialId?: SortOrderInput | SortOrder
+    socialProvider?: SortOrderInput | SortOrder
     companyUser?: CompanyUserOrderByWithRelationInput
     coyCircleAttachedTo?: CompanyCirclesOrderByRelationAggregateInput
     userCircles?: UserCirclesOrderByRelationAggregateInput
@@ -8881,6 +8943,8 @@ export namespace Prisma {
     emailNotification?: BoolNullableFilter<"User"> | boolean | null
     campaignNtification?: BoolNullableFilter<"User"> | boolean | null
     termsConditions?: BoolNullableFilter<"User"> | boolean | null
+    socialId?: StringNullableFilter<"User"> | string | null
+    socialProvider?: StringNullableFilter<"User"> | string | null
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     coyCircleAttachedTo?: CompanyCirclesListRelationFilter
     userCircles?: UserCirclesListRelationFilter
@@ -8920,6 +8984,8 @@ export namespace Prisma {
     campaignNtification?: SortOrderInput | SortOrder
     termsConditions?: SortOrderInput | SortOrder
     addedBy?: SortOrderInput | SortOrder
+    socialId?: SortOrderInput | SortOrder
+    socialProvider?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -8961,6 +9027,8 @@ export namespace Prisma {
     campaignNtification?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
     termsConditions?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
     addedBy?: StringNullableWithAggregatesFilter<"User"> | string | null
+    socialId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    socialProvider?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type UserCirclesWhereInput = {
@@ -9304,6 +9372,8 @@ export namespace Prisma {
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
+    socialId?: string | null
+    socialProvider?: string | null
     membersList?: UserCreateNestedManyWithoutCompanyUserInput
     company_circle?: CompanyCirclesCreateNestedManyWithoutCompanyUserInput
   }
@@ -9333,6 +9403,8 @@ export namespace Prisma {
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
+    socialId?: string | null
+    socialProvider?: string | null
     membersList?: UserUncheckedCreateNestedManyWithoutCompanyUserInput
     company_circle?: CompanyCirclesUncheckedCreateNestedManyWithoutCompanyUserInput
   }
@@ -9362,6 +9434,8 @@ export namespace Prisma {
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     membersList?: UserUpdateManyWithoutCompanyUserNestedInput
     company_circle?: CompanyCirclesUpdateManyWithoutCompanyUserNestedInput
   }
@@ -9391,6 +9465,8 @@ export namespace Prisma {
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     membersList?: UserUncheckedUpdateManyWithoutCompanyUserNestedInput
     company_circle?: CompanyCirclesUncheckedUpdateManyWithoutCompanyUserNestedInput
   }
@@ -9420,6 +9496,8 @@ export namespace Prisma {
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
+    socialId?: string | null
+    socialProvider?: string | null
   }
 
   export type CompanyUserUpdateManyMutationInput = {
@@ -9447,6 +9525,8 @@ export namespace Prisma {
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CompanyUserUncheckedUpdateManyInput = {
@@ -9474,6 +9554,8 @@ export namespace Prisma {
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CompanyCirclesCreateInput = {
@@ -9623,6 +9705,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
     coyCircleAttachedTo?: CompanyCirclesCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
@@ -9662,6 +9746,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
     otherUserCirclesIn?: UserCirclesUncheckedCreateNestedManyWithoutMemberListInput
@@ -9699,6 +9785,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
     coyCircleAttachedTo?: CompanyCirclesUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
@@ -9738,6 +9826,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
     otherUserCirclesIn?: UserCirclesUncheckedUpdateManyWithoutMemberListNestedInput
@@ -9776,6 +9866,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -9810,6 +9902,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -9845,6 +9939,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCirclesCreateInput = {
@@ -10322,6 +10418,8 @@ export namespace Prisma {
     emailNotification?: SortOrder
     campaignNtification?: SortOrder
     termsConditions?: SortOrder
+    socialId?: SortOrder
+    socialProvider?: SortOrder
   }
 
   export type CompanyUserMaxOrderByAggregateInput = {
@@ -10349,6 +10447,8 @@ export namespace Prisma {
     emailNotification?: SortOrder
     campaignNtification?: SortOrder
     termsConditions?: SortOrder
+    socialId?: SortOrder
+    socialProvider?: SortOrder
   }
 
   export type CompanyUserMinOrderByAggregateInput = {
@@ -10376,6 +10476,8 @@ export namespace Prisma {
     emailNotification?: SortOrder
     campaignNtification?: SortOrder
     termsConditions?: SortOrder
+    socialId?: SortOrder
+    socialProvider?: SortOrder
   }
 
   export type EnumActivityLevelFilter<$PrismaModel = never> = {
@@ -10515,6 +10617,8 @@ export namespace Prisma {
     campaignNtification?: SortOrder
     termsConditions?: SortOrder
     addedBy?: SortOrder
+    socialId?: SortOrder
+    socialProvider?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -10550,6 +10654,8 @@ export namespace Prisma {
     campaignNtification?: SortOrder
     termsConditions?: SortOrder
     addedBy?: SortOrder
+    socialId?: SortOrder
+    socialProvider?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -10585,6 +10691,8 @@ export namespace Prisma {
     campaignNtification?: SortOrder
     termsConditions?: SortOrder
     addedBy?: SortOrder
+    socialId?: SortOrder
+    socialProvider?: SortOrder
   }
 
   export type EnumUserAccountWithAggregatesFilter<$PrismaModel = never> = {
@@ -11374,6 +11482,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
     coyCircleAttachedTo?: CompanyCirclesCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
     otherUserCirclesIn?: UserCirclesCreateNestedManyWithoutMemberListInput
@@ -11411,6 +11521,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
     otherUserCirclesIn?: UserCirclesUncheckedCreateNestedManyWithoutMemberListInput
@@ -11520,6 +11632,8 @@ export namespace Prisma {
     campaignNtification?: BoolNullableFilter<"User"> | boolean | null
     termsConditions?: BoolNullableFilter<"User"> | boolean | null
     addedBy?: StringNullableFilter<"User"> | string | null
+    socialId?: StringNullableFilter<"User"> | string | null
+    socialProvider?: StringNullableFilter<"User"> | string | null
   }
 
   export type CompanyCirclesUpsertWithWhereUniqueWithoutCompanyUserInput = {
@@ -11582,6 +11696,8 @@ export namespace Prisma {
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
+    socialId?: string | null
+    socialProvider?: string | null
     membersList?: UserCreateNestedManyWithoutCompanyUserInput
   }
 
@@ -11610,6 +11726,8 @@ export namespace Prisma {
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
+    socialId?: string | null
+    socialProvider?: string | null
     membersList?: UserUncheckedCreateNestedManyWithoutCompanyUserInput
   }
 
@@ -11650,6 +11768,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
     otherUserCirclesIn?: UserCirclesCreateNestedManyWithoutMemberListInput
@@ -11688,6 +11808,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
     otherUserCirclesIn?: UserCirclesUncheckedCreateNestedManyWithoutMemberListInput
   }
@@ -11733,6 +11855,8 @@ export namespace Prisma {
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     membersList?: UserUpdateManyWithoutCompanyUserNestedInput
   }
 
@@ -11761,6 +11885,8 @@ export namespace Prisma {
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     membersList?: UserUncheckedUpdateManyWithoutCompanyUserNestedInput
   }
 
@@ -11805,6 +11931,8 @@ export namespace Prisma {
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
+    socialId?: string | null
+    socialProvider?: string | null
     company_circle?: CompanyCirclesCreateNestedManyWithoutCompanyUserInput
   }
 
@@ -11833,6 +11961,8 @@ export namespace Prisma {
     emailNotification?: boolean | null
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
+    socialId?: string | null
+    socialProvider?: string | null
     company_circle?: CompanyCirclesUncheckedCreateNestedManyWithoutCompanyUserInput
   }
 
@@ -11997,6 +12127,8 @@ export namespace Prisma {
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     company_circle?: CompanyCirclesUpdateManyWithoutCompanyUserNestedInput
   }
 
@@ -12025,6 +12157,8 @@ export namespace Prisma {
     emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     company_circle?: CompanyCirclesUncheckedUpdateManyWithoutCompanyUserNestedInput
   }
 
@@ -12128,6 +12262,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
     coyCircleAttachedTo?: CompanyCirclesCreateNestedManyWithoutMemberListInput
     otherUserCirclesIn?: UserCirclesCreateNestedManyWithoutMemberListInput
@@ -12166,6 +12302,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedCreateNestedManyWithoutMemberListInput
     otherUserCirclesIn?: UserCirclesUncheckedCreateNestedManyWithoutMemberListInput
   }
@@ -12207,6 +12345,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
     coyCircleAttachedTo?: CompanyCirclesCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
@@ -12245,6 +12385,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
   }
@@ -12297,6 +12439,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
     coyCircleAttachedTo?: CompanyCirclesUpdateManyWithoutMemberListNestedInput
     otherUserCirclesIn?: UserCirclesUpdateManyWithoutMemberListNestedInput
@@ -12335,6 +12479,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedUpdateManyWithoutMemberListNestedInput
     otherUserCirclesIn?: UserCirclesUncheckedUpdateManyWithoutMemberListNestedInput
   }
@@ -12387,6 +12533,8 @@ export namespace Prisma {
     campaignNtification?: boolean | null
     termsConditions?: boolean | null
     addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
   }
 
   export type CompanyCirclesCreateManyCompanyUserInput = {
@@ -12436,6 +12584,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleAttachedTo?: CompanyCirclesUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
     otherUserCirclesIn?: UserCirclesUpdateManyWithoutMemberListNestedInput
@@ -12473,6 +12623,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
     otherUserCirclesIn?: UserCirclesUncheckedUpdateManyWithoutMemberListNestedInput
@@ -12510,6 +12662,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CompanyCirclesUpdateWithoutCompanyUserInput = {
@@ -12591,6 +12745,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
     otherUserCirclesIn?: UserCirclesUpdateManyWithoutMemberListNestedInput
@@ -12629,6 +12785,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
     otherUserCirclesIn?: UserCirclesUncheckedUpdateManyWithoutMemberListNestedInput
   }
@@ -12666,6 +12824,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCirclesCreateManyUserInput = {
@@ -12865,6 +13025,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
     coyCircleAttachedTo?: CompanyCirclesUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
@@ -12903,6 +13065,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -12940,6 +13104,8 @@ export namespace Prisma {
     campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
     termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
     addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

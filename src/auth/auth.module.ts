@@ -5,7 +5,7 @@ import { JwtModule, JwtService } from "@nestjs/jwt";
 import { SecurityConfig } from "src/common/configs/config.interface";
 import { ConfigService } from "@nestjs/config";
 import { PasswordService } from "./password.service";
-import { JwtStrategy } from "./auth.jwt.strategy";
+import { JwtStrategy } from "./strategies/auth.jwt.strategy";
 import { MailModule } from "../mail/mail.module";
 import { AuthResolver } from "./authFinder.service";
 import { AuthService } from "./auth.service";

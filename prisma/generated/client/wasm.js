@@ -154,7 +154,9 @@ exports.Prisma.CompanyUserScalarFieldEnum = {
   addressState: 'addressState',
   emailNotification: 'emailNotification',
   campaignNtification: 'campaignNtification',
-  termsConditions: 'termsConditions'
+  termsConditions: 'termsConditions',
+  socialId: 'socialId',
+  socialProvider: 'socialProvider'
 };
 
 exports.Prisma.CompanyCirclesScalarFieldEnum = {
@@ -205,7 +207,9 @@ exports.Prisma.UserScalarFieldEnum = {
   emailNotification: 'emailNotification',
   campaignNtification: 'campaignNtification',
   termsConditions: 'termsConditions',
-  addedBy: 'addedBy'
+  addedBy: 'addedBy',
+  socialId: 'socialId',
+  socialProvider: 'socialProvider'
 };
 
 exports.Prisma.UserCirclesScalarFieldEnum = {

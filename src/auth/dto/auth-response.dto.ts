@@ -95,9 +95,6 @@ export class GetAllUserResponse extends GenericResponse {
 class LoginData {
   @ApiProperty()
   accessToken: string;
-
-  @ApiProperty()
-  refreshToken: string;
 }
 
 export class LoginResponse extends GenericResponse {

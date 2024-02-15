@@ -14,6 +14,26 @@ export class MailService {
     this.app_name = this.configService.get("APP", { infer: true });
   }
 
+  async userSocialSignUp(mailData: MailData<{ name: string }>): Promise<void> {
+    const emailConfirmTitle = `Thank you for signing up on ${this.app_name}`;
+    await this.mailerService.sendMail({
+      to: mailData.to,
+      subject: emailConfirmTitle,
+      templatePath: path.join(
+        process.cwd(),
+        "src",
+        "mail",
+        "mail-templates",
+        "socialActivation.hbs",
+      ),
+      context: {
+        title: emailConfirmTitle,
+        actionTitle: emailConfirmTitle,
+        app_name: this.configService.get("APP", { infer: true }),
+        name: mailData.data.name,
+      },
+    });
+  }
   async userSignUp(
     mailData: MailData<{ name?: string; code: string }>,
   ): Promise<void> {
@@ -41,7 +61,6 @@ export class MailService {
         // url: url?.toString(),
         actionTitle: emailConfirmTitle,
         app_name: this.configService.get("APP", { infer: true }),
-        // name: mailData.data.name,
         code: mailData.data.code,
       },
     });
@@ -50,14 +69,6 @@ export class MailService {
     mailData: MailData<{ name?: string; password: string }>,
   ): Promise<void> {
     const emailConfirmTitle = `Welcome on ${this.app_name}`;
-
-    // const url = new URL(
-    //   this.configService.getOrThrow("FRONTEND_DOMAIN", {
-    //     infer: true,
-    //   }) + "/confirm-email",
-    // );
-    // url.searchParams.set("hash", mailData.data.hash);
-
     await this.mailerService.sendMail({
       to: mailData.to,
       subject: emailConfirmTitle,
@@ -83,13 +94,6 @@ export class MailService {
     mailData: MailData<{ name: string; code: string }>,
   ): Promise<void> {
     const resetPasswordTitle = `Password Reset Instructions for ${this.app_name}`;
-    // const url = new URL(
-    //   this.configService.getOrThrow("app.frontendDomain", {
-    //     infer: true,
-    //   }) + "/password-change",
-    // );
-    // url.searchParams.set("hash", mailData.data.hash);
-
     await this.mailerService.sendMail({
       to: mailData.to,
       subject: resetPasswordTitle,

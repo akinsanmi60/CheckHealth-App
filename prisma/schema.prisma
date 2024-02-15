@@ -62,6 +62,8 @@ model CompanyUser {
   termsConditions     Boolean?         @default(false)
   membersList         User[]
   company_circle      CompanyCircles[] @relation("circles_company_user_fkey")
+  socialId            String?
+  socialProvider      String?
 }
 
 model CompanyCircles {
@@ -119,6 +121,8 @@ model User {
   coyCircleAttachedTo CompanyCircles[]
   userCircles         UserCircles[]    @relation("userCircles")
   otherUserCirclesIn  UserCircles[]    @relation("memberInCrircle")
+  socialId            String?
+  socialProvider      String?
 }
 
 model UserCircles {
