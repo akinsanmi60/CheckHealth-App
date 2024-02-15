@@ -2,8 +2,8 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AuthGoogleService } from "./auth-google.service";
 import { AuthGoogleLoginDto } from "./dto/auth-google-login.dto";
-import { SocialLoginService } from "src/auth/socialLogin.service";
-import { LoginResponse } from "src/auth/dto/auth-response.dto";
+import { SocialLoginService } from "../auth/socialLogin.service";
+import { LoginResponse } from "../auth/dto/auth-response.dto";
 
 @ApiTags("Auth")
 @Controller({

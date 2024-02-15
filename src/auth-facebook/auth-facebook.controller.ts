@@ -2,7 +2,7 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { AuthFacebookService } from "./auth-facebook.service";
 import { AuthFacebookLoginDto } from "./dto/auth-facebook-login.dto";
-import { SocialLoginService } from "src/auth/socialLogin.service";
+import { SocialLoginService } from "../auth/socialLogin.service";
 
 @ApiTags("Auth")
 @Controller({

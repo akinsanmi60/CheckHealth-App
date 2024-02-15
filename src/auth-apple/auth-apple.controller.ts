@@ -2,8 +2,8 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AuthAppleService } from "./auth-apple.service";
 import { AuthAppleLoginDto } from "./dto/auth-apple-login.dto";
-import { SocialLoginService } from "src/auth/socialLogin.service";
-import { LoginResponse } from "src/auth/dto/auth-response.dto";
+import { SocialLoginService } from "../auth/socialLogin.service";
+import { LoginResponse } from "../auth/dto/auth-response.dto";
 
 @ApiTags("Auth")
 @Controller({
