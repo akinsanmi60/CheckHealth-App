@@ -163,10 +163,10 @@ model ScoreDetail {
   id             String          @id @unique @default(cuid())
   owner          User?           @relation("userCirclesScores", fields: [ownerID], references: [id])
   ownerID        String?
-  weeklyScore    String?
-  dailyScore     String?
-  totalScore     String?
-  SetNo          String?
+  weeklyScore    Int?            
+  dailyScore     Int?
+  wellbeingScore Int?
+  setNo          String?
   assessmentType AssessmentType? @unique
 }
 
