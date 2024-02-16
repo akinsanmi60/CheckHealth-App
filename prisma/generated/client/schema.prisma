@@ -125,6 +125,7 @@ model User {
   otherUserCirclesIn  UserCircles[]    @relation("memberInCrircle")
   socialId            String?
   socialProvider      String?
+  listOfScoreDetail   ScoreDetail[]    @relation("userCirclesScores")
 }
 
 model UserCircles {
@@ -156,6 +157,17 @@ model Assessment {
   empyloUserCheckin EmpyloUser?     @relation("assessment_checkin", fields: [createdCheckinBy], references: [id])
   createdWeeklyBy   String?
   createdCheckinBy  String?
+}
+
+model ScoreDetail {
+  id             String          @id @unique @default(cuid())
+  owner          User?           @relation("userCirclesScores", fields: [ownerID], references: [id])
+  ownerID        String?
+  weeklyScore    String?
+  dailyScore     String?
+  totalScore     String?
+  SetNo          String?
+  assessmentType AssessmentType? @unique
 }
 
 enum AssessmentType {

@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 import { v4 as uuidv4 } from "uuid";
+import { CalculateDto, CreateAssessmentDto } from "./dto/assessment.dto";
+import { GetAllAssessmentDto } from "./dto/assessment-response.dto";
 
 @Injectable()
 export class AssessmentService {
@@ -10,8 +12,9 @@ export class AssessmentService {
     this.timeGenerated = new Date().toISOString();
   }
 
-  async createAssessment(id: string, dto: any) {
+  async createAssessment(id: string, dto: CreateAssessmentDto) {
     const { setNo, assessmentType, setQuestions } = dto;
+
     const assessmentCreator = await this.prisma.empyloUser.findUnique({
       where: {
         id: id,
@@ -82,6 +85,16 @@ export class AssessmentService {
       };
     }
 
+    const timeDifferenceInHours = await this.checkAsessmentValidity(assessment);
+
+    if (timeDifferenceInHours >= 48) {
+      // If the assessment is older than 24 hours, return null
+      return {
+        message: "Weekly assessment found but older than 24 hours",
+        data: null,
+      };
+    }
+
     const showAssessment = {
       id: assessment.id,
       created_at: assessment.created_at,
@@ -109,6 +122,16 @@ export class AssessmentService {
     if (!assessment) {
       return {
         message: "No daily checkin assessment found",
+        data: null,
+      };
+    }
+
+    const timeDifferenceInHours = await this.checkAsessmentValidity(assessment);
+
+    if (timeDifferenceInHours > 24) {
+      // If the assessment is older than 24 hours, return null
+      return {
+        message: "Daily checkin assessment found but older than 24 hours",
         data: null,
       };
     }
@@ -206,7 +229,7 @@ export class AssessmentService {
     };
   }
 
-  async getAllAssessment(dto: any) {
+  async getAllAssessment(dto: GetAllAssessmentDto) {
     const { created_at, page = 1, limit = 10, id } = dto;
     const limitNumber = Number(limit);
     const skip = ((page as number) - 1) * limitNumber;
@@ -280,5 +303,51 @@ export class AssessmentService {
         assessments: success ? allAssessments : [],
       },
     };
+  }
+
+  private async checkAsessmentValidity(assessment) {
+    // Calculate the time difference between now and the assessment's created_at timestamp
+    const currentTime = new Date();
+    const assessmentTime = new Date(assessment.created_at);
+    const timeDifference = currentTime.getTime() - assessmentTime.getTime();
+    const timeDifferenceInHours = timeDifference / (1000 * 60 * 60);
+
+    return timeDifferenceInHours;
+  }
+
+  async weeklyAssessmentCalculate(id: string, dto: CalculateDto) {
+    const { scoreOnAttempt, setNo, assessmentType } = dto;
+
+    const assessmentCheck = await this.prisma.assessment.findUnique({
+      where: {
+        setNo: setNo,
+      },
+    });
+
+    if (!assessmentCheck) {
+      throw new BadRequestException("Assessment not found");
+    }
+
+    if (assessmentCheck.assessmentType !== assessmentType) {
+      throw new BadRequestException("Assessment type does not match");
+    }
+
+    const weeklyScore = scoreOnAttempt ? Number(scoreOnAttempt) * 2.2 : 0;
+
+    const scoreInserted = await this.prisma.scoreDetail.create({
+      data: {
+        id: uuidv4(),
+        weeklyScore: weeklyScore,
+        owner: {
+          connect: {
+            id: id,
+          },
+        },
+        assessmentType: assessmentType,
+        setNo: setNo,
+      },
+    });
+
+    return scoreInserted;
   }
 }

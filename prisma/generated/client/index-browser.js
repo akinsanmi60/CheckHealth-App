@@ -239,6 +239,16 @@ exports.Prisma.AssessmentScalarFieldEnum = {
   createdCheckinBy: 'createdCheckinBy'
 };
 
+exports.Prisma.ScoreDetailScalarFieldEnum = {
+  id: 'id',
+  ownerID: 'ownerID',
+  weeklyScore: 'weeklyScore',
+  dailyScore: 'dailyScore',
+  wellbeingScore: 'wellbeingScore',
+  setNo: 'setNo',
+  assessmentType: 'assessmentType'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -307,7 +317,8 @@ exports.Prisma.ModelName = {
   CompanyCircles: 'CompanyCircles',
   User: 'User',
   UserCircles: 'UserCircles',
-  Assessment: 'Assessment'
+  Assessment: 'Assessment',
+  ScoreDetail: 'ScoreDetail'
 };
 
 /**

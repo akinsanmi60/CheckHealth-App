@@ -43,6 +43,11 @@ export type UserCircles = $Result.DefaultSelection<Prisma.$UserCirclesPayload>
  * 
  */
 export type Assessment = $Result.DefaultSelection<Prisma.$AssessmentPayload>
+/**
+ * Model ScoreDetail
+ * 
+ */
+export type ScoreDetail = $Result.DefaultSelection<Prisma.$ScoreDetailPayload>
 
 /**
  * Enums
@@ -334,6 +339,16 @@ export class PrismaClient<
     * ```
     */
   get assessment(): Prisma.AssessmentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.scoreDetail`: Exposes CRUD operations for the **ScoreDetail** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ScoreDetails
+    * const scoreDetails = await prisma.scoreDetail.findMany()
+    * ```
+    */
+  get scoreDetail(): Prisma.ScoreDetailDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -809,7 +824,8 @@ export namespace Prisma {
     CompanyCircles: 'CompanyCircles',
     User: 'User',
     UserCircles: 'UserCircles',
-    Assessment: 'Assessment'
+    Assessment: 'Assessment',
+    ScoreDetail: 'ScoreDetail'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -826,7 +842,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'empyloUser' | 'companyUser' | 'companyCircles' | 'user' | 'userCircles' | 'assessment'
+      modelProps: 'empyloUser' | 'companyUser' | 'companyCircles' | 'user' | 'userCircles' | 'assessment' | 'scoreDetail'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1226,6 +1242,72 @@ export namespace Prisma {
           }
         }
       }
+      ScoreDetail: {
+        payload: Prisma.$ScoreDetailPayload<ExtArgs>
+        fields: Prisma.ScoreDetailFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ScoreDetailFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ScoreDetailPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ScoreDetailFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ScoreDetailPayload>
+          }
+          findFirst: {
+            args: Prisma.ScoreDetailFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ScoreDetailPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ScoreDetailFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ScoreDetailPayload>
+          }
+          findMany: {
+            args: Prisma.ScoreDetailFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ScoreDetailPayload>[]
+          }
+          create: {
+            args: Prisma.ScoreDetailCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ScoreDetailPayload>
+          }
+          createMany: {
+            args: Prisma.ScoreDetailCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ScoreDetailDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ScoreDetailPayload>
+          }
+          update: {
+            args: Prisma.ScoreDetailUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ScoreDetailPayload>
+          }
+          deleteMany: {
+            args: Prisma.ScoreDetailDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ScoreDetailUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ScoreDetailUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ScoreDetailPayload>
+          }
+          aggregate: {
+            args: Prisma.ScoreDetailAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateScoreDetail>
+          }
+          groupBy: {
+            args: Prisma.ScoreDetailGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ScoreDetailGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ScoreDetailCountArgs<ExtArgs>,
+            result: $Utils.Optional<ScoreDetailCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1500,12 +1582,14 @@ export namespace Prisma {
     coyCircleAttachedTo: number
     userCircles: number
     otherUserCirclesIn: number
+    listOfScoreDetail: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     coyCircleAttachedTo?: boolean | UserCountOutputTypeCountCoyCircleAttachedToArgs
     userCircles?: boolean | UserCountOutputTypeCountUserCirclesArgs
     otherUserCirclesIn?: boolean | UserCountOutputTypeCountOtherUserCirclesInArgs
+    listOfScoreDetail?: boolean | UserCountOutputTypeCountListOfScoreDetailArgs
   }
 
   // Custom InputTypes
@@ -1542,6 +1626,14 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountOtherUserCirclesInArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserCirclesWhereInput
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountListOfScoreDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScoreDetailWhereInput
   }
 
 
@@ -5360,6 +5452,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: boolean | User$coyCircleAttachedToArgs<ExtArgs>
     userCircles?: boolean | User$userCirclesArgs<ExtArgs>
     otherUserCirclesIn?: boolean | User$otherUserCirclesInArgs<ExtArgs>
+    listOfScoreDetail?: boolean | User$listOfScoreDetailArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5405,6 +5498,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: boolean | User$coyCircleAttachedToArgs<ExtArgs>
     userCircles?: boolean | User$userCirclesArgs<ExtArgs>
     otherUserCirclesIn?: boolean | User$otherUserCirclesInArgs<ExtArgs>
+    listOfScoreDetail?: boolean | User$listOfScoreDetailArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5416,6 +5510,7 @@ export namespace Prisma {
       coyCircleAttachedTo: Prisma.$CompanyCirclesPayload<ExtArgs>[]
       userCircles: Prisma.$UserCirclesPayload<ExtArgs>[]
       otherUserCirclesIn: Prisma.$UserCirclesPayload<ExtArgs>[]
+      listOfScoreDetail: Prisma.$ScoreDetailPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5824,6 +5919,8 @@ export namespace Prisma {
     userCircles<T extends User$userCirclesArgs<ExtArgs> = {}>(args?: Subset<T, User$userCirclesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCirclesPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     otherUserCirclesIn<T extends User$otherUserCirclesInArgs<ExtArgs> = {}>(args?: Subset<T, User$otherUserCirclesInArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserCirclesPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    listOfScoreDetail<T extends User$listOfScoreDetailArgs<ExtArgs> = {}>(args?: Subset<T, User$listOfScoreDetailArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6274,6 +6371,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserCirclesScalarFieldEnum | UserCirclesScalarFieldEnum[]
+  }
+
+
+  /**
+   * User.listOfScoreDetail
+   */
+  export type User$listOfScoreDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    where?: ScoreDetailWhereInput
+    orderBy?: ScoreDetailOrderByWithRelationInput | ScoreDetailOrderByWithRelationInput[]
+    cursor?: ScoreDetailWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScoreDetailScalarFieldEnum | ScoreDetailScalarFieldEnum[]
   }
 
 
@@ -8328,6 +8446,1004 @@ export namespace Prisma {
 
 
   /**
+   * Model ScoreDetail
+   */
+
+  export type AggregateScoreDetail = {
+    _count: ScoreDetailCountAggregateOutputType | null
+    _avg: ScoreDetailAvgAggregateOutputType | null
+    _sum: ScoreDetailSumAggregateOutputType | null
+    _min: ScoreDetailMinAggregateOutputType | null
+    _max: ScoreDetailMaxAggregateOutputType | null
+  }
+
+  export type ScoreDetailAvgAggregateOutputType = {
+    weeklyScore: number | null
+    dailyScore: number | null
+    wellbeingScore: number | null
+  }
+
+  export type ScoreDetailSumAggregateOutputType = {
+    weeklyScore: number | null
+    dailyScore: number | null
+    wellbeingScore: number | null
+  }
+
+  export type ScoreDetailMinAggregateOutputType = {
+    id: string | null
+    ownerID: string | null
+    weeklyScore: number | null
+    dailyScore: number | null
+    wellbeingScore: number | null
+    setNo: string | null
+    assessmentType: $Enums.AssessmentType | null
+  }
+
+  export type ScoreDetailMaxAggregateOutputType = {
+    id: string | null
+    ownerID: string | null
+    weeklyScore: number | null
+    dailyScore: number | null
+    wellbeingScore: number | null
+    setNo: string | null
+    assessmentType: $Enums.AssessmentType | null
+  }
+
+  export type ScoreDetailCountAggregateOutputType = {
+    id: number
+    ownerID: number
+    weeklyScore: number
+    dailyScore: number
+    wellbeingScore: number
+    setNo: number
+    assessmentType: number
+    _all: number
+  }
+
+
+  export type ScoreDetailAvgAggregateInputType = {
+    weeklyScore?: true
+    dailyScore?: true
+    wellbeingScore?: true
+  }
+
+  export type ScoreDetailSumAggregateInputType = {
+    weeklyScore?: true
+    dailyScore?: true
+    wellbeingScore?: true
+  }
+
+  export type ScoreDetailMinAggregateInputType = {
+    id?: true
+    ownerID?: true
+    weeklyScore?: true
+    dailyScore?: true
+    wellbeingScore?: true
+    setNo?: true
+    assessmentType?: true
+  }
+
+  export type ScoreDetailMaxAggregateInputType = {
+    id?: true
+    ownerID?: true
+    weeklyScore?: true
+    dailyScore?: true
+    wellbeingScore?: true
+    setNo?: true
+    assessmentType?: true
+  }
+
+  export type ScoreDetailCountAggregateInputType = {
+    id?: true
+    ownerID?: true
+    weeklyScore?: true
+    dailyScore?: true
+    wellbeingScore?: true
+    setNo?: true
+    assessmentType?: true
+    _all?: true
+  }
+
+  export type ScoreDetailAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ScoreDetail to aggregate.
+     */
+    where?: ScoreDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScoreDetails to fetch.
+     */
+    orderBy?: ScoreDetailOrderByWithRelationInput | ScoreDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ScoreDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScoreDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScoreDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ScoreDetails
+    **/
+    _count?: true | ScoreDetailCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ScoreDetailAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ScoreDetailSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ScoreDetailMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ScoreDetailMaxAggregateInputType
+  }
+
+  export type GetScoreDetailAggregateType<T extends ScoreDetailAggregateArgs> = {
+        [P in keyof T & keyof AggregateScoreDetail]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateScoreDetail[P]>
+      : GetScalarType<T[P], AggregateScoreDetail[P]>
+  }
+
+
+
+
+  export type ScoreDetailGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScoreDetailWhereInput
+    orderBy?: ScoreDetailOrderByWithAggregationInput | ScoreDetailOrderByWithAggregationInput[]
+    by: ScoreDetailScalarFieldEnum[] | ScoreDetailScalarFieldEnum
+    having?: ScoreDetailScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ScoreDetailCountAggregateInputType | true
+    _avg?: ScoreDetailAvgAggregateInputType
+    _sum?: ScoreDetailSumAggregateInputType
+    _min?: ScoreDetailMinAggregateInputType
+    _max?: ScoreDetailMaxAggregateInputType
+  }
+
+  export type ScoreDetailGroupByOutputType = {
+    id: string
+    ownerID: string | null
+    weeklyScore: number | null
+    dailyScore: number | null
+    wellbeingScore: number | null
+    setNo: string | null
+    assessmentType: $Enums.AssessmentType | null
+    _count: ScoreDetailCountAggregateOutputType | null
+    _avg: ScoreDetailAvgAggregateOutputType | null
+    _sum: ScoreDetailSumAggregateOutputType | null
+    _min: ScoreDetailMinAggregateOutputType | null
+    _max: ScoreDetailMaxAggregateOutputType | null
+  }
+
+  type GetScoreDetailGroupByPayload<T extends ScoreDetailGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ScoreDetailGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ScoreDetailGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ScoreDetailGroupByOutputType[P]>
+            : GetScalarType<T[P], ScoreDetailGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ScoreDetailSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ownerID?: boolean
+    weeklyScore?: boolean
+    dailyScore?: boolean
+    wellbeingScore?: boolean
+    setNo?: boolean
+    assessmentType?: boolean
+    owner?: boolean | ScoreDetail$ownerArgs<ExtArgs>
+  }, ExtArgs["result"]["scoreDetail"]>
+
+  export type ScoreDetailSelectScalar = {
+    id?: boolean
+    ownerID?: boolean
+    weeklyScore?: boolean
+    dailyScore?: boolean
+    wellbeingScore?: boolean
+    setNo?: boolean
+    assessmentType?: boolean
+  }
+
+  export type ScoreDetailInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | ScoreDetail$ownerArgs<ExtArgs>
+  }
+
+
+  export type $ScoreDetailPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ScoreDetail"
+    objects: {
+      owner: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ownerID: string | null
+      weeklyScore: number | null
+      dailyScore: number | null
+      wellbeingScore: number | null
+      setNo: string | null
+      assessmentType: $Enums.AssessmentType | null
+    }, ExtArgs["result"]["scoreDetail"]>
+    composites: {}
+  }
+
+
+  type ScoreDetailGetPayload<S extends boolean | null | undefined | ScoreDetailDefaultArgs> = $Result.GetResult<Prisma.$ScoreDetailPayload, S>
+
+  type ScoreDetailCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ScoreDetailFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ScoreDetailCountAggregateInputType | true
+    }
+
+  export interface ScoreDetailDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ScoreDetail'], meta: { name: 'ScoreDetail' } }
+    /**
+     * Find zero or one ScoreDetail that matches the filter.
+     * @param {ScoreDetailFindUniqueArgs} args - Arguments to find a ScoreDetail
+     * @example
+     * // Get one ScoreDetail
+     * const scoreDetail = await prisma.scoreDetail.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ScoreDetailFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ScoreDetailFindUniqueArgs<ExtArgs>>
+    ): Prisma__ScoreDetailClient<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one ScoreDetail that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ScoreDetailFindUniqueOrThrowArgs} args - Arguments to find a ScoreDetail
+     * @example
+     * // Get one ScoreDetail
+     * const scoreDetail = await prisma.scoreDetail.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ScoreDetailFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ScoreDetailFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ScoreDetailClient<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first ScoreDetail that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScoreDetailFindFirstArgs} args - Arguments to find a ScoreDetail
+     * @example
+     * // Get one ScoreDetail
+     * const scoreDetail = await prisma.scoreDetail.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ScoreDetailFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ScoreDetailFindFirstArgs<ExtArgs>>
+    ): Prisma__ScoreDetailClient<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first ScoreDetail that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScoreDetailFindFirstOrThrowArgs} args - Arguments to find a ScoreDetail
+     * @example
+     * // Get one ScoreDetail
+     * const scoreDetail = await prisma.scoreDetail.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ScoreDetailFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ScoreDetailFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ScoreDetailClient<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more ScoreDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScoreDetailFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ScoreDetails
+     * const scoreDetails = await prisma.scoreDetail.findMany()
+     * 
+     * // Get first 10 ScoreDetails
+     * const scoreDetails = await prisma.scoreDetail.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const scoreDetailWithIdOnly = await prisma.scoreDetail.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ScoreDetailFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ScoreDetailFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a ScoreDetail.
+     * @param {ScoreDetailCreateArgs} args - Arguments to create a ScoreDetail.
+     * @example
+     * // Create one ScoreDetail
+     * const ScoreDetail = await prisma.scoreDetail.create({
+     *   data: {
+     *     // ... data to create a ScoreDetail
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ScoreDetailCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ScoreDetailCreateArgs<ExtArgs>>
+    ): Prisma__ScoreDetailClient<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many ScoreDetails.
+     *     @param {ScoreDetailCreateManyArgs} args - Arguments to create many ScoreDetails.
+     *     @example
+     *     // Create many ScoreDetails
+     *     const scoreDetail = await prisma.scoreDetail.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ScoreDetailCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ScoreDetailCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ScoreDetail.
+     * @param {ScoreDetailDeleteArgs} args - Arguments to delete one ScoreDetail.
+     * @example
+     * // Delete one ScoreDetail
+     * const ScoreDetail = await prisma.scoreDetail.delete({
+     *   where: {
+     *     // ... filter to delete one ScoreDetail
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ScoreDetailDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ScoreDetailDeleteArgs<ExtArgs>>
+    ): Prisma__ScoreDetailClient<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one ScoreDetail.
+     * @param {ScoreDetailUpdateArgs} args - Arguments to update one ScoreDetail.
+     * @example
+     * // Update one ScoreDetail
+     * const scoreDetail = await prisma.scoreDetail.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ScoreDetailUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ScoreDetailUpdateArgs<ExtArgs>>
+    ): Prisma__ScoreDetailClient<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more ScoreDetails.
+     * @param {ScoreDetailDeleteManyArgs} args - Arguments to filter ScoreDetails to delete.
+     * @example
+     * // Delete a few ScoreDetails
+     * const { count } = await prisma.scoreDetail.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ScoreDetailDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ScoreDetailDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ScoreDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScoreDetailUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ScoreDetails
+     * const scoreDetail = await prisma.scoreDetail.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ScoreDetailUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ScoreDetailUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ScoreDetail.
+     * @param {ScoreDetailUpsertArgs} args - Arguments to update or create a ScoreDetail.
+     * @example
+     * // Update or create a ScoreDetail
+     * const scoreDetail = await prisma.scoreDetail.upsert({
+     *   create: {
+     *     // ... data to create a ScoreDetail
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ScoreDetail we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ScoreDetailUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ScoreDetailUpsertArgs<ExtArgs>>
+    ): Prisma__ScoreDetailClient<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of ScoreDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScoreDetailCountArgs} args - Arguments to filter ScoreDetails to count.
+     * @example
+     * // Count the number of ScoreDetails
+     * const count = await prisma.scoreDetail.count({
+     *   where: {
+     *     // ... the filter for the ScoreDetails we want to count
+     *   }
+     * })
+    **/
+    count<T extends ScoreDetailCountArgs>(
+      args?: Subset<T, ScoreDetailCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ScoreDetailCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ScoreDetail.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScoreDetailAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ScoreDetailAggregateArgs>(args: Subset<T, ScoreDetailAggregateArgs>): Prisma.PrismaPromise<GetScoreDetailAggregateType<T>>
+
+    /**
+     * Group by ScoreDetail.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScoreDetailGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ScoreDetailGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ScoreDetailGroupByArgs['orderBy'] }
+        : { orderBy?: ScoreDetailGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ScoreDetailGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetScoreDetailGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ScoreDetail model
+   */
+  readonly fields: ScoreDetailFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ScoreDetail.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ScoreDetailClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    owner<T extends ScoreDetail$ownerArgs<ExtArgs> = {}>(args?: Subset<T, ScoreDetail$ownerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the ScoreDetail model
+   */ 
+  interface ScoreDetailFieldRefs {
+    readonly id: FieldRef<"ScoreDetail", 'String'>
+    readonly ownerID: FieldRef<"ScoreDetail", 'String'>
+    readonly weeklyScore: FieldRef<"ScoreDetail", 'Int'>
+    readonly dailyScore: FieldRef<"ScoreDetail", 'Int'>
+    readonly wellbeingScore: FieldRef<"ScoreDetail", 'Int'>
+    readonly setNo: FieldRef<"ScoreDetail", 'String'>
+    readonly assessmentType: FieldRef<"ScoreDetail", 'AssessmentType'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * ScoreDetail findUnique
+   */
+  export type ScoreDetailFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which ScoreDetail to fetch.
+     */
+    where: ScoreDetailWhereUniqueInput
+  }
+
+
+  /**
+   * ScoreDetail findUniqueOrThrow
+   */
+  export type ScoreDetailFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which ScoreDetail to fetch.
+     */
+    where: ScoreDetailWhereUniqueInput
+  }
+
+
+  /**
+   * ScoreDetail findFirst
+   */
+  export type ScoreDetailFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which ScoreDetail to fetch.
+     */
+    where?: ScoreDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScoreDetails to fetch.
+     */
+    orderBy?: ScoreDetailOrderByWithRelationInput | ScoreDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ScoreDetails.
+     */
+    cursor?: ScoreDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScoreDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScoreDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ScoreDetails.
+     */
+    distinct?: ScoreDetailScalarFieldEnum | ScoreDetailScalarFieldEnum[]
+  }
+
+
+  /**
+   * ScoreDetail findFirstOrThrow
+   */
+  export type ScoreDetailFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which ScoreDetail to fetch.
+     */
+    where?: ScoreDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScoreDetails to fetch.
+     */
+    orderBy?: ScoreDetailOrderByWithRelationInput | ScoreDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ScoreDetails.
+     */
+    cursor?: ScoreDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScoreDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScoreDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ScoreDetails.
+     */
+    distinct?: ScoreDetailScalarFieldEnum | ScoreDetailScalarFieldEnum[]
+  }
+
+
+  /**
+   * ScoreDetail findMany
+   */
+  export type ScoreDetailFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which ScoreDetails to fetch.
+     */
+    where?: ScoreDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScoreDetails to fetch.
+     */
+    orderBy?: ScoreDetailOrderByWithRelationInput | ScoreDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ScoreDetails.
+     */
+    cursor?: ScoreDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScoreDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScoreDetails.
+     */
+    skip?: number
+    distinct?: ScoreDetailScalarFieldEnum | ScoreDetailScalarFieldEnum[]
+  }
+
+
+  /**
+   * ScoreDetail create
+   */
+  export type ScoreDetailCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ScoreDetail.
+     */
+    data?: XOR<ScoreDetailCreateInput, ScoreDetailUncheckedCreateInput>
+  }
+
+
+  /**
+   * ScoreDetail createMany
+   */
+  export type ScoreDetailCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ScoreDetails.
+     */
+    data: ScoreDetailCreateManyInput | ScoreDetailCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ScoreDetail update
+   */
+  export type ScoreDetailUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ScoreDetail.
+     */
+    data: XOR<ScoreDetailUpdateInput, ScoreDetailUncheckedUpdateInput>
+    /**
+     * Choose, which ScoreDetail to update.
+     */
+    where: ScoreDetailWhereUniqueInput
+  }
+
+
+  /**
+   * ScoreDetail updateMany
+   */
+  export type ScoreDetailUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ScoreDetails.
+     */
+    data: XOR<ScoreDetailUpdateManyMutationInput, ScoreDetailUncheckedUpdateManyInput>
+    /**
+     * Filter which ScoreDetails to update
+     */
+    where?: ScoreDetailWhereInput
+  }
+
+
+  /**
+   * ScoreDetail upsert
+   */
+  export type ScoreDetailUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ScoreDetail to update in case it exists.
+     */
+    where: ScoreDetailWhereUniqueInput
+    /**
+     * In case the ScoreDetail found by the `where` argument doesn't exist, create a new ScoreDetail with this data.
+     */
+    create: XOR<ScoreDetailCreateInput, ScoreDetailUncheckedCreateInput>
+    /**
+     * In case the ScoreDetail was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ScoreDetailUpdateInput, ScoreDetailUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ScoreDetail delete
+   */
+  export type ScoreDetailDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    /**
+     * Filter which ScoreDetail to delete.
+     */
+    where: ScoreDetailWhereUniqueInput
+  }
+
+
+  /**
+   * ScoreDetail deleteMany
+   */
+  export type ScoreDetailDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ScoreDetails to delete
+     */
+    where?: ScoreDetailWhereInput
+  }
+
+
+  /**
+   * ScoreDetail.owner
+   */
+  export type ScoreDetail$ownerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+
+  /**
+   * ScoreDetail without action
+   */
+  export type ScoreDetailDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -8489,6 +9605,19 @@ export namespace Prisma {
   };
 
   export type AssessmentScalarFieldEnum = (typeof AssessmentScalarFieldEnum)[keyof typeof AssessmentScalarFieldEnum]
+
+
+  export const ScoreDetailScalarFieldEnum: {
+    id: 'id',
+    ownerID: 'ownerID',
+    weeklyScore: 'weeklyScore',
+    dailyScore: 'dailyScore',
+    wellbeingScore: 'wellbeingScore',
+    setNo: 'setNo',
+    assessmentType: 'assessmentType'
+  };
+
+  export type ScoreDetailScalarFieldEnum = (typeof ScoreDetailScalarFieldEnum)[keyof typeof ScoreDetailScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8678,6 +9807,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -9120,6 +10263,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: CompanyCirclesListRelationFilter
     userCircles?: UserCirclesListRelationFilter
     otherUserCirclesIn?: UserCirclesListRelationFilter
+    listOfScoreDetail?: ScoreDetailListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9161,6 +10305,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: CompanyCirclesOrderByRelationAggregateInput
     userCircles?: UserCirclesOrderByRelationAggregateInput
     otherUserCirclesIn?: UserCirclesOrderByRelationAggregateInput
+    listOfScoreDetail?: ScoreDetailOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9205,6 +10350,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: CompanyCirclesListRelationFilter
     userCircles?: UserCirclesListRelationFilter
     otherUserCirclesIn?: UserCirclesListRelationFilter
+    listOfScoreDetail?: ScoreDetailListRelationFilter
   }, "id" | "id" | "email" | "phoneNumber" | "passwordResetCode" | "verificationCode" | "addedBy">
 
   export type UserOrderByWithAggregationInput = {
@@ -9456,6 +10602,73 @@ export namespace Prisma {
     setQuestions?: StringNullableListFilter<"Assessment">
     createdWeeklyBy?: StringNullableWithAggregatesFilter<"Assessment"> | string | null
     createdCheckinBy?: StringNullableWithAggregatesFilter<"Assessment"> | string | null
+  }
+
+  export type ScoreDetailWhereInput = {
+    AND?: ScoreDetailWhereInput | ScoreDetailWhereInput[]
+    OR?: ScoreDetailWhereInput[]
+    NOT?: ScoreDetailWhereInput | ScoreDetailWhereInput[]
+    id?: StringFilter<"ScoreDetail"> | string
+    ownerID?: StringNullableFilter<"ScoreDetail"> | string | null
+    weeklyScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    dailyScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    wellbeingScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    setNo?: StringNullableFilter<"ScoreDetail"> | string | null
+    assessmentType?: EnumAssessmentTypeNullableFilter<"ScoreDetail"> | $Enums.AssessmentType | null
+    owner?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }
+
+  export type ScoreDetailOrderByWithRelationInput = {
+    id?: SortOrder
+    ownerID?: SortOrderInput | SortOrder
+    weeklyScore?: SortOrderInput | SortOrder
+    dailyScore?: SortOrderInput | SortOrder
+    wellbeingScore?: SortOrderInput | SortOrder
+    setNo?: SortOrderInput | SortOrder
+    assessmentType?: SortOrderInput | SortOrder
+    owner?: UserOrderByWithRelationInput
+  }
+
+  export type ScoreDetailWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    assessmentType?: $Enums.AssessmentType
+    AND?: ScoreDetailWhereInput | ScoreDetailWhereInput[]
+    OR?: ScoreDetailWhereInput[]
+    NOT?: ScoreDetailWhereInput | ScoreDetailWhereInput[]
+    ownerID?: StringNullableFilter<"ScoreDetail"> | string | null
+    weeklyScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    dailyScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    wellbeingScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    setNo?: StringNullableFilter<"ScoreDetail"> | string | null
+    owner?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }, "id" | "id" | "assessmentType">
+
+  export type ScoreDetailOrderByWithAggregationInput = {
+    id?: SortOrder
+    ownerID?: SortOrderInput | SortOrder
+    weeklyScore?: SortOrderInput | SortOrder
+    dailyScore?: SortOrderInput | SortOrder
+    wellbeingScore?: SortOrderInput | SortOrder
+    setNo?: SortOrderInput | SortOrder
+    assessmentType?: SortOrderInput | SortOrder
+    _count?: ScoreDetailCountOrderByAggregateInput
+    _avg?: ScoreDetailAvgOrderByAggregateInput
+    _max?: ScoreDetailMaxOrderByAggregateInput
+    _min?: ScoreDetailMinOrderByAggregateInput
+    _sum?: ScoreDetailSumOrderByAggregateInput
+  }
+
+  export type ScoreDetailScalarWhereWithAggregatesInput = {
+    AND?: ScoreDetailScalarWhereWithAggregatesInput | ScoreDetailScalarWhereWithAggregatesInput[]
+    OR?: ScoreDetailScalarWhereWithAggregatesInput[]
+    NOT?: ScoreDetailScalarWhereWithAggregatesInput | ScoreDetailScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ScoreDetail"> | string
+    ownerID?: StringNullableWithAggregatesFilter<"ScoreDetail"> | string | null
+    weeklyScore?: IntNullableWithAggregatesFilter<"ScoreDetail"> | number | null
+    dailyScore?: IntNullableWithAggregatesFilter<"ScoreDetail"> | number | null
+    wellbeingScore?: IntNullableWithAggregatesFilter<"ScoreDetail"> | number | null
+    setNo?: StringNullableWithAggregatesFilter<"ScoreDetail"> | string | null
+    assessmentType?: EnumAssessmentTypeNullableWithAggregatesFilter<"ScoreDetail"> | $Enums.AssessmentType | null
   }
 
   export type EmpyloUserCreateInput = {
@@ -9991,6 +11204,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: CompanyCirclesCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
     otherUserCirclesIn?: UserCirclesCreateNestedManyWithoutMemberListInput
+    listOfScoreDetail?: ScoreDetailCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10031,6 +11245,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: CompanyCirclesUncheckedCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
     otherUserCirclesIn?: UserCirclesUncheckedCreateNestedManyWithoutMemberListInput
+    listOfScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUpdateInput = {
@@ -10071,6 +11286,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: CompanyCirclesUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
     otherUserCirclesIn?: UserCirclesUpdateManyWithoutMemberListNestedInput
+    listOfScoreDetail?: ScoreDetailUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10111,6 +11327,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: CompanyCirclesUncheckedUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
     otherUserCirclesIn?: UserCirclesUncheckedUpdateManyWithoutMemberListNestedInput
+    listOfScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10411,6 +11628,75 @@ export namespace Prisma {
     setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
     createdWeeklyBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdCheckinBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ScoreDetailCreateInput = {
+    id?: string
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    owner?: UserCreateNestedOneWithoutListOfScoreDetailInput
+  }
+
+  export type ScoreDetailUncheckedCreateInput = {
+    id?: string
+    ownerID?: string | null
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+  }
+
+  export type ScoreDetailUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    owner?: UserUpdateOneWithoutListOfScoreDetailNestedInput
+  }
+
+  export type ScoreDetailUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerID?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+  }
+
+  export type ScoreDetailCreateManyInput = {
+    id?: string
+    ownerID?: string | null
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+  }
+
+  export type ScoreDetailUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+  }
+
+  export type ScoreDetailUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerID?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -10882,7 +12168,17 @@ export namespace Prisma {
     none?: UserCirclesWhereInput
   }
 
+  export type ScoreDetailListRelationFilter = {
+    every?: ScoreDetailWhereInput
+    some?: ScoreDetailWhereInput
+    none?: ScoreDetailWhereInput
+  }
+
   export type UserCirclesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ScoreDetailOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11111,6 +12407,75 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
     _max?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type ScoreDetailCountOrderByAggregateInput = {
+    id?: SortOrder
+    ownerID?: SortOrder
+    weeklyScore?: SortOrder
+    dailyScore?: SortOrder
+    wellbeingScore?: SortOrder
+    setNo?: SortOrder
+    assessmentType?: SortOrder
+  }
+
+  export type ScoreDetailAvgOrderByAggregateInput = {
+    weeklyScore?: SortOrder
+    dailyScore?: SortOrder
+    wellbeingScore?: SortOrder
+  }
+
+  export type ScoreDetailMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ownerID?: SortOrder
+    weeklyScore?: SortOrder
+    dailyScore?: SortOrder
+    wellbeingScore?: SortOrder
+    setNo?: SortOrder
+    assessmentType?: SortOrder
+  }
+
+  export type ScoreDetailMinOrderByAggregateInput = {
+    id?: SortOrder
+    ownerID?: SortOrder
+    weeklyScore?: SortOrder
+    dailyScore?: SortOrder
+    wellbeingScore?: SortOrder
+    setNo?: SortOrder
+    assessmentType?: SortOrder
+  }
+
+  export type ScoreDetailSumOrderByAggregateInput = {
+    weeklyScore?: SortOrder
+    dailyScore?: SortOrder
+    wellbeingScore?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EmpyloUserCreatepermissionsInput = {
@@ -11409,6 +12774,13 @@ export namespace Prisma {
     connect?: UserCirclesWhereUniqueInput | UserCirclesWhereUniqueInput[]
   }
 
+  export type ScoreDetailCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<ScoreDetailCreateWithoutOwnerInput, ScoreDetailUncheckedCreateWithoutOwnerInput> | ScoreDetailCreateWithoutOwnerInput[] | ScoreDetailUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutOwnerInput | ScoreDetailCreateOrConnectWithoutOwnerInput[]
+    createMany?: ScoreDetailCreateManyOwnerInputEnvelope
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+  }
+
   export type CompanyCirclesUncheckedCreateNestedManyWithoutMemberListInput = {
     create?: XOR<CompanyCirclesCreateWithoutMemberListInput, CompanyCirclesUncheckedCreateWithoutMemberListInput> | CompanyCirclesCreateWithoutMemberListInput[] | CompanyCirclesUncheckedCreateWithoutMemberListInput[]
     connectOrCreate?: CompanyCirclesCreateOrConnectWithoutMemberListInput | CompanyCirclesCreateOrConnectWithoutMemberListInput[]
@@ -11426,6 +12798,13 @@ export namespace Prisma {
     create?: XOR<UserCirclesCreateWithoutMemberListInput, UserCirclesUncheckedCreateWithoutMemberListInput> | UserCirclesCreateWithoutMemberListInput[] | UserCirclesUncheckedCreateWithoutMemberListInput[]
     connectOrCreate?: UserCirclesCreateOrConnectWithoutMemberListInput | UserCirclesCreateOrConnectWithoutMemberListInput[]
     connect?: UserCirclesWhereUniqueInput | UserCirclesWhereUniqueInput[]
+  }
+
+  export type ScoreDetailUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<ScoreDetailCreateWithoutOwnerInput, ScoreDetailUncheckedCreateWithoutOwnerInput> | ScoreDetailCreateWithoutOwnerInput[] | ScoreDetailUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutOwnerInput | ScoreDetailCreateOrConnectWithoutOwnerInput[]
+    createMany?: ScoreDetailCreateManyOwnerInputEnvelope
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
   }
 
   export type EnumUserAccountFieldUpdateOperationsInput = {
@@ -11482,6 +12861,20 @@ export namespace Prisma {
     deleteMany?: UserCirclesScalarWhereInput | UserCirclesScalarWhereInput[]
   }
 
+  export type ScoreDetailUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<ScoreDetailCreateWithoutOwnerInput, ScoreDetailUncheckedCreateWithoutOwnerInput> | ScoreDetailCreateWithoutOwnerInput[] | ScoreDetailUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutOwnerInput | ScoreDetailCreateOrConnectWithoutOwnerInput[]
+    upsert?: ScoreDetailUpsertWithWhereUniqueWithoutOwnerInput | ScoreDetailUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: ScoreDetailCreateManyOwnerInputEnvelope
+    set?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    disconnect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    delete?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    update?: ScoreDetailUpdateWithWhereUniqueWithoutOwnerInput | ScoreDetailUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: ScoreDetailUpdateManyWithWhereWithoutOwnerInput | ScoreDetailUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
+  }
+
   export type CompanyCirclesUncheckedUpdateManyWithoutMemberListNestedInput = {
     create?: XOR<CompanyCirclesCreateWithoutMemberListInput, CompanyCirclesUncheckedCreateWithoutMemberListInput> | CompanyCirclesCreateWithoutMemberListInput[] | CompanyCirclesUncheckedCreateWithoutMemberListInput[]
     connectOrCreate?: CompanyCirclesCreateOrConnectWithoutMemberListInput | CompanyCirclesCreateOrConnectWithoutMemberListInput[]
@@ -11520,6 +12913,20 @@ export namespace Prisma {
     update?: UserCirclesUpdateWithWhereUniqueWithoutMemberListInput | UserCirclesUpdateWithWhereUniqueWithoutMemberListInput[]
     updateMany?: UserCirclesUpdateManyWithWhereWithoutMemberListInput | UserCirclesUpdateManyWithWhereWithoutMemberListInput[]
     deleteMany?: UserCirclesScalarWhereInput | UserCirclesScalarWhereInput[]
+  }
+
+  export type ScoreDetailUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<ScoreDetailCreateWithoutOwnerInput, ScoreDetailUncheckedCreateWithoutOwnerInput> | ScoreDetailCreateWithoutOwnerInput[] | ScoreDetailUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutOwnerInput | ScoreDetailCreateOrConnectWithoutOwnerInput[]
+    upsert?: ScoreDetailUpsertWithWhereUniqueWithoutOwnerInput | ScoreDetailUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: ScoreDetailCreateManyOwnerInputEnvelope
+    set?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    disconnect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    delete?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    update?: ScoreDetailUpdateWithWhereUniqueWithoutOwnerInput | ScoreDetailUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: ScoreDetailUpdateManyWithWhereWithoutOwnerInput | ScoreDetailUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutUserCirclesInput = {
@@ -11619,6 +13026,30 @@ export namespace Prisma {
     delete?: EmpyloUserWhereInput | boolean
     connect?: EmpyloUserWhereUniqueInput
     update?: XOR<XOR<EmpyloUserUpdateToOneWithWhereWithoutCheckinAssessmentInput, EmpyloUserUpdateWithoutCheckinAssessmentInput>, EmpyloUserUncheckedUpdateWithoutCheckinAssessmentInput>
+  }
+
+  export type UserCreateNestedOneWithoutListOfScoreDetailInput = {
+    create?: XOR<UserCreateWithoutListOfScoreDetailInput, UserUncheckedCreateWithoutListOfScoreDetailInput>
+    connectOrCreate?: UserCreateOrConnectWithoutListOfScoreDetailInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneWithoutListOfScoreDetailNestedInput = {
+    create?: XOR<UserCreateWithoutListOfScoreDetailInput, UserUncheckedCreateWithoutListOfScoreDetailInput>
+    connectOrCreate?: UserCreateOrConnectWithoutListOfScoreDetailInput
+    upsert?: UserUpsertWithoutListOfScoreDetailInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutListOfScoreDetailInput, UserUpdateWithoutListOfScoreDetailInput>, UserUncheckedUpdateWithoutListOfScoreDetailInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -11879,6 +13310,33 @@ export namespace Prisma {
     _max?: NestedEnumAssessmentTypeNullableFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type AssessmentCreateWithoutEmpyloUserInput = {
     id?: string
     created_at?: Date | string | null
@@ -12017,6 +13475,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: CompanyCirclesCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
     otherUserCirclesIn?: UserCirclesCreateNestedManyWithoutMemberListInput
+    listOfScoreDetail?: ScoreDetailCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutCompanyUserInput = {
@@ -12056,6 +13515,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: CompanyCirclesUncheckedCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
     otherUserCirclesIn?: UserCirclesUncheckedCreateNestedManyWithoutMemberListInput
+    listOfScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutCompanyUserInput = {
@@ -12303,6 +13763,7 @@ export namespace Prisma {
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
     otherUserCirclesIn?: UserCirclesCreateNestedManyWithoutMemberListInput
+    listOfScoreDetail?: ScoreDetailCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutCoyCircleAttachedToInput = {
@@ -12342,6 +13803,7 @@ export namespace Prisma {
     socialProvider?: string | null
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
     otherUserCirclesIn?: UserCirclesUncheckedCreateNestedManyWithoutMemberListInput
+    listOfScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutCoyCircleAttachedToInput = {
@@ -12621,6 +14083,34 @@ export namespace Prisma {
     create: XOR<UserCirclesCreateWithoutMemberListInput, UserCirclesUncheckedCreateWithoutMemberListInput>
   }
 
+  export type ScoreDetailCreateWithoutOwnerInput = {
+    id?: string
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+  }
+
+  export type ScoreDetailUncheckedCreateWithoutOwnerInput = {
+    id?: string
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+  }
+
+  export type ScoreDetailCreateOrConnectWithoutOwnerInput = {
+    where: ScoreDetailWhereUniqueInput
+    create: XOR<ScoreDetailCreateWithoutOwnerInput, ScoreDetailUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type ScoreDetailCreateManyOwnerInputEnvelope = {
+    data: ScoreDetailCreateManyOwnerInput | ScoreDetailCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CompanyUserUpsertWithoutMembersListInput = {
     update: XOR<CompanyUserUpdateWithoutMembersListInput, CompanyUserUncheckedUpdateWithoutMembersListInput>
     create: XOR<CompanyUserCreateWithoutMembersListInput, CompanyUserUncheckedCreateWithoutMembersListInput>
@@ -12760,6 +14250,35 @@ export namespace Prisma {
     data: XOR<UserCirclesUpdateManyMutationInput, UserCirclesUncheckedUpdateManyWithoutMemberListInput>
   }
 
+  export type ScoreDetailUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: ScoreDetailWhereUniqueInput
+    update: XOR<ScoreDetailUpdateWithoutOwnerInput, ScoreDetailUncheckedUpdateWithoutOwnerInput>
+    create: XOR<ScoreDetailCreateWithoutOwnerInput, ScoreDetailUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type ScoreDetailUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: ScoreDetailWhereUniqueInput
+    data: XOR<ScoreDetailUpdateWithoutOwnerInput, ScoreDetailUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type ScoreDetailUpdateManyWithWhereWithoutOwnerInput = {
+    where: ScoreDetailScalarWhereInput
+    data: XOR<ScoreDetailUpdateManyMutationInput, ScoreDetailUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type ScoreDetailScalarWhereInput = {
+    AND?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
+    OR?: ScoreDetailScalarWhereInput[]
+    NOT?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
+    id?: StringFilter<"ScoreDetail"> | string
+    ownerID?: StringNullableFilter<"ScoreDetail"> | string | null
+    weeklyScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    dailyScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    wellbeingScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    setNo?: StringNullableFilter<"ScoreDetail"> | string | null
+    assessmentType?: EnumAssessmentTypeNullableFilter<"ScoreDetail"> | $Enums.AssessmentType | null
+  }
+
   export type UserCreateWithoutUserCirclesInput = {
     id?: string
     email: string
@@ -12797,6 +14316,7 @@ export namespace Prisma {
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
     coyCircleAttachedTo?: CompanyCirclesCreateNestedManyWithoutMemberListInput
     otherUserCirclesIn?: UserCirclesCreateNestedManyWithoutMemberListInput
+    listOfScoreDetail?: ScoreDetailCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutUserCirclesInput = {
@@ -12836,6 +14356,7 @@ export namespace Prisma {
     socialProvider?: string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedCreateNestedManyWithoutMemberListInput
     otherUserCirclesIn?: UserCirclesUncheckedCreateNestedManyWithoutMemberListInput
+    listOfScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutUserCirclesInput = {
@@ -12880,6 +14401,7 @@ export namespace Prisma {
     companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
     coyCircleAttachedTo?: CompanyCirclesCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesCreateNestedManyWithoutUserInput
+    listOfScoreDetail?: ScoreDetailCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutOtherUserCirclesInInput = {
@@ -12919,6 +14441,7 @@ export namespace Prisma {
     socialProvider?: string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedCreateNestedManyWithoutMemberListInput
     userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
+    listOfScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutOtherUserCirclesInInput = {
@@ -12974,6 +14497,7 @@ export namespace Prisma {
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
     coyCircleAttachedTo?: CompanyCirclesUpdateManyWithoutMemberListNestedInput
     otherUserCirclesIn?: UserCirclesUpdateManyWithoutMemberListNestedInput
+    listOfScoreDetail?: ScoreDetailUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserCirclesInput = {
@@ -13013,6 +14537,7 @@ export namespace Prisma {
     socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedUpdateManyWithoutMemberListNestedInput
     otherUserCirclesIn?: UserCirclesUncheckedUpdateManyWithoutMemberListNestedInput
+    listOfScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutOtherUserCirclesInInput = {
@@ -13255,6 +14780,182 @@ export namespace Prisma {
     weeklyAssessment?: AssessmentUncheckedUpdateManyWithoutEmpyloUserNestedInput
   }
 
+  export type UserCreateWithoutListOfScoreDetailInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: $Enums.MaitalStatus | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
+    companyUser?: CompanyUserCreateNestedOneWithoutMembersListInput
+    coyCircleAttachedTo?: CompanyCirclesCreateNestedManyWithoutMemberListInput
+    userCircles?: UserCirclesCreateNestedManyWithoutUserInput
+    otherUserCirclesIn?: UserCirclesCreateNestedManyWithoutMemberListInput
+  }
+
+  export type UserUncheckedCreateWithoutListOfScoreDetailInput = {
+    id?: string
+    email: string
+    created_at?: Date | string | null
+    firstName?: string | null
+    lastName?: string | null
+    phoneNumber?: string | null
+    ageRange?: string | null
+    ethnicity?: string | null
+    gender?: $Enums.UserGender | null
+    maritalStatus?: $Enums.MaitalStatus | null
+    disability?: string | null
+    DOB?: string | null
+    accountType?: $Enums.UserAccount
+    department?: string | null
+    jobRole?: string | null
+    password?: string | null
+    role?: $Enums.SystemRole
+    passwordResetCode?: string | null
+    createdBy?: string | null
+    lastLogin?: Date | string | null
+    passportImg?: string | null
+    isActive?: boolean | null
+    updated_at?: Date | string | null
+    isEmailVerified?: boolean | null
+    verificationCode?: string | null
+    status?: $Enums.UserStatus
+    address?: string | null
+    bio?: string | null
+    emailNotification?: boolean | null
+    campaignNtification?: boolean | null
+    termsConditions?: boolean | null
+    addedBy?: string | null
+    socialId?: string | null
+    socialProvider?: string | null
+    coyCircleAttachedTo?: CompanyCirclesUncheckedCreateNestedManyWithoutMemberListInput
+    userCircles?: UserCirclesUncheckedCreateNestedManyWithoutUserInput
+    otherUserCirclesIn?: UserCirclesUncheckedCreateNestedManyWithoutMemberListInput
+  }
+
+  export type UserCreateOrConnectWithoutListOfScoreDetailInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutListOfScoreDetailInput, UserUncheckedCreateWithoutListOfScoreDetailInput>
+  }
+
+  export type UserUpsertWithoutListOfScoreDetailInput = {
+    update: XOR<UserUpdateWithoutListOfScoreDetailInput, UserUncheckedUpdateWithoutListOfScoreDetailInput>
+    create: XOR<UserCreateWithoutListOfScoreDetailInput, UserUncheckedCreateWithoutListOfScoreDetailInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutListOfScoreDetailInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutListOfScoreDetailInput, UserUncheckedUpdateWithoutListOfScoreDetailInput>
+  }
+
+  export type UserUpdateWithoutListOfScoreDetailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
+    coyCircleAttachedTo?: CompanyCirclesUpdateManyWithoutMemberListNestedInput
+    userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
+    otherUserCirclesIn?: UserCirclesUpdateManyWithoutMemberListNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutListOfScoreDetailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    DOB?: NullableStringFieldUpdateOperationsInput | string | null
+    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    jobRole?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumSystemRoleFieldUpdateOperationsInput | $Enums.SystemRole
+    passwordResetCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passportImg?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isEmailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    verificationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    emailNotification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    campaignNtification?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    termsConditions?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    addedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    socialId?: NullableStringFieldUpdateOperationsInput | string | null
+    socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleAttachedTo?: CompanyCirclesUncheckedUpdateManyWithoutMemberListNestedInput
+    userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
+    otherUserCirclesIn?: UserCirclesUncheckedUpdateManyWithoutMemberListNestedInput
+  }
+
   export type AssessmentCreateManyEmpyloUserInput = {
     id?: string
     created_at?: Date | string | null
@@ -13415,6 +15116,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: CompanyCirclesUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
     otherUserCirclesIn?: UserCirclesUpdateManyWithoutMemberListNestedInput
+    listOfScoreDetail?: ScoreDetailUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyUserInput = {
@@ -13454,6 +15156,7 @@ export namespace Prisma {
     coyCircleAttachedTo?: CompanyCirclesUncheckedUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
     otherUserCirclesIn?: UserCirclesUncheckedUpdateManyWithoutMemberListNestedInput
+    listOfScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCompanyUserInput = {
@@ -13576,6 +15279,7 @@ export namespace Prisma {
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
     otherUserCirclesIn?: UserCirclesUpdateManyWithoutMemberListNestedInput
+    listOfScoreDetail?: ScoreDetailUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCoyCircleAttachedToInput = {
@@ -13615,6 +15319,7 @@ export namespace Prisma {
     socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
     otherUserCirclesIn?: UserCirclesUncheckedUpdateManyWithoutMemberListNestedInput
+    listOfScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCoyCircleAttachedToInput = {
@@ -13668,6 +15373,15 @@ export namespace Prisma {
     userCircleStatus?: $Enums.UserStatus
     userCircleNos?: string | null
     circleStatus?: $Enums.CircleStatus | null
+  }
+
+  export type ScoreDetailCreateManyOwnerInput = {
+    id?: string
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
   }
 
   export type CompanyCirclesUpdateWithoutMemberListInput = {
@@ -13819,6 +15533,33 @@ export namespace Prisma {
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
   }
 
+  export type ScoreDetailUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+  }
+
+  export type ScoreDetailUncheckedUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+  }
+
+  export type ScoreDetailUncheckedUpdateManyWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+  }
+
   export type UserUpdateWithoutOtherUserCirclesInInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -13856,6 +15597,7 @@ export namespace Prisma {
     companyUser?: CompanyUserUpdateOneWithoutMembersListNestedInput
     coyCircleAttachedTo?: CompanyCirclesUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUpdateManyWithoutUserNestedInput
+    listOfScoreDetail?: ScoreDetailUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOtherUserCirclesInInput = {
@@ -13895,6 +15637,7 @@ export namespace Prisma {
     socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
     coyCircleAttachedTo?: CompanyCirclesUncheckedUpdateManyWithoutMemberListNestedInput
     userCircles?: UserCirclesUncheckedUpdateManyWithoutUserNestedInput
+    listOfScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOtherUserCirclesInInput = {
@@ -13983,6 +15726,10 @@ export namespace Prisma {
      * @deprecated Use AssessmentDefaultArgs instead
      */
     export type AssessmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AssessmentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ScoreDetailDefaultArgs instead
+     */
+    export type ScoreDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ScoreDetailDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
