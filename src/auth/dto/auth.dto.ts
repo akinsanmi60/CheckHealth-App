@@ -102,12 +102,12 @@ export class GettingStartedUpdateProfileDto {
 
   @ApiProperty()
   @IsAlpha()
-  @IsNotEmpty({ message: "Ethnicity cannot be empty." })
+  // @IsNotEmpty({ message: "Ethnicity cannot be empty." })
   ethnicity: string;
 
   @ApiProperty()
   @IsAlpha()
-  @IsNotEmpty({ message: "Marital status cannot be empty." })
+  // @IsNotEmpty({ message: "Marital status cannot be empty." })
   maritalStatus: string;
 
   @ApiProperty()
@@ -132,17 +132,17 @@ export class GettingStartedUpdateProfileDto {
 
   @ApiProperty()
   @IsAlpha()
-  @IsNotEmpty({ message: "Date of birth cannot be empty." })
+  // @IsNotEmpty({ message: "Date of birth cannot be empty." })
   DOB: string;
 
   @ApiProperty()
   @IsAlpha()
-  @IsNotEmpty({ message: "Address cannot be empty." })
+  // @IsNotEmpty({ message: "Address cannot be empty." })
   address: string;
 
   @ApiProperty()
   @IsAlpha()
-  @IsNotEmpty({ message: "Disability cannot be empty." })
+  // @IsNotEmpty({ message: "Disability cannot be empty." })
   disability: string;
 }
 

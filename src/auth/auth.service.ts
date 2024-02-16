@@ -20,7 +20,11 @@ import * as crypto from "crypto";
 import { PasswordService } from "./password.service";
 import { MailService } from "../mail/mail.service";
 import { ResponseInterceptor } from "../filter/responseFilter/respone.service";
-import { UserGender, UserAccount } from "../../prisma/generated/client";
+import {
+  UserGender,
+  UserAccount,
+  MaitalStatus,
+} from "../../prisma/generated/client";
 import { AuthResolver } from "./authFinder.service";
 import { Users } from "src/types/appModel.type";
 
@@ -85,24 +89,44 @@ export class AuthService {
     dto: GettingStartedUpdateProfileDto,
     file: Express.Multer.File,
   ) {
-    const data = {
-      firstName: dto.firstName,
-      accountType: dto.accountType as string as UserAccount,
-      lastName: dto.lastName,
-      ethnicity: dto.ethnicity,
-      maritalStatus: dto.maritalStatus,
-      department: dto.department,
-      jobRole: dto.jobRole,
-      gender: dto.gender as string as UserGender,
-      address: dto.address,
-      DOB: dto.DOB,
-      ageRange: dto.ageRange,
-      disability: dto.disability,
-      passportImg: file.filename,
-    };
+    if (
+      dto.accountType === "" ||
+      dto.accountType === undefined ||
+      dto.accountType === null
+    ) {
+      throw new BadRequestException("account type is required");
+    }
+
+    let saveData = {} as Partial<Users>;
+
+    if (dto.accountType === "personalUser") {
+      saveData = {
+        firstName: dto.firstName,
+        lastName: dto.lastName,
+        gender: dto.gender as string as UserGender,
+        address: dto.address,
+        passportImg: file.filename,
+      };
+    } else if (dto.accountType === "clientUser") {
+      saveData = {
+        firstName: dto.firstName,
+        accountType: dto.accountType as string as UserAccount,
+        lastName: dto.lastName,
+        ethnicity: dto.ethnicity,
+        maritalStatus: dto.maritalStatus as string as MaitalStatus,
+        department: dto.department,
+        jobRole: dto.jobRole,
+        gender: dto.gender as string as UserGender,
+        address: dto.address,
+        DOB: dto.DOB,
+        ageRange: dto.ageRange,
+        disability: dto.disability,
+        passportImg: file.filename,
+      };
+    }
 
     const updatedUser = (await this.authResolver.findAndUpdateField(
-      data,
+      saveData,
       "user",
       "id",
       id,
