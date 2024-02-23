@@ -37,8 +37,8 @@ export class AssessmentController {
   constructor(private readonly assessmentService: AssessmentService) {}
 
   @Get("getLatestWeeklyAssessment")
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin, Role.user)
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Roles(Role.admin, Role.superAdmin, Role.user)
   @ApiResponse({
     type: AssessmentResponseDto,
   })

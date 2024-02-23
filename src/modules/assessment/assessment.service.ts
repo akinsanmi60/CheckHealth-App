@@ -87,8 +87,8 @@ export class AssessmentService {
 
     const timeDifferenceInHours = await this.checkAsessmentValidity(assessment);
 
-    if (timeDifferenceInHours >= 48) {
-      // If the assessment is older than 24 hours, return null
+    if (timeDifferenceInHours >= 144) {
+      // If the assessment is older than 144 hours, return null
       return {
         message: "Weekly assessment found but older than 24 hours",
         data: null,
@@ -315,17 +315,25 @@ export class AssessmentService {
     return timeDifferenceInHours;
   }
 
-  async weeklyAssessmentCalculate(id: string, dto: CalculateDto) {
+  async weeklyAssessmentCalculate(
+    userId: string,
+    assessmentId: string,
+    dto: CalculateDto,
+  ) {
     const { scoreOnAttempt, setNo, assessmentType } = dto;
 
     const assessmentCheck = await this.prisma.assessment.findUnique({
       where: {
-        setNo: setNo,
+        id: assessmentId,
       },
     });
 
     if (!assessmentCheck) {
       throw new BadRequestException("Assessment not found");
+    }
+
+    if (assessmentCheck.setNo !== setNo) {
+      throw new BadRequestException("Set number does not match");
     }
 
     if (assessmentCheck.assessmentType !== assessmentType) {
@@ -340,7 +348,7 @@ export class AssessmentService {
         weeklyScore: weeklyScore,
         owner: {
           connect: {
-            id: id,
+            id: userId,
           },
         },
         assessmentType: assessmentType,
@@ -349,5 +357,63 @@ export class AssessmentService {
     });
 
     return scoreInserted;
+  }
+
+  async dailyCheckinkAssessmentCalculate(
+    userId: string,
+    assessmentId: string,
+    dto: CalculateDto,
+  ) {
+    const { scoreOnAttempt, setNo, assessmentType } = dto;
+    const currentDate = new Date();
+    const startOfCurrentWeek = new Date(
+      currentDate.setDate(currentDate.getDate() - currentDate.getDay()),
+    ).toISOString(); // Move back to Sunday
+    const endOfCurrentWeek = new Date(
+      currentDate.setDate(currentDate.getDate() + 6),
+    ).toISOString(); // Add 6 days to get Saturday
+
+    console.log(startOfCurrentWeek, "start");
+    console.log(endOfCurrentWeek, "end");
+
+    const [assessmentCheck, scoreInserted] = await Promise.all([
+      await this.prisma.assessment.findUnique({
+        where: {
+          id: assessmentId,
+        },
+      }),
+      this.prisma.scoreDetail.findFirst({
+        where: {
+          ownerID: userId,
+          created_at: {
+            gte: startOfCurrentWeek,
+            lt: endOfCurrentWeek,
+          },
+        },
+        orderBy: {
+          created_at: "desc",
+        },
+      }),
+    ]);
+
+    if (!scoreInserted) {
+      throw new BadRequestException("Please take your weekly assessment first");
+    }
+
+    if (!assessmentCheck) {
+      throw new BadRequestException("Assessment not found");
+    }
+
+    if (assessmentCheck.setNo !== setNo) {
+      throw new BadRequestException("Set number does not match");
+    }
+
+    if (assessmentCheck.assessmentType !== assessmentType) {
+      throw new BadRequestException("Assessment type does not match");
+    }
+
+    const weeklyScore = scoreOnAttempt ? Number(scoreOnAttempt) * 2.2 : 0;
+
+    return scoreInserted && weeklyScore;
   }
 }

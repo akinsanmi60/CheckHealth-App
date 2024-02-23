@@ -8477,6 +8477,7 @@ export namespace Prisma {
     wellbeingScore: number | null
     setNo: string | null
     assessmentType: $Enums.AssessmentType | null
+    created_at: Date | null
   }
 
   export type ScoreDetailMaxAggregateOutputType = {
@@ -8487,6 +8488,7 @@ export namespace Prisma {
     wellbeingScore: number | null
     setNo: string | null
     assessmentType: $Enums.AssessmentType | null
+    created_at: Date | null
   }
 
   export type ScoreDetailCountAggregateOutputType = {
@@ -8497,6 +8499,7 @@ export namespace Prisma {
     wellbeingScore: number
     setNo: number
     assessmentType: number
+    created_at: number
     _all: number
   }
 
@@ -8521,6 +8524,7 @@ export namespace Prisma {
     wellbeingScore?: true
     setNo?: true
     assessmentType?: true
+    created_at?: true
   }
 
   export type ScoreDetailMaxAggregateInputType = {
@@ -8531,6 +8535,7 @@ export namespace Prisma {
     wellbeingScore?: true
     setNo?: true
     assessmentType?: true
+    created_at?: true
   }
 
   export type ScoreDetailCountAggregateInputType = {
@@ -8541,6 +8546,7 @@ export namespace Prisma {
     wellbeingScore?: true
     setNo?: true
     assessmentType?: true
+    created_at?: true
     _all?: true
   }
 
@@ -8638,6 +8644,7 @@ export namespace Prisma {
     wellbeingScore: number | null
     setNo: string | null
     assessmentType: $Enums.AssessmentType | null
+    created_at: Date | null
     _count: ScoreDetailCountAggregateOutputType | null
     _avg: ScoreDetailAvgAggregateOutputType | null
     _sum: ScoreDetailSumAggregateOutputType | null
@@ -8667,6 +8674,7 @@ export namespace Prisma {
     wellbeingScore?: boolean
     setNo?: boolean
     assessmentType?: boolean
+    created_at?: boolean
     owner?: boolean | ScoreDetail$ownerArgs<ExtArgs>
   }, ExtArgs["result"]["scoreDetail"]>
 
@@ -8678,6 +8686,7 @@ export namespace Prisma {
     wellbeingScore?: boolean
     setNo?: boolean
     assessmentType?: boolean
+    created_at?: boolean
   }
 
   export type ScoreDetailInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8698,6 +8707,7 @@ export namespace Prisma {
       wellbeingScore: number | null
       setNo: string | null
       assessmentType: $Enums.AssessmentType | null
+      created_at: Date | null
     }, ExtArgs["result"]["scoreDetail"]>
     composites: {}
   }
@@ -9100,6 +9110,7 @@ export namespace Prisma {
     readonly wellbeingScore: FieldRef<"ScoreDetail", 'Int'>
     readonly setNo: FieldRef<"ScoreDetail", 'String'>
     readonly assessmentType: FieldRef<"ScoreDetail", 'AssessmentType'>
+    readonly created_at: FieldRef<"ScoreDetail", 'DateTime'>
   }
     
 
@@ -9614,7 +9625,8 @@ export namespace Prisma {
     dailyScore: 'dailyScore',
     wellbeingScore: 'wellbeingScore',
     setNo: 'setNo',
-    assessmentType: 'assessmentType'
+    assessmentType: 'assessmentType',
+    created_at: 'created_at'
   };
 
   export type ScoreDetailScalarFieldEnum = (typeof ScoreDetailScalarFieldEnum)[keyof typeof ScoreDetailScalarFieldEnum]
@@ -10615,6 +10627,7 @@ export namespace Prisma {
     wellbeingScore?: IntNullableFilter<"ScoreDetail"> | number | null
     setNo?: StringNullableFilter<"ScoreDetail"> | string | null
     assessmentType?: EnumAssessmentTypeNullableFilter<"ScoreDetail"> | $Enums.AssessmentType | null
+    created_at?: DateTimeNullableFilter<"ScoreDetail"> | Date | string | null
     owner?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }
 
@@ -10626,6 +10639,7 @@ export namespace Prisma {
     wellbeingScore?: SortOrderInput | SortOrder
     setNo?: SortOrderInput | SortOrder
     assessmentType?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
     owner?: UserOrderByWithRelationInput
   }
 
@@ -10640,6 +10654,7 @@ export namespace Prisma {
     dailyScore?: IntNullableFilter<"ScoreDetail"> | number | null
     wellbeingScore?: IntNullableFilter<"ScoreDetail"> | number | null
     setNo?: StringNullableFilter<"ScoreDetail"> | string | null
+    created_at?: DateTimeNullableFilter<"ScoreDetail"> | Date | string | null
     owner?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }, "id" | "id" | "assessmentType">
 
@@ -10651,6 +10666,7 @@ export namespace Prisma {
     wellbeingScore?: SortOrderInput | SortOrder
     setNo?: SortOrderInput | SortOrder
     assessmentType?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
     _count?: ScoreDetailCountOrderByAggregateInput
     _avg?: ScoreDetailAvgOrderByAggregateInput
     _max?: ScoreDetailMaxOrderByAggregateInput
@@ -10669,6 +10685,7 @@ export namespace Prisma {
     wellbeingScore?: IntNullableWithAggregatesFilter<"ScoreDetail"> | number | null
     setNo?: StringNullableWithAggregatesFilter<"ScoreDetail"> | string | null
     assessmentType?: EnumAssessmentTypeNullableWithAggregatesFilter<"ScoreDetail"> | $Enums.AssessmentType | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"ScoreDetail"> | Date | string | null
   }
 
   export type EmpyloUserCreateInput = {
@@ -11637,6 +11654,7 @@ export namespace Prisma {
     wellbeingScore?: number | null
     setNo?: string | null
     assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
     owner?: UserCreateNestedOneWithoutListOfScoreDetailInput
   }
 
@@ -11648,6 +11666,7 @@ export namespace Prisma {
     wellbeingScore?: number | null
     setNo?: string | null
     assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
   }
 
   export type ScoreDetailUpdateInput = {
@@ -11657,6 +11676,7 @@ export namespace Prisma {
     wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     owner?: UserUpdateOneWithoutListOfScoreDetailNestedInput
   }
 
@@ -11668,6 +11688,7 @@ export namespace Prisma {
     wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ScoreDetailCreateManyInput = {
@@ -11678,6 +11699,7 @@ export namespace Prisma {
     wellbeingScore?: number | null
     setNo?: string | null
     assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
   }
 
   export type ScoreDetailUpdateManyMutationInput = {
@@ -11687,6 +11709,7 @@ export namespace Prisma {
     wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ScoreDetailUncheckedUpdateManyInput = {
@@ -11697,6 +11720,7 @@ export namespace Prisma {
     wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -12428,6 +12452,7 @@ export namespace Prisma {
     wellbeingScore?: SortOrder
     setNo?: SortOrder
     assessmentType?: SortOrder
+    created_at?: SortOrder
   }
 
   export type ScoreDetailAvgOrderByAggregateInput = {
@@ -12444,6 +12469,7 @@ export namespace Prisma {
     wellbeingScore?: SortOrder
     setNo?: SortOrder
     assessmentType?: SortOrder
+    created_at?: SortOrder
   }
 
   export type ScoreDetailMinOrderByAggregateInput = {
@@ -12454,6 +12480,7 @@ export namespace Prisma {
     wellbeingScore?: SortOrder
     setNo?: SortOrder
     assessmentType?: SortOrder
+    created_at?: SortOrder
   }
 
   export type ScoreDetailSumOrderByAggregateInput = {
@@ -14090,6 +14117,7 @@ export namespace Prisma {
     wellbeingScore?: number | null
     setNo?: string | null
     assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
   }
 
   export type ScoreDetailUncheckedCreateWithoutOwnerInput = {
@@ -14099,6 +14127,7 @@ export namespace Prisma {
     wellbeingScore?: number | null
     setNo?: string | null
     assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
   }
 
   export type ScoreDetailCreateOrConnectWithoutOwnerInput = {
@@ -14277,6 +14306,7 @@ export namespace Prisma {
     wellbeingScore?: IntNullableFilter<"ScoreDetail"> | number | null
     setNo?: StringNullableFilter<"ScoreDetail"> | string | null
     assessmentType?: EnumAssessmentTypeNullableFilter<"ScoreDetail"> | $Enums.AssessmentType | null
+    created_at?: DateTimeNullableFilter<"ScoreDetail"> | Date | string | null
   }
 
   export type UserCreateWithoutUserCirclesInput = {
@@ -15382,6 +15412,7 @@ export namespace Prisma {
     wellbeingScore?: number | null
     setNo?: string | null
     assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
   }
 
   export type CompanyCirclesUpdateWithoutMemberListInput = {
@@ -15540,6 +15571,7 @@ export namespace Prisma {
     wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ScoreDetailUncheckedUpdateWithoutOwnerInput = {
@@ -15549,6 +15581,7 @@ export namespace Prisma {
     wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ScoreDetailUncheckedUpdateManyWithoutOwnerInput = {
@@ -15558,6 +15591,7 @@ export namespace Prisma {
     wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUpdateWithoutOtherUserCirclesInInput = {

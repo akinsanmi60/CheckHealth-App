@@ -246,7 +246,8 @@ exports.Prisma.ScoreDetailScalarFieldEnum = {
   dailyScore: 'dailyScore',
   wellbeingScore: 'wellbeingScore',
   setNo: 'setNo',
-  assessmentType: 'assessmentType'
+  assessmentType: 'assessmentType',
+  created_at: 'created_at'
 };
 
 exports.Prisma.SortOrder = {

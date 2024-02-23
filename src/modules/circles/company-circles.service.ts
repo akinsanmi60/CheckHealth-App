@@ -70,8 +70,8 @@ export class CirclesService {
       throw new BadRequestException("Participants list cannot be empty.");
     }
 
-    if (participantsList.length > 10) {
-      throw new BadRequestException("Maximum of 10 participants allowed.");
+    if (participantsList.length > 5) {
+      throw new BadRequestException("Maximum of 5 participants allowed.");
     }
 
     // Ensure participantsList is an array
@@ -103,7 +103,12 @@ export class CirclesService {
 
       // Ensure all participants are found
       if (foundUsers?.length !== participantsList?.length) {
-        throw new BadRequestException("One or more participants not found.");
+        const notFoundEmails = participantsList.filter(
+          email => !foundUsers.map(user => user.email).includes(email),
+        );
+        throw new BadRequestException(
+          `One or more participants not found: ${notFoundEmails.join(", ")}`,
+        );
       }
 
       const circleCreated = await this.prisma.companyCircles.create({
