@@ -500,4 +500,175 @@ export class UserService {
       };
     }
   }
+
+  // async getUsersByCountry(): Promise<{ [country: string]: number }> {
+  //   const users = await this.prisma.user.findMany();
+  //   const usersByCountry = {};
+
+  //   users.forEach(user => {
+  //     const country = user.country || "Unknown";
+  //     usersByCountry[country] = (usersByCountry[country] || 0) + 1;
+  //   });
+
+  //   return usersByCountry;
+  // }
+
+  async getUsersByCountry(): Promise<
+    { country: string; totalUsers: number }[]
+  > {
+    const users = await this.prisma.user.findMany({
+      select: {
+        country: true,
+      },
+    });
+
+    const usersByCountry: { [key: string]: number } = users.reduce(
+      (acc, user) => {
+        if (user.country in acc) {
+          acc[user.country]++;
+        } else {
+          acc[user.country] = 1;
+        }
+        return acc;
+      },
+      {},
+    );
+
+    const sortedUsersByCountry = Object.entries(usersByCountry)
+      .map(([country, totalUsers]) => ({ country, totalUsers }))
+      .sort((a, b) => b.totalUsers - a.totalUsers);
+
+    return sortedUsersByCountry;
+  }
+
+  async getUsersByCountryAndPeriod(period: string) {
+    let periodInDays: number;
+
+    switch (period) {
+      case "30":
+        periodInDays = 30;
+        break;
+      case "90":
+        periodInDays = 90;
+        break;
+      case "120":
+        periodInDays = 120;
+        break;
+      case "150":
+        periodInDays = 150;
+        break;
+      case "180":
+        periodInDays = 180;
+        break;
+      default:
+        periodInDays = 30;
+    }
+
+    const users = await this.prisma.user.findMany({
+      where: {
+        created_at: {
+          gte: new Date(
+            new Date().getTime() - periodInDays * 24 * 60 * 60 * 1000,
+          ),
+        },
+      },
+      orderBy: {
+        country: "asc",
+      },
+    });
+
+    // Ensure users is of the correct type (array of objects)
+    if (!Array.isArray(users)) {
+      throw new Error("Unexpected type for users");
+    }
+
+    // Explicitly type users as an array of user objects
+    const typedUsers: { country: string }[] = users;
+
+    // Group users by country
+    const usersByCountry = typedUsers.reduce((acc, user) => {
+      acc[user.country] = acc[user.country] || [];
+      acc[user.country].push(user);
+      return acc;
+    }, {});
+
+    // Calculate total users by country
+    const countryTotals = Object.entries(usersByCountry)
+      .map(([country, userHome]: [string, { country: string }[]]) => ({
+        country,
+        totalUsers: userHome.length,
+      }))
+      .sort((a, b) => b.totalUsers - a.totalUsers);
+
+    return countryTotals;
+  }
+
+  async getTotalVariousUsersCategories() {
+    const [users, activeUsers, personalUsers, clientUsers, inactiveUsers] =
+      await Promise.all([
+        this.prisma.user.findMany({}),
+        this.prisma.user.findMany({
+          where: {
+            status: "active",
+          },
+        }),
+        this.prisma.user.findMany({
+          where: {
+            accountType: "personalUser",
+          },
+        }),
+
+        this.prisma.user.findMany({
+          where: {
+            accountType: "clientUser",
+          },
+        }),
+
+        this.prisma.user.findMany({
+          where: {
+            status: "inactive",
+          },
+        }),
+      ]);
+
+    return {
+      message: "Total Various Users Categories",
+      data: {
+        totalUsers: users.length,
+        activeUsers: activeUsers.length,
+        personalUsers: personalUsers.length,
+        clientUsers: clientUsers.length,
+        inactiveUsers: inactiveUsers.length,
+      },
+    };
+  }
+
+  async getUsersGender() {
+    const [maleUsers, femaleUsers, otherUsers] = await Promise.all([
+      this.prisma.user.count({
+        where: {
+          gender: "male",
+        },
+      }),
+      this.prisma.user.count({
+        where: {
+          gender: "female",
+        },
+      }),
+      this.prisma.user.count({
+        where: {
+          gender: "other",
+        },
+      }),
+    ]);
+
+    return {
+      message: "Users Gender",
+      data: {
+        maleUsers: maleUsers,
+        femaleUsers: femaleUsers,
+        otherUsers: otherUsers,
+      },
+    };
+  }
 }

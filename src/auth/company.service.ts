@@ -79,7 +79,7 @@ export class CompanyAuthService {
         industry: industry,
         website: website,
         termsConditions: termsConditions,
-        role: "admin",
+        role: "company",
       },
     });
 
@@ -200,12 +200,13 @@ export class CompanyAuthService {
       throw new BadRequestException("Wrong email credential");
     }
 
-    const isMatch = this.passwordService.validatePassword(
+    const isMatch = await this.passwordService.validatePassword(
       password,
       foundCompany.password,
     );
 
-    if (!isMatch) {
+    console.log(isMatch);
+    if (isMatch === false) {
       throw new BadRequestException("Wrong password inputed");
     }
 

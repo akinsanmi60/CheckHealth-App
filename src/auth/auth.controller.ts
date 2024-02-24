@@ -241,8 +241,8 @@ export class AuthController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.superAdmin, Role.admin)
-  @Permission(AdminPermissions.UpdateCompany)
+  // @Roles(Role.superAdmin, Role.admin)
+  // @Permission(AdminPermissions.UpdateCompany)
   async activateCompany(@Param("id") id: string) {
     return await this.companyService.activateCompany(id);
   }
@@ -253,8 +253,8 @@ export class AuthController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.superAdmin, Role.admin)
-  @Permission(AdminPermissions.UpdateCompany)
+  // @Roles(Role.superAdmin, Role.admin)
+  // @Permission(AdminPermissions.UpdateCompany)
   async deactivateCompany(@Param("id") id) {
     return await this.companyService.deactivateCompany(id);
   }
@@ -265,7 +265,7 @@ export class AuthController {
   })
   @ApiParam({ name: "id", type: "string" })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin, Role.company)
+  // @Roles(Role.admin, Role.superAdmin, Role.company)
   async getCompany(@Param("id") id) {
     return await this.companyService.getCompanyById(id);
   }
@@ -276,8 +276,8 @@ export class AuthController {
     type: GetAllCompanyResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin)
-  @Permission(AdminPermissions.ReadCompany)
+  // @Roles(Role.admin, Role.superAdmin)
+  // @Permission(AdminPermissions.ReadCompany)
   async getAllCompanies(@Query() dto) {
     return await this.companyService.getAllCompanies(dto);
   }
@@ -288,8 +288,8 @@ export class AuthController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin)
-  @Permission(AdminPermissions.DeleteCompany)
+  // @Roles(Role.admin, Role.superAdmin)
+  // @Permission(AdminPermissions.DeleteCompany)
   async deleteCompany(@Param("id") id) {
     return await this.companyService.deleteCompany(id);
   }

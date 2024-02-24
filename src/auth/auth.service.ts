@@ -245,12 +245,12 @@ export class AuthService {
       throw new BadRequestException("Wrong email credential");
     }
 
-    const isMatch = this.passwordService.validatePassword(
+    const isMatch = await this.passwordService.validatePassword(
       password,
       foundUser.password,
     );
 
-    if (!isMatch) {
+    if (isMatch === false) {
       throw new BadRequestException("Wrong password inputed");
     }
 

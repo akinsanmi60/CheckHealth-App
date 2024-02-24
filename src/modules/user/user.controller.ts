@@ -166,4 +166,10 @@ export class UserController {
   ) {
     return this.userService.addMemberViaURLToCircle(id, inviteUrl);
   }
+
+  @Get("/:period/users-by-country")
+  @ApiParam({ name: "period", type: "string" })
+  async getUsersByPeriod(@Param("period") period) {
+    return this.userService.getUsersByCountryAndPeriod(period);
+  }
 }
