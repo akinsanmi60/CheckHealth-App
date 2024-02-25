@@ -18,6 +18,7 @@ import { PasswordService } from "src/auth/password.service";
 import { v4 as uuidv4 } from "uuid";
 import { parse as csvParser } from "csv-parse";
 import { Readable } from "stream";
+import { CircleStatus } from "../../../prisma/generated/client";
 
 @Injectable()
 @UseInterceptors(ResponseInterceptor)
@@ -707,5 +708,154 @@ export class CirclesService {
         message: "Member added successfully",
       };
     }
+  }
+
+  async getTotalCompanyCirclesCategory(id: string) {
+    const [allCircle, ongoingCircle, completedCircle, unenrolledCircle] =
+      await Promise.all([
+        this.prisma.companyCircles.count({
+          where: {
+            companyUserId: id,
+          },
+        }),
+        this.prisma.companyCircles.count({
+          where: {
+            companyUserId: id,
+            circleStatus: "ongoing",
+          },
+        }),
+        this.prisma.companyCircles.count({
+          where: {
+            companyUserId: id,
+            circleStatus: "completed",
+          },
+        }),
+        this.prisma.companyCircles.count({
+          where: {
+            companyUserId: id,
+            circleStatus: "unenrolled",
+          },
+        }),
+      ]);
+
+    return {
+      message: "Total company circles details",
+      data: {
+        allCircle: allCircle,
+        completedCircle: completedCircle,
+        ongoingCircle: ongoingCircle,
+        unenrolledCircle: unenrolledCircle,
+      },
+    };
+  }
+
+  async getTotalCirclesPerMonthInYear(id: string, year: number) {
+    const startDate = new Date(year, 0, 1); // Start of the year
+    const endDate = new Date(year + 1, 0, 0); // End of the year
+
+    const companyCircles = await this.prisma.companyCircles.findMany({
+      where: {
+        companyUserId: id,
+      },
+      select: {
+        created_at: true,
+        wellbeingScore: true,
+      },
+    });
+
+    // Initialize an object to hold counts and total wellbeing score for each month
+    const monthData = {
+      January: { count: 0, totalWellbeing: 0 },
+      February: { count: 0, totalWellbeing: 0 },
+      March: { count: 0, totalWellbeing: 0 },
+      April: { count: 0, totalWellbeing: 0 },
+      May: { count: 0, totalWellbeing: 0 },
+      June: { count: 0, totalWellbeing: 0 },
+      July: { count: 0, totalWellbeing: 0 },
+      August: { count: 0, totalWellbeing: 0 },
+      September: { count: 0, totalWellbeing: 0 },
+      October: { count: 0, totalWellbeing: 0 },
+      November: { count: 0, totalWellbeing: 0 },
+      December: { count: 0, totalWellbeing: 0 },
+    };
+
+    // Filter companyCircles for the specified year and count circles for each month
+    companyCircles.forEach(circle => {
+      if (circle.created_at >= startDate && circle.created_at < endDate) {
+        const month = circle.created_at.getMonth(); // Get the month index (0-based)
+        const wellbeingScore = circle.wellbeingScore;
+        const monthName = new Intl.DateTimeFormat("en-US", {
+          month: "long",
+        }).format(new Date(year, month, 1));
+        monthData[monthName].count++; // Increment count for the month
+        monthData[monthName].totalWellbeing += Number(wellbeingScore); // Accumulate total wellbeing score
+      }
+    });
+
+    // Construct the result array sorted by month
+    const result = Object.entries(monthData).map(([month, data]) => ({
+      month,
+      totalCirclesCount: data.count,
+      totalWellbeing: data.totalWellbeing,
+    }));
+
+    return {
+      message: "Total company circles details",
+      data: result,
+    };
+  }
+
+  async getTotalCompanyCirclesPerMonth(id: string, year: number) {
+    const monthNames = Array.from({ length: 12 }, (_, month) =>
+      new Date(year, month, 1).toLocaleString("default", { month: "long" }),
+    );
+
+    const monthlyCounts = await Promise.all(
+      Array.from({ length: 12 }, async (_, month) => {
+        const startDate = new Date(year, month, 1); // Start of the month
+        const endDate = new Date(year, month + 1, 0); // End of the month
+
+        const queries = ["completed", "ongoing", "unenrolled"].map(
+          circleStatus =>
+            this.getCountForCircleStatus(id, circleStatus, startDate, endDate),
+        );
+
+        const results = await Promise.allSettled(queries);
+
+        const totalCounts = results.map(result =>
+          result.status === "fulfilled" ? result.value : 0,
+        );
+
+        return {
+          month: monthNames[month],
+          totalCompletedCircle: totalCounts[0],
+          totalOngoingCircle: totalCounts[1],
+          totalUnenrolledCircle: totalCounts[2],
+        };
+      }),
+    );
+
+    return {
+      message: "Total company circles in 12 months",
+      data: monthlyCounts,
+    };
+  }
+
+  private async getCountForCircleStatus(
+    id: string,
+    circleStatus: string,
+    startDate: Date,
+    endDate: Date,
+  ) {
+    return this.prisma.companyCircles.count({
+      where: {
+        companyUserId: id,
+        circleStatus: circleStatus as string as CircleStatus,
+        created_at: {
+          gte: startDate,
+          lte: endDate,
+        },
+      },
+    });
   }
 }

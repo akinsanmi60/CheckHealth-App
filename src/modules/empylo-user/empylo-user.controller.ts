@@ -1,4 +1,4 @@
-import { Get, Query } from "@nestjs/common";
+import { Get, Query, UseInterceptors } from "@nestjs/common";
 import { Body, Controller, Param, Post, UseGuards } from "@nestjs/common";
 import { EmpyloUserService } from "./empylo-user.service";
 import {
@@ -31,10 +31,12 @@ import {
 } from "./dto/empylo-response.dto";
 import { Permission } from "../../permissions/premission.decorator";
 import { AdminPermissions } from "../../permissions/permission.enum";
+import { ResponseInterceptor } from "../../filter/responseFilter/respone.service";
 
 @ApiTags("Empylo Admin User")
 @ApiBearerAuth()
 @Controller("empylo-user")
+@UseInterceptors(ResponseInterceptor)
 export class EmpyloUserController {
   constructor(private readonly empyloUserService: EmpyloUserService) {}
 

@@ -94,19 +94,19 @@ class IGetusersTotalByPeriodData {
 
 class IGetusersTotalByCategoryData {
   @ApiProperty()
-  totalUsers: string;
+  totalUsers: number;
 
   @ApiProperty()
-  activeUsers: string;
+  activeUsers: number;
 
   @ApiProperty()
-  inactiveUsers: string;
+  inactiveUsers: number;
 
   @ApiProperty()
-  personalUsers: string;
+  personalUsers: number;
 
   @ApiProperty()
-  clientUsers: string;
+  clientUsers: number;
 }
 
 class IGetusersTotalByGenderData {

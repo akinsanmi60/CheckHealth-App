@@ -13,9 +13,9 @@ export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
     private readonly authResolver: AuthResolver,
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromExtractors([
-        ExtractJwt.fromAuthHeaderAsBearerToken(),
-        ExtractJwt.fromUrlQueryParameter("token"),
+      jwtFromRequest: ExtractJwt?.fromExtractors([
+        ExtractJwt?.fromAuthHeaderAsBearerToken(),
+        ExtractJwt?.fromUrlQueryParameter("token"),
         cookieExtractor,
       ]), // ignoreExpiration: process.env.NODE_ENV === "dev",
       secretOrKey: configService.get<string>("JWT_ACCESS_SECRET", {

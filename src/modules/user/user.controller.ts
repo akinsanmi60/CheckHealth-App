@@ -177,6 +177,8 @@ export class UserController {
   @ApiResponse({
     type: IGetusersTotalByPeriod,
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.superAdmin, Role.admin])
   async getUsersByPeriod(@Param("period") period) {
     return this.userService.getUsersByCountryAndPeriod(period);
   }
@@ -185,6 +187,8 @@ export class UserController {
   @ApiResponse({
     type: IGetusersTotalByCategory,
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.superAdmin, Role.admin])
   async getTotalVariousUsersCategories() {
     return this.userService.getTotalVariousUsersCategories();
   }
@@ -193,6 +197,8 @@ export class UserController {
   @ApiResponse({
     type: IGetusersTotalByGender,
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.superAdmin, Role.admin])
   async getTotalUsersByGender() {
     return this.userService.getUsersGender();
   }

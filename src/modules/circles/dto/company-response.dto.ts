@@ -62,6 +62,25 @@ class CompanyCirle {
   memberList: MemberListDto;
 }
 
+class IGetCoyCirlceTotalByCategoryData {
+  @ApiProperty()
+  allCircle: number;
+
+  @ApiProperty()
+  completedCircle: number;
+
+  @ApiProperty()
+  ongoingCircle: number;
+
+  @ApiProperty()
+  unenrolledCircle: number;
+}
+
+export class IGetCoyCirlceTotalByCategory extends GenericResponse {
+  @ApiProperty()
+  data: IGetCoyCirlceTotalByCategoryData;
+}
+
 export class IGetCompanyCircle extends GenericResponse {
   @ApiProperty()
   data: CompanyCirle;
@@ -82,4 +101,44 @@ export class IGetAllCompanyCircle extends GenericResponse {
 
   @ApiProperty()
   comapnyCircle_list: CompanyCirle[];
+}
+
+class IGetTotalCircleInMonthData {
+  @ApiProperty()
+  month: string;
+
+  @ApiProperty()
+  totalCircleCount: number;
+
+  @ApiProperty()
+  totalWellbeing: number;
+}
+
+class IGetTotalCircleInYearWithMonthData {
+  @ApiProperty()
+  month: string;
+
+  @ApiProperty()
+  totalCompletedCircle: number;
+
+  @ApiProperty()
+  totalOngoingCircle: number;
+  @ApiProperty()
+  totalUnenrolledCircle: number;
+}
+
+export class IGetTotalCircleInMonth extends GenericResponse {
+  @ApiProperty({
+    type: IGetTotalCircleInMonthData,
+    isArray: true,
+  })
+  data: IGetTotalCircleInMonthData[];
+}
+
+export class IGetTotalCircleInYearWithMonth extends GenericResponse {
+  @ApiProperty({
+    type: IGetTotalCircleInYearWithMonthData,
+    isArray: true,
+  })
+  data: IGetTotalCircleInYearWithMonthData[];
 }

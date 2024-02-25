@@ -34,6 +34,9 @@ import { GenericResponse } from "src/auth/dto/auth-response.dto";
 import {
   IGetAllCompanyCircle,
   IGetCompanyCircle,
+  IGetCoyCirlceTotalByCategory,
+  IGetTotalCircleInMonth,
+  IGetTotalCircleInYearWithMonth,
 } from "./dto/company-response.dto";
 import { JwtAuthGuard } from "../../auth/jwtAuth.guard";
 import { Role } from "../../roles/role.enum";
@@ -208,5 +211,45 @@ export class CirclesController {
     @Param("id") id: string,
   ) {
     return this.circlesService.memberBatchUploadCircles(id, file);
+  }
+
+  @Get("/total-cirlce-category")
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.company])
+  @ApiResponse({
+    type: IGetCoyCirlceTotalByCategory,
+  })
+  @ApiParam({ name: "id", type: "string", description: "use company id" })
+  getTotalUsersPerCompany(@Param("id") id: string) {
+    return this.circlesService.getTotalCompanyCirclesCategory(id);
+  }
+
+  @Get("/:id/total-circles-per-month/:year")
+  @ApiParam({ name: "id", type: "string", description: "use company id" })
+  @ApiParam({ name: "year", type: "string", description: "use year" })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.company])
+  @ApiResponse({
+    type: IGetTotalCircleInMonth,
+  })
+  getTotalCirclesPerMonthInYear(@Param("id") id, @Param("year") year) {
+    return this.circlesService.getTotalCirclesPerMonthInYear(
+      id,
+      parseInt(year),
+    );
+  }
+  @Get("/:id/circles-per-month/:year")
+  @ApiParam({ name: "id", type: "string", description: "use company id" })
+  @ApiParam({ name: "year", type: "string", description: "use year" })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.company])
+  @ApiResponse({
+    type: IGetTotalCircleInYearWithMonth,
+  })
+  getTotalCirclesPerMonth(@Param("id") id, @Param("year") year) {
+    return this.circlesService.getTotalCompanyCirclesPerMonth(
+      id,
+      parseInt(year),
+    );
   }
 }
