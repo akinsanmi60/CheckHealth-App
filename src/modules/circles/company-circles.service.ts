@@ -537,8 +537,6 @@ export class CirclesService {
       );
     }
 
-    console.log(resultArray);
-
     // Check each email in the array
     for (const email of resultArray) {
       if (!this.emailRegex.test(email as string)) {
@@ -567,8 +565,10 @@ export class CirclesService {
 
     const newEntitiesPromises = notInEmails.map(async email => {
       const randomPassword = crypto.randomBytes(6).toString("hex");
+
       const hashedPassword =
         await this.passwordService.hashPassword(randomPassword);
+
       const code = crypto.randomInt(1000, 9999).toString();
 
       const newCreatedEntity = await this.prisma.user.create({
@@ -609,6 +609,29 @@ export class CirclesService {
 
     // Combine the arrays for updating companyCircles
     const allEntities = [...newEntities, ...foundUsers] as Users[];
+
+    //check if the user is already a member of the circle
+    const checkCircle = await this.prisma.companyCircles.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        memberList: {
+          where: {
+            id: {
+              in: allEntities.map(user => user.id),
+            },
+          },
+        },
+      },
+    });
+
+    if (checkCircle?.memberList.length > 0) {
+      const inEmail = checkCircle?.memberList.map(user => user.email);
+      throw new BadRequestException(
+        `${inEmail} is already a member of this circle.`,
+      );
+    }
 
     const memberInCircle = await this.prisma.companyCircles.update({
       where: {
