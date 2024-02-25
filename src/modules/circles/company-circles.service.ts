@@ -499,12 +499,13 @@ export class CirclesService {
   async memberBatchUploadCircles(id: string, file: Express.Multer.File) {
     // I have to create a Readable stream from the buffer because the csv-parser library does not support reading from files
     const results = [];
+    const parse = csvParser();
     await new Promise((resolve, reject) => {
       // Create a Readable stream from the buffer
       const bufferStream = Readable.from([file.buffer]);
 
       bufferStream
-        .pipe(csvParser())
+        .pipe(parse)
         .on("data", data => results.push(data))
         .on("end", () => {
           if (results.length > 0) {
