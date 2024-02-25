@@ -83,3 +83,63 @@ export class IGetAllUserCircle extends GenericResponse {
   @ApiProperty()
   userCircle_list: UserCirle[];
 }
+
+class IGetusersTotalByPeriodData {
+  @ApiProperty()
+  country: string;
+
+  @ApiProperty()
+  totalUsers: number;
+}
+
+class IGetusersTotalByCategoryData {
+  @ApiProperty()
+  totalUsers: string;
+
+  @ApiProperty()
+  activeUsers: string;
+
+  @ApiProperty()
+  inactiveUsers: string;
+
+  @ApiProperty()
+  personalUsers: string;
+
+  @ApiProperty()
+  clientUsers: string;
+}
+
+class IGetusersTotalByGenderData {
+  @ApiProperty()
+  maleUsers: string;
+
+  @ApiProperty()
+  femaleUsers: string;
+
+  @ApiProperty()
+  otherUsers: string;
+}
+
+export class IGetusersTotalByPeriod extends GenericResponse {
+  @ApiProperty({
+    type: () => IGetusersTotalByPeriodData,
+    isArray: true,
+  })
+  data: IGetusersTotalByPeriodData[];
+}
+
+export class IGetusersTotalByCategory extends GenericResponse {
+  @ApiProperty({
+    type: () => IGetusersTotalByCategoryData,
+    isArray: true,
+  })
+  data: IGetusersTotalByCategoryData[];
+}
+
+export class IGetusersTotalByGender extends GenericResponse {
+  @ApiProperty({
+    type: () => IGetusersTotalByGenderData,
+    isArray: true,
+  })
+  data: IGetusersTotalByGenderData[];
+}

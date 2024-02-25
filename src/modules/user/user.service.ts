@@ -501,18 +501,6 @@ export class UserService {
     }
   }
 
-  // async getUsersByCountry(): Promise<{ [country: string]: number }> {
-  //   const users = await this.prisma.user.findMany();
-  //   const usersByCountry = {};
-
-  //   users.forEach(user => {
-  //     const country = user.country || "Unknown";
-  //     usersByCountry[country] = (usersByCountry[country] || 0) + 1;
-  //   });
-
-  //   return usersByCountry;
-  // }
-
   async getUsersByCountry(): Promise<
     { country: string; totalUsers: number }[]
   > {
@@ -542,33 +530,11 @@ export class UserService {
   }
 
   async getUsersByCountryAndPeriod(period: string) {
-    let periodInDays: number;
-
-    switch (period) {
-      case "30":
-        periodInDays = 30;
-        break;
-      case "90":
-        periodInDays = 90;
-        break;
-      case "120":
-        periodInDays = 120;
-        break;
-      case "150":
-        periodInDays = 150;
-        break;
-      case "180":
-        periodInDays = 180;
-        break;
-      default:
-        periodInDays = 30;
-    }
-
     const users = await this.prisma.user.findMany({
       where: {
         created_at: {
           gte: new Date(
-            new Date().getTime() - periodInDays * 24 * 60 * 60 * 1000,
+            new Date().getTime() - Number(period) * 24 * 60 * 60 * 1000,
           ),
         },
       },
@@ -600,7 +566,10 @@ export class UserService {
       }))
       .sort((a, b) => b.totalUsers - a.totalUsers);
 
-    return countryTotals;
+    return {
+      message: "Total Various Users Categories",
+      data: countryTotals,
+    };
   }
 
   async getTotalVariousUsersCategories() {

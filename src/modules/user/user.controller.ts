@@ -30,6 +30,9 @@ import {
 import {
   IGetAllUserCircle,
   IGetUserCircle,
+  IGetusersTotalByCategory,
+  IGetusersTotalByGender,
+  IGetusersTotalByPeriod,
 } from "./dto/usercircle-response.dto";
 import { GenericResponse } from "src/auth/dto/auth-response.dto";
 
@@ -37,10 +40,12 @@ import { JwtAuthGuard } from "../../auth/jwtAuth.guard";
 import { Role } from "../../roles/role.enum";
 import { Roles } from "../../roles/roles.decorator";
 import { RolesGuard } from "../../roles/roles.guard";
+import { ResponseInterceptor } from "../../filter/responseFilter/respone.service";
 
 @Controller("user")
 @ApiTags("User")
 @ApiBearerAuth()
+@UseInterceptors(ResponseInterceptor)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -169,7 +174,26 @@ export class UserController {
 
   @Get("/:period/users-by-country")
   @ApiParam({ name: "period", type: "string" })
+  @ApiResponse({
+    type: IGetusersTotalByPeriod,
+  })
   async getUsersByPeriod(@Param("period") period) {
     return this.userService.getUsersByCountryAndPeriod(period);
+  }
+
+  @Get("/total-various-users-categories")
+  @ApiResponse({
+    type: IGetusersTotalByCategory,
+  })
+  async getTotalVariousUsersCategories() {
+    return this.userService.getTotalVariousUsersCategories();
+  }
+
+  @Get("/total-users-by-gender")
+  @ApiResponse({
+    type: IGetusersTotalByGender,
+  })
+  async getTotalUsersByGender() {
+    return this.userService.getUsersGender();
   }
 }
