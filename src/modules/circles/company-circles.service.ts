@@ -16,7 +16,7 @@ import * as crypto from "crypto";
 import { MailService } from "../../mail/mail.service";
 import { PasswordService } from "src/auth/password.service";
 import { v4 as uuidv4 } from "uuid";
-import csvParser from "csv-parser";
+import { parse as csvParser } from "csv-parse";
 import { Readable } from "stream";
 
 @Injectable()
@@ -499,7 +499,13 @@ export class CirclesService {
   async memberBatchUploadCircles(id: string, file: Express.Multer.File) {
     // I have to create a Readable stream from the buffer because the csv-parser library does not support reading from files
     const results = [];
-    const parse = csvParser();
+    const parse = csvParser({
+      columns: true,
+      skip_empty_lines: true,
+      trim: true,
+      delimiter: ",",
+      ltrim: true,
+    });
     await new Promise((resolve, reject) => {
       // Create a Readable stream from the buffer
       const bufferStream = Readable.from([file.buffer]);
@@ -530,6 +536,8 @@ export class CirclesService {
         "Failed to upload member. Please try again later",
       );
     }
+
+    console.log(resultArray);
 
     // Check each email in the array
     for (const email of resultArray) {
