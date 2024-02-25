@@ -60,7 +60,7 @@ export class CirclesController {
       "Creating a circle for a company. Note append the file to the formData when posting",
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin)
+  @Roles(Role.company)
   createCirlce(
     @UploadedFile() file: Express.Multer.File,
     @Body() dto,
@@ -76,7 +76,7 @@ export class CirclesController {
     description: "Deactivating a company circle",
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin)
+  @Roles(Role.company)
   deactivateCompanyCircle(@Param("id") id: string) {
     return this.circlesService.deactivateCompanyCircle(id);
   }
@@ -88,7 +88,7 @@ export class CirclesController {
     description: "Activating a company circle",
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin)
+  @Roles(Role.company)
   activateCompanyCircle(@Param("id") id: string) {
     return this.circlesService.activateCompanyCircle(id);
   }
@@ -100,7 +100,7 @@ export class CirclesController {
     description: "Get a company circle",
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin)
+  @Roles(Role.company)
   getCompanyCircleById(@Param("id") id: string) {
     return this.circlesService.getCompanyCircleById(id);
   }
@@ -113,7 +113,7 @@ export class CirclesController {
     type: GetAllCirclesDto,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin)
+  @Roles(Role.company)
   getAllCompanyCircles(@Query() dto) {
     return this.circlesService.getAllCompanyCircles(dto);
   }
@@ -124,7 +124,7 @@ export class CirclesController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin)
+  @Roles(Role.company)
   deleteCompanyCircle(@Param("id") id: string) {
     return this.circlesService.deleteCompanyCircle(id);
   }

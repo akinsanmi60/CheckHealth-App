@@ -26,7 +26,7 @@ import {
   MaitalStatus,
 } from "../../prisma/generated/client";
 import { AuthResolver } from "./authFinder.service";
-import { Users } from "src/types/appModel.type";
+import { CompanyUser, Users } from "src/types/appModel.type";
 
 @UseInterceptors(ResponseInterceptor)
 @Injectable()
@@ -51,7 +51,13 @@ export class AuthService {
       "user",
     )) as Users;
 
-    if (foundUser) {
+    const foundCompany = (await this.authResolver.findUserWithField(
+      email,
+      "email",
+      "companyUser",
+    )) as CompanyUser;
+
+    if (foundUser || foundCompany) {
       throw new BadRequestException("Email is already taken");
     }
 

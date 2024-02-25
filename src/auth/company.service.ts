@@ -20,7 +20,7 @@ import { PasswordService } from "./password.service";
 import { MailService } from "../mail/mail.service";
 import { ResponseInterceptor } from "../filter/responseFilter/respone.service";
 import { AuthResolver } from "./authFinder.service";
-import { CompanyUser } from "src/types/appModel.type";
+import { CompanyUser, Users } from "src/types/appModel.type";
 
 @UseInterceptors(ResponseInterceptor)
 @Injectable()
@@ -55,7 +55,13 @@ export class CompanyAuthService {
       "companyUser",
     )) as CompanyUser;
 
-    if (foundCompany) {
+    const foundUser = (await this.authResolver.findUserWithField(
+      email,
+      "email",
+      "user",
+    )) as Users;
+
+    if (foundCompany || foundUser) {
       throw new BadRequestException("Email is already taken");
     }
 

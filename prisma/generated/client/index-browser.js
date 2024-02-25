@@ -185,6 +185,7 @@ exports.Prisma.UserScalarFieldEnum = {
   ageRange: 'ageRange',
   ethnicity: 'ethnicity',
   gender: 'gender',
+  country: 'country',
   maritalStatus: 'maritalStatus',
   disability: 'disability',
   DOB: 'DOB',
@@ -279,7 +280,8 @@ exports.UserStatus = exports.$Enums.UserStatus = {
 
 exports.UserGender = exports.$Enums.UserGender = {
   male: 'male',
-  female: 'female'
+  female: 'female',
+  other: 'other'
 };
 
 exports.MaitalStatus = exports.$Enums.MaitalStatus = {

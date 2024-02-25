@@ -74,7 +74,8 @@ export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 export const UserGender: {
   male: 'male',
-  female: 'female'
+  female: 'female',
+  other: 'other'
 };
 
 export type UserGender = (typeof UserGender)[keyof typeof UserGender]
@@ -5072,6 +5073,7 @@ export namespace Prisma {
     ageRange: string | null
     ethnicity: string | null
     gender: $Enums.UserGender | null
+    country: string | null
     maritalStatus: $Enums.MaitalStatus | null
     disability: string | null
     DOB: string | null
@@ -5109,6 +5111,7 @@ export namespace Prisma {
     ageRange: string | null
     ethnicity: string | null
     gender: $Enums.UserGender | null
+    country: string | null
     maritalStatus: $Enums.MaitalStatus | null
     disability: string | null
     DOB: string | null
@@ -5146,6 +5149,7 @@ export namespace Prisma {
     ageRange: number
     ethnicity: number
     gender: number
+    country: number
     maritalStatus: number
     disability: number
     DOB: number
@@ -5185,6 +5189,7 @@ export namespace Prisma {
     ageRange?: true
     ethnicity?: true
     gender?: true
+    country?: true
     maritalStatus?: true
     disability?: true
     DOB?: true
@@ -5222,6 +5227,7 @@ export namespace Prisma {
     ageRange?: true
     ethnicity?: true
     gender?: true
+    country?: true
     maritalStatus?: true
     disability?: true
     DOB?: true
@@ -5259,6 +5265,7 @@ export namespace Prisma {
     ageRange?: true
     ethnicity?: true
     gender?: true
+    country?: true
     maritalStatus?: true
     disability?: true
     DOB?: true
@@ -5369,6 +5376,7 @@ export namespace Prisma {
     ageRange: string | null
     ethnicity: string | null
     gender: $Enums.UserGender | null
+    country: string | null
     maritalStatus: $Enums.MaitalStatus | null
     disability: string | null
     DOB: string | null
@@ -5423,6 +5431,7 @@ export namespace Prisma {
     ageRange?: boolean
     ethnicity?: boolean
     gender?: boolean
+    country?: boolean
     maritalStatus?: boolean
     disability?: boolean
     DOB?: boolean
@@ -5466,6 +5475,7 @@ export namespace Prisma {
     ageRange?: boolean
     ethnicity?: boolean
     gender?: boolean
+    country?: boolean
     maritalStatus?: boolean
     disability?: boolean
     DOB?: boolean
@@ -5522,6 +5532,7 @@ export namespace Prisma {
       ageRange: string | null
       ethnicity: string | null
       gender: $Enums.UserGender | null
+      country: string | null
       maritalStatus: $Enums.MaitalStatus | null
       disability: string | null
       DOB: string | null
@@ -5959,6 +5970,7 @@ export namespace Prisma {
     readonly ageRange: FieldRef<"User", 'String'>
     readonly ethnicity: FieldRef<"User", 'String'>
     readonly gender: FieldRef<"User", 'UserGender'>
+    readonly country: FieldRef<"User", 'String'>
     readonly maritalStatus: FieldRef<"User", 'MaitalStatus'>
     readonly disability: FieldRef<"User", 'String'>
     readonly DOB: FieldRef<"User", 'String'>
@@ -9555,6 +9567,7 @@ export namespace Prisma {
     ageRange: 'ageRange',
     ethnicity: 'ethnicity',
     gender: 'gender',
+    country: 'country',
     maritalStatus: 'maritalStatus',
     disability: 'disability',
     DOB: 'DOB',
@@ -10246,6 +10259,7 @@ export namespace Prisma {
     ageRange?: StringNullableFilter<"User"> | string | null
     ethnicity?: StringNullableFilter<"User"> | string | null
     gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
+    country?: StringNullableFilter<"User"> | string | null
     maritalStatus?: EnumMaitalStatusNullableFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableFilter<"User"> | string | null
     DOB?: StringNullableFilter<"User"> | string | null
@@ -10288,6 +10302,7 @@ export namespace Prisma {
     ageRange?: SortOrderInput | SortOrder
     ethnicity?: SortOrderInput | SortOrder
     gender?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     maritalStatus?: SortOrderInput | SortOrder
     disability?: SortOrderInput | SortOrder
     DOB?: SortOrderInput | SortOrder
@@ -10336,6 +10351,7 @@ export namespace Prisma {
     ageRange?: StringNullableFilter<"User"> | string | null
     ethnicity?: StringNullableFilter<"User"> | string | null
     gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
+    country?: StringNullableFilter<"User"> | string | null
     maritalStatus?: EnumMaitalStatusNullableFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableFilter<"User"> | string | null
     DOB?: StringNullableFilter<"User"> | string | null
@@ -10375,6 +10391,7 @@ export namespace Prisma {
     ageRange?: SortOrderInput | SortOrder
     ethnicity?: SortOrderInput | SortOrder
     gender?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     maritalStatus?: SortOrderInput | SortOrder
     disability?: SortOrderInput | SortOrder
     DOB?: SortOrderInput | SortOrder
@@ -10418,6 +10435,7 @@ export namespace Prisma {
     ageRange?: StringNullableWithAggregatesFilter<"User"> | string | null
     ethnicity?: StringNullableWithAggregatesFilter<"User"> | string | null
     gender?: EnumUserGenderNullableWithAggregatesFilter<"User"> | $Enums.UserGender | null
+    country?: StringNullableWithAggregatesFilter<"User"> | string | null
     maritalStatus?: EnumMaitalStatusNullableWithAggregatesFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableWithAggregatesFilter<"User"> | string | null
     DOB?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -11193,6 +11211,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -11234,6 +11253,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -11275,6 +11295,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11316,6 +11337,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11357,6 +11379,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -11394,6 +11417,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11430,6 +11454,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12216,6 +12241,7 @@ export namespace Prisma {
     ageRange?: SortOrder
     ethnicity?: SortOrder
     gender?: SortOrder
+    country?: SortOrder
     maritalStatus?: SortOrder
     disability?: SortOrder
     DOB?: SortOrder
@@ -12253,6 +12279,7 @@ export namespace Prisma {
     ageRange?: SortOrder
     ethnicity?: SortOrder
     gender?: SortOrder
+    country?: SortOrder
     maritalStatus?: SortOrder
     disability?: SortOrder
     DOB?: SortOrder
@@ -12290,6 +12317,7 @@ export namespace Prisma {
     ageRange?: SortOrder
     ethnicity?: SortOrder
     gender?: SortOrder
+    country?: SortOrder
     maritalStatus?: SortOrder
     disability?: SortOrder
     DOB?: SortOrder
@@ -13475,6 +13503,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -13515,6 +13544,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -13626,6 +13656,7 @@ export namespace Prisma {
     ageRange?: StringNullableFilter<"User"> | string | null
     ethnicity?: StringNullableFilter<"User"> | string | null
     gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
+    country?: StringNullableFilter<"User"> | string | null
     maritalStatus?: EnumMaitalStatusNullableFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableFilter<"User"> | string | null
     DOB?: StringNullableFilter<"User"> | string | null
@@ -13763,6 +13794,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -13803,6 +13835,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -14319,6 +14352,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -14359,6 +14393,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -14404,6 +14439,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -14444,6 +14480,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -14500,6 +14537,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14540,6 +14578,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14820,6 +14859,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -14860,6 +14900,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -14916,6 +14957,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14956,6 +14998,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15068,6 +15111,7 @@ export namespace Prisma {
     ageRange?: string | null
     ethnicity?: string | null
     gender?: $Enums.UserGender | null
+    country?: string | null
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
@@ -15119,6 +15163,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15159,6 +15204,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15199,6 +15245,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15282,6 +15329,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15322,6 +15370,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15362,6 +15411,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15604,6 +15654,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15644,6 +15695,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15684,6 +15736,7 @@ export namespace Prisma {
     ageRange?: NullableStringFieldUpdateOperationsInput | string | null
     ethnicity?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null

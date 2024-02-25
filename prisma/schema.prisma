@@ -96,6 +96,7 @@ model User {
   ageRange            String?
   ethnicity           String?
   gender              UserGender?
+  country             String?
   maritalStatus       MaitalStatus?
   disability          String?
   DOB                 String?
@@ -169,7 +170,7 @@ model ScoreDetail {
   setNo          String?
   assessmentType AssessmentType? @unique
   created_at     DateTime?       @default(now())
- }
+}
 
 enum AssessmentType {
   weekly
@@ -186,6 +187,7 @@ enum SystemRole {
 enum UserGender {
   male
   female
+  other
 }
 
 enum UserStatus {

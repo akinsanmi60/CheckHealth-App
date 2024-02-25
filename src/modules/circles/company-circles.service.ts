@@ -40,6 +40,17 @@ export class CirclesService {
     id: string,
     file: Express.Multer.File,
   ) {
+    console.log(id);
+    const findCompany = await this.prisma.companyUser.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!findCompany) {
+      throw new BadRequestException("Company not found");
+    }
+
     let participantsList = [] as string[];
 
     participantsList = JSON.parse(dto.participantsList as unknown as string);
