@@ -138,7 +138,7 @@ export class CirclesController {
     type: AddMemberToCircleDto,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin)
+  @Roles(Role.company)
   addMemberToCircle(@Param("id") id: string, @Body() dto) {
     return this.circlesService.addMemberToCircle(id, dto);
   }
@@ -150,7 +150,7 @@ export class CirclesController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin)
+  @Roles(Role.company)
   removeMemberFromCircle(
     @Param("id") id: string,
     @Param("memberId") memberId: string,
@@ -165,7 +165,7 @@ export class CirclesController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.user, Role.admin)
+  @Roles(Role.company || Role.user)
   joinCompanyCircle(@Param("id") id, @Param("inviteUrl") inviteUrl) {
     return this.circlesService.addMemberViaURLToCircle(id, inviteUrl);
   }
@@ -199,7 +199,7 @@ export class CirclesController {
     },
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin)
+  @Roles(Role.company)
   @ApiResponse({
     type: GenericResponse,
   })
