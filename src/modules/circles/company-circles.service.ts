@@ -16,7 +16,7 @@ import * as crypto from "crypto";
 import { MailService } from "../../mail/mail.service";
 import { PasswordService } from "src/auth/password.service";
 import { v4 as uuidv4 } from "uuid";
-import * as csvParser from "csv-parser";
+import csvParser from "csv-parser";
 import { Readable } from "stream";
 
 @Injectable()
