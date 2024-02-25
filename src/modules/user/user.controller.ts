@@ -58,7 +58,7 @@ export class UserController {
       "Creating a circle for a user. Note append the file to the formData when posting",
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.user)
+  @Roles([Role.user])
   createCirlce(
     @UploadedFile() file: Express.Multer.File,
     @Body() dto,
@@ -85,7 +85,7 @@ export class UserController {
     type: GetAllUserCirclesDto,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.user)
+  @Roles([Role.user])
   getAllUserCircles(@Query() dto) {
     return this.userService.getAllUserCircles(dto);
   }
@@ -97,7 +97,7 @@ export class UserController {
     description: "Activating a user circle",
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.user)
+  @Roles([Role.user])
   activateUserCircle(@Param("id") id: string) {
     return this.userService.activateUserCircle(id);
   }
@@ -109,7 +109,7 @@ export class UserController {
     description: "Deactivating auser circle",
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.user)
+  @Roles([Role.user])
   deactivateUserCircle(@Param("id") id: string) {
     return this.userService.deactivateUserCircle(id);
   }
@@ -120,7 +120,7 @@ export class UserController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.user)
+  @Roles([Role.user])
   deleteUserCircle(@Param("id") id: string) {
     return this.userService.deleteUserCircle(id);
   }
@@ -132,7 +132,7 @@ export class UserController {
   })
   @ApiBody({ type: MemberToLeaveCircleDto })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.user)
+  @Roles([Role.user])
   leaveUserCircle(@Param("id") id: string, @Body() dto: any) {
     return this.userService.leaveUserCircle(id, dto);
   }
@@ -144,7 +144,7 @@ export class UserController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.user)
+  @Roles([Role.user])
   removeMemberFromCircle(
     @Param("id") id: string,
     @Param("memberId") memberId: string,
@@ -159,7 +159,7 @@ export class UserController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.user)
+  @Roles([Role.user])
   joinUserCircle(
     @Param("inviteUrl") inviteUrl: string,
     @Param("id") id: string,

@@ -95,8 +95,8 @@ export class EmpyloUserController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.superAdmin, Role.admin)
-  @Permission(AdminPermissions.UpdateCompany)
+  @Roles([Role.superAdmin, Role.admin])
+  @Permission([AdminPermissions.UpdateCompany])
   async activateUser(@Param("id") id: string) {
     return await this.empyloUserService.activateEmpyloUser(id);
   }
@@ -107,8 +107,8 @@ export class EmpyloUserController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.superAdmin, Role.admin)
-  @Permission(AdminPermissions.UpdateAdmin)
+  @Roles([Role.superAdmin, Role.admin])
+  @Permission([AdminPermissions.UpdateAdmin])
   async deactivateUser(@Param("id") id) {
     return await this.empyloUserService.deactivateEmpyloUser(id);
   }
@@ -119,8 +119,8 @@ export class EmpyloUserController {
   })
   @ApiParam({ name: "id", type: "string" })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin)
-  @Permission(AdminPermissions.ReadAdmin)
+  @Roles([Role.admin, Role.superAdmin])
+  @Permission([AdminPermissions.ReadAdmin])
   async getCompany(@Param("id") id) {
     return await this.empyloUserService.getEmpyloUserById(id);
   }
@@ -131,7 +131,7 @@ export class EmpyloUserController {
     type: GetAllAdminUserResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.superAdmin)
+  @Roles([Role.superAdmin])
   async getAllCompanies(@Query() dto) {
     return await this.empyloUserService.getAllEmpyloUsers(dto);
   }

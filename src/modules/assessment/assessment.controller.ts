@@ -48,7 +48,7 @@ export class AssessmentController {
 
   @Get("getLatestDailyCheckinAssessment")
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin, Role.user)
+  @Roles([Role.admin, Role.superAdmin, Role.user])
   @ApiResponse({
     type: AssessmentResponseDto,
   })
@@ -59,7 +59,7 @@ export class AssessmentController {
   @Get("getAssessment/:id")
   @ApiParam({ name: "id", type: "string" })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin)
+  @Roles([Role.admin, Role.superAdmin])
   @ApiBody({ type: CreateAssessmentDto })
   @ApiResponse({
     type: AssessmentResponseDto,
@@ -70,7 +70,7 @@ export class AssessmentController {
 
   @Get("getAllAssessment")
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin)
+  @Roles([Role.admin, Role.superAdmin])
   @ApiResponse({
     type: AllAssessmentResponseDto,
   })
@@ -84,8 +84,8 @@ export class AssessmentController {
   @Post("createAssessment")
   @ApiParam({ name: "id", type: "string" })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin)
-  @Permission(AdminPermissions.CreateAssessment)
+  @Roles([Role.admin, Role.superAdmin])
+  @Permission([AdminPermissions.CreateAssessment])
   @ApiResponse({
     type: GenericResponse,
   })
@@ -97,8 +97,8 @@ export class AssessmentController {
   @Delete("deleteAssessment/:id")
   @ApiParam({ name: "id", type: "string" })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin, Role.superAdmin)
-  @Permission(AdminPermissions.DeleteAssessment)
+  @Roles([Role.admin, Role.superAdmin])
+  @Permission([AdminPermissions.DeleteAssessment])
   @ApiResponse({
     type: GenericResponse,
   })
