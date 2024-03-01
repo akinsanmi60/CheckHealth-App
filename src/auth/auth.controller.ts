@@ -208,7 +208,7 @@ export class AuthController {
     return this.companyService.login(dto);
   }
 
-  @Post("/company/change-password")
+  @Post("/:id/company/change-password")
   @ApiBody({ type: ChangePasswordDto })
   @ApiResponse({ type: GenericResponse })
   @ApiParam({ name: "id", type: "string" })
