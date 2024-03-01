@@ -28,11 +28,13 @@ export class CompanyGettingStartedDto {
     format: "array",
     isArray: true,
   })
-  @IsArray()
-  @IsString({
-    each: true,
-    message: "Each item in the participants list must be a string.",
+  @IsArray({
+    message: "Participants list must be an array.",
   })
+  // @IsString({
+  //   each: true,
+  //   message: "Each item in the participants list must be a string.",
+  // })
   participantsList: string[];
 }
 

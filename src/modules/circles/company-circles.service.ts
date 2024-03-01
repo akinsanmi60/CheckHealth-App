@@ -41,7 +41,6 @@ export class CirclesService {
     id: string,
     file: Express.Multer.File,
   ) {
-    console.log(id);
     const findCompany = await this.prisma.companyUser.findUnique({
       where: {
         id: id,
@@ -711,6 +710,18 @@ export class CirclesService {
   }
 
   async getTotalCompanyCirclesCategory(id: string) {
+    const checkCompany = await this.prisma.companyUser.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!checkCompany) {
+      throw new BadRequestException(
+        "Company not found. Please try again later",
+      );
+    }
+
     const [allCircle, ongoingCircle, completedCircle, unenrolledCircle] =
       await Promise.all([
         this.prisma.companyCircles.count({
@@ -750,6 +761,18 @@ export class CirclesService {
   }
 
   async getTotalCirclesPerMonthInYear(id: string, year: number) {
+    const checkCompany = await this.prisma.companyUser.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!checkCompany) {
+      throw new BadRequestException(
+        "Company not found. Please try again later",
+      );
+    }
+
     const startDate = new Date(year, 0, 1); // Start of the year
     const endDate = new Date(year + 1, 0, 0); // End of the year
 
@@ -806,6 +829,17 @@ export class CirclesService {
   }
 
   async getTotalCompanyCirclesPerMonth(id: string, year: number) {
+    const checkCompany = await this.prisma.companyUser.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!checkCompany) {
+      throw new BadRequestException(
+        "Company not found. Please try again later",
+      );
+    }
     const monthNames = Array.from({ length: 12 }, (_, month) =>
       new Date(year, month, 1).toLocaleString("default", { month: "long" }),
     );

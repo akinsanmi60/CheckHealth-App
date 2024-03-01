@@ -430,6 +430,7 @@ export class CompanyAuthService {
             coyCircleStatus: true,
             coyCircleNos: true,
             coyCircleDescription: true,
+            circleStatus: true,
             memberList: {
               select: {
                 id: true,
