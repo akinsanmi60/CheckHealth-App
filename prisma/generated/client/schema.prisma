@@ -78,7 +78,7 @@ model CompanyCircles {
   wellbeingScore       String?
   activityLevel        ActivityLevel @default(low)
   companyUser          CompanyUser?  @relation("circles_company_user_fkey", fields: [companyUserId], references: [id])
-  companyUserId        String?
+  companyUserId        String?       @unique
   coyCircleStatus      UserStatus    @default(inactive)
   coyCircleNos         String?       @unique
   memberList           User[]
@@ -96,6 +96,7 @@ model User {
   ageRange            String?
   ethnicity           String?
   gender              UserGender?
+  country             String?
   maritalStatus       MaitalStatus?
   disability          String?
   DOB                 String?
@@ -139,7 +140,7 @@ model UserCircles {
   wellbeingScore        String?
   activityLevel         ActivityLevel @default(low)
   user                  User?         @relation("userCircles", fields: [userId], references: [id])
-  userId                String?
+  userId                String?       @unique
   createdBy             String?
   userCircleStatus      UserStatus    @default(inactive)
   userCircleNos         String?       @unique
@@ -155,8 +156,8 @@ model Assessment {
   setQuestions      String[]
   empyloUser        EmpyloUser?     @relation("assessment_weekly", fields: [createdWeeklyBy], references: [id])
   empyloUserCheckin EmpyloUser?     @relation("assessment_checkin", fields: [createdCheckinBy], references: [id])
-  createdWeeklyBy   String?
-  createdCheckinBy  String?
+  createdWeeklyBy   String?         @unique
+  createdCheckinBy  String?         @unique
 }
 
 model ScoreDetail {
@@ -169,7 +170,7 @@ model ScoreDetail {
   setNo          String?
   assessmentType AssessmentType? @unique
   created_at     DateTime?       @default(now())
- }
+}
 
 enum AssessmentType {
   weekly
@@ -186,6 +187,7 @@ enum SystemRole {
 enum UserGender {
   male
   female
+  other
 }
 
 enum UserStatus {

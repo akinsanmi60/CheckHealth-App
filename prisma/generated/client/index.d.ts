@@ -10191,6 +10191,7 @@ export namespace Prisma {
     id?: string
     coyCircleName?: string
     coyCircleShareLink?: string
+    companyUserId?: string
     coyCircleNos?: string
     AND?: CompanyCirclesWhereInput | CompanyCirclesWhereInput[]
     OR?: CompanyCirclesWhereInput[]
@@ -10200,13 +10201,12 @@ export namespace Prisma {
     coyCircleDescription?: StringNullableFilter<"CompanyCircles"> | string | null
     wellbeingScore?: StringNullableFilter<"CompanyCircles"> | string | null
     activityLevel?: EnumActivityLevelFilter<"CompanyCircles"> | $Enums.ActivityLevel
-    companyUserId?: StringNullableFilter<"CompanyCircles"> | string | null
     coyCircleStatus?: EnumUserStatusFilter<"CompanyCircles"> | $Enums.UserStatus
     circleImg?: StringNullableFilter<"CompanyCircles"> | string | null
     circleStatus?: EnumCircleStatusNullableFilter<"CompanyCircles"> | $Enums.CircleStatus | null
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     memberList?: UserListRelationFilter
-  }, "id" | "id" | "coyCircleName" | "coyCircleShareLink" | "coyCircleNos">
+  }, "id" | "id" | "coyCircleName" | "coyCircleShareLink" | "companyUserId" | "coyCircleNos">
 
   export type CompanyCirclesOrderByWithAggregationInput = {
     id?: SortOrder
@@ -10508,6 +10508,7 @@ export namespace Prisma {
     id?: string
     userCircleName?: string
     userCircleShareLink?: string
+    userId?: string
     userCircleNos?: string
     AND?: UserCirclesWhereInput | UserCirclesWhereInput[]
     OR?: UserCirclesWhereInput[]
@@ -10518,13 +10519,12 @@ export namespace Prisma {
     userCircleDescription?: StringNullableFilter<"UserCircles"> | string | null
     wellbeingScore?: StringNullableFilter<"UserCircles"> | string | null
     activityLevel?: EnumActivityLevelFilter<"UserCircles"> | $Enums.ActivityLevel
-    userId?: StringNullableFilter<"UserCircles"> | string | null
     createdBy?: StringNullableFilter<"UserCircles"> | string | null
     userCircleStatus?: EnumUserStatusFilter<"UserCircles"> | $Enums.UserStatus
     circleStatus?: EnumCircleStatusNullableFilter<"UserCircles"> | $Enums.CircleStatus | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     memberList?: UserListRelationFilter
-  }, "id" | "id" | "userCircleName" | "userCircleShareLink" | "userCircleNos">
+  }, "id" | "id" | "userCircleName" | "userCircleShareLink" | "userId" | "userCircleNos">
 
   export type UserCirclesOrderByWithAggregationInput = {
     id?: SortOrder
@@ -10597,16 +10597,16 @@ export namespace Prisma {
     id?: string
     setNo?: string
     assessmentType?: $Enums.AssessmentType
+    createdWeeklyBy?: string
+    createdCheckinBy?: string
     AND?: AssessmentWhereInput | AssessmentWhereInput[]
     OR?: AssessmentWhereInput[]
     NOT?: AssessmentWhereInput | AssessmentWhereInput[]
     created_at?: DateTimeNullableFilter<"Assessment"> | Date | string | null
     setQuestions?: StringNullableListFilter<"Assessment">
-    createdWeeklyBy?: StringNullableFilter<"Assessment"> | string | null
-    createdCheckinBy?: StringNullableFilter<"Assessment"> | string | null
     empyloUser?: XOR<EmpyloUserNullableRelationFilter, EmpyloUserWhereInput> | null
     empyloUserCheckin?: XOR<EmpyloUserNullableRelationFilter, EmpyloUserWhereInput> | null
-  }, "id" | "id" | "setNo" | "assessmentType">
+  }, "id" | "id" | "setNo" | "assessmentType" | "createdWeeklyBy" | "createdCheckinBy">
 
   export type AssessmentOrderByWithAggregationInput = {
     id?: SortOrder

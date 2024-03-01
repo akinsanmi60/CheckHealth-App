@@ -712,7 +712,7 @@ export class CirclesService {
   async getTotalCompanyCirclesCategory(id: string) {
     const checkCompany = await this.prisma.companyUser.findUnique({
       where: {
-        id,
+        id: id,
       },
     });
 
@@ -726,24 +726,24 @@ export class CirclesService {
       await Promise.all([
         this.prisma.companyCircles.count({
           where: {
-            companyUserId: id,
+            companyUserId: checkCompany?.id,
           },
         }),
         this.prisma.companyCircles.count({
           where: {
-            companyUserId: id,
+            companyUserId: checkCompany?.id,
             circleStatus: "ongoing",
           },
         }),
         this.prisma.companyCircles.count({
           where: {
-            companyUserId: id,
+            companyUserId: checkCompany?.id,
             circleStatus: "completed",
           },
         }),
         this.prisma.companyCircles.count({
           where: {
-            companyUserId: id,
+            companyUserId: checkCompany?.id,
             circleStatus: "unenrolled",
           },
         }),
@@ -778,7 +778,7 @@ export class CirclesService {
 
     const companyCircles = await this.prisma.companyCircles.findMany({
       where: {
-        companyUserId: id,
+        companyUserId: checkCompany?.id,
       },
       select: {
         created_at: true,
@@ -831,7 +831,7 @@ export class CirclesService {
   async getTotalCompanyCirclesPerMonth(id: string, year: number) {
     const checkCompany = await this.prisma.companyUser.findUnique({
       where: {
-        id,
+        id: id,
       },
     });
 
@@ -851,7 +851,12 @@ export class CirclesService {
 
         const queries = ["completed", "ongoing", "unenrolled"].map(
           circleStatus =>
-            this.getCountForCircleStatus(id, circleStatus, startDate, endDate),
+            this.getCountForCircleStatus(
+              checkCompany?.id,
+              circleStatus,
+              startDate,
+              endDate,
+            ),
         );
 
         const results = await Promise.allSettled(queries);
