@@ -25,6 +25,7 @@ export class AddAdminUSerDto {
   @IsEmail({}, { message: "Email must be a valid email address." })
   email: string;
 
+  @ApiProperty()
   @IsArray()
   @IsString({
     each: true,
