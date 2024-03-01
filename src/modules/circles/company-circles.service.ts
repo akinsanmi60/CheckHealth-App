@@ -399,6 +399,15 @@ export class CirclesService {
       where: {
         id: id,
       },
+      select: {
+        id: true,
+        memberList: {
+          select: {
+            id: true,
+            email: true,
+          },
+        },
+      },
     });
 
     if (!findCircle) {
@@ -410,6 +419,15 @@ export class CirclesService {
       "email",
       "user",
     )) as Users;
+
+    // Check if user is already a member of the circle
+    const isUserInCircle = findCircle.memberList.some(
+      member => member.id === foundUser.id,
+    );
+
+    if (isUserInCircle) {
+      throw new BadRequestException("User is already a member of the circle");
+    }
 
     let newCreatedEntity = {} as Users;
 
