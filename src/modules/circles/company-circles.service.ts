@@ -763,7 +763,7 @@ export class CirclesService {
   async getTotalCirclesPerMonthInYear(id: string, year: number) {
     const checkCompany = await this.prisma.companyUser.findUnique({
       where: {
-        id,
+        id: id,
       },
     });
 
