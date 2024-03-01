@@ -153,7 +153,7 @@ export class CompanyAuthService {
     );
 
     if (!foundCompany) {
-      throw new BadRequestException("User not found");
+      throw new BadRequestException("Company not found");
     } else if (foundCompany) {
       // check if the code matches
       const isMatch = await this.passwordService.validatePassword(
@@ -177,7 +177,7 @@ export class CompanyAuthService {
 
         const updatedUser = await this.authResolver.findAndUpdateField(
           data,
-          "user",
+          "companyUser",
           "id",
           foundCompany.id,
         );
