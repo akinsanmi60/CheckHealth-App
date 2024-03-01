@@ -81,7 +81,7 @@ export class AssessmentController {
     return await this.assessmentService.getAllAssessment(dto);
   }
 
-  @Post("createAssessment")
+  @Post("/:id/createAssessment")
   @ApiParam({ name: "id", type: "string" })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles([Role.admin, Role.superAdmin])

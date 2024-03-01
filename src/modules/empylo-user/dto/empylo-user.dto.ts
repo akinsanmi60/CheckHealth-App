@@ -31,6 +31,13 @@ export class AddAdminUSerDto {
     message: "Each item in the permissions list must be a string.",
   })
   permissions: string[];
+
+  @ApiProperty({
+    example: "admin",
+    enum: ["admin", "superAdmin"],
+  })
+  @IsString({ message: "Role must be a string." })
+  role: string;
 }
 
 export class GetAllAdminUserDto {

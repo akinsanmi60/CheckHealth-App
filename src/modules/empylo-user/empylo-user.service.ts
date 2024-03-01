@@ -16,7 +16,7 @@ import { PrismaService } from "src/prisma/prisma.service";
 import { AddAdminUSerDto } from "./dto/empylo-user.dto";
 import * as crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
-import { UserStatus } from "../../../prisma/generated/client";
+import { SystemRole, UserStatus } from "../../../prisma/generated/client";
 
 @Injectable()
 export class EmpyloUserService {
@@ -31,7 +31,7 @@ export class EmpyloUserService {
   }
 
   async addAdminUser(dto: AddAdminUSerDto) {
-    const { email, permissions, firstName, lastName } = dto;
+    const { email, permissions, firstName, lastName, role } = dto;
 
     const foundUser = await this.prisma.empyloUser.findUnique({
       where: {
@@ -59,6 +59,7 @@ export class EmpyloUserService {
           permissions: permissions,
           firstName: firstName,
           lastName: lastName,
+          role: role as string as SystemRole,
         },
       });
 
@@ -196,10 +197,6 @@ export class EmpyloUserService {
       }
 
       const codeGenerated = crypto.randomInt(100000, 999999).toString();
-
-      // const hashedCode = await this.passwordService.hashPassword(
-      //   codeGenerated.toString(),
-      // );
 
       const data = {
         password_resetCode: codeGenerated,

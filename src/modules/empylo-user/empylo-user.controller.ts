@@ -67,7 +67,7 @@ export class EmpyloUserController {
     return this.empyloUserService.verifyAccount(dto);
   }
 
-  @Post("/admin/change-password")
+  @Post("/admin/:id/change-password")
   @ApiBody({ type: ChangePasswordDto })
   @ApiResponse({ type: GenericResponse })
   @ApiParam({ name: "id", type: "string" })
