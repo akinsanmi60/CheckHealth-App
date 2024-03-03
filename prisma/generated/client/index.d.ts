@@ -1547,10 +1547,12 @@ export namespace Prisma {
 
   export type CompanyCirclesCountOutputType = {
     memberList: number
+    circleScoreDetail: number
   }
 
   export type CompanyCirclesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     memberList?: boolean | CompanyCirclesCountOutputTypeCountMemberListArgs
+    circleScoreDetail?: boolean | CompanyCirclesCountOutputTypeCountCircleScoreDetailArgs
   }
 
   // Custom InputTypes
@@ -1571,6 +1573,14 @@ export namespace Prisma {
    */
   export type CompanyCirclesCountOutputTypeCountMemberListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
+  }
+
+
+  /**
+   * CompanyCirclesCountOutputType without action
+   */
+  export type CompanyCirclesCountOutputTypeCountCircleScoreDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScoreDetailWhereInput
   }
 
 
@@ -1645,10 +1655,12 @@ export namespace Prisma {
 
   export type UserCirclesCountOutputType = {
     memberList: number
+    circleScoreDetail: number
   }
 
   export type UserCirclesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     memberList?: boolean | UserCirclesCountOutputTypeCountMemberListArgs
+    circleScoreDetail?: boolean | UserCirclesCountOutputTypeCountCircleScoreDetailArgs
   }
 
   // Custom InputTypes
@@ -1669,6 +1681,48 @@ export namespace Prisma {
    */
   export type UserCirclesCountOutputTypeCountMemberListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
+  }
+
+
+  /**
+   * UserCirclesCountOutputType without action
+   */
+  export type UserCirclesCountOutputTypeCountCircleScoreDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScoreDetailWhereInput
+  }
+
+
+
+  /**
+   * Count Type AssessmentCountOutputType
+   */
+
+  export type AssessmentCountOutputType = {
+    assessmentScoreDetail: number
+  }
+
+  export type AssessmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    assessmentScoreDetail?: boolean | AssessmentCountOutputTypeCountAssessmentScoreDetailArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * AssessmentCountOutputType without action
+   */
+  export type AssessmentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentCountOutputType
+     */
+    select?: AssessmentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * AssessmentCountOutputType without action
+   */
+  export type AssessmentCountOutputTypeCountAssessmentScoreDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScoreDetailWhereInput
   }
 
 
@@ -4233,6 +4287,7 @@ export namespace Prisma {
     circleStatus?: boolean
     companyUser?: boolean | CompanyCircles$companyUserArgs<ExtArgs>
     memberList?: boolean | CompanyCircles$memberListArgs<ExtArgs>
+    circleScoreDetail?: boolean | CompanyCircles$circleScoreDetailArgs<ExtArgs>
     _count?: boolean | CompanyCirclesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["companyCircles"]>
 
@@ -4255,6 +4310,7 @@ export namespace Prisma {
   export type CompanyCirclesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     companyUser?: boolean | CompanyCircles$companyUserArgs<ExtArgs>
     memberList?: boolean | CompanyCircles$memberListArgs<ExtArgs>
+    circleScoreDetail?: boolean | CompanyCircles$circleScoreDetailArgs<ExtArgs>
     _count?: boolean | CompanyCirclesCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4264,6 +4320,7 @@ export namespace Prisma {
     objects: {
       companyUser: Prisma.$CompanyUserPayload<ExtArgs> | null
       memberList: Prisma.$UserPayload<ExtArgs>[]
+      circleScoreDetail: Prisma.$ScoreDetailPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4647,6 +4704,8 @@ export namespace Prisma {
     companyUser<T extends CompanyCircles$companyUserArgs<ExtArgs> = {}>(args?: Subset<T, CompanyCircles$companyUserArgs<ExtArgs>>): Prisma__CompanyUserClient<$Result.GetResult<Prisma.$CompanyUserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     memberList<T extends CompanyCircles$memberListArgs<ExtArgs> = {}>(args?: Subset<T, CompanyCircles$memberListArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    circleScoreDetail<T extends CompanyCircles$circleScoreDetailArgs<ExtArgs> = {}>(args?: Subset<T, CompanyCircles$circleScoreDetailArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5034,6 +5093,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+
+  /**
+   * CompanyCircles.circleScoreDetail
+   */
+  export type CompanyCircles$circleScoreDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    where?: ScoreDetailWhereInput
+    orderBy?: ScoreDetailOrderByWithRelationInput | ScoreDetailOrderByWithRelationInput[]
+    cursor?: ScoreDetailWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScoreDetailScalarFieldEnum | ScoreDetailScalarFieldEnum[]
   }
 
 
@@ -6661,6 +6741,7 @@ export namespace Prisma {
     circleStatus?: boolean
     user?: boolean | UserCircles$userArgs<ExtArgs>
     memberList?: boolean | UserCircles$memberListArgs<ExtArgs>
+    circleScoreDetail?: boolean | UserCircles$circleScoreDetailArgs<ExtArgs>
     _count?: boolean | UserCirclesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userCircles"]>
 
@@ -6684,6 +6765,7 @@ export namespace Prisma {
   export type UserCirclesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserCircles$userArgs<ExtArgs>
     memberList?: boolean | UserCircles$memberListArgs<ExtArgs>
+    circleScoreDetail?: boolean | UserCircles$circleScoreDetailArgs<ExtArgs>
     _count?: boolean | UserCirclesCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -6693,6 +6775,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
       memberList: Prisma.$UserPayload<ExtArgs>[]
+      circleScoreDetail: Prisma.$ScoreDetailPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7077,6 +7160,8 @@ export namespace Prisma {
     user<T extends UserCircles$userArgs<ExtArgs> = {}>(args?: Subset<T, UserCircles$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     memberList<T extends UserCircles$memberListArgs<ExtArgs> = {}>(args?: Subset<T, UserCircles$memberListArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    circleScoreDetail<T extends UserCircles$circleScoreDetailArgs<ExtArgs> = {}>(args?: Subset<T, UserCircles$circleScoreDetailArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7469,6 +7554,27 @@ export namespace Prisma {
 
 
   /**
+   * UserCircles.circleScoreDetail
+   */
+  export type UserCircles$circleScoreDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    where?: ScoreDetailWhereInput
+    orderBy?: ScoreDetailOrderByWithRelationInput | ScoreDetailOrderByWithRelationInput[]
+    cursor?: ScoreDetailWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScoreDetailScalarFieldEnum | ScoreDetailScalarFieldEnum[]
+  }
+
+
+  /**
    * UserCircles without action
    */
   export type UserCirclesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7662,6 +7768,8 @@ export namespace Prisma {
     createdCheckinBy?: boolean
     empyloUser?: boolean | Assessment$empyloUserArgs<ExtArgs>
     empyloUserCheckin?: boolean | Assessment$empyloUserCheckinArgs<ExtArgs>
+    assessmentScoreDetail?: boolean | Assessment$assessmentScoreDetailArgs<ExtArgs>
+    _count?: boolean | AssessmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assessment"]>
 
   export type AssessmentSelectScalar = {
@@ -7677,6 +7785,8 @@ export namespace Prisma {
   export type AssessmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     empyloUser?: boolean | Assessment$empyloUserArgs<ExtArgs>
     empyloUserCheckin?: boolean | Assessment$empyloUserCheckinArgs<ExtArgs>
+    assessmentScoreDetail?: boolean | Assessment$assessmentScoreDetailArgs<ExtArgs>
+    _count?: boolean | AssessmentCountOutputTypeDefaultArgs<ExtArgs>
   }
 
 
@@ -7685,6 +7795,7 @@ export namespace Prisma {
     objects: {
       empyloUser: Prisma.$EmpyloUserPayload<ExtArgs> | null
       empyloUserCheckin: Prisma.$EmpyloUserPayload<ExtArgs> | null
+      assessmentScoreDetail: Prisma.$ScoreDetailPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8062,6 +8173,8 @@ export namespace Prisma {
     empyloUser<T extends Assessment$empyloUserArgs<ExtArgs> = {}>(args?: Subset<T, Assessment$empyloUserArgs<ExtArgs>>): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     empyloUserCheckin<T extends Assessment$empyloUserCheckinArgs<ExtArgs> = {}>(args?: Subset<T, Assessment$empyloUserCheckinArgs<ExtArgs>>): Prisma__EmpyloUserClient<$Result.GetResult<Prisma.$EmpyloUserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    assessmentScoreDetail<T extends Assessment$assessmentScoreDetailArgs<ExtArgs> = {}>(args?: Subset<T, Assessment$assessmentScoreDetailArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScoreDetailPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8442,6 +8555,27 @@ export namespace Prisma {
 
 
   /**
+   * Assessment.assessmentScoreDetail
+   */
+  export type Assessment$assessmentScoreDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScoreDetail
+     */
+    select?: ScoreDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ScoreDetailInclude<ExtArgs> | null
+    where?: ScoreDetailWhereInput
+    orderBy?: ScoreDetailOrderByWithRelationInput | ScoreDetailOrderByWithRelationInput[]
+    cursor?: ScoreDetailWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScoreDetailScalarFieldEnum | ScoreDetailScalarFieldEnum[]
+  }
+
+
+  /**
    * Assessment without action
    */
   export type AssessmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8484,6 +8618,9 @@ export namespace Prisma {
   export type ScoreDetailMinAggregateOutputType = {
     id: string | null
     ownerID: string | null
+    coyCirleID: string | null
+    userCirleID: string | null
+    assessmentID: string | null
     weeklyScore: number | null
     dailyScore: number | null
     wellbeingScore: number | null
@@ -8495,6 +8632,9 @@ export namespace Prisma {
   export type ScoreDetailMaxAggregateOutputType = {
     id: string | null
     ownerID: string | null
+    coyCirleID: string | null
+    userCirleID: string | null
+    assessmentID: string | null
     weeklyScore: number | null
     dailyScore: number | null
     wellbeingScore: number | null
@@ -8506,6 +8646,9 @@ export namespace Prisma {
   export type ScoreDetailCountAggregateOutputType = {
     id: number
     ownerID: number
+    coyCirleID: number
+    userCirleID: number
+    assessmentID: number
     weeklyScore: number
     dailyScore: number
     wellbeingScore: number
@@ -8531,6 +8674,9 @@ export namespace Prisma {
   export type ScoreDetailMinAggregateInputType = {
     id?: true
     ownerID?: true
+    coyCirleID?: true
+    userCirleID?: true
+    assessmentID?: true
     weeklyScore?: true
     dailyScore?: true
     wellbeingScore?: true
@@ -8542,6 +8688,9 @@ export namespace Prisma {
   export type ScoreDetailMaxAggregateInputType = {
     id?: true
     ownerID?: true
+    coyCirleID?: true
+    userCirleID?: true
+    assessmentID?: true
     weeklyScore?: true
     dailyScore?: true
     wellbeingScore?: true
@@ -8553,6 +8702,9 @@ export namespace Prisma {
   export type ScoreDetailCountAggregateInputType = {
     id?: true
     ownerID?: true
+    coyCirleID?: true
+    userCirleID?: true
+    assessmentID?: true
     weeklyScore?: true
     dailyScore?: true
     wellbeingScore?: true
@@ -8651,6 +8803,9 @@ export namespace Prisma {
   export type ScoreDetailGroupByOutputType = {
     id: string
     ownerID: string | null
+    coyCirleID: string | null
+    userCirleID: string | null
+    assessmentID: string | null
     weeklyScore: number | null
     dailyScore: number | null
     wellbeingScore: number | null
@@ -8681,6 +8836,9 @@ export namespace Prisma {
   export type ScoreDetailSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     ownerID?: boolean
+    coyCirleID?: boolean
+    userCirleID?: boolean
+    assessmentID?: boolean
     weeklyScore?: boolean
     dailyScore?: boolean
     wellbeingScore?: boolean
@@ -8688,11 +8846,17 @@ export namespace Prisma {
     assessmentType?: boolean
     created_at?: boolean
     owner?: boolean | ScoreDetail$ownerArgs<ExtArgs>
+    coyCirleWith?: boolean | ScoreDetail$coyCirleWithArgs<ExtArgs>
+    userCirleWith?: boolean | ScoreDetail$userCirleWithArgs<ExtArgs>
+    assessmentWith?: boolean | ScoreDetail$assessmentWithArgs<ExtArgs>
   }, ExtArgs["result"]["scoreDetail"]>
 
   export type ScoreDetailSelectScalar = {
     id?: boolean
     ownerID?: boolean
+    coyCirleID?: boolean
+    userCirleID?: boolean
+    assessmentID?: boolean
     weeklyScore?: boolean
     dailyScore?: boolean
     wellbeingScore?: boolean
@@ -8703,6 +8867,9 @@ export namespace Prisma {
 
   export type ScoreDetailInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | ScoreDetail$ownerArgs<ExtArgs>
+    coyCirleWith?: boolean | ScoreDetail$coyCirleWithArgs<ExtArgs>
+    userCirleWith?: boolean | ScoreDetail$userCirleWithArgs<ExtArgs>
+    assessmentWith?: boolean | ScoreDetail$assessmentWithArgs<ExtArgs>
   }
 
 
@@ -8710,10 +8877,16 @@ export namespace Prisma {
     name: "ScoreDetail"
     objects: {
       owner: Prisma.$UserPayload<ExtArgs> | null
+      coyCirleWith: Prisma.$CompanyCirclesPayload<ExtArgs> | null
+      userCirleWith: Prisma.$UserCirclesPayload<ExtArgs> | null
+      assessmentWith: Prisma.$AssessmentPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       ownerID: string | null
+      coyCirleID: string | null
+      userCirleID: string | null
+      assessmentID: string | null
       weeklyScore: number | null
       dailyScore: number | null
       wellbeingScore: number | null
@@ -9087,6 +9260,12 @@ export namespace Prisma {
 
     owner<T extends ScoreDetail$ownerArgs<ExtArgs> = {}>(args?: Subset<T, ScoreDetail$ownerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    coyCirleWith<T extends ScoreDetail$coyCirleWithArgs<ExtArgs> = {}>(args?: Subset<T, ScoreDetail$coyCirleWithArgs<ExtArgs>>): Prisma__CompanyCirclesClient<$Result.GetResult<Prisma.$CompanyCirclesPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    userCirleWith<T extends ScoreDetail$userCirleWithArgs<ExtArgs> = {}>(args?: Subset<T, ScoreDetail$userCirleWithArgs<ExtArgs>>): Prisma__UserCirclesClient<$Result.GetResult<Prisma.$UserCirclesPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    assessmentWith<T extends ScoreDetail$assessmentWithArgs<ExtArgs> = {}>(args?: Subset<T, ScoreDetail$assessmentWithArgs<ExtArgs>>): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9117,6 +9296,9 @@ export namespace Prisma {
   interface ScoreDetailFieldRefs {
     readonly id: FieldRef<"ScoreDetail", 'String'>
     readonly ownerID: FieldRef<"ScoreDetail", 'String'>
+    readonly coyCirleID: FieldRef<"ScoreDetail", 'String'>
+    readonly userCirleID: FieldRef<"ScoreDetail", 'String'>
+    readonly assessmentID: FieldRef<"ScoreDetail", 'String'>
     readonly weeklyScore: FieldRef<"ScoreDetail", 'Int'>
     readonly dailyScore: FieldRef<"ScoreDetail", 'Int'>
     readonly wellbeingScore: FieldRef<"ScoreDetail", 'Int'>
@@ -9451,6 +9633,54 @@ export namespace Prisma {
 
 
   /**
+   * ScoreDetail.coyCirleWith
+   */
+  export type ScoreDetail$coyCirleWithArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyCircles
+     */
+    select?: CompanyCirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CompanyCirclesInclude<ExtArgs> | null
+    where?: CompanyCirclesWhereInput
+  }
+
+
+  /**
+   * ScoreDetail.userCirleWith
+   */
+  export type ScoreDetail$userCirleWithArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCircles
+     */
+    select?: UserCirclesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserCirclesInclude<ExtArgs> | null
+    where?: UserCirclesWhereInput
+  }
+
+
+  /**
+   * ScoreDetail.assessmentWith
+   */
+  export type ScoreDetail$assessmentWithArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    where?: AssessmentWhereInput
+  }
+
+
+  /**
    * ScoreDetail without action
    */
   export type ScoreDetailDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9634,6 +9864,9 @@ export namespace Prisma {
   export const ScoreDetailScalarFieldEnum: {
     id: 'id',
     ownerID: 'ownerID',
+    coyCirleID: 'coyCirleID',
+    userCirleID: 'userCirleID',
+    assessmentID: 'assessmentID',
     weeklyScore: 'weeklyScore',
     dailyScore: 'dailyScore',
     wellbeingScore: 'wellbeingScore',
@@ -10167,6 +10400,7 @@ export namespace Prisma {
     circleStatus?: EnumCircleStatusNullableFilter<"CompanyCircles"> | $Enums.CircleStatus | null
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     memberList?: UserListRelationFilter
+    circleScoreDetail?: ScoreDetailListRelationFilter
   }
 
   export type CompanyCirclesOrderByWithRelationInput = {
@@ -10185,6 +10419,7 @@ export namespace Prisma {
     circleStatus?: SortOrderInput | SortOrder
     companyUser?: CompanyUserOrderByWithRelationInput
     memberList?: UserOrderByRelationAggregateInput
+    circleScoreDetail?: ScoreDetailOrderByRelationAggregateInput
   }
 
   export type CompanyCirclesWhereUniqueInput = Prisma.AtLeast<{
@@ -10206,6 +10441,7 @@ export namespace Prisma {
     circleStatus?: EnumCircleStatusNullableFilter<"CompanyCircles"> | $Enums.CircleStatus | null
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     memberList?: UserListRelationFilter
+    circleScoreDetail?: ScoreDetailListRelationFilter
   }, "id" | "id" | "coyCircleName" | "coyCircleShareLink" | "companyUserId" | "coyCircleNos">
 
   export type CompanyCirclesOrderByWithAggregationInput = {
@@ -10483,6 +10719,7 @@ export namespace Prisma {
     circleStatus?: EnumCircleStatusNullableFilter<"UserCircles"> | $Enums.CircleStatus | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     memberList?: UserListRelationFilter
+    circleScoreDetail?: ScoreDetailListRelationFilter
   }
 
   export type UserCirclesOrderByWithRelationInput = {
@@ -10502,6 +10739,7 @@ export namespace Prisma {
     circleStatus?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     memberList?: UserOrderByRelationAggregateInput
+    circleScoreDetail?: ScoreDetailOrderByRelationAggregateInput
   }
 
   export type UserCirclesWhereUniqueInput = Prisma.AtLeast<{
@@ -10524,6 +10762,7 @@ export namespace Prisma {
     circleStatus?: EnumCircleStatusNullableFilter<"UserCircles"> | $Enums.CircleStatus | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     memberList?: UserListRelationFilter
+    circleScoreDetail?: ScoreDetailListRelationFilter
   }, "id" | "id" | "userCircleName" | "userCircleShareLink" | "userId" | "userCircleNos">
 
   export type UserCirclesOrderByWithAggregationInput = {
@@ -10579,6 +10818,7 @@ export namespace Prisma {
     createdCheckinBy?: StringNullableFilter<"Assessment"> | string | null
     empyloUser?: XOR<EmpyloUserNullableRelationFilter, EmpyloUserWhereInput> | null
     empyloUserCheckin?: XOR<EmpyloUserNullableRelationFilter, EmpyloUserWhereInput> | null
+    assessmentScoreDetail?: ScoreDetailListRelationFilter
   }
 
   export type AssessmentOrderByWithRelationInput = {
@@ -10591,6 +10831,7 @@ export namespace Prisma {
     createdCheckinBy?: SortOrderInput | SortOrder
     empyloUser?: EmpyloUserOrderByWithRelationInput
     empyloUserCheckin?: EmpyloUserOrderByWithRelationInput
+    assessmentScoreDetail?: ScoreDetailOrderByRelationAggregateInput
   }
 
   export type AssessmentWhereUniqueInput = Prisma.AtLeast<{
@@ -10606,6 +10847,7 @@ export namespace Prisma {
     setQuestions?: StringNullableListFilter<"Assessment">
     empyloUser?: XOR<EmpyloUserNullableRelationFilter, EmpyloUserWhereInput> | null
     empyloUserCheckin?: XOR<EmpyloUserNullableRelationFilter, EmpyloUserWhereInput> | null
+    assessmentScoreDetail?: ScoreDetailListRelationFilter
   }, "id" | "id" | "setNo" | "assessmentType" | "createdWeeklyBy" | "createdCheckinBy">
 
   export type AssessmentOrderByWithAggregationInput = {
@@ -10640,6 +10882,9 @@ export namespace Prisma {
     NOT?: ScoreDetailWhereInput | ScoreDetailWhereInput[]
     id?: StringFilter<"ScoreDetail"> | string
     ownerID?: StringNullableFilter<"ScoreDetail"> | string | null
+    coyCirleID?: StringNullableFilter<"ScoreDetail"> | string | null
+    userCirleID?: StringNullableFilter<"ScoreDetail"> | string | null
+    assessmentID?: StringNullableFilter<"ScoreDetail"> | string | null
     weeklyScore?: IntNullableFilter<"ScoreDetail"> | number | null
     dailyScore?: IntNullableFilter<"ScoreDetail"> | number | null
     wellbeingScore?: IntNullableFilter<"ScoreDetail"> | number | null
@@ -10647,11 +10892,17 @@ export namespace Prisma {
     assessmentType?: EnumAssessmentTypeNullableFilter<"ScoreDetail"> | $Enums.AssessmentType | null
     created_at?: DateTimeNullableFilter<"ScoreDetail"> | Date | string | null
     owner?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    coyCirleWith?: XOR<CompanyCirclesNullableRelationFilter, CompanyCirclesWhereInput> | null
+    userCirleWith?: XOR<UserCirclesNullableRelationFilter, UserCirclesWhereInput> | null
+    assessmentWith?: XOR<AssessmentNullableRelationFilter, AssessmentWhereInput> | null
   }
 
   export type ScoreDetailOrderByWithRelationInput = {
     id?: SortOrder
     ownerID?: SortOrderInput | SortOrder
+    coyCirleID?: SortOrderInput | SortOrder
+    userCirleID?: SortOrderInput | SortOrder
+    assessmentID?: SortOrderInput | SortOrder
     weeklyScore?: SortOrderInput | SortOrder
     dailyScore?: SortOrderInput | SortOrder
     wellbeingScore?: SortOrderInput | SortOrder
@@ -10659,6 +10910,9 @@ export namespace Prisma {
     assessmentType?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     owner?: UserOrderByWithRelationInput
+    coyCirleWith?: CompanyCirclesOrderByWithRelationInput
+    userCirleWith?: UserCirclesOrderByWithRelationInput
+    assessmentWith?: AssessmentOrderByWithRelationInput
   }
 
   export type ScoreDetailWhereUniqueInput = Prisma.AtLeast<{
@@ -10668,17 +10922,26 @@ export namespace Prisma {
     OR?: ScoreDetailWhereInput[]
     NOT?: ScoreDetailWhereInput | ScoreDetailWhereInput[]
     ownerID?: StringNullableFilter<"ScoreDetail"> | string | null
+    coyCirleID?: StringNullableFilter<"ScoreDetail"> | string | null
+    userCirleID?: StringNullableFilter<"ScoreDetail"> | string | null
+    assessmentID?: StringNullableFilter<"ScoreDetail"> | string | null
     weeklyScore?: IntNullableFilter<"ScoreDetail"> | number | null
     dailyScore?: IntNullableFilter<"ScoreDetail"> | number | null
     wellbeingScore?: IntNullableFilter<"ScoreDetail"> | number | null
     setNo?: StringNullableFilter<"ScoreDetail"> | string | null
     created_at?: DateTimeNullableFilter<"ScoreDetail"> | Date | string | null
     owner?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    coyCirleWith?: XOR<CompanyCirclesNullableRelationFilter, CompanyCirclesWhereInput> | null
+    userCirleWith?: XOR<UserCirclesNullableRelationFilter, UserCirclesWhereInput> | null
+    assessmentWith?: XOR<AssessmentNullableRelationFilter, AssessmentWhereInput> | null
   }, "id" | "id" | "assessmentType">
 
   export type ScoreDetailOrderByWithAggregationInput = {
     id?: SortOrder
     ownerID?: SortOrderInput | SortOrder
+    coyCirleID?: SortOrderInput | SortOrder
+    userCirleID?: SortOrderInput | SortOrder
+    assessmentID?: SortOrderInput | SortOrder
     weeklyScore?: SortOrderInput | SortOrder
     dailyScore?: SortOrderInput | SortOrder
     wellbeingScore?: SortOrderInput | SortOrder
@@ -10698,6 +10961,9 @@ export namespace Prisma {
     NOT?: ScoreDetailScalarWhereWithAggregatesInput | ScoreDetailScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ScoreDetail"> | string
     ownerID?: StringNullableWithAggregatesFilter<"ScoreDetail"> | string | null
+    coyCirleID?: StringNullableWithAggregatesFilter<"ScoreDetail"> | string | null
+    userCirleID?: StringNullableWithAggregatesFilter<"ScoreDetail"> | string | null
+    assessmentID?: StringNullableWithAggregatesFilter<"ScoreDetail"> | string | null
     weeklyScore?: IntNullableWithAggregatesFilter<"ScoreDetail"> | number | null
     dailyScore?: IntNullableWithAggregatesFilter<"ScoreDetail"> | number | null
     wellbeingScore?: IntNullableWithAggregatesFilter<"ScoreDetail"> | number | null
@@ -11101,6 +11367,7 @@ export namespace Prisma {
     circleStatus?: $Enums.CircleStatus | null
     companyUser?: CompanyUserCreateNestedOneWithoutCompany_circleInput
     memberList?: UserCreateNestedManyWithoutCoyCircleAttachedToInput
+    circleScoreDetail?: ScoreDetailCreateNestedManyWithoutCoyCirleWithInput
   }
 
   export type CompanyCirclesUncheckedCreateInput = {
@@ -11118,6 +11385,7 @@ export namespace Prisma {
     circleImg?: string | null
     circleStatus?: $Enums.CircleStatus | null
     memberList?: UserUncheckedCreateNestedManyWithoutCoyCircleAttachedToInput
+    circleScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutCoyCirleWithInput
   }
 
   export type CompanyCirclesUpdateInput = {
@@ -11135,6 +11403,7 @@ export namespace Prisma {
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
     companyUser?: CompanyUserUpdateOneWithoutCompany_circleNestedInput
     memberList?: UserUpdateManyWithoutCoyCircleAttachedToNestedInput
+    circleScoreDetail?: ScoreDetailUpdateManyWithoutCoyCirleWithNestedInput
   }
 
   export type CompanyCirclesUncheckedUpdateInput = {
@@ -11152,6 +11421,7 @@ export namespace Prisma {
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
     memberList?: UserUncheckedUpdateManyWithoutCoyCircleAttachedToNestedInput
+    circleScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutCoyCirleWithNestedInput
   }
 
   export type CompanyCirclesCreateManyInput = {
@@ -11498,6 +11768,7 @@ export namespace Prisma {
     circleStatus?: $Enums.CircleStatus | null
     user?: UserCreateNestedOneWithoutUserCirclesInput
     memberList?: UserCreateNestedManyWithoutOtherUserCirclesInInput
+    circleScoreDetail?: ScoreDetailCreateNestedManyWithoutUserCirleWithInput
   }
 
   export type UserCirclesUncheckedCreateInput = {
@@ -11516,6 +11787,7 @@ export namespace Prisma {
     userCircleNos?: string | null
     circleStatus?: $Enums.CircleStatus | null
     memberList?: UserUncheckedCreateNestedManyWithoutOtherUserCirclesInInput
+    circleScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutUserCirleWithInput
   }
 
   export type UserCirclesUpdateInput = {
@@ -11534,6 +11806,7 @@ export namespace Prisma {
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
     user?: UserUpdateOneWithoutUserCirclesNestedInput
     memberList?: UserUpdateManyWithoutOtherUserCirclesInNestedInput
+    circleScoreDetail?: ScoreDetailUpdateManyWithoutUserCirleWithNestedInput
   }
 
   export type UserCirclesUncheckedUpdateInput = {
@@ -11552,6 +11825,7 @@ export namespace Prisma {
     userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
     memberList?: UserUncheckedUpdateManyWithoutOtherUserCirclesInNestedInput
+    circleScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutUserCirleWithNestedInput
   }
 
   export type UserCirclesCreateManyInput = {
@@ -11612,6 +11886,7 @@ export namespace Prisma {
     setQuestions?: AssessmentCreatesetQuestionsInput | string[]
     empyloUser?: EmpyloUserCreateNestedOneWithoutWeeklyAssessmentInput
     empyloUserCheckin?: EmpyloUserCreateNestedOneWithoutCheckinAssessmentInput
+    assessmentScoreDetail?: ScoreDetailCreateNestedManyWithoutAssessmentWithInput
   }
 
   export type AssessmentUncheckedCreateInput = {
@@ -11622,6 +11897,7 @@ export namespace Prisma {
     setQuestions?: AssessmentCreatesetQuestionsInput | string[]
     createdWeeklyBy?: string | null
     createdCheckinBy?: string | null
+    assessmentScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutAssessmentWithInput
   }
 
   export type AssessmentUpdateInput = {
@@ -11632,6 +11908,7 @@ export namespace Prisma {
     setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
     empyloUser?: EmpyloUserUpdateOneWithoutWeeklyAssessmentNestedInput
     empyloUserCheckin?: EmpyloUserUpdateOneWithoutCheckinAssessmentNestedInput
+    assessmentScoreDetail?: ScoreDetailUpdateManyWithoutAssessmentWithNestedInput
   }
 
   export type AssessmentUncheckedUpdateInput = {
@@ -11642,6 +11919,7 @@ export namespace Prisma {
     setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
     createdWeeklyBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdCheckinBy?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutAssessmentWithNestedInput
   }
 
   export type AssessmentCreateManyInput = {
@@ -11681,11 +11959,17 @@ export namespace Prisma {
     assessmentType?: $Enums.AssessmentType | null
     created_at?: Date | string | null
     owner?: UserCreateNestedOneWithoutListOfScoreDetailInput
+    coyCirleWith?: CompanyCirclesCreateNestedOneWithoutCircleScoreDetailInput
+    userCirleWith?: UserCirclesCreateNestedOneWithoutCircleScoreDetailInput
+    assessmentWith?: AssessmentCreateNestedOneWithoutAssessmentScoreDetailInput
   }
 
   export type ScoreDetailUncheckedCreateInput = {
     id?: string
     ownerID?: string | null
+    coyCirleID?: string | null
+    userCirleID?: string | null
+    assessmentID?: string | null
     weeklyScore?: number | null
     dailyScore?: number | null
     wellbeingScore?: number | null
@@ -11703,11 +11987,17 @@ export namespace Prisma {
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     owner?: UserUpdateOneWithoutListOfScoreDetailNestedInput
+    coyCirleWith?: CompanyCirclesUpdateOneWithoutCircleScoreDetailNestedInput
+    userCirleWith?: UserCirclesUpdateOneWithoutCircleScoreDetailNestedInput
+    assessmentWith?: AssessmentUpdateOneWithoutAssessmentScoreDetailNestedInput
   }
 
   export type ScoreDetailUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     ownerID?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    userCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentID?: NullableStringFieldUpdateOperationsInput | string | null
     weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
     dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
     wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -11719,6 +12009,9 @@ export namespace Prisma {
   export type ScoreDetailCreateManyInput = {
     id?: string
     ownerID?: string | null
+    coyCirleID?: string | null
+    userCirleID?: string | null
+    assessmentID?: string | null
     weeklyScore?: number | null
     dailyScore?: number | null
     wellbeingScore?: number | null
@@ -11740,6 +12033,9 @@ export namespace Prisma {
   export type ScoreDetailUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     ownerID?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    userCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentID?: NullableStringFieldUpdateOperationsInput | string | null
     weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
     dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
     wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -12136,6 +12432,16 @@ export namespace Prisma {
     isNot?: CompanyUserWhereInput | null
   }
 
+  export type ScoreDetailListRelationFilter = {
+    every?: ScoreDetailWhereInput
+    some?: ScoreDetailWhereInput
+    none?: ScoreDetailWhereInput
+  }
+
+  export type ScoreDetailOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CompanyCirclesCountOrderByAggregateInput = {
     id?: SortOrder
     created_at?: SortOrder
@@ -12217,17 +12523,7 @@ export namespace Prisma {
     none?: UserCirclesWhereInput
   }
 
-  export type ScoreDetailListRelationFilter = {
-    every?: ScoreDetailWhereInput
-    some?: ScoreDetailWhereInput
-    none?: ScoreDetailWhereInput
-  }
-
   export type UserCirclesOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ScoreDetailOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12472,9 +12768,27 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type CompanyCirclesNullableRelationFilter = {
+    is?: CompanyCirclesWhereInput | null
+    isNot?: CompanyCirclesWhereInput | null
+  }
+
+  export type UserCirclesNullableRelationFilter = {
+    is?: UserCirclesWhereInput | null
+    isNot?: UserCirclesWhereInput | null
+  }
+
+  export type AssessmentNullableRelationFilter = {
+    is?: AssessmentWhereInput | null
+    isNot?: AssessmentWhereInput | null
+  }
+
   export type ScoreDetailCountOrderByAggregateInput = {
     id?: SortOrder
     ownerID?: SortOrder
+    coyCirleID?: SortOrder
+    userCirleID?: SortOrder
+    assessmentID?: SortOrder
     weeklyScore?: SortOrder
     dailyScore?: SortOrder
     wellbeingScore?: SortOrder
@@ -12492,6 +12806,9 @@ export namespace Prisma {
   export type ScoreDetailMaxOrderByAggregateInput = {
     id?: SortOrder
     ownerID?: SortOrder
+    coyCirleID?: SortOrder
+    userCirleID?: SortOrder
+    assessmentID?: SortOrder
     weeklyScore?: SortOrder
     dailyScore?: SortOrder
     wellbeingScore?: SortOrder
@@ -12503,6 +12820,9 @@ export namespace Prisma {
   export type ScoreDetailMinOrderByAggregateInput = {
     id?: SortOrder
     ownerID?: SortOrder
+    coyCirleID?: SortOrder
+    userCirleID?: SortOrder
+    assessmentID?: SortOrder
     weeklyScore?: SortOrder
     dailyScore?: SortOrder
     wellbeingScore?: SortOrder
@@ -12754,10 +13074,24 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type ScoreDetailCreateNestedManyWithoutCoyCirleWithInput = {
+    create?: XOR<ScoreDetailCreateWithoutCoyCirleWithInput, ScoreDetailUncheckedCreateWithoutCoyCirleWithInput> | ScoreDetailCreateWithoutCoyCirleWithInput[] | ScoreDetailUncheckedCreateWithoutCoyCirleWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutCoyCirleWithInput | ScoreDetailCreateOrConnectWithoutCoyCirleWithInput[]
+    createMany?: ScoreDetailCreateManyCoyCirleWithInputEnvelope
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutCoyCircleAttachedToInput = {
     create?: XOR<UserCreateWithoutCoyCircleAttachedToInput, UserUncheckedCreateWithoutCoyCircleAttachedToInput> | UserCreateWithoutCoyCircleAttachedToInput[] | UserUncheckedCreateWithoutCoyCircleAttachedToInput[]
     connectOrCreate?: UserCreateOrConnectWithoutCoyCircleAttachedToInput | UserCreateOrConnectWithoutCoyCircleAttachedToInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type ScoreDetailUncheckedCreateNestedManyWithoutCoyCirleWithInput = {
+    create?: XOR<ScoreDetailCreateWithoutCoyCirleWithInput, ScoreDetailUncheckedCreateWithoutCoyCirleWithInput> | ScoreDetailCreateWithoutCoyCirleWithInput[] | ScoreDetailUncheckedCreateWithoutCoyCirleWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutCoyCirleWithInput | ScoreDetailCreateOrConnectWithoutCoyCirleWithInput[]
+    createMany?: ScoreDetailCreateManyCoyCirleWithInputEnvelope
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
   }
 
   export type EnumActivityLevelFieldUpdateOperationsInput = {
@@ -12791,6 +13125,20 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type ScoreDetailUpdateManyWithoutCoyCirleWithNestedInput = {
+    create?: XOR<ScoreDetailCreateWithoutCoyCirleWithInput, ScoreDetailUncheckedCreateWithoutCoyCirleWithInput> | ScoreDetailCreateWithoutCoyCirleWithInput[] | ScoreDetailUncheckedCreateWithoutCoyCirleWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutCoyCirleWithInput | ScoreDetailCreateOrConnectWithoutCoyCirleWithInput[]
+    upsert?: ScoreDetailUpsertWithWhereUniqueWithoutCoyCirleWithInput | ScoreDetailUpsertWithWhereUniqueWithoutCoyCirleWithInput[]
+    createMany?: ScoreDetailCreateManyCoyCirleWithInputEnvelope
+    set?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    disconnect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    delete?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    update?: ScoreDetailUpdateWithWhereUniqueWithoutCoyCirleWithInput | ScoreDetailUpdateWithWhereUniqueWithoutCoyCirleWithInput[]
+    updateMany?: ScoreDetailUpdateManyWithWhereWithoutCoyCirleWithInput | ScoreDetailUpdateManyWithWhereWithoutCoyCirleWithInput[]
+    deleteMany?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutCoyCircleAttachedToNestedInput = {
     create?: XOR<UserCreateWithoutCoyCircleAttachedToInput, UserUncheckedCreateWithoutCoyCircleAttachedToInput> | UserCreateWithoutCoyCircleAttachedToInput[] | UserUncheckedCreateWithoutCoyCircleAttachedToInput[]
     connectOrCreate?: UserCreateOrConnectWithoutCoyCircleAttachedToInput | UserCreateOrConnectWithoutCoyCircleAttachedToInput[]
@@ -12802,6 +13150,20 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutCoyCircleAttachedToInput | UserUpdateWithWhereUniqueWithoutCoyCircleAttachedToInput[]
     updateMany?: UserUpdateManyWithWhereWithoutCoyCircleAttachedToInput | UserUpdateManyWithWhereWithoutCoyCircleAttachedToInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type ScoreDetailUncheckedUpdateManyWithoutCoyCirleWithNestedInput = {
+    create?: XOR<ScoreDetailCreateWithoutCoyCirleWithInput, ScoreDetailUncheckedCreateWithoutCoyCirleWithInput> | ScoreDetailCreateWithoutCoyCirleWithInput[] | ScoreDetailUncheckedCreateWithoutCoyCirleWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutCoyCirleWithInput | ScoreDetailCreateOrConnectWithoutCoyCirleWithInput[]
+    upsert?: ScoreDetailUpsertWithWhereUniqueWithoutCoyCirleWithInput | ScoreDetailUpsertWithWhereUniqueWithoutCoyCirleWithInput[]
+    createMany?: ScoreDetailCreateManyCoyCirleWithInputEnvelope
+    set?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    disconnect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    delete?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    update?: ScoreDetailUpdateWithWhereUniqueWithoutCoyCirleWithInput | ScoreDetailUpdateWithWhereUniqueWithoutCoyCirleWithInput[]
+    updateMany?: ScoreDetailUpdateManyWithWhereWithoutCoyCirleWithInput | ScoreDetailUpdateManyWithWhereWithoutCoyCirleWithInput[]
+    deleteMany?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
   }
 
   export type CompanyUserCreateNestedOneWithoutMembersListInput = {
@@ -12996,10 +13358,24 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type ScoreDetailCreateNestedManyWithoutUserCirleWithInput = {
+    create?: XOR<ScoreDetailCreateWithoutUserCirleWithInput, ScoreDetailUncheckedCreateWithoutUserCirleWithInput> | ScoreDetailCreateWithoutUserCirleWithInput[] | ScoreDetailUncheckedCreateWithoutUserCirleWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutUserCirleWithInput | ScoreDetailCreateOrConnectWithoutUserCirleWithInput[]
+    createMany?: ScoreDetailCreateManyUserCirleWithInputEnvelope
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutOtherUserCirclesInInput = {
     create?: XOR<UserCreateWithoutOtherUserCirclesInInput, UserUncheckedCreateWithoutOtherUserCirclesInInput> | UserCreateWithoutOtherUserCirclesInInput[] | UserUncheckedCreateWithoutOtherUserCirclesInInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOtherUserCirclesInInput | UserCreateOrConnectWithoutOtherUserCirclesInInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type ScoreDetailUncheckedCreateNestedManyWithoutUserCirleWithInput = {
+    create?: XOR<ScoreDetailCreateWithoutUserCirleWithInput, ScoreDetailUncheckedCreateWithoutUserCirleWithInput> | ScoreDetailCreateWithoutUserCirleWithInput[] | ScoreDetailUncheckedCreateWithoutUserCirleWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutUserCirleWithInput | ScoreDetailCreateOrConnectWithoutUserCirleWithInput[]
+    createMany?: ScoreDetailCreateManyUserCirleWithInputEnvelope
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
   }
 
   export type UserUpdateOneWithoutUserCirclesNestedInput = {
@@ -13025,6 +13401,20 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type ScoreDetailUpdateManyWithoutUserCirleWithNestedInput = {
+    create?: XOR<ScoreDetailCreateWithoutUserCirleWithInput, ScoreDetailUncheckedCreateWithoutUserCirleWithInput> | ScoreDetailCreateWithoutUserCirleWithInput[] | ScoreDetailUncheckedCreateWithoutUserCirleWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutUserCirleWithInput | ScoreDetailCreateOrConnectWithoutUserCirleWithInput[]
+    upsert?: ScoreDetailUpsertWithWhereUniqueWithoutUserCirleWithInput | ScoreDetailUpsertWithWhereUniqueWithoutUserCirleWithInput[]
+    createMany?: ScoreDetailCreateManyUserCirleWithInputEnvelope
+    set?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    disconnect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    delete?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    update?: ScoreDetailUpdateWithWhereUniqueWithoutUserCirleWithInput | ScoreDetailUpdateWithWhereUniqueWithoutUserCirleWithInput[]
+    updateMany?: ScoreDetailUpdateManyWithWhereWithoutUserCirleWithInput | ScoreDetailUpdateManyWithWhereWithoutUserCirleWithInput[]
+    deleteMany?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutOtherUserCirclesInNestedInput = {
     create?: XOR<UserCreateWithoutOtherUserCirclesInInput, UserUncheckedCreateWithoutOtherUserCirclesInInput> | UserCreateWithoutOtherUserCirclesInInput[] | UserUncheckedCreateWithoutOtherUserCirclesInInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOtherUserCirclesInInput | UserCreateOrConnectWithoutOtherUserCirclesInInput[]
@@ -13036,6 +13426,20 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutOtherUserCirclesInInput | UserUpdateWithWhereUniqueWithoutOtherUserCirclesInInput[]
     updateMany?: UserUpdateManyWithWhereWithoutOtherUserCirclesInInput | UserUpdateManyWithWhereWithoutOtherUserCirclesInInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type ScoreDetailUncheckedUpdateManyWithoutUserCirleWithNestedInput = {
+    create?: XOR<ScoreDetailCreateWithoutUserCirleWithInput, ScoreDetailUncheckedCreateWithoutUserCirleWithInput> | ScoreDetailCreateWithoutUserCirleWithInput[] | ScoreDetailUncheckedCreateWithoutUserCirleWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutUserCirleWithInput | ScoreDetailCreateOrConnectWithoutUserCirleWithInput[]
+    upsert?: ScoreDetailUpsertWithWhereUniqueWithoutUserCirleWithInput | ScoreDetailUpsertWithWhereUniqueWithoutUserCirleWithInput[]
+    createMany?: ScoreDetailCreateManyUserCirleWithInputEnvelope
+    set?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    disconnect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    delete?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    update?: ScoreDetailUpdateWithWhereUniqueWithoutUserCirleWithInput | ScoreDetailUpdateWithWhereUniqueWithoutUserCirleWithInput[]
+    updateMany?: ScoreDetailUpdateManyWithWhereWithoutUserCirleWithInput | ScoreDetailUpdateManyWithWhereWithoutUserCirleWithInput[]
+    deleteMany?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
   }
 
   export type AssessmentCreatesetQuestionsInput = {
@@ -13052,6 +13456,20 @@ export namespace Prisma {
     create?: XOR<EmpyloUserCreateWithoutCheckinAssessmentInput, EmpyloUserUncheckedCreateWithoutCheckinAssessmentInput>
     connectOrCreate?: EmpyloUserCreateOrConnectWithoutCheckinAssessmentInput
     connect?: EmpyloUserWhereUniqueInput
+  }
+
+  export type ScoreDetailCreateNestedManyWithoutAssessmentWithInput = {
+    create?: XOR<ScoreDetailCreateWithoutAssessmentWithInput, ScoreDetailUncheckedCreateWithoutAssessmentWithInput> | ScoreDetailCreateWithoutAssessmentWithInput[] | ScoreDetailUncheckedCreateWithoutAssessmentWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutAssessmentWithInput | ScoreDetailCreateOrConnectWithoutAssessmentWithInput[]
+    createMany?: ScoreDetailCreateManyAssessmentWithInputEnvelope
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+  }
+
+  export type ScoreDetailUncheckedCreateNestedManyWithoutAssessmentWithInput = {
+    create?: XOR<ScoreDetailCreateWithoutAssessmentWithInput, ScoreDetailUncheckedCreateWithoutAssessmentWithInput> | ScoreDetailCreateWithoutAssessmentWithInput[] | ScoreDetailUncheckedCreateWithoutAssessmentWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutAssessmentWithInput | ScoreDetailCreateOrConnectWithoutAssessmentWithInput[]
+    createMany?: ScoreDetailCreateManyAssessmentWithInputEnvelope
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
   }
 
   export type NullableEnumAssessmentTypeFieldUpdateOperationsInput = {
@@ -13083,10 +13501,56 @@ export namespace Prisma {
     update?: XOR<XOR<EmpyloUserUpdateToOneWithWhereWithoutCheckinAssessmentInput, EmpyloUserUpdateWithoutCheckinAssessmentInput>, EmpyloUserUncheckedUpdateWithoutCheckinAssessmentInput>
   }
 
+  export type ScoreDetailUpdateManyWithoutAssessmentWithNestedInput = {
+    create?: XOR<ScoreDetailCreateWithoutAssessmentWithInput, ScoreDetailUncheckedCreateWithoutAssessmentWithInput> | ScoreDetailCreateWithoutAssessmentWithInput[] | ScoreDetailUncheckedCreateWithoutAssessmentWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutAssessmentWithInput | ScoreDetailCreateOrConnectWithoutAssessmentWithInput[]
+    upsert?: ScoreDetailUpsertWithWhereUniqueWithoutAssessmentWithInput | ScoreDetailUpsertWithWhereUniqueWithoutAssessmentWithInput[]
+    createMany?: ScoreDetailCreateManyAssessmentWithInputEnvelope
+    set?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    disconnect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    delete?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    update?: ScoreDetailUpdateWithWhereUniqueWithoutAssessmentWithInput | ScoreDetailUpdateWithWhereUniqueWithoutAssessmentWithInput[]
+    updateMany?: ScoreDetailUpdateManyWithWhereWithoutAssessmentWithInput | ScoreDetailUpdateManyWithWhereWithoutAssessmentWithInput[]
+    deleteMany?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
+  }
+
+  export type ScoreDetailUncheckedUpdateManyWithoutAssessmentWithNestedInput = {
+    create?: XOR<ScoreDetailCreateWithoutAssessmentWithInput, ScoreDetailUncheckedCreateWithoutAssessmentWithInput> | ScoreDetailCreateWithoutAssessmentWithInput[] | ScoreDetailUncheckedCreateWithoutAssessmentWithInput[]
+    connectOrCreate?: ScoreDetailCreateOrConnectWithoutAssessmentWithInput | ScoreDetailCreateOrConnectWithoutAssessmentWithInput[]
+    upsert?: ScoreDetailUpsertWithWhereUniqueWithoutAssessmentWithInput | ScoreDetailUpsertWithWhereUniqueWithoutAssessmentWithInput[]
+    createMany?: ScoreDetailCreateManyAssessmentWithInputEnvelope
+    set?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    disconnect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    delete?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
+    update?: ScoreDetailUpdateWithWhereUniqueWithoutAssessmentWithInput | ScoreDetailUpdateWithWhereUniqueWithoutAssessmentWithInput[]
+    updateMany?: ScoreDetailUpdateManyWithWhereWithoutAssessmentWithInput | ScoreDetailUpdateManyWithWhereWithoutAssessmentWithInput[]
+    deleteMany?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutListOfScoreDetailInput = {
     create?: XOR<UserCreateWithoutListOfScoreDetailInput, UserUncheckedCreateWithoutListOfScoreDetailInput>
     connectOrCreate?: UserCreateOrConnectWithoutListOfScoreDetailInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type CompanyCirclesCreateNestedOneWithoutCircleScoreDetailInput = {
+    create?: XOR<CompanyCirclesCreateWithoutCircleScoreDetailInput, CompanyCirclesUncheckedCreateWithoutCircleScoreDetailInput>
+    connectOrCreate?: CompanyCirclesCreateOrConnectWithoutCircleScoreDetailInput
+    connect?: CompanyCirclesWhereUniqueInput
+  }
+
+  export type UserCirclesCreateNestedOneWithoutCircleScoreDetailInput = {
+    create?: XOR<UserCirclesCreateWithoutCircleScoreDetailInput, UserCirclesUncheckedCreateWithoutCircleScoreDetailInput>
+    connectOrCreate?: UserCirclesCreateOrConnectWithoutCircleScoreDetailInput
+    connect?: UserCirclesWhereUniqueInput
+  }
+
+  export type AssessmentCreateNestedOneWithoutAssessmentScoreDetailInput = {
+    create?: XOR<AssessmentCreateWithoutAssessmentScoreDetailInput, AssessmentUncheckedCreateWithoutAssessmentScoreDetailInput>
+    connectOrCreate?: AssessmentCreateOrConnectWithoutAssessmentScoreDetailInput
+    connect?: AssessmentWhereUniqueInput
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -13105,6 +13569,36 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutListOfScoreDetailInput, UserUpdateWithoutListOfScoreDetailInput>, UserUncheckedUpdateWithoutListOfScoreDetailInput>
+  }
+
+  export type CompanyCirclesUpdateOneWithoutCircleScoreDetailNestedInput = {
+    create?: XOR<CompanyCirclesCreateWithoutCircleScoreDetailInput, CompanyCirclesUncheckedCreateWithoutCircleScoreDetailInput>
+    connectOrCreate?: CompanyCirclesCreateOrConnectWithoutCircleScoreDetailInput
+    upsert?: CompanyCirclesUpsertWithoutCircleScoreDetailInput
+    disconnect?: CompanyCirclesWhereInput | boolean
+    delete?: CompanyCirclesWhereInput | boolean
+    connect?: CompanyCirclesWhereUniqueInput
+    update?: XOR<XOR<CompanyCirclesUpdateToOneWithWhereWithoutCircleScoreDetailInput, CompanyCirclesUpdateWithoutCircleScoreDetailInput>, CompanyCirclesUncheckedUpdateWithoutCircleScoreDetailInput>
+  }
+
+  export type UserCirclesUpdateOneWithoutCircleScoreDetailNestedInput = {
+    create?: XOR<UserCirclesCreateWithoutCircleScoreDetailInput, UserCirclesUncheckedCreateWithoutCircleScoreDetailInput>
+    connectOrCreate?: UserCirclesCreateOrConnectWithoutCircleScoreDetailInput
+    upsert?: UserCirclesUpsertWithoutCircleScoreDetailInput
+    disconnect?: UserCirclesWhereInput | boolean
+    delete?: UserCirclesWhereInput | boolean
+    connect?: UserCirclesWhereUniqueInput
+    update?: XOR<XOR<UserCirclesUpdateToOneWithWhereWithoutCircleScoreDetailInput, UserCirclesUpdateWithoutCircleScoreDetailInput>, UserCirclesUncheckedUpdateWithoutCircleScoreDetailInput>
+  }
+
+  export type AssessmentUpdateOneWithoutAssessmentScoreDetailNestedInput = {
+    create?: XOR<AssessmentCreateWithoutAssessmentScoreDetailInput, AssessmentUncheckedCreateWithoutAssessmentScoreDetailInput>
+    connectOrCreate?: AssessmentCreateOrConnectWithoutAssessmentScoreDetailInput
+    upsert?: AssessmentUpsertWithoutAssessmentScoreDetailInput
+    disconnect?: AssessmentWhereInput | boolean
+    delete?: AssessmentWhereInput | boolean
+    connect?: AssessmentWhereUniqueInput
+    update?: XOR<XOR<AssessmentUpdateToOneWithWhereWithoutAssessmentScoreDetailInput, AssessmentUpdateWithoutAssessmentScoreDetailInput>, AssessmentUncheckedUpdateWithoutAssessmentScoreDetailInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13399,6 +13893,7 @@ export namespace Prisma {
     assessmentType?: $Enums.AssessmentType | null
     setQuestions?: AssessmentCreatesetQuestionsInput | string[]
     empyloUserCheckin?: EmpyloUserCreateNestedOneWithoutCheckinAssessmentInput
+    assessmentScoreDetail?: ScoreDetailCreateNestedManyWithoutAssessmentWithInput
   }
 
   export type AssessmentUncheckedCreateWithoutEmpyloUserInput = {
@@ -13408,6 +13903,7 @@ export namespace Prisma {
     assessmentType?: $Enums.AssessmentType | null
     setQuestions?: AssessmentCreatesetQuestionsInput | string[]
     createdCheckinBy?: string | null
+    assessmentScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutAssessmentWithInput
   }
 
   export type AssessmentCreateOrConnectWithoutEmpyloUserInput = {
@@ -13427,6 +13923,7 @@ export namespace Prisma {
     assessmentType?: $Enums.AssessmentType | null
     setQuestions?: AssessmentCreatesetQuestionsInput | string[]
     empyloUser?: EmpyloUserCreateNestedOneWithoutWeeklyAssessmentInput
+    assessmentScoreDetail?: ScoreDetailCreateNestedManyWithoutAssessmentWithInput
   }
 
   export type AssessmentUncheckedCreateWithoutEmpyloUserCheckinInput = {
@@ -13436,6 +13933,7 @@ export namespace Prisma {
     assessmentType?: $Enums.AssessmentType | null
     setQuestions?: AssessmentCreatesetQuestionsInput | string[]
     createdWeeklyBy?: string | null
+    assessmentScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutAssessmentWithInput
   }
 
   export type AssessmentCreateOrConnectWithoutEmpyloUserCheckinInput = {
@@ -13599,6 +14097,7 @@ export namespace Prisma {
     circleImg?: string | null
     circleStatus?: $Enums.CircleStatus | null
     memberList?: UserCreateNestedManyWithoutCoyCircleAttachedToInput
+    circleScoreDetail?: ScoreDetailCreateNestedManyWithoutCoyCirleWithInput
   }
 
   export type CompanyCirclesUncheckedCreateWithoutCompanyUserInput = {
@@ -13615,6 +14114,7 @@ export namespace Prisma {
     circleImg?: string | null
     circleStatus?: $Enums.CircleStatus | null
     memberList?: UserUncheckedCreateNestedManyWithoutCoyCircleAttachedToInput
+    circleScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutCoyCirleWithInput
   }
 
   export type CompanyCirclesCreateOrConnectWithoutCompanyUserInput = {
@@ -13871,6 +14371,42 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutCoyCircleAttachedToInput, UserUncheckedCreateWithoutCoyCircleAttachedToInput>
   }
 
+  export type ScoreDetailCreateWithoutCoyCirleWithInput = {
+    id?: string
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
+    owner?: UserCreateNestedOneWithoutListOfScoreDetailInput
+    userCirleWith?: UserCirclesCreateNestedOneWithoutCircleScoreDetailInput
+    assessmentWith?: AssessmentCreateNestedOneWithoutAssessmentScoreDetailInput
+  }
+
+  export type ScoreDetailUncheckedCreateWithoutCoyCirleWithInput = {
+    id?: string
+    ownerID?: string | null
+    userCirleID?: string | null
+    assessmentID?: string | null
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
+  }
+
+  export type ScoreDetailCreateOrConnectWithoutCoyCirleWithInput = {
+    where: ScoreDetailWhereUniqueInput
+    create: XOR<ScoreDetailCreateWithoutCoyCirleWithInput, ScoreDetailUncheckedCreateWithoutCoyCirleWithInput>
+  }
+
+  export type ScoreDetailCreateManyCoyCirleWithInputEnvelope = {
+    data: ScoreDetailCreateManyCoyCirleWithInput | ScoreDetailCreateManyCoyCirleWithInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CompanyUserUpsertWithoutCompany_circleInput = {
     update: XOR<CompanyUserUpdateWithoutCompany_circleInput, CompanyUserUncheckedUpdateWithoutCompany_circleInput>
     create: XOR<CompanyUserCreateWithoutCompany_circleInput, CompanyUserUncheckedCreateWithoutCompany_circleInput>
@@ -13958,6 +14494,39 @@ export namespace Prisma {
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutCoyCircleAttachedToInput>
   }
 
+  export type ScoreDetailUpsertWithWhereUniqueWithoutCoyCirleWithInput = {
+    where: ScoreDetailWhereUniqueInput
+    update: XOR<ScoreDetailUpdateWithoutCoyCirleWithInput, ScoreDetailUncheckedUpdateWithoutCoyCirleWithInput>
+    create: XOR<ScoreDetailCreateWithoutCoyCirleWithInput, ScoreDetailUncheckedCreateWithoutCoyCirleWithInput>
+  }
+
+  export type ScoreDetailUpdateWithWhereUniqueWithoutCoyCirleWithInput = {
+    where: ScoreDetailWhereUniqueInput
+    data: XOR<ScoreDetailUpdateWithoutCoyCirleWithInput, ScoreDetailUncheckedUpdateWithoutCoyCirleWithInput>
+  }
+
+  export type ScoreDetailUpdateManyWithWhereWithoutCoyCirleWithInput = {
+    where: ScoreDetailScalarWhereInput
+    data: XOR<ScoreDetailUpdateManyMutationInput, ScoreDetailUncheckedUpdateManyWithoutCoyCirleWithInput>
+  }
+
+  export type ScoreDetailScalarWhereInput = {
+    AND?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
+    OR?: ScoreDetailScalarWhereInput[]
+    NOT?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
+    id?: StringFilter<"ScoreDetail"> | string
+    ownerID?: StringNullableFilter<"ScoreDetail"> | string | null
+    coyCirleID?: StringNullableFilter<"ScoreDetail"> | string | null
+    userCirleID?: StringNullableFilter<"ScoreDetail"> | string | null
+    assessmentID?: StringNullableFilter<"ScoreDetail"> | string | null
+    weeklyScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    dailyScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    wellbeingScore?: IntNullableFilter<"ScoreDetail"> | number | null
+    setNo?: StringNullableFilter<"ScoreDetail"> | string | null
+    assessmentType?: EnumAssessmentTypeNullableFilter<"ScoreDetail"> | $Enums.AssessmentType | null
+    created_at?: DateTimeNullableFilter<"ScoreDetail"> | Date | string | null
+  }
+
   export type CompanyUserCreateWithoutMembersListInput = {
     id?: string
     email: string
@@ -14037,6 +14606,7 @@ export namespace Prisma {
     circleImg?: string | null
     circleStatus?: $Enums.CircleStatus | null
     companyUser?: CompanyUserCreateNestedOneWithoutCompany_circleInput
+    circleScoreDetail?: ScoreDetailCreateNestedManyWithoutCoyCirleWithInput
   }
 
   export type CompanyCirclesUncheckedCreateWithoutMemberListInput = {
@@ -14053,6 +14623,7 @@ export namespace Prisma {
     coyCircleNos?: string | null
     circleImg?: string | null
     circleStatus?: $Enums.CircleStatus | null
+    circleScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutCoyCirleWithInput
   }
 
   export type CompanyCirclesCreateOrConnectWithoutMemberListInput = {
@@ -14075,6 +14646,7 @@ export namespace Prisma {
     userCircleNos?: string | null
     circleStatus?: $Enums.CircleStatus | null
     memberList?: UserCreateNestedManyWithoutOtherUserCirclesInInput
+    circleScoreDetail?: ScoreDetailCreateNestedManyWithoutUserCirleWithInput
   }
 
   export type UserCirclesUncheckedCreateWithoutUserInput = {
@@ -14092,6 +14664,7 @@ export namespace Prisma {
     userCircleNos?: string | null
     circleStatus?: $Enums.CircleStatus | null
     memberList?: UserUncheckedCreateNestedManyWithoutOtherUserCirclesInInput
+    circleScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutUserCirleWithInput
   }
 
   export type UserCirclesCreateOrConnectWithoutUserInput = {
@@ -14119,6 +14692,7 @@ export namespace Prisma {
     userCircleNos?: string | null
     circleStatus?: $Enums.CircleStatus | null
     user?: UserCreateNestedOneWithoutUserCirclesInput
+    circleScoreDetail?: ScoreDetailCreateNestedManyWithoutUserCirleWithInput
   }
 
   export type UserCirclesUncheckedCreateWithoutMemberListInput = {
@@ -14136,6 +14710,7 @@ export namespace Prisma {
     userCircleStatus?: $Enums.UserStatus
     userCircleNos?: string | null
     circleStatus?: $Enums.CircleStatus | null
+    circleScoreDetail?: ScoreDetailUncheckedCreateNestedManyWithoutUserCirleWithInput
   }
 
   export type UserCirclesCreateOrConnectWithoutMemberListInput = {
@@ -14151,10 +14726,16 @@ export namespace Prisma {
     setNo?: string | null
     assessmentType?: $Enums.AssessmentType | null
     created_at?: Date | string | null
+    coyCirleWith?: CompanyCirclesCreateNestedOneWithoutCircleScoreDetailInput
+    userCirleWith?: UserCirclesCreateNestedOneWithoutCircleScoreDetailInput
+    assessmentWith?: AssessmentCreateNestedOneWithoutAssessmentScoreDetailInput
   }
 
   export type ScoreDetailUncheckedCreateWithoutOwnerInput = {
     id?: string
+    coyCirleID?: string | null
+    userCirleID?: string | null
+    assessmentID?: string | null
     weeklyScore?: number | null
     dailyScore?: number | null
     wellbeingScore?: number | null
@@ -14326,20 +14907,6 @@ export namespace Prisma {
   export type ScoreDetailUpdateManyWithWhereWithoutOwnerInput = {
     where: ScoreDetailScalarWhereInput
     data: XOR<ScoreDetailUpdateManyMutationInput, ScoreDetailUncheckedUpdateManyWithoutOwnerInput>
-  }
-
-  export type ScoreDetailScalarWhereInput = {
-    AND?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
-    OR?: ScoreDetailScalarWhereInput[]
-    NOT?: ScoreDetailScalarWhereInput | ScoreDetailScalarWhereInput[]
-    id?: StringFilter<"ScoreDetail"> | string
-    ownerID?: StringNullableFilter<"ScoreDetail"> | string | null
-    weeklyScore?: IntNullableFilter<"ScoreDetail"> | number | null
-    dailyScore?: IntNullableFilter<"ScoreDetail"> | number | null
-    wellbeingScore?: IntNullableFilter<"ScoreDetail"> | number | null
-    setNo?: StringNullableFilter<"ScoreDetail"> | string | null
-    assessmentType?: EnumAssessmentTypeNullableFilter<"ScoreDetail"> | $Enums.AssessmentType | null
-    created_at?: DateTimeNullableFilter<"ScoreDetail"> | Date | string | null
   }
 
   export type UserCreateWithoutUserCirclesInput = {
@@ -14516,6 +15083,42 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutOtherUserCirclesInInput, UserUncheckedCreateWithoutOtherUserCirclesInInput>
   }
 
+  export type ScoreDetailCreateWithoutUserCirleWithInput = {
+    id?: string
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
+    owner?: UserCreateNestedOneWithoutListOfScoreDetailInput
+    coyCirleWith?: CompanyCirclesCreateNestedOneWithoutCircleScoreDetailInput
+    assessmentWith?: AssessmentCreateNestedOneWithoutAssessmentScoreDetailInput
+  }
+
+  export type ScoreDetailUncheckedCreateWithoutUserCirleWithInput = {
+    id?: string
+    ownerID?: string | null
+    coyCirleID?: string | null
+    assessmentID?: string | null
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
+  }
+
+  export type ScoreDetailCreateOrConnectWithoutUserCirleWithInput = {
+    where: ScoreDetailWhereUniqueInput
+    create: XOR<ScoreDetailCreateWithoutUserCirleWithInput, ScoreDetailUncheckedCreateWithoutUserCirleWithInput>
+  }
+
+  export type ScoreDetailCreateManyUserCirleWithInputEnvelope = {
+    data: ScoreDetailCreateManyUserCirleWithInput | ScoreDetailCreateManyUserCirleWithInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutUserCirclesInput = {
     update: XOR<UserUpdateWithoutUserCirclesInput, UserUncheckedUpdateWithoutUserCirclesInput>
     create: XOR<UserCreateWithoutUserCirclesInput, UserUncheckedCreateWithoutUserCirclesInput>
@@ -14625,6 +15228,22 @@ export namespace Prisma {
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutOtherUserCirclesInInput>
   }
 
+  export type ScoreDetailUpsertWithWhereUniqueWithoutUserCirleWithInput = {
+    where: ScoreDetailWhereUniqueInput
+    update: XOR<ScoreDetailUpdateWithoutUserCirleWithInput, ScoreDetailUncheckedUpdateWithoutUserCirleWithInput>
+    create: XOR<ScoreDetailCreateWithoutUserCirleWithInput, ScoreDetailUncheckedCreateWithoutUserCirleWithInput>
+  }
+
+  export type ScoreDetailUpdateWithWhereUniqueWithoutUserCirleWithInput = {
+    where: ScoreDetailWhereUniqueInput
+    data: XOR<ScoreDetailUpdateWithoutUserCirleWithInput, ScoreDetailUncheckedUpdateWithoutUserCirleWithInput>
+  }
+
+  export type ScoreDetailUpdateManyWithWhereWithoutUserCirleWithInput = {
+    where: ScoreDetailScalarWhereInput
+    data: XOR<ScoreDetailUpdateManyMutationInput, ScoreDetailUncheckedUpdateManyWithoutUserCirleWithInput>
+  }
+
   export type EmpyloUserCreateWithoutWeeklyAssessmentInput = {
     id?: string
     email: string
@@ -14729,6 +15348,42 @@ export namespace Prisma {
   export type EmpyloUserCreateOrConnectWithoutCheckinAssessmentInput = {
     where: EmpyloUserWhereUniqueInput
     create: XOR<EmpyloUserCreateWithoutCheckinAssessmentInput, EmpyloUserUncheckedCreateWithoutCheckinAssessmentInput>
+  }
+
+  export type ScoreDetailCreateWithoutAssessmentWithInput = {
+    id?: string
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
+    owner?: UserCreateNestedOneWithoutListOfScoreDetailInput
+    coyCirleWith?: CompanyCirclesCreateNestedOneWithoutCircleScoreDetailInput
+    userCirleWith?: UserCirclesCreateNestedOneWithoutCircleScoreDetailInput
+  }
+
+  export type ScoreDetailUncheckedCreateWithoutAssessmentWithInput = {
+    id?: string
+    ownerID?: string | null
+    coyCirleID?: string | null
+    userCirleID?: string | null
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
+  }
+
+  export type ScoreDetailCreateOrConnectWithoutAssessmentWithInput = {
+    where: ScoreDetailWhereUniqueInput
+    create: XOR<ScoreDetailCreateWithoutAssessmentWithInput, ScoreDetailUncheckedCreateWithoutAssessmentWithInput>
+  }
+
+  export type ScoreDetailCreateManyAssessmentWithInputEnvelope = {
+    data: ScoreDetailCreateManyAssessmentWithInput | ScoreDetailCreateManyAssessmentWithInput[]
+    skipDuplicates?: boolean
   }
 
   export type EmpyloUserUpsertWithoutWeeklyAssessmentInput = {
@@ -14849,6 +15504,22 @@ export namespace Prisma {
     weeklyAssessment?: AssessmentUncheckedUpdateManyWithoutEmpyloUserNestedInput
   }
 
+  export type ScoreDetailUpsertWithWhereUniqueWithoutAssessmentWithInput = {
+    where: ScoreDetailWhereUniqueInput
+    update: XOR<ScoreDetailUpdateWithoutAssessmentWithInput, ScoreDetailUncheckedUpdateWithoutAssessmentWithInput>
+    create: XOR<ScoreDetailCreateWithoutAssessmentWithInput, ScoreDetailUncheckedCreateWithoutAssessmentWithInput>
+  }
+
+  export type ScoreDetailUpdateWithWhereUniqueWithoutAssessmentWithInput = {
+    where: ScoreDetailWhereUniqueInput
+    data: XOR<ScoreDetailUpdateWithoutAssessmentWithInput, ScoreDetailUncheckedUpdateWithoutAssessmentWithInput>
+  }
+
+  export type ScoreDetailUpdateManyWithWhereWithoutAssessmentWithInput = {
+    where: ScoreDetailScalarWhereInput
+    data: XOR<ScoreDetailUpdateManyMutationInput, ScoreDetailUncheckedUpdateManyWithoutAssessmentWithInput>
+  }
+
   export type UserCreateWithoutListOfScoreDetailInput = {
     id?: string
     email: string
@@ -14934,6 +15605,111 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutListOfScoreDetailInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutListOfScoreDetailInput, UserUncheckedCreateWithoutListOfScoreDetailInput>
+  }
+
+  export type CompanyCirclesCreateWithoutCircleScoreDetailInput = {
+    id?: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    coyCircleName?: string | null
+    coyCircleDescription?: string | null
+    coyCircleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel?: $Enums.ActivityLevel
+    coyCircleStatus?: $Enums.UserStatus
+    coyCircleNos?: string | null
+    circleImg?: string | null
+    circleStatus?: $Enums.CircleStatus | null
+    companyUser?: CompanyUserCreateNestedOneWithoutCompany_circleInput
+    memberList?: UserCreateNestedManyWithoutCoyCircleAttachedToInput
+  }
+
+  export type CompanyCirclesUncheckedCreateWithoutCircleScoreDetailInput = {
+    id?: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    coyCircleName?: string | null
+    coyCircleDescription?: string | null
+    coyCircleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel?: $Enums.ActivityLevel
+    companyUserId?: string | null
+    coyCircleStatus?: $Enums.UserStatus
+    coyCircleNos?: string | null
+    circleImg?: string | null
+    circleStatus?: $Enums.CircleStatus | null
+    memberList?: UserUncheckedCreateNestedManyWithoutCoyCircleAttachedToInput
+  }
+
+  export type CompanyCirclesCreateOrConnectWithoutCircleScoreDetailInput = {
+    where: CompanyCirclesWhereUniqueInput
+    create: XOR<CompanyCirclesCreateWithoutCircleScoreDetailInput, CompanyCirclesUncheckedCreateWithoutCircleScoreDetailInput>
+  }
+
+  export type UserCirclesCreateWithoutCircleScoreDetailInput = {
+    id?: string
+    circleImg?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    userCircleName?: string | null
+    userCircleDescription?: string | null
+    userCircleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel?: $Enums.ActivityLevel
+    createdBy?: string | null
+    userCircleStatus?: $Enums.UserStatus
+    userCircleNos?: string | null
+    circleStatus?: $Enums.CircleStatus | null
+    user?: UserCreateNestedOneWithoutUserCirclesInput
+    memberList?: UserCreateNestedManyWithoutOtherUserCirclesInInput
+  }
+
+  export type UserCirclesUncheckedCreateWithoutCircleScoreDetailInput = {
+    id?: string
+    circleImg?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    userCircleName?: string | null
+    userCircleDescription?: string | null
+    userCircleShareLink?: string | null
+    wellbeingScore?: string | null
+    activityLevel?: $Enums.ActivityLevel
+    userId?: string | null
+    createdBy?: string | null
+    userCircleStatus?: $Enums.UserStatus
+    userCircleNos?: string | null
+    circleStatus?: $Enums.CircleStatus | null
+    memberList?: UserUncheckedCreateNestedManyWithoutOtherUserCirclesInInput
+  }
+
+  export type UserCirclesCreateOrConnectWithoutCircleScoreDetailInput = {
+    where: UserCirclesWhereUniqueInput
+    create: XOR<UserCirclesCreateWithoutCircleScoreDetailInput, UserCirclesUncheckedCreateWithoutCircleScoreDetailInput>
+  }
+
+  export type AssessmentCreateWithoutAssessmentScoreDetailInput = {
+    id?: string
+    created_at?: Date | string | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    setQuestions?: AssessmentCreatesetQuestionsInput | string[]
+    empyloUser?: EmpyloUserCreateNestedOneWithoutWeeklyAssessmentInput
+    empyloUserCheckin?: EmpyloUserCreateNestedOneWithoutCheckinAssessmentInput
+  }
+
+  export type AssessmentUncheckedCreateWithoutAssessmentScoreDetailInput = {
+    id?: string
+    created_at?: Date | string | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    setQuestions?: AssessmentCreatesetQuestionsInput | string[]
+    createdWeeklyBy?: string | null
+    createdCheckinBy?: string | null
+  }
+
+  export type AssessmentCreateOrConnectWithoutAssessmentScoreDetailInput = {
+    where: AssessmentWhereUniqueInput
+    create: XOR<AssessmentCreateWithoutAssessmentScoreDetailInput, AssessmentUncheckedCreateWithoutAssessmentScoreDetailInput>
   }
 
   export type UserUpsertWithoutListOfScoreDetailInput = {
@@ -15029,6 +15805,129 @@ export namespace Prisma {
     otherUserCirclesIn?: UserCirclesUncheckedUpdateManyWithoutMemberListNestedInput
   }
 
+  export type CompanyCirclesUpsertWithoutCircleScoreDetailInput = {
+    update: XOR<CompanyCirclesUpdateWithoutCircleScoreDetailInput, CompanyCirclesUncheckedUpdateWithoutCircleScoreDetailInput>
+    create: XOR<CompanyCirclesCreateWithoutCircleScoreDetailInput, CompanyCirclesUncheckedCreateWithoutCircleScoreDetailInput>
+    where?: CompanyCirclesWhereInput
+  }
+
+  export type CompanyCirclesUpdateToOneWithWhereWithoutCircleScoreDetailInput = {
+    where?: CompanyCirclesWhereInput
+    data: XOR<CompanyCirclesUpdateWithoutCircleScoreDetailInput, CompanyCirclesUncheckedUpdateWithoutCircleScoreDetailInput>
+  }
+
+  export type CompanyCirclesUpdateWithoutCircleScoreDetailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
+    companyUser?: CompanyUserUpdateOneWithoutCompany_circleNestedInput
+    memberList?: UserUpdateManyWithoutCoyCircleAttachedToNestedInput
+  }
+
+  export type CompanyCirclesUncheckedUpdateWithoutCircleScoreDetailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    coyCircleName?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    companyUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
+    memberList?: UserUncheckedUpdateManyWithoutCoyCircleAttachedToNestedInput
+  }
+
+  export type UserCirclesUpsertWithoutCircleScoreDetailInput = {
+    update: XOR<UserCirclesUpdateWithoutCircleScoreDetailInput, UserCirclesUncheckedUpdateWithoutCircleScoreDetailInput>
+    create: XOR<UserCirclesCreateWithoutCircleScoreDetailInput, UserCirclesUncheckedCreateWithoutCircleScoreDetailInput>
+    where?: UserCirclesWhereInput
+  }
+
+  export type UserCirclesUpdateToOneWithWhereWithoutCircleScoreDetailInput = {
+    where?: UserCirclesWhereInput
+    data: XOR<UserCirclesUpdateWithoutCircleScoreDetailInput, UserCirclesUncheckedUpdateWithoutCircleScoreDetailInput>
+  }
+
+  export type UserCirclesUpdateWithoutCircleScoreDetailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userCircleName?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
+    user?: UserUpdateOneWithoutUserCirclesNestedInput
+    memberList?: UserUpdateManyWithoutOtherUserCirclesInNestedInput
+  }
+
+  export type UserCirclesUncheckedUpdateWithoutCircleScoreDetailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    circleImg?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userCircleName?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleShareLink?: NullableStringFieldUpdateOperationsInput | string | null
+    wellbeingScore?: NullableStringFieldUpdateOperationsInput | string | null
+    activityLevel?: EnumActivityLevelFieldUpdateOperationsInput | $Enums.ActivityLevel
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
+    circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
+    memberList?: UserUncheckedUpdateManyWithoutOtherUserCirclesInNestedInput
+  }
+
+  export type AssessmentUpsertWithoutAssessmentScoreDetailInput = {
+    update: XOR<AssessmentUpdateWithoutAssessmentScoreDetailInput, AssessmentUncheckedUpdateWithoutAssessmentScoreDetailInput>
+    create: XOR<AssessmentCreateWithoutAssessmentScoreDetailInput, AssessmentUncheckedCreateWithoutAssessmentScoreDetailInput>
+    where?: AssessmentWhereInput
+  }
+
+  export type AssessmentUpdateToOneWithWhereWithoutAssessmentScoreDetailInput = {
+    where?: AssessmentWhereInput
+    data: XOR<AssessmentUpdateWithoutAssessmentScoreDetailInput, AssessmentUncheckedUpdateWithoutAssessmentScoreDetailInput>
+  }
+
+  export type AssessmentUpdateWithoutAssessmentScoreDetailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
+    empyloUser?: EmpyloUserUpdateOneWithoutWeeklyAssessmentNestedInput
+    empyloUserCheckin?: EmpyloUserUpdateOneWithoutCheckinAssessmentNestedInput
+  }
+
+  export type AssessmentUncheckedUpdateWithoutAssessmentScoreDetailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
+    createdWeeklyBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdCheckinBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type AssessmentCreateManyEmpyloUserInput = {
     id?: string
     created_at?: Date | string | null
@@ -15054,6 +15953,7 @@ export namespace Prisma {
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
     setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
     empyloUserCheckin?: EmpyloUserUpdateOneWithoutCheckinAssessmentNestedInput
+    assessmentScoreDetail?: ScoreDetailUpdateManyWithoutAssessmentWithNestedInput
   }
 
   export type AssessmentUncheckedUpdateWithoutEmpyloUserInput = {
@@ -15063,6 +15963,7 @@ export namespace Prisma {
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
     setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
     createdCheckinBy?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutAssessmentWithNestedInput
   }
 
   export type AssessmentUncheckedUpdateManyWithoutEmpyloUserInput = {
@@ -15081,6 +15982,7 @@ export namespace Prisma {
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
     setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
     empyloUser?: EmpyloUserUpdateOneWithoutWeeklyAssessmentNestedInput
+    assessmentScoreDetail?: ScoreDetailUpdateManyWithoutAssessmentWithNestedInput
   }
 
   export type AssessmentUncheckedUpdateWithoutEmpyloUserCheckinInput = {
@@ -15090,6 +15992,7 @@ export namespace Prisma {
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
     setQuestions?: AssessmentUpdatesetQuestionsInput | string[]
     createdWeeklyBy?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutAssessmentWithNestedInput
   }
 
   export type AssessmentUncheckedUpdateManyWithoutEmpyloUserCheckinInput = {
@@ -15286,6 +16189,7 @@ export namespace Prisma {
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
     memberList?: UserUpdateManyWithoutCoyCircleAttachedToNestedInput
+    circleScoreDetail?: ScoreDetailUpdateManyWithoutCoyCirleWithNestedInput
   }
 
   export type CompanyCirclesUncheckedUpdateWithoutCompanyUserInput = {
@@ -15302,6 +16206,7 @@ export namespace Prisma {
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
     memberList?: UserUncheckedUpdateManyWithoutCoyCircleAttachedToNestedInput
+    circleScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutCoyCirleWithNestedInput
   }
 
   export type CompanyCirclesUncheckedUpdateManyWithoutCompanyUserInput = {
@@ -15317,6 +16222,19 @@ export namespace Prisma {
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
+  }
+
+  export type ScoreDetailCreateManyCoyCirleWithInput = {
+    id?: string
+    ownerID?: string | null
+    userCirleID?: string | null
+    assessmentID?: string | null
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
   }
 
   export type UserUpdateWithoutCoyCircleAttachedToInput = {
@@ -15439,6 +16357,45 @@ export namespace Prisma {
     socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type ScoreDetailUpdateWithoutCoyCirleWithInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    owner?: UserUpdateOneWithoutListOfScoreDetailNestedInput
+    userCirleWith?: UserCirclesUpdateOneWithoutCircleScoreDetailNestedInput
+    assessmentWith?: AssessmentUpdateOneWithoutAssessmentScoreDetailNestedInput
+  }
+
+  export type ScoreDetailUncheckedUpdateWithoutCoyCirleWithInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerID?: NullableStringFieldUpdateOperationsInput | string | null
+    userCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentID?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ScoreDetailUncheckedUpdateManyWithoutCoyCirleWithInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerID?: NullableStringFieldUpdateOperationsInput | string | null
+    userCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentID?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type UserCirclesCreateManyUserInput = {
     id?: string
     circleImg?: string | null
@@ -15457,6 +16414,9 @@ export namespace Prisma {
 
   export type ScoreDetailCreateManyOwnerInput = {
     id?: string
+    coyCirleID?: string | null
+    userCirleID?: string | null
+    assessmentID?: string | null
     weeklyScore?: number | null
     dailyScore?: number | null
     wellbeingScore?: number | null
@@ -15479,6 +16439,7 @@ export namespace Prisma {
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
     companyUser?: CompanyUserUpdateOneWithoutCompany_circleNestedInput
+    circleScoreDetail?: ScoreDetailUpdateManyWithoutCoyCirleWithNestedInput
   }
 
   export type CompanyCirclesUncheckedUpdateWithoutMemberListInput = {
@@ -15495,6 +16456,7 @@ export namespace Prisma {
     coyCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleImg?: NullableStringFieldUpdateOperationsInput | string | null
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
+    circleScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutCoyCirleWithNestedInput
   }
 
   export type CompanyCirclesUncheckedUpdateManyWithoutMemberListInput = {
@@ -15528,6 +16490,7 @@ export namespace Prisma {
     userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
     memberList?: UserUpdateManyWithoutOtherUserCirclesInNestedInput
+    circleScoreDetail?: ScoreDetailUpdateManyWithoutUserCirleWithNestedInput
   }
 
   export type UserCirclesUncheckedUpdateWithoutUserInput = {
@@ -15545,6 +16508,7 @@ export namespace Prisma {
     userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
     memberList?: UserUncheckedUpdateManyWithoutOtherUserCirclesInNestedInput
+    circleScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutUserCirleWithNestedInput
   }
 
   export type UserCirclesUncheckedUpdateManyWithoutUserInput = {
@@ -15578,6 +16542,7 @@ export namespace Prisma {
     userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
     user?: UserUpdateOneWithoutUserCirclesNestedInput
+    circleScoreDetail?: ScoreDetailUpdateManyWithoutUserCirleWithNestedInput
   }
 
   export type UserCirclesUncheckedUpdateWithoutMemberListInput = {
@@ -15595,6 +16560,7 @@ export namespace Prisma {
     userCircleStatus?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     userCircleNos?: NullableStringFieldUpdateOperationsInput | string | null
     circleStatus?: NullableEnumCircleStatusFieldUpdateOperationsInput | $Enums.CircleStatus | null
+    circleScoreDetail?: ScoreDetailUncheckedUpdateManyWithoutUserCirleWithNestedInput
   }
 
   export type UserCirclesUncheckedUpdateManyWithoutMemberListInput = {
@@ -15622,10 +16588,16 @@ export namespace Prisma {
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    coyCirleWith?: CompanyCirclesUpdateOneWithoutCircleScoreDetailNestedInput
+    userCirleWith?: UserCirclesUpdateOneWithoutCircleScoreDetailNestedInput
+    assessmentWith?: AssessmentUpdateOneWithoutAssessmentScoreDetailNestedInput
   }
 
   export type ScoreDetailUncheckedUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    coyCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    userCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentID?: NullableStringFieldUpdateOperationsInput | string | null
     weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
     dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
     wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -15636,12 +16608,28 @@ export namespace Prisma {
 
   export type ScoreDetailUncheckedUpdateManyWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    coyCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    userCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentID?: NullableStringFieldUpdateOperationsInput | string | null
     weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
     dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
     wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
     setNo?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ScoreDetailCreateManyUserCirleWithInput = {
+    id?: string
+    ownerID?: string | null
+    coyCirleID?: string | null
+    assessmentID?: string | null
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
   }
 
   export type UserUpdateWithoutOtherUserCirclesInInput = {
@@ -15764,6 +16752,97 @@ export namespace Prisma {
     socialProvider?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type ScoreDetailUpdateWithoutUserCirleWithInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    owner?: UserUpdateOneWithoutListOfScoreDetailNestedInput
+    coyCirleWith?: CompanyCirclesUpdateOneWithoutCircleScoreDetailNestedInput
+    assessmentWith?: AssessmentUpdateOneWithoutAssessmentScoreDetailNestedInput
+  }
+
+  export type ScoreDetailUncheckedUpdateWithoutUserCirleWithInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerID?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentID?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ScoreDetailUncheckedUpdateManyWithoutUserCirleWithInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerID?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentID?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ScoreDetailCreateManyAssessmentWithInput = {
+    id?: string
+    ownerID?: string | null
+    coyCirleID?: string | null
+    userCirleID?: string | null
+    weeklyScore?: number | null
+    dailyScore?: number | null
+    wellbeingScore?: number | null
+    setNo?: string | null
+    assessmentType?: $Enums.AssessmentType | null
+    created_at?: Date | string | null
+  }
+
+  export type ScoreDetailUpdateWithoutAssessmentWithInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    owner?: UserUpdateOneWithoutListOfScoreDetailNestedInput
+    coyCirleWith?: CompanyCirclesUpdateOneWithoutCircleScoreDetailNestedInput
+    userCirleWith?: UserCirclesUpdateOneWithoutCircleScoreDetailNestedInput
+  }
+
+  export type ScoreDetailUncheckedUpdateWithoutAssessmentWithInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerID?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    userCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ScoreDetailUncheckedUpdateManyWithoutAssessmentWithInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerID?: NullableStringFieldUpdateOperationsInput | string | null
+    coyCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    userCirleID?: NullableStringFieldUpdateOperationsInput | string | null
+    weeklyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyScore?: NullableIntFieldUpdateOperationsInput | number | null
+    wellbeingScore?: NullableIntFieldUpdateOperationsInput | number | null
+    setNo?: NullableStringFieldUpdateOperationsInput | string | null
+    assessmentType?: NullableEnumAssessmentTypeFieldUpdateOperationsInput | $Enums.AssessmentType | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
 
 
   /**
@@ -15789,6 +16868,10 @@ export namespace Prisma {
      * @deprecated Use UserCirclesCountOutputTypeDefaultArgs instead
      */
     export type UserCirclesCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCirclesCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AssessmentCountOutputTypeDefaultArgs instead
+     */
+    export type AssessmentCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AssessmentCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use EmpyloUserDefaultArgs instead
      */

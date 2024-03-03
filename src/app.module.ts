@@ -18,6 +18,7 @@ import { EmpyloUserModule } from "./modules/empylo-user/empylo-user.module";
 import { AuthGoogleModule } from "./auth-google/auth-google.module";
 import { AuthFacebookModule } from "./auth-facebook/auth-facebook.module";
 import { AuthAppleModule } from "./auth-apple/auth-apple.module";
+import { ContactModule } from "./modules/contact/contact.module";
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { AuthAppleModule } from "./auth-apple/auth-apple.module";
     AuthGoogleModule,
     AuthFacebookModule,
     AuthAppleModule,
+    ContactModule,
     ThrottlerModule.forRoot([
       {
         name: "short",

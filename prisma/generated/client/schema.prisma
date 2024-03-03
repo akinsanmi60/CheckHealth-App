@@ -84,6 +84,7 @@ model CompanyCircles {
   memberList           User[]
   circleImg            String?
   circleStatus         CircleStatus? @default(ongoing)
+  circleScoreDetail    ScoreDetail[] @relation("companyCirleScore")
 }
 
 model User {
@@ -126,7 +127,7 @@ model User {
   otherUserCirclesIn  UserCircles[]    @relation("memberInCrircle")
   socialId            String?
   socialProvider      String?
-  listOfScoreDetail   ScoreDetail[]    @relation("userCirclesScores")
+  listOfScoreDetail   ScoreDetail[]    @relation("userScores")
 }
 
 model UserCircles {
@@ -146,24 +147,32 @@ model UserCircles {
   userCircleNos         String?       @unique
   memberList            User[]        @relation("memberInCrircle")
   circleStatus          CircleStatus? @default(ongoing)
+  circleScoreDetail     ScoreDetail[] @relation("userCirleScore")
 }
 
 model Assessment {
-  id                String          @id @unique @default(cuid())
-  created_at        DateTime?       @default(now())
-  setNo             String?         @unique
-  assessmentType    AssessmentType? @unique
-  setQuestions      String[]
-  empyloUser        EmpyloUser?     @relation("assessment_weekly", fields: [createdWeeklyBy], references: [id])
-  empyloUserCheckin EmpyloUser?     @relation("assessment_checkin", fields: [createdCheckinBy], references: [id])
-  createdWeeklyBy   String?         @unique
-  createdCheckinBy  String?         @unique
+  id                    String          @id @unique @default(cuid())
+  created_at            DateTime?       @default(now())
+  setNo                 String?         @unique
+  assessmentType        AssessmentType? @unique
+  setQuestions          String[]
+  empyloUser            EmpyloUser?     @relation("assessment_weekly", fields: [createdWeeklyBy], references: [id])
+  empyloUserCheckin     EmpyloUser?     @relation("assessment_checkin", fields: [createdCheckinBy], references: [id])
+  createdWeeklyBy       String?         @unique
+  createdCheckinBy      String?         @unique
+  assessmentScoreDetail ScoreDetail[]   @relation("assessmentScore")
 }
 
 model ScoreDetail {
   id             String          @id @unique @default(cuid())
-  owner          User?           @relation("userCirclesScores", fields: [ownerID], references: [id])
+  owner          User?           @relation("userScores", fields: [ownerID], references: [id])
   ownerID        String?
+  coyCirleWith   CompanyCircles? @relation("companyCirleScore", fields: [coyCirleID], references: [id])
+  coyCirleID     String?
+  userCirleWith  UserCircles?    @relation("userCirleScore", fields: [userCirleID], references: [id])
+  userCirleID    String?
+  assessmentWith Assessment?     @relation("assessmentScore", fields: [assessmentID], references: [id])
+  assessmentID   String?
   weeklyScore    Int?
   dailyScore     Int?
   wellbeingScore Int?

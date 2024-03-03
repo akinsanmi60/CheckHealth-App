@@ -46,3 +46,5 @@ yarn.lock
 #  src
 src/seed/seed.ts
 ./src/seed/seed.ts
+src/seed/seed.js
+./src/seed/seed.js

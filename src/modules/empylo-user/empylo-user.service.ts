@@ -33,6 +33,15 @@ export class EmpyloUserService {
   async addAdminUser(dto: AddAdminUSerDto) {
     const { email, permissions, firstName, lastName, role } = dto;
 
+    // Check if super admin already exists
+    const superAdminExists = await this.prisma.empyloUser.findFirst({
+      where: { role: SystemRole.superAdmin },
+    });
+
+    if (superAdminExists) {
+      throw new BadRequestException("Super admin already exists");
+    }
+
     const foundUser = await this.prisma.empyloUser.findUnique({
       where: {
         email: email,

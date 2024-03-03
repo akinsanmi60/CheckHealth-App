@@ -243,6 +243,9 @@ exports.Prisma.AssessmentScalarFieldEnum = {
 exports.Prisma.ScoreDetailScalarFieldEnum = {
   id: 'id',
   ownerID: 'ownerID',
+  coyCirleID: 'coyCirleID',
+  userCirleID: 'userCirleID',
+  assessmentID: 'assessmentID',
   weeklyScore: 'weeklyScore',
   dailyScore: 'dailyScore',
   wellbeingScore: 'wellbeingScore',
