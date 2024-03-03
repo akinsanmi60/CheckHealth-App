@@ -3,8 +3,6 @@ import { PrismaClient } from "../prisma/generated/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // await prisma.user.deleteMany();
-
   console.log("Seeding...");
 
   const superAdmin = await prisma.empyloUser.create({
