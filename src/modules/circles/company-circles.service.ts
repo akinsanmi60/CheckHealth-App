@@ -136,6 +136,7 @@ export class CirclesService {
           memberList: {
             connect: foundUsers.map(user => ({
               id: user.id,
+              accountType: "clientUser",
             })),
           },
           created_at: this.timeGenerated,
@@ -148,14 +149,106 @@ export class CirclesService {
       }
 
       if (circleCreated) {
+        const addUsersToMembers = await this.prisma.companyUser.update({
+          where: {
+            id: id,
+          },
+          data: {
+            membersList: {
+              connect: foundUsers.map(user => ({
+                id: user.id,
+              })),
+            },
+          },
+        });
+
+        if (!addUsersToMembers) {
+          await this.prisma.companyUser.update({
+            where: {
+              id: id,
+            },
+            data: {
+              membersList: {
+                disconnect: foundUsers.map(user => ({
+                  id: user.id,
+                })),
+              },
+            },
+          });
+        }
         return {
-          message: "Circle created successfully.",
+          message: addUsersToMembers
+            ? "Circle created successfully and added users to members list"
+            : "Circle created successfully but failed to add users to members list",
         };
       }
     } catch (error) {
       console.error(error);
       throw error || new Error("Failed to create circle.");
     }
+  }
+
+  async removeUserFromMembersList(id: string, userId: string) {
+    const [checkCompanyUser, checkUser] = await Promise.all([
+      this.prisma.companyUser.findUnique({
+        where: {
+          id: id,
+        },
+      }),
+      this.prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+      }),
+    ]);
+
+    if (!checkCompanyUser) {
+      throw new BadRequestException("Company user not found");
+    }
+
+    if (!checkUser) {
+      throw new BadRequestException("User not found");
+    }
+
+    const removeUserCoyMember = await this.prisma.companyUser.update({
+      where: {
+        id: checkCompanyUser?.id,
+      },
+      data: {
+        membersList: {
+          disconnect: {
+            id: userId,
+          },
+        },
+      },
+    });
+
+    if (!removeUserCoyMember) {
+      throw new BadRequestException("Failed to remove user from members list");
+    }
+
+    const coyCircle = await this.prisma.companyCircles.findMany({
+      where: {
+        companyUserId: checkCompanyUser?.id,
+      },
+    });
+
+    const circleUpdates = coyCircle.map(circle =>
+      this.prisma.companyCircles.update({
+        where: { id: circle.id },
+        data: {
+          memberList: {
+            disconnect: { id: userId },
+          },
+        },
+      }),
+    );
+
+    await Promise.all(circleUpdates);
+
+    return {
+      message: "User removed from members list successfully",
+    };
   }
 
   async getAllCompanyCircles(dto: GetAllCirclesDto) {
@@ -657,7 +750,10 @@ export class CirclesService {
       },
       data: {
         memberList: {
-          connect: allEntities.map(user => ({ id: user.id })),
+          connect: allEntities.map(user => ({
+            id: user.id,
+            accountType: "clientUser",
+          })),
         },
       },
     });
@@ -685,8 +781,6 @@ export class CirclesService {
       "user",
     )) as Users;
 
-    console.log(foundUser);
-
     if (!foundUser) {
       throw new BadRequestException("User not found. Please try again later");
     }
@@ -709,6 +803,7 @@ export class CirclesService {
         memberList: {
           connect: {
             id: foundUser?.id,
+            accountType: "clientUser",
           },
         },
       },
@@ -837,7 +932,7 @@ export class CirclesService {
     const result = Object.entries(monthData).map(([month, data]) => ({
       month,
       totalCirclesCount: data.count,
-      totalWellbeing: data.totalWellbeing,
+      totalWellbeing: data.totalWellbeing / data.count,
     }));
 
     return {

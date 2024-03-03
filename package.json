@@ -22,7 +22,7 @@
     "prepare": "husky install",
     "check-format": "prettier --check .",
     "check-types": "tsc --pretty --noEmit",
-    "seed": "prisma db seed",
+    "seed": "./seed/seed.ts",
     "docker:migrate": "docker-compose -f docker-compose.migrate.yml up -d",
     "docker:db": "docker-compose -f docker-compose.db.yml up -d",
     "docker:seed": "docker exec -it nest-api npm run seed",

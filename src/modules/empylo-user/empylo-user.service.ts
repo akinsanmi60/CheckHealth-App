@@ -42,6 +42,10 @@ export class EmpyloUserService {
     if (foundUser) {
       throw new BadRequestException("Email is already taken");
     }
+    const [firstLetterOfFirstName, secondLetterOfFirstName] = firstName;
+    const [firstLetterOfLastName, secondLetterOfLastName] = lastName;
+    const userID = crypto.randomBytes(3).toString("hex").toLocaleUpperCase();
+    const empyloID = `EMP${firstLetterOfFirstName}${secondLetterOfFirstName}${userID}${firstLetterOfLastName}${secondLetterOfLastName}`;
 
     if (!foundUser) {
       const randomPassword = crypto.randomBytes(6).toString("hex");
@@ -59,6 +63,7 @@ export class EmpyloUserService {
           permissions: permissions,
           firstName: firstName,
           lastName: lastName,
+          empyloID: empyloID,
           role: role as string as SystemRole,
         },
       });
@@ -114,6 +119,7 @@ export class EmpyloUserService {
       updated_at: foundUser.updated_at,
       isActive: foundUser.isActive,
       role: foundUser.role,
+      empyloID: foundUser.empyloID,
       permissions: foundUser.permissions,
     };
 

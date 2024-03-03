@@ -39,13 +39,6 @@ export class MailService {
   ): Promise<void> {
     const emailConfirmTitle = `Thank you for signing up on ${this.app_name}`;
 
-    // const url = new URL(
-    //   this.configService.getOrThrow("FRONTEND_DOMAIN", {
-    //     infer: true,
-    //   }) + "/confirm-email",
-    // );
-    // url.searchParams.set("hash", mailData.data.hash);
-
     await this.mailerService.sendMail({
       to: mailData.to,
       subject: emailConfirmTitle,
@@ -106,7 +99,6 @@ export class MailService {
       ),
       context: {
         title: resetPasswordTitle,
-        // url: url.toString(),
         actionTitle: resetPasswordTitle,
         app_name: this.app_name,
         name: mailData.data.name,

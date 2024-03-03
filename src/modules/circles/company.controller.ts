@@ -13,7 +13,6 @@ import {
 import {
   ApiTags,
   ApiBearerAuth,
-  // ApiConsumes,
   ApiParam,
   ApiBody,
   ApiResponse,
@@ -63,13 +62,25 @@ export class CirclesController {
       "Creating a circle for a company. Note append the file to the formData when posting",
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(Role.company)
+  @Roles([Role.company])
   createCirlce(
     @UploadedFile() file: Express.Multer.File,
     @Body() dto,
     @Param("id") id: string,
   ) {
     return this.circlesService.createCirlce(dto, id, file);
+  }
+
+  @Post("/:id/remove-member/:userId")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiParam({ name: "userId", type: "string" })
+  @ApiResponse({
+    type: GenericResponse,
+  })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.company])
+  removeMember(@Param("id") id: string, @Param("userId") userId: string) {
+    return this.circlesService.removeUserFromMembersList(id, userId);
   }
 
   @Post("/:id/deactivate/comapny-circle")
@@ -79,7 +90,7 @@ export class CirclesController {
     description: "Deactivating a company circle",
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(Role.company)
+  @Roles([Role.company])
   deactivateCompanyCircle(@Param("id") id: string) {
     return this.circlesService.deactivateCompanyCircle(id);
   }
@@ -91,7 +102,7 @@ export class CirclesController {
     description: "Activating a company circle",
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(Role.company)
+  @Roles([Role.company])
   activateCompanyCircle(@Param("id") id: string) {
     return this.circlesService.activateCompanyCircle(id);
   }
@@ -103,7 +114,7 @@ export class CirclesController {
     description: "Get a company circle",
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(Role.company)
+  @Roles([Role.company])
   getCompanyCircleById(@Param("id") id: string) {
     return this.circlesService.getCompanyCircleById(id);
   }
@@ -116,7 +127,7 @@ export class CirclesController {
     type: GetAllCirclesDto,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(Role.company)
+  @Roles([Role.company])
   getAllCompanyCircles(@Query() dto) {
     return this.circlesService.getAllCompanyCircles(dto);
   }
@@ -127,7 +138,7 @@ export class CirclesController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(Role.company)
+  @Roles([Role.company])
   deleteCompanyCircle(@Param("id") id: string) {
     return this.circlesService.deleteCompanyCircle(id);
   }
@@ -141,7 +152,7 @@ export class CirclesController {
     type: AddMemberToCircleDto,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(Role.company)
+  @Roles([Role.company])
   addMemberToCircle(@Param("id") id: string, @Body() dto) {
     return this.circlesService.addMemberToCircle(id, dto);
   }
@@ -153,7 +164,7 @@ export class CirclesController {
     type: GenericResponse,
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(Role.company)
+  @Roles([Role.company])
   removeMemberFromCircle(
     @Param("id") id: string,
     @Param("memberId") memberId: string,
@@ -215,7 +226,7 @@ export class CirclesController {
 
   @Get("/total-cirlce-category")
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles([Role.company])
+  @Roles([Role.company, Role.superAdmin, Role.admin])
   @ApiResponse({
     type: IGetCoyCirlceTotalByCategory,
   })
@@ -228,7 +239,7 @@ export class CirclesController {
   @ApiParam({ name: "id", type: "string", description: "use company id" })
   @ApiParam({ name: "year", type: "string", description: "use year" })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles([Role.company])
+  @Roles([Role.company, Role.superAdmin, Role.admin])
   @ApiResponse({
     type: IGetTotalCircleInMonth,
   })
@@ -242,7 +253,7 @@ export class CirclesController {
   @ApiParam({ name: "id", type: "string", description: "use company id" })
   @ApiParam({ name: "year", type: "string", description: "use year" })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles([Role.company])
+  @Roles([Role.company, Role.superAdmin, Role.admin])
   @ApiResponse({
     type: IGetTotalCircleInYearWithMonth,
   })
