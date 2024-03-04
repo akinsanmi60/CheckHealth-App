@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res } from "@nestjs/common";
+import { Body, Controller, Get, Post, Res } from "@nestjs/common";
 import { ContactService } from "./contact.service";
 import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { MailingListDto } from "./dto/contact.dto";
@@ -25,7 +25,7 @@ export class ContactController {
     return this.contactService.submitMailingList(dto);
   }
 
-  @Post("/export-mailing-list")
+  @Get("/export-mailing-list")
   @ApiResponse({
     type: GenericResponse,
   })
