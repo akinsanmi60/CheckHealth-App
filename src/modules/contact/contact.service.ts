@@ -58,16 +58,13 @@ export class ContactService {
     }
     const emails = mailingList.map(mail => mail.email);
     const csvData = this.convertToCSV(emails);
-    console.log(csvData);
 
-    // res.setHeader("Content-Type", "text/csv");
-    // res.setHeader("Content-Disposition", "attachment; filename=emails.csv");
-    // res.status(HttpStatus.OK).send({
-    //   csvData: csvData,
-    // });
     res.header("Content-Type", "text/csv");
     res.attachment("user_emails.csv");
-    res.status(HttpStatus.OK).send(csvData);
+    res.status(HttpStatus.OK).send({
+      data: csvData,
+      message: "Mailing list exported successfully",
+    });
   }
 
   private convertToCSV(emails: string[]) {
