@@ -181,6 +181,12 @@ model ScoreDetail {
   created_at     DateTime?       @default(now())
 }
 
+model MailingList {
+  id         String    @id @unique @default(cuid())
+  created_at DateTime? @default(now())
+  email      String?   @unique
+}
+
 enum AssessmentType {
   weekly
   dailyCheckin

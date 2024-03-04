@@ -48,6 +48,11 @@ export type Assessment = $Result.DefaultSelection<Prisma.$AssessmentPayload>
  * 
  */
 export type ScoreDetail = $Result.DefaultSelection<Prisma.$ScoreDetailPayload>
+/**
+ * Model MailingList
+ * 
+ */
+export type MailingList = $Result.DefaultSelection<Prisma.$MailingListPayload>
 
 /**
  * Enums
@@ -350,6 +355,16 @@ export class PrismaClient<
     * ```
     */
   get scoreDetail(): Prisma.ScoreDetailDelegate<ExtArgs>;
+
+  /**
+   * `prisma.mailingList`: Exposes CRUD operations for the **MailingList** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MailingLists
+    * const mailingLists = await prisma.mailingList.findMany()
+    * ```
+    */
+  get mailingList(): Prisma.MailingListDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -826,7 +841,8 @@ export namespace Prisma {
     User: 'User',
     UserCircles: 'UserCircles',
     Assessment: 'Assessment',
-    ScoreDetail: 'ScoreDetail'
+    ScoreDetail: 'ScoreDetail',
+    MailingList: 'MailingList'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -843,7 +859,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'empyloUser' | 'companyUser' | 'companyCircles' | 'user' | 'userCircles' | 'assessment' | 'scoreDetail'
+      modelProps: 'empyloUser' | 'companyUser' | 'companyCircles' | 'user' | 'userCircles' | 'assessment' | 'scoreDetail' | 'mailingList'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1306,6 +1322,72 @@ export namespace Prisma {
           count: {
             args: Prisma.ScoreDetailCountArgs<ExtArgs>,
             result: $Utils.Optional<ScoreDetailCountAggregateOutputType> | number
+          }
+        }
+      }
+      MailingList: {
+        payload: Prisma.$MailingListPayload<ExtArgs>
+        fields: Prisma.MailingListFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MailingListFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MailingListPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MailingListFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MailingListPayload>
+          }
+          findFirst: {
+            args: Prisma.MailingListFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MailingListPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MailingListFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MailingListPayload>
+          }
+          findMany: {
+            args: Prisma.MailingListFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MailingListPayload>[]
+          }
+          create: {
+            args: Prisma.MailingListCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MailingListPayload>
+          }
+          createMany: {
+            args: Prisma.MailingListCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.MailingListDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MailingListPayload>
+          }
+          update: {
+            args: Prisma.MailingListUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MailingListPayload>
+          }
+          deleteMany: {
+            args: Prisma.MailingListDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MailingListUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.MailingListUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MailingListPayload>
+          }
+          aggregate: {
+            args: Prisma.MailingListAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateMailingList>
+          }
+          groupBy: {
+            args: Prisma.MailingListGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<MailingListGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MailingListCountArgs<ExtArgs>,
+            result: $Utils.Optional<MailingListCountAggregateOutputType> | number
           }
         }
       }
@@ -9697,6 +9779,854 @@ export namespace Prisma {
 
 
   /**
+   * Model MailingList
+   */
+
+  export type AggregateMailingList = {
+    _count: MailingListCountAggregateOutputType | null
+    _min: MailingListMinAggregateOutputType | null
+    _max: MailingListMaxAggregateOutputType | null
+  }
+
+  export type MailingListMinAggregateOutputType = {
+    id: string | null
+    created_at: Date | null
+    email: string | null
+  }
+
+  export type MailingListMaxAggregateOutputType = {
+    id: string | null
+    created_at: Date | null
+    email: string | null
+  }
+
+  export type MailingListCountAggregateOutputType = {
+    id: number
+    created_at: number
+    email: number
+    _all: number
+  }
+
+
+  export type MailingListMinAggregateInputType = {
+    id?: true
+    created_at?: true
+    email?: true
+  }
+
+  export type MailingListMaxAggregateInputType = {
+    id?: true
+    created_at?: true
+    email?: true
+  }
+
+  export type MailingListCountAggregateInputType = {
+    id?: true
+    created_at?: true
+    email?: true
+    _all?: true
+  }
+
+  export type MailingListAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MailingList to aggregate.
+     */
+    where?: MailingListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MailingLists to fetch.
+     */
+    orderBy?: MailingListOrderByWithRelationInput | MailingListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MailingListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MailingLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MailingLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MailingLists
+    **/
+    _count?: true | MailingListCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MailingListMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MailingListMaxAggregateInputType
+  }
+
+  export type GetMailingListAggregateType<T extends MailingListAggregateArgs> = {
+        [P in keyof T & keyof AggregateMailingList]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMailingList[P]>
+      : GetScalarType<T[P], AggregateMailingList[P]>
+  }
+
+
+
+
+  export type MailingListGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MailingListWhereInput
+    orderBy?: MailingListOrderByWithAggregationInput | MailingListOrderByWithAggregationInput[]
+    by: MailingListScalarFieldEnum[] | MailingListScalarFieldEnum
+    having?: MailingListScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MailingListCountAggregateInputType | true
+    _min?: MailingListMinAggregateInputType
+    _max?: MailingListMaxAggregateInputType
+  }
+
+  export type MailingListGroupByOutputType = {
+    id: string
+    created_at: Date | null
+    email: string | null
+    _count: MailingListCountAggregateOutputType | null
+    _min: MailingListMinAggregateOutputType | null
+    _max: MailingListMaxAggregateOutputType | null
+  }
+
+  type GetMailingListGroupByPayload<T extends MailingListGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MailingListGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MailingListGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MailingListGroupByOutputType[P]>
+            : GetScalarType<T[P], MailingListGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MailingListSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    created_at?: boolean
+    email?: boolean
+  }, ExtArgs["result"]["mailingList"]>
+
+  export type MailingListSelectScalar = {
+    id?: boolean
+    created_at?: boolean
+    email?: boolean
+  }
+
+
+  export type $MailingListPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MailingList"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      created_at: Date | null
+      email: string | null
+    }, ExtArgs["result"]["mailingList"]>
+    composites: {}
+  }
+
+
+  type MailingListGetPayload<S extends boolean | null | undefined | MailingListDefaultArgs> = $Result.GetResult<Prisma.$MailingListPayload, S>
+
+  type MailingListCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MailingListFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MailingListCountAggregateInputType | true
+    }
+
+  export interface MailingListDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MailingList'], meta: { name: 'MailingList' } }
+    /**
+     * Find zero or one MailingList that matches the filter.
+     * @param {MailingListFindUniqueArgs} args - Arguments to find a MailingList
+     * @example
+     * // Get one MailingList
+     * const mailingList = await prisma.mailingList.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends MailingListFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, MailingListFindUniqueArgs<ExtArgs>>
+    ): Prisma__MailingListClient<$Result.GetResult<Prisma.$MailingListPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one MailingList that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {MailingListFindUniqueOrThrowArgs} args - Arguments to find a MailingList
+     * @example
+     * // Get one MailingList
+     * const mailingList = await prisma.mailingList.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends MailingListFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MailingListFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__MailingListClient<$Result.GetResult<Prisma.$MailingListPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first MailingList that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MailingListFindFirstArgs} args - Arguments to find a MailingList
+     * @example
+     * // Get one MailingList
+     * const mailingList = await prisma.mailingList.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends MailingListFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, MailingListFindFirstArgs<ExtArgs>>
+    ): Prisma__MailingListClient<$Result.GetResult<Prisma.$MailingListPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first MailingList that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MailingListFindFirstOrThrowArgs} args - Arguments to find a MailingList
+     * @example
+     * // Get one MailingList
+     * const mailingList = await prisma.mailingList.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends MailingListFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MailingListFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__MailingListClient<$Result.GetResult<Prisma.$MailingListPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more MailingLists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MailingListFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MailingLists
+     * const mailingLists = await prisma.mailingList.findMany()
+     * 
+     * // Get first 10 MailingLists
+     * const mailingLists = await prisma.mailingList.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mailingListWithIdOnly = await prisma.mailingList.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends MailingListFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MailingListFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MailingListPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a MailingList.
+     * @param {MailingListCreateArgs} args - Arguments to create a MailingList.
+     * @example
+     * // Create one MailingList
+     * const MailingList = await prisma.mailingList.create({
+     *   data: {
+     *     // ... data to create a MailingList
+     *   }
+     * })
+     * 
+    **/
+    create<T extends MailingListCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, MailingListCreateArgs<ExtArgs>>
+    ): Prisma__MailingListClient<$Result.GetResult<Prisma.$MailingListPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many MailingLists.
+     *     @param {MailingListCreateManyArgs} args - Arguments to create many MailingLists.
+     *     @example
+     *     // Create many MailingLists
+     *     const mailingList = await prisma.mailingList.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends MailingListCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MailingListCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a MailingList.
+     * @param {MailingListDeleteArgs} args - Arguments to delete one MailingList.
+     * @example
+     * // Delete one MailingList
+     * const MailingList = await prisma.mailingList.delete({
+     *   where: {
+     *     // ... filter to delete one MailingList
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends MailingListDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, MailingListDeleteArgs<ExtArgs>>
+    ): Prisma__MailingListClient<$Result.GetResult<Prisma.$MailingListPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one MailingList.
+     * @param {MailingListUpdateArgs} args - Arguments to update one MailingList.
+     * @example
+     * // Update one MailingList
+     * const mailingList = await prisma.mailingList.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends MailingListUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, MailingListUpdateArgs<ExtArgs>>
+    ): Prisma__MailingListClient<$Result.GetResult<Prisma.$MailingListPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more MailingLists.
+     * @param {MailingListDeleteManyArgs} args - Arguments to filter MailingLists to delete.
+     * @example
+     * // Delete a few MailingLists
+     * const { count } = await prisma.mailingList.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends MailingListDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MailingListDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MailingLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MailingListUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MailingLists
+     * const mailingList = await prisma.mailingList.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends MailingListUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, MailingListUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MailingList.
+     * @param {MailingListUpsertArgs} args - Arguments to update or create a MailingList.
+     * @example
+     * // Update or create a MailingList
+     * const mailingList = await prisma.mailingList.upsert({
+     *   create: {
+     *     // ... data to create a MailingList
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MailingList we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends MailingListUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, MailingListUpsertArgs<ExtArgs>>
+    ): Prisma__MailingListClient<$Result.GetResult<Prisma.$MailingListPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of MailingLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MailingListCountArgs} args - Arguments to filter MailingLists to count.
+     * @example
+     * // Count the number of MailingLists
+     * const count = await prisma.mailingList.count({
+     *   where: {
+     *     // ... the filter for the MailingLists we want to count
+     *   }
+     * })
+    **/
+    count<T extends MailingListCountArgs>(
+      args?: Subset<T, MailingListCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MailingListCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MailingList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MailingListAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MailingListAggregateArgs>(args: Subset<T, MailingListAggregateArgs>): Prisma.PrismaPromise<GetMailingListAggregateType<T>>
+
+    /**
+     * Group by MailingList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MailingListGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MailingListGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MailingListGroupByArgs['orderBy'] }
+        : { orderBy?: MailingListGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MailingListGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMailingListGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MailingList model
+   */
+  readonly fields: MailingListFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MailingList.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MailingListClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the MailingList model
+   */ 
+  interface MailingListFieldRefs {
+    readonly id: FieldRef<"MailingList", 'String'>
+    readonly created_at: FieldRef<"MailingList", 'DateTime'>
+    readonly email: FieldRef<"MailingList", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * MailingList findUnique
+   */
+  export type MailingListFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MailingList
+     */
+    select?: MailingListSelect<ExtArgs> | null
+    /**
+     * Filter, which MailingList to fetch.
+     */
+    where: MailingListWhereUniqueInput
+  }
+
+
+  /**
+   * MailingList findUniqueOrThrow
+   */
+  export type MailingListFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MailingList
+     */
+    select?: MailingListSelect<ExtArgs> | null
+    /**
+     * Filter, which MailingList to fetch.
+     */
+    where: MailingListWhereUniqueInput
+  }
+
+
+  /**
+   * MailingList findFirst
+   */
+  export type MailingListFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MailingList
+     */
+    select?: MailingListSelect<ExtArgs> | null
+    /**
+     * Filter, which MailingList to fetch.
+     */
+    where?: MailingListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MailingLists to fetch.
+     */
+    orderBy?: MailingListOrderByWithRelationInput | MailingListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MailingLists.
+     */
+    cursor?: MailingListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MailingLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MailingLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MailingLists.
+     */
+    distinct?: MailingListScalarFieldEnum | MailingListScalarFieldEnum[]
+  }
+
+
+  /**
+   * MailingList findFirstOrThrow
+   */
+  export type MailingListFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MailingList
+     */
+    select?: MailingListSelect<ExtArgs> | null
+    /**
+     * Filter, which MailingList to fetch.
+     */
+    where?: MailingListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MailingLists to fetch.
+     */
+    orderBy?: MailingListOrderByWithRelationInput | MailingListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MailingLists.
+     */
+    cursor?: MailingListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MailingLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MailingLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MailingLists.
+     */
+    distinct?: MailingListScalarFieldEnum | MailingListScalarFieldEnum[]
+  }
+
+
+  /**
+   * MailingList findMany
+   */
+  export type MailingListFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MailingList
+     */
+    select?: MailingListSelect<ExtArgs> | null
+    /**
+     * Filter, which MailingLists to fetch.
+     */
+    where?: MailingListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MailingLists to fetch.
+     */
+    orderBy?: MailingListOrderByWithRelationInput | MailingListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MailingLists.
+     */
+    cursor?: MailingListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MailingLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MailingLists.
+     */
+    skip?: number
+    distinct?: MailingListScalarFieldEnum | MailingListScalarFieldEnum[]
+  }
+
+
+  /**
+   * MailingList create
+   */
+  export type MailingListCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MailingList
+     */
+    select?: MailingListSelect<ExtArgs> | null
+    /**
+     * The data needed to create a MailingList.
+     */
+    data?: XOR<MailingListCreateInput, MailingListUncheckedCreateInput>
+  }
+
+
+  /**
+   * MailingList createMany
+   */
+  export type MailingListCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MailingLists.
+     */
+    data: MailingListCreateManyInput | MailingListCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * MailingList update
+   */
+  export type MailingListUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MailingList
+     */
+    select?: MailingListSelect<ExtArgs> | null
+    /**
+     * The data needed to update a MailingList.
+     */
+    data: XOR<MailingListUpdateInput, MailingListUncheckedUpdateInput>
+    /**
+     * Choose, which MailingList to update.
+     */
+    where: MailingListWhereUniqueInput
+  }
+
+
+  /**
+   * MailingList updateMany
+   */
+  export type MailingListUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MailingLists.
+     */
+    data: XOR<MailingListUpdateManyMutationInput, MailingListUncheckedUpdateManyInput>
+    /**
+     * Filter which MailingLists to update
+     */
+    where?: MailingListWhereInput
+  }
+
+
+  /**
+   * MailingList upsert
+   */
+  export type MailingListUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MailingList
+     */
+    select?: MailingListSelect<ExtArgs> | null
+    /**
+     * The filter to search for the MailingList to update in case it exists.
+     */
+    where: MailingListWhereUniqueInput
+    /**
+     * In case the MailingList found by the `where` argument doesn't exist, create a new MailingList with this data.
+     */
+    create: XOR<MailingListCreateInput, MailingListUncheckedCreateInput>
+    /**
+     * In case the MailingList was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MailingListUpdateInput, MailingListUncheckedUpdateInput>
+  }
+
+
+  /**
+   * MailingList delete
+   */
+  export type MailingListDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MailingList
+     */
+    select?: MailingListSelect<ExtArgs> | null
+    /**
+     * Filter which MailingList to delete.
+     */
+    where: MailingListWhereUniqueInput
+  }
+
+
+  /**
+   * MailingList deleteMany
+   */
+  export type MailingListDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MailingLists to delete
+     */
+    where?: MailingListWhereInput
+  }
+
+
+  /**
+   * MailingList without action
+   */
+  export type MailingListDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MailingList
+     */
+    select?: MailingListSelect<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -9876,6 +10806,15 @@ export namespace Prisma {
   };
 
   export type ScoreDetailScalarFieldEnum = (typeof ScoreDetailScalarFieldEnum)[keyof typeof ScoreDetailScalarFieldEnum]
+
+
+  export const MailingListScalarFieldEnum: {
+    id: 'id',
+    created_at: 'created_at',
+    email: 'email'
+  };
+
+  export type MailingListScalarFieldEnum = (typeof MailingListScalarFieldEnum)[keyof typeof MailingListScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10972,6 +11911,48 @@ export namespace Prisma {
     created_at?: DateTimeNullableWithAggregatesFilter<"ScoreDetail"> | Date | string | null
   }
 
+  export type MailingListWhereInput = {
+    AND?: MailingListWhereInput | MailingListWhereInput[]
+    OR?: MailingListWhereInput[]
+    NOT?: MailingListWhereInput | MailingListWhereInput[]
+    id?: StringFilter<"MailingList"> | string
+    created_at?: DateTimeNullableFilter<"MailingList"> | Date | string | null
+    email?: StringNullableFilter<"MailingList"> | string | null
+  }
+
+  export type MailingListOrderByWithRelationInput = {
+    id?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+  }
+
+  export type MailingListWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email?: string
+    AND?: MailingListWhereInput | MailingListWhereInput[]
+    OR?: MailingListWhereInput[]
+    NOT?: MailingListWhereInput | MailingListWhereInput[]
+    created_at?: DateTimeNullableFilter<"MailingList"> | Date | string | null
+  }, "id" | "id" | "email">
+
+  export type MailingListOrderByWithAggregationInput = {
+    id?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    _count?: MailingListCountOrderByAggregateInput
+    _max?: MailingListMaxOrderByAggregateInput
+    _min?: MailingListMinOrderByAggregateInput
+  }
+
+  export type MailingListScalarWhereWithAggregatesInput = {
+    AND?: MailingListScalarWhereWithAggregatesInput | MailingListScalarWhereWithAggregatesInput[]
+    OR?: MailingListScalarWhereWithAggregatesInput[]
+    NOT?: MailingListScalarWhereWithAggregatesInput | MailingListScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MailingList"> | string
+    created_at?: DateTimeNullableWithAggregatesFilter<"MailingList"> | Date | string | null
+    email?: StringNullableWithAggregatesFilter<"MailingList"> | string | null
+  }
+
   export type EmpyloUserCreateInput = {
     id?: string
     email: string
@@ -12044,6 +13025,48 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type MailingListCreateInput = {
+    id?: string
+    created_at?: Date | string | null
+    email?: string | null
+  }
+
+  export type MailingListUncheckedCreateInput = {
+    id?: string
+    created_at?: Date | string | null
+    email?: string | null
+  }
+
+  export type MailingListUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MailingListUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MailingListCreateManyInput = {
+    id?: string
+    created_at?: Date | string | null
+    email?: string | null
+  }
+
+  export type MailingListUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MailingListUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -12851,6 +13874,24 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type MailingListCountOrderByAggregateInput = {
+    id?: SortOrder
+    created_at?: SortOrder
+    email?: SortOrder
+  }
+
+  export type MailingListMaxOrderByAggregateInput = {
+    id?: SortOrder
+    created_at?: SortOrder
+    email?: SortOrder
+  }
+
+  export type MailingListMinOrderByAggregateInput = {
+    id?: SortOrder
+    created_at?: SortOrder
+    email?: SortOrder
   }
 
   export type EmpyloUserCreatepermissionsInput = {
@@ -16900,6 +17941,10 @@ export namespace Prisma {
      * @deprecated Use ScoreDetailDefaultArgs instead
      */
     export type ScoreDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ScoreDetailDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MailingListDefaultArgs instead
+     */
+    export type MailingListArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MailingListDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

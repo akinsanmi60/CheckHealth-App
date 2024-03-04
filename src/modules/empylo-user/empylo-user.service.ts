@@ -16,7 +16,8 @@ import { PrismaService } from "src/prisma/prisma.service";
 import { AddAdminUSerDto } from "./dto/empylo-user.dto";
 import * as crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
-import { SystemRole, UserStatus } from "../../../prisma/generated/client";
+import { Role } from "src/roles/role.enum";
+import { SystemRole, UserStatus } from "src/types/appModel.type";
 
 @Injectable()
 export class EmpyloUserService {
@@ -35,7 +36,7 @@ export class EmpyloUserService {
 
     // Check if super admin already exists
     const superAdminExists = await this.prisma.empyloUser.findFirst({
-      where: { role: SystemRole.superAdmin },
+      where: { role: Role.superAdmin },
     });
 
     if (superAdminExists) {

@@ -254,6 +254,12 @@ exports.Prisma.ScoreDetailScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.MailingListScalarFieldEnum = {
+  id: 'id',
+  created_at: 'created_at',
+  email: 'email'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -324,7 +330,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   UserCircles: 'UserCircles',
   Assessment: 'Assessment',
-  ScoreDetail: 'ScoreDetail'
+  ScoreDetail: 'ScoreDetail',
+  MailingList: 'MailingList'
 };
 
 /**
