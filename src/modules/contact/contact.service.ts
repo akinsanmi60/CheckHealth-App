@@ -52,7 +52,7 @@ export class ContactService {
   }
 
   async exportMailingList(res: Response) {
-    const mailingList = await this.prisma.user.findMany();
+    const mailingList = await this.prisma.mailingList.findMany();
     if (!mailingList || mailingList.length === 0) {
       throw new BadRequestException("Mailing list is empty");
     }
@@ -60,7 +60,7 @@ export class ContactService {
     const csvData = this.convertToCSV(emails);
 
     res.header("Content-Type", "text/csv");
-    res.attachment("user_emails.csv");
+    res.attachment("mailingList.csv");
     res.status(HttpStatus.OK).send(csvData);
   }
 
