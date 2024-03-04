@@ -61,10 +61,7 @@ export class ContactService {
 
     res.header("Content-Type", "text/csv");
     res.attachment("user_emails.csv");
-    res.status(HttpStatus.OK).send({
-      data: csvData,
-      message: "Mailing list exported successfully",
-    });
+    res.status(HttpStatus.OK).send(csvData);
   }
 
   private convertToCSV(emails: string[]) {
