@@ -305,28 +305,32 @@ export class AssessmentService {
     };
   }
 
-  private async checkAsessmentValidity(assessment) {
-    // Calculate the time difference between now and the assessment's created_at timestamp
-    const currentTime = new Date();
-    const assessmentTime = new Date(assessment.created_at);
-    const timeDifference = currentTime.getTime() - assessmentTime.getTime();
-    const timeDifferenceInHours = timeDifference / (1000 * 60 * 60);
-
-    return timeDifferenceInHours;
-  }
-
   async weeklyAssessmentCalculate(
     userId: string,
     assessmentId: string,
     dto: CalculateDto,
   ) {
-    const { scoreOnAttempt, setNo, assessmentType } = dto;
+    const { scoreOnAttempt, setNo, assessmentType, circleId, circleType } = dto;
 
-    const assessmentCheck = await this.prisma.assessment.findUnique({
-      where: {
-        id: assessmentId,
-      },
-    });
+    const cirlcleObjToInsert = await this.checkCircle(circleId, circleType);
+
+    const [assessmentCheck, foundUser] = await Promise.all([
+      this.prisma.assessment.findUnique({
+        where: {
+          id: assessmentId,
+        },
+      }),
+
+      this.prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+      }),
+    ]);
+
+    if (!foundUser) {
+      throw new BadRequestException("User not found");
+    }
 
     if (!assessmentCheck) {
       throw new BadRequestException("Assessment not found");
@@ -348,11 +352,12 @@ export class AssessmentService {
         weeklyScore: weeklyScore,
         owner: {
           connect: {
-            id: userId,
+            id: foundUser?.id,
           },
         },
         assessmentType: assessmentType,
         setNo: setNo,
+        ...cirlcleObjToInsert,
       },
     });
 
@@ -364,7 +369,7 @@ export class AssessmentService {
     assessmentId: string,
     dto: CalculateDto,
   ) {
-    const { scoreOnAttempt, setNo, assessmentType } = dto;
+    const { scoreOnAttempt, setNo, assessmentType, circleId, circleType } = dto;
     const currentDate = new Date();
     const startOfCurrentWeek = new Date(
       currentDate.setDate(currentDate.getDate() - currentDate.getDay()),
@@ -373,11 +378,47 @@ export class AssessmentService {
       currentDate.setDate(currentDate.getDate() + 6),
     ).toISOString(); // Add 6 days to get Saturday
 
-    console.log(startOfCurrentWeek, "start");
-    console.log(endOfCurrentWeek, "end");
+    let cirlcleObj = {};
+    if (circleType === "company") {
+      const circle = this.prisma.companyCircles.findUnique({
+        where: {
+          id: circleId,
+        },
+      });
 
-    const [assessmentCheck, scoreInserted] = await Promise.all([
-      await this.prisma.assessment.findUnique({
+      if (!circle) {
+        throw new BadRequestException("Circle not found");
+      }
+
+      cirlcleObj = {
+        coyCirleWith: {
+          connect: {
+            id: circleId,
+          },
+        },
+      };
+    } else if (circleType === "personal") {
+      const circle = this.prisma.userCircles.findUnique({
+        where: {
+          id: circleId,
+        },
+      });
+
+      if (!circle) {
+        throw new BadRequestException("Circle not found");
+      }
+
+      cirlcleObj = {
+        userCirleWith: {
+          connect: {
+            id: circleId,
+          },
+        },
+      };
+    }
+
+    const [assessmentCheck, scoreInserted, foundUser] = await Promise.all([
+      this.prisma.assessment.findUnique({
         where: {
           id: assessmentId,
         },
@@ -392,6 +433,11 @@ export class AssessmentService {
         },
         orderBy: {
           created_at: "desc",
+        },
+      }),
+      this.prisma.user.findUnique({
+        where: {
+          id: userId,
         },
       }),
     ]);
@@ -412,8 +458,88 @@ export class AssessmentService {
       throw new BadRequestException("Assessment type does not match");
     }
 
-    const weeklyScore = scoreOnAttempt ? Number(scoreOnAttempt) * 2.2 : 0;
+    const daily = scoreOnAttempt ? Number(scoreOnAttempt) * 1.8 : 0;
 
-    return scoreInserted && weeklyScore;
+    const dailyScore = await this.prisma.scoreDetail.create({
+      data: {
+        id: uuidv4(),
+        dailyScore: daily,
+        owner: {
+          connect: {
+            id: foundUser.id,
+          },
+        },
+        assessmentType: assessmentType,
+        setNo: setNo,
+        created_at: new Date(),
+        assessmentWith: {
+          connect: {
+            id: assessmentId,
+          },
+        },
+        ...cirlcleObj,
+      },
+    });
+
+    if (!dailyScore) {
+      throw new BadRequestException("Something went wrong");
+    }
+
+    return {
+      message: "Daily checkin assessment is successfully submitted",
+    };
+  }
+
+  private async checkAsessmentValidity(assessment) {
+    // Calculate the time difference between now and the assessment's created_at timestamp
+    const currentTime = new Date();
+    const assessmentTime = new Date(assessment.created_at);
+    const timeDifference = currentTime.getTime() - assessmentTime.getTime();
+    const timeDifferenceInHours = timeDifference / (1000 * 60 * 60);
+
+    return timeDifferenceInHours;
+  }
+
+  private async checkCircle(circleType: string, circleId: string) {
+    let cirlcleObj = {};
+    if (circleType === "company") {
+      const circle = await this.prisma.companyCircles.findUnique({
+        where: {
+          id: circleId,
+        },
+      });
+
+      if (!circle) {
+        throw new BadRequestException("Circle not found");
+      }
+
+      cirlcleObj = {
+        coyCirleWith: {
+          connect: {
+            id: circle?.id,
+          },
+        },
+      };
+    } else if (circleType === "personal") {
+      const circle = await this.prisma.userCircles.findUnique({
+        where: {
+          id: circleId,
+        },
+      });
+
+      if (!circle) {
+        throw new BadRequestException("Circle not found");
+      }
+
+      cirlcleObj = {
+        userCirleWith: {
+          connect: {
+            id: circle?.id,
+          },
+        },
+      };
+    }
+
+    return cirlcleObj;
   }
 }

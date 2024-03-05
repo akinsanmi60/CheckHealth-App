@@ -62,6 +62,20 @@ class UserCirle {
   memberList: MemberListDto;
 }
 
+class ImemberScoreData {
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  passportImg: string;
+
+  @ApiProperty()
+  weeklyScore: number;
+
+  @ApiProperty()
+  averageDailyScore: number;
+}
+
 export class IGetUserCircle extends GenericResponse {
   @ApiProperty()
   data: UserCirle;
@@ -142,4 +156,12 @@ export class IGetusersTotalByGender extends GenericResponse {
     isArray: true,
   })
   data: IGetusersTotalByGenderData[];
+}
+
+export class IGetImemberScore extends GenericResponse {
+  @ApiProperty({
+    type: () => ImemberScoreData,
+    isArray: true,
+  })
+  data: ImemberScoreData[];
 }

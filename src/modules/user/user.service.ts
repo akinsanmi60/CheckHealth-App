@@ -7,7 +7,7 @@ import { AuthResolver } from "src/auth/authFinder.service";
 import { ResponseInterceptor } from "src/filter/responseFilter/respone.service";
 // import { MailService } from "../../mail/mail.service";
 import { PrismaService } from "src/prisma/prisma.service";
-import { UserCircle } from "src/types/appModel.type";
+import { IListOfScore, UserCircle } from "src/types/appModel.type";
 import { CompanyGettingStartedDto } from "../circles/dto/company.dto";
 import * as crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
@@ -283,6 +283,7 @@ export class UserService {
         userCircleNos: true,
         memberList: {
           select: {
+            id: true,
             email: true,
             passportImg: true,
             ageRange: true,
@@ -291,6 +292,15 @@ export class UserService {
             phoneNumber: true,
             jobRole: true,
             role: true,
+            listOfScoreDetail: {
+              select: {
+                created_at: true,
+                userCirleID: true,
+                weeklyScore: true,
+                dailyScore: true,
+                ownerID: true,
+              },
+            },
           },
           orderBy: { created_at: "desc" },
         },
@@ -301,9 +311,164 @@ export class UserService {
       throw new BadRequestException("User circle not found");
     }
 
+    const currentDate = new Date();
+
+    const startOfCurrentWeek = new Date(
+      currentDate.setDate(currentDate.getDate() - currentDate.getDay()),
+    ); // Move back to Sunday
+
+    const endOfCurrentWeek = new Date(
+      currentDate.setDate(currentDate.getDate() + 6),
+    ); // Add 6 days to get Saturday
+
+    const listOfScore = userCircle.memberList.flatMap(member =>
+      member.listOfScoreDetail.filter(score => {
+        const createdAtDate = new Date(score.created_at);
+        return (
+          createdAtDate > startOfCurrentWeek && createdAtDate < endOfCurrentWeek
+        );
+      }),
+    );
+
+    const reshapeDataDueToScore = userCircle.memberList.map(member => {
+      return {
+        ...member,
+        listOfScoreDetail: listOfScore.filter(
+          score => score.userCirleID === id && score.ownerID === member.id,
+        ),
+      };
+    });
+
     return {
       message: "User circle fetched successfully",
-      data: userCircle,
+      data: reshapeDataDueToScore,
+    };
+  }
+
+  async getMyScoreInCompanyCircle(id: string, coyCircleId: string) {
+    const [companyCircle, checkUser] = await Promise.all([
+      this.prisma.companyCircles.findUnique({
+        where: {
+          id: coyCircleId,
+        },
+        select: {
+          memberList: {
+            select: {
+              id: true,
+              passportImg: true,
+              listOfScoreDetail: {
+                select: {
+                  created_at: true,
+                  coyCirleID: true,
+                  userCirleID: true,
+                  weeklyScore: true,
+                  dailyScore: true,
+                  ownerID: true,
+                },
+              },
+            },
+          },
+        },
+      }),
+      this.prisma.user.findUnique({
+        where: {
+          id: id,
+        },
+      }),
+    ]);
+
+    if (!companyCircle) {
+      throw new BadRequestException("Company circle not found");
+    }
+
+    if (companyCircle.memberList.length === 0) {
+      throw new BadRequestException("Member list not found");
+    }
+
+    if (!checkUser) {
+      throw new BadRequestException("User not found");
+    }
+
+    const memberScores = companyCircle.memberList.map(member => {
+      const { weeklyScore, averageDailyScore } = this.userScoreDetail(
+        member?.listOfScoreDetail,
+        id,
+        coyCircleId,
+      );
+      return {
+        id: member?.id,
+        passportImg: member?.passportImg,
+        weeklyScore,
+        averageDailyScore,
+      };
+    });
+
+    return {
+      message: "User score fetched successfully",
+      data: memberScores?.length > 0 ? memberScores : [],
+    };
+  }
+  async getMyScoreInUserCircle(id: string, userCircleId: string) {
+    const [userCircle, checkUser] = await Promise.all([
+      this.prisma.userCircles.findUnique({
+        where: {
+          id: userCircleId,
+        },
+        select: {
+          memberList: {
+            select: {
+              id: true,
+              passportImg: true,
+              listOfScoreDetail: {
+                select: {
+                  created_at: true,
+                  userCirleID: true,
+                  weeklyScore: true,
+                  dailyScore: true,
+                  coyCirleID: true,
+                  ownerID: true,
+                },
+              },
+            },
+          },
+        },
+      }),
+      this.prisma.user.findUnique({
+        where: {
+          id: id,
+        },
+      }),
+    ]);
+
+    if (!userCircle) {
+      throw new BadRequestException("User circle not found");
+    }
+
+    if (userCircle.memberList.length === 0) {
+      throw new BadRequestException("Member list not found");
+    }
+
+    if (!checkUser) {
+      throw new BadRequestException("User not found");
+    }
+
+    const memberScores = userCircle.memberList.map(member => {
+      const { weeklyScore, averageDailyScore } = this.userScoreDetail(
+        member?.listOfScoreDetail,
+        id,
+        userCircleId,
+      );
+      return {
+        id: member?.id,
+        passportImg: member?.passportImg,
+        weeklyScore,
+        averageDailyScore,
+      };
+    });
+
+    return {
+      message: "User score fetched successfully",
+      data: memberScores?.length > 0 ? memberScores : [],
     };
   }
 
@@ -644,5 +809,54 @@ export class UserService {
         otherUsers: otherUsers,
       },
     };
+  }
+
+  private userScoreDetail(
+    listOfScore: IListOfScore,
+    id: string,
+    coyCircleId: string,
+  ) {
+    const { startOfCurrentWeek, endOfCurrentWeek } =
+      this.analysisOfDateNeeded();
+
+    const currentWeekListOfScore = listOfScore.filter(score => {
+      const createdAtDate = new Date(score?.created_at);
+      return (
+        createdAtDate > startOfCurrentWeek && createdAtDate < endOfCurrentWeek
+      );
+    });
+
+    const scoreArray = currentWeekListOfScore.filter(score => {
+      if (score?.coyCirleID !== "" || score?.coyCirleID !== null) {
+        return score?.coyCirleID === coyCircleId && score?.ownerID === id;
+      } else if (score?.userCirleID !== "" || score?.userCirleID !== null) {
+        return score?.userCirleID === coyCircleId && score?.ownerID === id;
+      }
+    });
+
+    const weekScore = scoreArray?.map(score => score?.weeklyScore);
+    const dailyScore = scoreArray?.map(score => score?.dailyScore);
+
+    const averageDailyScore =
+      dailyScore.reduce((a, b) => a + b, 0) / dailyScore?.length;
+
+    return {
+      weeklyScore: weekScore[0] as number,
+      averageDailyScore: averageDailyScore,
+    };
+  }
+
+  private analysisOfDateNeeded() {
+    const currentDate = new Date();
+
+    const startOfCurrentWeek = new Date(
+      currentDate.setDate(currentDate.getDate() - currentDate.getDay()),
+    ); // Move back to Sunday
+
+    const endOfCurrentWeek = new Date(
+      currentDate.setDate(currentDate.getDate() + 6),
+    ); // Add 6 days to get Saturday
+
+    return { startOfCurrentWeek, endOfCurrentWeek };
   }
 }

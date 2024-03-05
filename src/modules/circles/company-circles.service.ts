@@ -217,7 +217,8 @@ export class CirclesService {
       data: {
         membersList: {
           disconnect: {
-            id: userId,
+            id: checkUser?.id,
+            accountType: "personalUser",
           },
         },
       },
@@ -238,7 +239,7 @@ export class CirclesService {
         where: { id: circle.id },
         data: {
           memberList: {
-            disconnect: { id: userId },
+            disconnect: { id: checkUser?.id },
           },
         },
       }),
@@ -404,6 +405,15 @@ export class CirclesService {
             phoneNumber: true,
             jobRole: true,
             role: true,
+            listOfScoreDetail: {
+              select: {
+                created_at: true,
+                coyCirleID: true,
+                weeklyScore: true,
+                dailyScore: true,
+                ownerID: true,
+              },
+            },
           },
         },
       },
@@ -413,9 +423,37 @@ export class CirclesService {
       throw new BadRequestException("Company circle not found");
     }
 
+    const currentDate = new Date();
+
+    const startOfCurrentWeek = new Date(
+      currentDate.setDate(currentDate.getDate() - currentDate.getDay()),
+    ); // Move back to Sunday
+
+    const endOfCurrentWeek = new Date(
+      currentDate.setDate(currentDate.getDate() + 6),
+    ); // Add 6 days to get Saturday
+
+    const listOfScore = companyCircle.memberList.flatMap(member =>
+      member.listOfScoreDetail.filter(score => {
+        const createdAtDate = new Date(score.created_at);
+        return (
+          createdAtDate > startOfCurrentWeek && createdAtDate < endOfCurrentWeek
+        );
+      }),
+    );
+
+    const reshapeDataDueToScore = companyCircle.memberList.map(member => {
+      return {
+        ...member,
+        listOfScoreDetail: listOfScore.filter(
+          score => score.coyCirleID === id && score.ownerID === member.id,
+        ),
+      };
+    });
+
     return {
       message: "Company circle fetched successfully",
-      data: companyCircle,
+      data: reshapeDataDueToScore,
     };
   }
 

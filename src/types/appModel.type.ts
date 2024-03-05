@@ -7,3 +7,11 @@ export type CompanyCirle = Prisma.CompanyCirclesCreateInput;
 export type UserCircle = Prisma.UserCirclesCreateInput;
 export type SystemRole = Role.superAdmin | Role.admin | Role.user;
 export type UserStatus = "active" | "inactive" | "pending";
+export type IListOfScore = {
+  created_at: Date;
+  ownerID: string;
+  coyCirleID: string;
+  userCirleID: string;
+  weeklyScore: number;
+  dailyScore: number;
+}[];

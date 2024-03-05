@@ -29,6 +29,7 @@ import {
 } from "./dto/usercircle.dto";
 import {
   IGetAllUserCircle,
+  IGetImemberScore,
   IGetUserCircle,
   IGetusersTotalByCategory,
   IGetusersTotalByGender,
@@ -78,8 +79,37 @@ export class UserController {
     type: IGetUserCircle,
     description: "Get a user circle",
   })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.user])
   getUserCircleById(@Param("id") id: string) {
     return this.userService.getUserCircleById(id);
+  }
+
+  @Get("my-score/:id/circleId/:coyCircleId")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiParam({ name: "coyCircleId", type: "string" })
+  @ApiResponse({
+    type: IGetImemberScore,
+  })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  getMyScoreInCoyCircle(
+    @Param("id") id: string,
+    @Param("coyCircleId") coyCircleId: string,
+  ) {
+    return this.userService.getMyScoreInCompanyCircle(id, coyCircleId);
+  }
+  @Get("my-score/:id/circleId/:userCircleId")
+  @ApiParam({ name: "id", type: "string" })
+  @ApiParam({ name: "userCircleId", type: "string" })
+  @ApiResponse({
+    type: IGetImemberScore,
+  })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  getMyScoreInUserCircle(
+    @Param("id") id: string,
+    @Param("userCircleId") userCircleId: string,
+  ) {
+    return this.userService.getMyScoreInUserCircle(id, userCircleId);
   }
 
   @Get("/allusers-circles")

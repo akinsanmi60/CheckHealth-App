@@ -24,6 +24,13 @@ export class ContactService {
 
   async submitMailingList(dto: MailingListDto) {
     const { email } = dto;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      throw new BadRequestException("Invalid email format.");
+    }
+
     const checkEmail = await this.prisma.mailingList.findUnique({
       where: {
         email: email,
@@ -53,9 +60,11 @@ export class ContactService {
 
   async exportMailingList(res: Response) {
     const mailingList = await this.prisma.mailingList.findMany();
+
     if (!mailingList || mailingList.length === 0) {
       throw new BadRequestException("Mailing list is empty");
     }
+
     const emails = mailingList.map(mail => mail.email);
     const csvData = this.convertToCSV(emails);
 

@@ -20,7 +20,9 @@ export class AuthGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException(
+        "Bearer token not found in the request headers.",
+      );
       // return true;
     }
 
@@ -32,7 +34,7 @@ export class AuthGuard implements CanActivate {
       });
       request["token"] = payload;
     } catch {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException("Invalid token.");
     }
     return true;
   }
