@@ -499,6 +499,15 @@ export class UserService {
   }
 
   async deactivateUserCircle(id: string) {
+    const findCircle = await this.prisma.userCircles.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!findCircle) {
+      throw new BadRequestException("User circle not found");
+    }
     const data = {
       coyCircleStatus: "inactive",
       updated_at: this.timeGenerated,
@@ -508,7 +517,7 @@ export class UserService {
       data,
       "userCircle",
       "id",
-      id,
+      findCircle?.id,
     )) as UserCircle;
 
     if (!deactivatedCircle) {
@@ -584,6 +593,14 @@ export class UserService {
   }
 
   async deleteUserCircle(id: string) {
+    const userCircleCheck = await this.prisma.userCircles.findUnique({
+      where: { id: id },
+    });
+
+    if (!userCircleCheck) {
+      throw new BadRequestException("User circle not found");
+    }
+
     const userCircle = await this.prisma.userCircles.delete({
       where: { id },
     });
@@ -600,6 +617,15 @@ export class UserService {
   }
 
   async removeMemberFromCircle(id: string, memberId: string) {
+    const findCircle = await this.prisma.userCircles.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!findCircle) {
+      throw new BadRequestException("User circle not found");
+    }
     const removedMember = await this.prisma.userCircles.update({
       where: {
         id: id,

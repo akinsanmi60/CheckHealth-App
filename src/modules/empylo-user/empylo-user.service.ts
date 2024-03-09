@@ -35,11 +35,11 @@ export class EmpyloUserService {
     const { email, permissions, firstName, lastName, role } = dto;
 
     // Check if super admin already exists
-    const superAdminExists = await this.prisma.empyloUser.findFirst({
-      where: { role: Role.superAdmin },
-    });
+    // const superAdminExists = await this.prisma.empyloUser.findFirst({
+    //   where: { role: Role.superAdmin },
+    // });
 
-    if (superAdminExists) {
+    if (role === Role.superAdmin) {
       throw new BadRequestException("Super admin already exists");
     }
 
@@ -62,6 +62,9 @@ export class EmpyloUserService {
 
       const code = crypto.randomInt(1000, 9999).toString();
 
+      const hashedPassword =
+        await this.passwordService.hashPassword(randomPassword);
+
       const newCreatedEntity = await this.prisma.empyloUser.create({
         data: {
           id: uuidv4(),
@@ -75,6 +78,7 @@ export class EmpyloUserService {
           lastName: lastName,
           empyloID: empyloID,
           role: role as string as SystemRole,
+          password: hashedPassword,
         },
       });
 

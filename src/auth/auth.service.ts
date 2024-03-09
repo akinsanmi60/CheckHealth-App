@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
   UseInterceptors,
 } from "@nestjs/common";
 import {
@@ -251,6 +252,14 @@ export class AuthService {
       throw new BadRequestException("Wrong email credential");
     }
 
+    if (foundUser.status === "pending") {
+      throw new BadRequestException("Please verify your account first");
+    }
+
+    if (foundUser.status === "inactive") {
+      throw new BadRequestException("Your account has been deactivated");
+    }
+
     const isMatch = await this.passwordService.validatePassword(
       password,
       foundUser.password,
@@ -421,6 +430,16 @@ export class AuthService {
   }
 
   async deactivateUser(id: string) {
+    const foundUser = await this.authResolver.findUserWithField(
+      id,
+      "id",
+      "user",
+    );
+
+    if (!foundUser) {
+      throw new BadRequestException("User not found");
+    }
+
     const data = {
       isActive: false,
       updated_at: this.timeGenerated,
@@ -430,7 +449,7 @@ export class AuthService {
       data,
       "user",
       "id",
-      id,
+      foundUser?.id,
     )) as Users;
 
     if (!deactivatedUser) {
@@ -717,6 +736,16 @@ export class AuthService {
   }
 
   async deleteUser(id: string) {
+    const findUser = await this.prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!findUser) {
+      throw new NotFoundException("User not found");
+    }
+
     const deletedUser = await this.prisma.user.delete({
       where: {
         id,

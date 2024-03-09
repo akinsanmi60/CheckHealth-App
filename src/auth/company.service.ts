@@ -206,6 +206,14 @@ export class CompanyAuthService {
       throw new BadRequestException("Wrong email credential");
     }
 
+    if (foundCompany.status === "pending") {
+      throw new BadRequestException("Please verify your account first");
+    }
+
+    if (foundCompany.status === "inactive") {
+      throw new BadRequestException("Your account has been deactivated");
+    }
+
     const isMatch = await this.passwordService.validatePassword(
       password,
       foundCompany.password,
@@ -339,6 +347,16 @@ export class CompanyAuthService {
   }
 
   async activateCompany(id: string) {
+    const foundCompany = await this.authResolver.findUserWithField(
+      id,
+      "id",
+      "companyUser",
+    );
+
+    if (!foundCompany) {
+      throw new BadRequestException("Company not found");
+    }
+
     const data = {
       isActive: true,
       updated_at: this.timeGenerated,
@@ -348,7 +366,7 @@ export class CompanyAuthService {
       data,
       "companyUser",
       "id",
-      id,
+      foundCompany?.id,
     )) as CompanyUser;
 
     if (!activatedCompany) {
@@ -370,6 +388,16 @@ export class CompanyAuthService {
   }
 
   async deactivateCompany(id: string) {
+    const foundCompany = await this.authResolver.findUserWithField(
+      id,
+      "id",
+      "companyUser",
+    );
+
+    if (!foundCompany) {
+      throw new BadRequestException("Company not found");
+    }
+
     const data = {
       isActive: false,
       updated_at: this.timeGenerated,
@@ -379,7 +407,7 @@ export class CompanyAuthService {
       data,
       "companyUser",
       "id",
-      id,
+      foundCompany?.id,
     )) as CompanyUser;
 
     if (!deactivatedUser) {
@@ -600,14 +628,24 @@ export class CompanyAuthService {
   }
 
   async deleteCompany(id: string) {
+    const foundCompany = await this.authResolver.findUserWithField(
+      id,
+      "id",
+      "companyUser",
+    );
+
+    if (!foundCompany) {
+      throw new BadRequestException("Company not found");
+    }
+
     const company = await this.prisma.companyUser.delete({
       where: {
-        id: id,
+        id: foundCompany?.id,
       },
     });
 
     if (!company) {
-      throw new BadRequestException("Company not found");
+      throw new BadRequestException("Failed to delete company");
     }
 
     return {

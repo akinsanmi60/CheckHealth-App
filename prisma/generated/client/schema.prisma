@@ -54,7 +54,7 @@ model CompanyUser {
   industry            String?
   website             String?
   companyDescription  String?
-  status              UserStatus       @default(inactive)
+  status              UserStatus?
   role                SystemRole       @default(company)
   address             String?
   addressCity         String?
@@ -115,7 +115,7 @@ model User {
   updated_at          DateTime?        @updatedAt
   isEmailVerified     Boolean?         @default(false)
   verificationCode    String?          @unique
-  status              UserStatus       @default(inactive)
+  status              UserStatus?
   address             String?
   bio                 String?
   emailNotification   Boolean?         @default(false)
