@@ -59,7 +59,7 @@ export class MailService {
     });
   }
   async addUserSignUp(
-    mailData: MailData<{ name?: string; password: string }>,
+    mailData: MailData<{ name?: string; password: string; code?: string }>,
   ): Promise<void> {
     const emailConfirmTitle = `Welcome on ${this.app_name}`;
     await this.mailerService.sendMail({
@@ -78,6 +78,7 @@ export class MailService {
         actionTitle: emailConfirmTitle,
         app_name: this.configService.get("APP", { infer: true }),
         // name: mailData.data.name,
+        code: mailData.data.code,
         password: mailData.data.password,
       },
     });

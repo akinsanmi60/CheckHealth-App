@@ -589,6 +589,7 @@ export class CirclesService {
           to: dto.email,
           data: {
             password: randomPassword,
+            code: code,
           },
         });
       }
@@ -740,7 +741,7 @@ export class CirclesService {
 
       await this.mailService.addUserSignUp({
         to: email,
-        data: { password: randomPassword },
+        data: { password: randomPassword, code: code },
       });
 
       return newCreatedEntity;
