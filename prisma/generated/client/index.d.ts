@@ -5542,7 +5542,7 @@ export namespace Prisma {
     maritalStatus: $Enums.MaitalStatus | null
     disability: string | null
     DOB: string | null
-    accountType: $Enums.UserAccount
+    accountType: $Enums.UserAccount | null
     department: string | null
     jobRole: string | null
     password: string | null
@@ -5698,7 +5698,7 @@ export namespace Prisma {
       maritalStatus: $Enums.MaitalStatus | null
       disability: string | null
       DOB: string | null
-      accountType: $Enums.UserAccount
+      accountType: $Enums.UserAccount | null
       department: string | null
       jobRole: string | null
       password: string | null
@@ -11438,7 +11438,7 @@ export namespace Prisma {
     maritalStatus?: EnumMaitalStatusNullableFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableFilter<"User"> | string | null
     DOB?: StringNullableFilter<"User"> | string | null
-    accountType?: EnumUserAccountFilter<"User"> | $Enums.UserAccount
+    accountType?: EnumUserAccountNullableFilter<"User"> | $Enums.UserAccount | null
     department?: StringNullableFilter<"User"> | string | null
     jobRole?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
@@ -11481,7 +11481,7 @@ export namespace Prisma {
     maritalStatus?: SortOrderInput | SortOrder
     disability?: SortOrderInput | SortOrder
     DOB?: SortOrderInput | SortOrder
-    accountType?: SortOrder
+    accountType?: SortOrderInput | SortOrder
     department?: SortOrderInput | SortOrder
     jobRole?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
@@ -11530,7 +11530,7 @@ export namespace Prisma {
     maritalStatus?: EnumMaitalStatusNullableFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableFilter<"User"> | string | null
     DOB?: StringNullableFilter<"User"> | string | null
-    accountType?: EnumUserAccountFilter<"User"> | $Enums.UserAccount
+    accountType?: EnumUserAccountNullableFilter<"User"> | $Enums.UserAccount | null
     department?: StringNullableFilter<"User"> | string | null
     jobRole?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
@@ -11570,7 +11570,7 @@ export namespace Prisma {
     maritalStatus?: SortOrderInput | SortOrder
     disability?: SortOrderInput | SortOrder
     DOB?: SortOrderInput | SortOrder
-    accountType?: SortOrder
+    accountType?: SortOrderInput | SortOrder
     department?: SortOrderInput | SortOrder
     jobRole?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
@@ -11614,7 +11614,7 @@ export namespace Prisma {
     maritalStatus?: EnumMaitalStatusNullableWithAggregatesFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableWithAggregatesFilter<"User"> | string | null
     DOB?: StringNullableWithAggregatesFilter<"User"> | string | null
-    accountType?: EnumUserAccountWithAggregatesFilter<"User"> | $Enums.UserAccount
+    accountType?: EnumUserAccountNullableWithAggregatesFilter<"User"> | $Enums.UserAccount | null
     department?: StringNullableWithAggregatesFilter<"User"> | string | null
     jobRole?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -12466,7 +12466,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -12508,7 +12508,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -12550,7 +12550,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12592,7 +12592,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12634,7 +12634,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -12672,7 +12672,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12709,7 +12709,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13550,11 +13550,11 @@ export namespace Prisma {
     _max?: NestedEnumCircleStatusNullableFilter<$PrismaModel>
   }
 
-  export type EnumUserAccountFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel>
-    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserAccountFilter<$PrismaModel> | $Enums.UserAccount
+  export type EnumUserAccountNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserAccountNullableFilter<$PrismaModel> | $Enums.UserAccount | null
   }
 
   export type UserCirclesListRelationFilter = {
@@ -13681,14 +13681,14 @@ export namespace Prisma {
     socialProvider?: SortOrder
   }
 
-  export type EnumUserAccountWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel>
-    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserAccountWithAggregatesFilter<$PrismaModel> | $Enums.UserAccount
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumUserAccountFilter<$PrismaModel>
-    _max?: NestedEnumUserAccountFilter<$PrismaModel>
+  export type EnumUserAccountNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserAccountNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserAccount | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumUserAccountNullableFilter<$PrismaModel>
+    _max?: NestedEnumUserAccountNullableFilter<$PrismaModel>
   }
 
   export type UserNullableRelationFilter = {
@@ -14286,8 +14286,8 @@ export namespace Prisma {
     connect?: ScoreDetailWhereUniqueInput | ScoreDetailWhereUniqueInput[]
   }
 
-  export type EnumUserAccountFieldUpdateOperationsInput = {
-    set?: $Enums.UserAccount
+  export type NullableEnumUserAccountFieldUpdateOperationsInput = {
+    set?: $Enums.UserAccount | null
   }
 
   export type CompanyUserUpdateOneWithoutMembersListNestedInput = {
@@ -14904,21 +14904,21 @@ export namespace Prisma {
     _max?: NestedEnumCircleStatusNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumUserAccountFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel>
-    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserAccountFilter<$PrismaModel> | $Enums.UserAccount
+  export type NestedEnumUserAccountNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserAccountNullableFilter<$PrismaModel> | $Enums.UserAccount | null
   }
 
-  export type NestedEnumUserAccountWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel>
-    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserAccountWithAggregatesFilter<$PrismaModel> | $Enums.UserAccount
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumUserAccountFilter<$PrismaModel>
-    _max?: NestedEnumUserAccountFilter<$PrismaModel>
+  export type NestedEnumUserAccountNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserAccount | EnumUserAccountFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserAccount[] | ListEnumUserAccountFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserAccountNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserAccount | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumUserAccountNullableFilter<$PrismaModel>
+    _max?: NestedEnumUserAccountNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumAssessmentTypeNullableFilter<$PrismaModel = never> = {
@@ -15084,7 +15084,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -15125,7 +15125,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -15239,7 +15239,7 @@ export namespace Prisma {
     maritalStatus?: EnumMaitalStatusNullableFilter<"User"> | $Enums.MaitalStatus | null
     disability?: StringNullableFilter<"User"> | string | null
     DOB?: StringNullableFilter<"User"> | string | null
-    accountType?: EnumUserAccountFilter<"User"> | $Enums.UserAccount
+    accountType?: EnumUserAccountNullableFilter<"User"> | $Enums.UserAccount | null
     department?: StringNullableFilter<"User"> | string | null
     jobRole?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
@@ -15377,7 +15377,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -15418,7 +15418,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -16002,7 +16002,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -16043,7 +16043,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -16089,7 +16089,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -16130,7 +16130,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -16223,7 +16223,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16264,7 +16264,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16613,7 +16613,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -16654,7 +16654,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -16816,7 +16816,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16857,7 +16857,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17097,7 +17097,7 @@ export namespace Prisma {
     maritalStatus?: $Enums.MaitalStatus | null
     disability?: string | null
     DOB?: string | null
-    accountType?: $Enums.UserAccount
+    accountType?: $Enums.UserAccount | null
     department?: string | null
     jobRole?: string | null
     password?: string | null
@@ -17149,7 +17149,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17190,7 +17190,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17231,7 +17231,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17330,7 +17330,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17371,7 +17371,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17412,7 +17412,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17725,7 +17725,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17766,7 +17766,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17807,7 +17807,7 @@ export namespace Prisma {
     maritalStatus?: NullableEnumMaitalStatusFieldUpdateOperationsInput | $Enums.MaitalStatus | null
     disability?: NullableStringFieldUpdateOperationsInput | string | null
     DOB?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount
+    accountType?: NullableEnumUserAccountFieldUpdateOperationsInput | $Enums.UserAccount | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     jobRole?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null

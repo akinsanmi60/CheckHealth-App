@@ -101,7 +101,7 @@ model User {
   maritalStatus       MaitalStatus?
   disability          String?
   DOB                 String?
-  accountType         UserAccount      @default(personalUser)
+  accountType         UserAccount?
   department          String?
   jobRole             String?
   password            String?
