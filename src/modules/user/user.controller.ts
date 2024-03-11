@@ -31,6 +31,7 @@ import {
   IGetAllUserCircle,
   IGetImemberScore,
   IGetUserCircle,
+  IGetUserRange,
   IGetusersTotalByCategory,
   IGetusersTotalByGender,
   IGetusersTotalByPeriod,
@@ -231,5 +232,16 @@ export class UserController {
   @Roles([Role.superAdmin, Role.admin])
   async getTotalUsersByGender() {
     return this.userService.getUsersGender();
+  }
+
+  @Get("/:id/users-age-range")
+  @ApiParam({ name: "id", type: "string", description: "admin id" })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.superAdmin, Role.admin])
+  @ApiResponse({
+    type: IGetUserRange,
+  })
+  getMembersAgeRange(@Param("id") id) {
+    return this.userService.getUsersByAgeRange(id);
   }
 }

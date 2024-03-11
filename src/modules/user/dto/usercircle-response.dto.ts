@@ -134,6 +134,22 @@ class IGetusersTotalByGenderData {
   otherUsers: string;
 }
 
+class IAgeCount {
+  @ApiProperty()
+  ageRange: string;
+
+  @ApiProperty()
+  count: number;
+}
+
+export class IGetUserRange extends GenericResponse {
+  @ApiProperty({
+    type: () => IAgeCount,
+    isArray: true,
+  })
+  data: IAgeCount[];
+}
+
 export class IGetusersTotalByPeriod extends GenericResponse {
   @ApiProperty({
     type: () => IGetusersTotalByPeriodData,

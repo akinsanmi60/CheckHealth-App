@@ -41,6 +41,7 @@ import { JwtAuthGuard } from "../../auth/jwtAuth.guard";
 import { Role } from "../../roles/role.enum";
 import { Roles } from "../../roles/roles.decorator";
 import { RolesGuard } from "../../roles/roles.guard";
+import { IGetUserRange } from "../user/dto/usercircle-response.dto";
 
 @ApiTags("Company")
 @ApiBearerAuth()
@@ -262,5 +263,16 @@ export class CirclesController {
       id,
       parseInt(year),
     );
+  }
+
+  @Get("/:id/members-age-range")
+  @ApiParam({ name: "id", type: "string", description: "use company id" })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.company, Role.superAdmin, Role.admin])
+  @ApiResponse({
+    type: IGetUserRange,
+  })
+  getMembersAgeRange(@Param("id") id) {
+    return this.circlesService.getMemberCountByAgeRange(id);
   }
 }

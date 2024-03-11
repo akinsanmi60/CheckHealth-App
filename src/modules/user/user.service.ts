@@ -473,6 +473,16 @@ export class UserService {
   }
 
   async activateUserCircle(id: string) {
+    const findCircle = await this.prisma.userCircles.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!findCircle) {
+      throw new BadRequestException("User circle not found");
+    }
+
     const data = {
       coyCircleStatus: "active",
       updated_at: this.timeGenerated,
@@ -655,7 +665,7 @@ export class UserService {
   async addMemberViaURLToCircle(id: string, inviteUrl: string) {
     const foundUser = await this.prisma.user.findUnique({
       where: {
-        id,
+        id: id,
       },
     });
 
@@ -834,6 +844,57 @@ export class UserService {
         femaleUsers: femaleUsers,
         otherUsers: otherUsers,
       },
+    };
+  }
+
+  async getUsersByAgeRange(id: string) {
+    const checkEmpyloUser = await this.prisma.empyloUser.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!checkEmpyloUser) {
+      throw new BadRequestException(
+        "Admin user not found. Please try again later",
+      );
+    }
+
+    const users = await this.prisma.user.findMany({});
+
+    const ageRanges: { [key: string]: number } = {
+      "18-24": 0,
+      "25-34": 0,
+      "35-44": 0,
+      "45-64": 0,
+      "65-over": 0,
+    };
+
+    // Calculate age range for each user and count them
+    users.forEach(user => {
+      const age = new Date().getFullYear() - new Date(user.DOB).getFullYear();
+      if (age >= 18 && age <= 24) {
+        ageRanges["18-24"]++;
+      } else if (age >= 25 && age <= 34) {
+        ageRanges["25-34"]++;
+      } else if (age >= 35 && age <= 44) {
+        ageRanges["35-44"]++;
+      } else if (age >= 45 && age <= 64) {
+        ageRanges["45-64"]++;
+      } else if (age >= 65) {
+        ageRanges["65-over"]++;
+      }
+    });
+
+    // Format the result
+    const result = Object.keys(ageRanges).map(key => ({
+      ageRange: key,
+      count: ageRanges[key],
+    }));
+
+    return {
+      message: "Users count by age range",
+      data: result,
     };
   }
 

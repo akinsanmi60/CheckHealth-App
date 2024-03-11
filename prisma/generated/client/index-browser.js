@@ -260,6 +260,16 @@ exports.Prisma.MailingListScalarFieldEnum = {
   email: 'email'
 };
 
+exports.Prisma.ContactMailScalarFieldEnum = {
+  id: 'id',
+  created_at: 'created_at',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  companyName: 'companyName',
+  message: 'message'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -331,7 +341,8 @@ exports.Prisma.ModelName = {
   UserCircles: 'UserCircles',
   Assessment: 'Assessment',
   ScoreDetail: 'ScoreDetail',
-  MailingList: 'MailingList'
+  MailingList: 'MailingList',
+  ContactMail: 'ContactMail'
 };
 
 /**

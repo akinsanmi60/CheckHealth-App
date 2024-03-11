@@ -187,6 +187,16 @@ model MailingList {
   email      String?   @unique
 }
 
+model ContactMail {
+  id          String    @id @unique @default(cuid())
+  created_at  DateTime? @default(now())
+  firstName   String?
+  lastName    String?
+  email       String?
+  companyName String?
+  message     String?
+}
+
 enum AssessmentType {
   weekly
   dailyCheckin

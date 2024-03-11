@@ -1032,6 +1032,67 @@ export class CirclesService {
     };
   }
 
+  async getMemberCountByAgeRange(id: string) {
+    const checkCompany = await this.prisma.companyUser.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!checkCompany) {
+      throw new BadRequestException(
+        "Company not found. Please try again later",
+      );
+    }
+
+    const members = await this.prisma.companyUser.findMany({
+      where: {
+        id: id,
+      },
+      include: {
+        membersList: true,
+      },
+    });
+
+    const ageRanges: { [key: string]: number } = {
+      "18-24": 0,
+      "25-34": 0,
+      "35-44": 0,
+      "45-64": 0,
+      "65-over": 0,
+    };
+
+    // Calculate age range for each member and count them
+    members.forEach(companyUser => {
+      companyUser.membersList.forEach(member => {
+        const age =
+          new Date().getFullYear() - new Date(member.DOB).getFullYear();
+        if (age >= 18 && age <= 24) {
+          ageRanges["18-24"]++;
+        } else if (age >= 25 && age <= 34) {
+          ageRanges["25-34"]++;
+        } else if (age >= 35 && age <= 44) {
+          ageRanges["35-44"]++;
+        } else if (age >= 45 && age <= 64) {
+          ageRanges["45-64"]++;
+        } else if (age >= 65) {
+          ageRanges["65-over"]++;
+        }
+      });
+    });
+
+    // Format the result
+    const result = Object.keys(ageRanges).map(key => ({
+      ageRange: key,
+      count: ageRanges[key],
+    }));
+
+    return {
+      message: "Member count by age range",
+      data: result,
+    };
+  }
+
   private async getCountForCircleStatus(
     id: string,
     circleStatus: string,
