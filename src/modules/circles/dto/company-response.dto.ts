@@ -123,6 +123,7 @@ class IGetTotalCircleInYearWithMonthData {
 
   @ApiProperty()
   totalOngoingCircle: number;
+
   @ApiProperty()
   totalUnenrolledCircle: number;
 }

@@ -11,10 +11,7 @@ import { IListOfScore, UserCircle } from "src/types/appModel.type";
 import { CompanyGettingStartedDto } from "../circles/dto/company.dto";
 import * as crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
-import {
-  GetAllUserCirclesDto,
-  MemberToLeaveCircleDto,
-} from "./dto/usercircle.dto";
+import { GetAllUserCirclesDto } from "./dto/usercircle.dto";
 
 @Injectable()
 @UseInterceptors(ResponseInterceptor)
@@ -543,17 +540,17 @@ export class UserService {
     }
   }
 
-  async leaveUserCircle(id: string, dto: MemberToLeaveCircleDto) {
+  async leaveUserCircle(id: string, circleNos) {
     try {
       const [findCirlceWithCircleNos, findCoyWithCircleNos] = await Promise.all(
         [
           this.prisma.userCircles.update({
-            where: { userCircleNos: dto.circleNos },
-            data: { memberList: { delete: { id: id } } },
+            where: { userCircleNos: circleNos },
+            data: { memberList: { disconnect: { id: id } } },
           }),
           this.prisma.companyCircles.update({
-            where: { coyCircleNos: dto.circleNos },
-            data: { memberList: { delete: { id: id } } },
+            where: { coyCircleNos: circleNos },
+            data: { memberList: { disconnect: { id: id } } },
           }),
         ],
       );
@@ -589,12 +586,12 @@ export class UserService {
 
       if (!disconnectFromUser) {
         throw new BadRequestException(
-          `Failed to remove you from company circle ${findCirlceWithCircleNos?.userCircleNos || findCoyWithCircleNos?.coyCircleNos}`,
+          `Failed to remove you from company circle ${findCirlceWithCircleNos?.userCircleName || findCoyWithCircleNos?.coyCircleName}`,
         );
       }
 
       return {
-        message: `Successfully removed you from company circle ${findCirlceWithCircleNos?.userCircleNos || findCoyWithCircleNos?.coyCircleNos}`,
+        message: `Successfully removed you from company circle ${findCirlceWithCircleNos?.userCircleName || findCoyWithCircleNos?.coyCircleName}`,
       };
     } catch (error) {
       console.error("Error in leave user circle:", error);
@@ -642,7 +639,7 @@ export class UserService {
       },
       data: {
         memberList: {
-          delete: {
+          disconnect: {
             id: memberId,
           },
         },
@@ -895,6 +892,66 @@ export class UserService {
     return {
       message: "Users count by age range",
       data: result,
+    };
+  }
+
+  async getMemberDepartmentCount(id: string) {
+    console.log(id);
+    const checkCompany = await this.prisma.empyloUser.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!checkCompany) {
+      throw new BadRequestException(
+        "Company not found. Please try again later",
+      );
+    }
+
+    const users = await this.prisma.user.findMany({
+      select: {
+        department: true,
+      },
+    });
+
+    const departmentCounts = {
+      Marketing: 0,
+      Finance: 0,
+      Operations: 0,
+      "Human Resource": 0,
+      IT: 0,
+      "Customer Service": 0,
+      Legal: 0,
+      Product: 0,
+      Other: 0,
+    };
+
+    users.forEach(member => {
+      if (member?.department === "Marketing") {
+        departmentCounts.Marketing++;
+      } else if (member.department === "Finance") {
+        departmentCounts.Finance++;
+      } else if (member.department === "Operations") {
+        departmentCounts.Operations++;
+      } else if (member.department === "Human Resource") {
+        departmentCounts["Human Resource"]++;
+      } else if (member.department === "IT") {
+        departmentCounts.IT++;
+      } else if (member.department === "Customer Service") {
+        departmentCounts["Customer Service"]++;
+      } else if (member.department === "Legal") {
+        departmentCounts.Legal++;
+      } else if (member.department === "Product") {
+        departmentCounts.Product++;
+      } else {
+        departmentCounts.Other++;
+      }
+    });
+
+    return {
+      message: "users department count",
+      data: departmentCounts,
     };
   }
 

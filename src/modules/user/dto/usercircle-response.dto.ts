@@ -142,6 +142,43 @@ class IAgeCount {
   count: number;
 }
 
+export class IDeparmentCount {
+  @ApiProperty()
+  Marketing: number;
+
+  @ApiProperty()
+  Finance: number;
+
+  @ApiProperty()
+  Operations: number;
+
+  @ApiProperty()
+  "Human Resource": number;
+
+  @ApiProperty()
+  IT: number;
+
+  @ApiProperty()
+  "Customer Service": number;
+
+  @ApiProperty()
+  Legal: number;
+
+  @ApiProperty()
+  Product: number;
+
+  @ApiProperty()
+  Other: number;
+}
+
+export class IGetusersTotalByDeparment extends GenericResponse {
+  @ApiProperty({
+    type: () => IDeparmentCount,
+    isArray: true,
+  })
+  data: IDeparmentCount[];
+}
+
 export class IGetUserRange extends GenericResponse {
   @ApiProperty({
     type: () => IAgeCount,

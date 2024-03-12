@@ -33,6 +33,7 @@ import {
   IGetUserCircle,
   IGetUserRange,
   IGetusersTotalByCategory,
+  IGetusersTotalByDeparment,
   IGetusersTotalByGender,
   IGetusersTotalByPeriod,
 } from "./dto/usercircle-response.dto";
@@ -163,14 +164,18 @@ export class UserController {
 
   @Post("/:id/user-leave/circle")
   @ApiParam({ name: "id", type: "string" })
+  @ApiParam({ name: "circleNos", type: "string" })
   @ApiResponse({
     type: GenericResponse,
   })
   @ApiBody({ type: MemberToLeaveCircleDto })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles([Role.user])
-  leaveUserCircle(@Param("id") id: string, @Body() dto: any) {
-    return this.userService.leaveUserCircle(id, dto);
+  leaveUserCircle(
+    @Param("id") id: string,
+    @Param("circleNos") circleNos: string,
+  ) {
+    return this.userService.leaveUserCircle(id, circleNos);
   }
 
   @Post("/:id/:memberId/removemember-from-circle")
@@ -243,5 +248,16 @@ export class UserController {
   })
   getMembersAgeRange(@Param("id") id) {
     return this.userService.getUsersByAgeRange(id);
+  }
+
+  @Get("/:id/users-departments-count")
+  @ApiParam({ name: "id", type: "string", description: "admin id" })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.superAdmin, Role.admin])
+  @ApiResponse({
+    type: IGetusersTotalByDeparment,
+  })
+  getDepartments(@Param("id") id) {
+    return this.userService.getMemberDepartmentCount(id);
   }
 }

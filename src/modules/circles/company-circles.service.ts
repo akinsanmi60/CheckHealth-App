@@ -1093,6 +1093,108 @@ export class CirclesService {
     };
   }
 
+  async getMemberGenderCount(id: string) {
+    const checkCompany = await this.prisma.companyUser.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!checkCompany) {
+      throw new BadRequestException(
+        "Company not found. Please try again later",
+      );
+    }
+    const users = await this.prisma.companyUser.findMany({
+      where: {
+        id: id,
+      },
+      include: {
+        membersList: true,
+      },
+    });
+
+    const genderCounts = {
+      male: 0,
+      female: 0,
+      other: 0,
+    };
+
+    users.forEach(user => {
+      user.membersList.forEach(member => {
+        if (member.gender === "male") {
+          genderCounts.male++;
+        } else if (member.gender === "female") {
+          genderCounts.female++;
+        } else {
+          genderCounts.other++;
+        }
+      });
+    });
+
+    return {
+      message: "Member gender counts",
+      data: genderCounts,
+    };
+  }
+
+  async getMemberDepartmentCount(id: string) {
+    const checkCompany = await this.prisma.companyUser.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!checkCompany) {
+      throw new BadRequestException(
+        "Company not found. Please try again later",
+      );
+    }
+
+    const users = await this.prisma.companyUser.findMany({
+      where: {
+        id: id,
+      },
+      include: {
+        membersList: true,
+      },
+    });
+
+    const departmentCounts = {
+      Marketing: 0,
+      Finance: 0,
+      Operations: 0,
+      "Human Resource": 0,
+      IT: 0,
+      "Customer Service": 0,
+      Legal: 0,
+      Product: 0,
+      Other: 0,
+    };
+
+    users.forEach((member: Users) => {
+      if (member.department === "Marketing") {
+        departmentCounts.Marketing++;
+      } else if (member.department === "Finance") {
+        departmentCounts.Finance++;
+      } else if (member.department === "Operations") {
+        departmentCounts.Operations++;
+      } else if (member.department === "Human Resource") {
+        departmentCounts["Human Resource"]++;
+      } else if (member.department === "IT") {
+        departmentCounts.IT++;
+      } else if (member.department === "Customer Service") {
+        departmentCounts["Customer Service"]++;
+      } else if (member.department === "Legal") {
+        departmentCounts.Legal++;
+      } else if (member.department === "Product") {
+        departmentCounts.Product++;
+      } else {
+        departmentCounts.Other++;
+      }
+    });
+  }
+
   private async getCountForCircleStatus(
     id: string,
     circleStatus: string,

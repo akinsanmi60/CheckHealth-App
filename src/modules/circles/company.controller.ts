@@ -41,7 +41,10 @@ import { JwtAuthGuard } from "../../auth/jwtAuth.guard";
 import { Role } from "../../roles/role.enum";
 import { Roles } from "../../roles/roles.decorator";
 import { RolesGuard } from "../../roles/roles.guard";
-import { IGetUserRange } from "../user/dto/usercircle-response.dto";
+import {
+  IGetUserRange,
+  IGetusersTotalByDeparment,
+} from "../user/dto/usercircle-response.dto";
 
 @ApiTags("Company")
 @ApiBearerAuth()
@@ -274,5 +277,27 @@ export class CirclesController {
   })
   getMembersAgeRange(@Param("id") id) {
     return this.circlesService.getMemberCountByAgeRange(id);
+  }
+
+  @Get("/:id/members-gender-count")
+  @ApiParam({ name: "id", type: "string", description: "use company id" })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.company, Role.superAdmin, Role.admin])
+  @ApiResponse({
+    type: IGetUserRange,
+  })
+  getMembersGenderCount(@Param("id") id) {
+    return this.circlesService.getMemberGenderCount(id);
+  }
+
+  @Get("/:id/members-departments-count")
+  @ApiParam({ name: "id", type: "string", description: "use company id" })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.company, Role.superAdmin, Role.admin])
+  @ApiResponse({
+    type: IGetusersTotalByDeparment,
+  })
+  getDepartments(@Param("id") id) {
+    return this.circlesService.getMemberDepartmentCount(id);
   }
 }
