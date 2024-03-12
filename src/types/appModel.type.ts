@@ -14,4 +14,5 @@ export type IListOfScore = {
   userCirleID: string;
   weeklyScore: number;
   dailyScore: number;
+  wellbeingScore: number;
 }[];

@@ -361,7 +361,16 @@ export class AssessmentService {
       },
     });
 
-    return scoreInserted;
+    if (!scoreInserted) {
+      throw new BadRequestException("Weekly score was not created");
+    }
+
+    return {
+      message: "Weekly score created successfully",
+      data: {
+        weeklyScore: weeklyScore,
+      },
+    };
   }
 
   async dailyCheckinkAssessmentCalculate(
@@ -370,10 +379,13 @@ export class AssessmentService {
     dto: CalculateDto,
   ) {
     const { scoreOnAttempt, setNo, assessmentType, circleId, circleType } = dto;
+
     const currentDate = new Date();
+
     const startOfCurrentWeek = new Date(
       currentDate.setDate(currentDate.getDate() - currentDate.getDay()),
     ).toISOString(); // Move back to Sunday
+
     const endOfCurrentWeek = new Date(
       currentDate.setDate(currentDate.getDate() + 6),
     ).toISOString(); // Add 6 days to get Saturday
@@ -458,12 +470,10 @@ export class AssessmentService {
       throw new BadRequestException("Assessment type does not match");
     }
 
-    const daily = scoreOnAttempt ? Number(scoreOnAttempt) * 1.8 : 0;
-
     const dailyScore = await this.prisma.scoreDetail.create({
       data: {
         id: uuidv4(),
-        dailyScore: daily,
+        dailyScore: scoreOnAttempt ? Number(scoreOnAttempt) : 0,
         owner: {
           connect: {
             id: foundUser.id,

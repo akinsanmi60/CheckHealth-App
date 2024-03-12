@@ -296,6 +296,7 @@ export class UserService {
                 weeklyScore: true,
                 dailyScore: true,
                 ownerID: true,
+                wellbeingScore: true,
               },
             },
           },
@@ -361,6 +362,7 @@ export class UserService {
                   weeklyScore: true,
                   dailyScore: true,
                   ownerID: true,
+                  wellbeingScore: true,
                 },
               },
             },
@@ -386,17 +388,43 @@ export class UserService {
       throw new BadRequestException("User not found");
     }
 
+    const { startOfCurrentWeek, endOfCurrentWeek } =
+      this.analysisOfDateNeeded();
+
+    const findFirstScoreCreated = await this.prisma.scoreDetail.findFirst({
+      where: {
+        coyCirleID: coyCircleId,
+        ownerID: id,
+        created_at: {
+          gte: startOfCurrentWeek,
+          lte: endOfCurrentWeek,
+        },
+      },
+      orderBy: {
+        created_at: "asc",
+      },
+    });
+
     const memberScores = companyCircle.memberList.map(member => {
-      const { weeklyScore, averageDailyScore } = this.userScoreDetail(
-        member?.listOfScoreDetail,
-        id,
-        coyCircleId,
-      );
+      const { weeklyScore, averageDailyScore, wellbeingScore } =
+        this.userScoreDetail(member?.listOfScoreDetail, id, coyCircleId);
+
+      this.prisma.scoreDetail.update({
+        where: {
+          id: findFirstScoreCreated?.id,
+          ownerID: member?.id,
+        },
+        data: {
+          wellbeingScore: wellbeingScore,
+        },
+      });
+
       return {
         id: member?.id,
         passportImg: member?.passportImg,
         weeklyScore,
         averageDailyScore,
+        wellbeingScore,
       };
     });
 
@@ -424,6 +452,7 @@ export class UserService {
                   dailyScore: true,
                   coyCirleID: true,
                   ownerID: true,
+                  wellbeingScore: true,
                 },
               },
             },
@@ -449,17 +478,43 @@ export class UserService {
       throw new BadRequestException("User not found");
     }
 
+    const { startOfCurrentWeek, endOfCurrentWeek } =
+      this.analysisOfDateNeeded();
+
+    const findFirstScoreCreated = await this.prisma.scoreDetail.findFirst({
+      where: {
+        userCirleID: userCircleId,
+        ownerID: id,
+        created_at: {
+          gte: startOfCurrentWeek,
+          lte: endOfCurrentWeek,
+        },
+      },
+      orderBy: {
+        created_at: "asc",
+      },
+    });
+
     const memberScores = userCircle.memberList.map(member => {
-      const { weeklyScore, averageDailyScore } = this.userScoreDetail(
-        member?.listOfScoreDetail,
-        id,
-        userCircleId,
-      );
+      const { weeklyScore, averageDailyScore, wellbeingScore } =
+        this.userScoreDetail(member?.listOfScoreDetail, id, userCircleId);
+
+      this.prisma.scoreDetail.update({
+        where: {
+          id: findFirstScoreCreated?.id,
+          ownerID: member?.id,
+        },
+        data: {
+          wellbeingScore: wellbeingScore,
+        },
+      });
+
       return {
         id: member?.id,
         passportImg: member?.passportImg,
         weeklyScore,
         averageDailyScore,
+        wellbeingScore,
       };
     });
 
@@ -981,12 +1036,19 @@ export class UserService {
     const weekScore = scoreArray?.map(score => score?.weeklyScore);
     const dailyScore = scoreArray?.map(score => score?.dailyScore);
 
+    const removeFirstDayDailyScore = dailyScore?.slice(1);
+
     const averageDailyScore =
-      dailyScore.reduce((a, b) => a + b, 0) / dailyScore?.length;
+      dailyScore.reduce((a, b) => a + b, 0) / removeFirstDayDailyScore?.length;
+
+    const daily = averageDailyScore ? averageDailyScore * 1.8 : 0;
+
+    const updateWellbeingScore = weekScore[0] / 2.2 + daily;
 
     return {
       weeklyScore: weekScore[0] as number,
-      averageDailyScore: averageDailyScore,
+      averageDailyScore: daily,
+      wellbeingScore: updateWellbeingScore,
     };
   }
 
