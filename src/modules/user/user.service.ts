@@ -1039,7 +1039,7 @@ export class UserService {
     const removeFirstDayDailyScore = dailyScore?.slice(1);
 
     const averageDailyScore =
-      dailyScore.reduce((a, b) => a + b, 0) / removeFirstDayDailyScore?.length;
+      removeFirstDayDailyScore.reduce((a, b) => a + b, 0) / 7;
 
     const daily = averageDailyScore ? averageDailyScore * 1.8 : 0;
 

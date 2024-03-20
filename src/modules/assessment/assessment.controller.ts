@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
@@ -23,7 +24,7 @@ import { RolesGuard } from "../../roles/roles.guard";
 import { AdminPermissions } from "../../permissions/permission.enum";
 import { Permission } from "../../permissions/premission.decorator";
 import { GenericResponse } from "../../auth/dto/auth-response.dto";
-import { CreateAssessmentDto } from "./dto/assessment.dto";
+import { CalculateDto, CreateAssessmentDto } from "./dto/assessment.dto";
 import {
   AllAssessmentResponseDto,
   AssessmentResponseDto,
@@ -90,7 +91,7 @@ export class AssessmentController {
     type: GenericResponse,
   })
   @ApiBody({ type: CreateAssessmentDto })
-  async createAssessment(@Param("id") id: string, dto: any) {
+  async createAssessment(@Param("id") id: string, dto) {
     return await this.assessmentService.createAssessment(id, dto);
   }
 
@@ -104,5 +105,39 @@ export class AssessmentController {
   })
   async deleteAssessmentById(@Param("id") id: string) {
     return await this.assessmentService.deleteAssessmentById(id);
+  }
+
+  @Post("/:userId/calculateWeeklyAssessment/:assessmentId")
+  @ApiParam({ name: "userId", type: "string" })
+  @ApiParam({ name: "assessmentId", type: "string" })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.user])
+  @ApiResponse({
+    type: GenericResponse,
+  })
+  @ApiBody({ type: CalculateDto })
+  async calculateAssessment(@Body() dto) {
+    return await this.assessmentService.weeklyAssessmentCalculate(
+      dto.userId,
+      dto.assessmentId,
+      dto,
+    );
+  }
+
+  @Post("/:userId/calculateDailyAssessment/:assessmentId")
+  @ApiParam({ name: "userId", type: "string" })
+  @ApiParam({ name: "assessmentId", type: "string" })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles([Role.user])
+  @ApiResponse({
+    type: GenericResponse,
+  })
+  @ApiBody({ type: CalculateDto })
+  async calculateDailyAssessment(@Body() dto) {
+    return await this.assessmentService.dailyCheckinkAssessmentCalculate(
+      dto.userId,
+      dto.assessmentId,
+      dto,
+    );
   }
 }
