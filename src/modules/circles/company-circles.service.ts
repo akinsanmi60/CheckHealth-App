@@ -117,6 +117,7 @@ export class CirclesService {
         const notFoundEmails = participantsList.filter(
           email => !foundUsers.map(user => user.email).includes(email),
         );
+        console.log(notFoundEmails);
         throw new BadRequestException(
           `One or more participants not found: ${notFoundEmails.join(", ")}`,
         );
@@ -136,7 +137,6 @@ export class CirclesService {
           memberList: {
             connect: foundUsers.map(user => ({
               id: user.id,
-              accountType: "clientUser",
             })),
           },
           created_at: this.timeGenerated,
