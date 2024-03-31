@@ -12352,7 +12352,6 @@ export namespace Prisma {
     id?: string
     coyCircleName?: string
     coyCircleShareLink?: string
-    companyUserId?: string
     coyCircleNos?: string
     AND?: CompanyCirclesWhereInput | CompanyCirclesWhereInput[]
     OR?: CompanyCirclesWhereInput[]
@@ -12362,13 +12361,14 @@ export namespace Prisma {
     coyCircleDescription?: StringNullableFilter<"CompanyCircles"> | string | null
     wellbeingScore?: StringNullableFilter<"CompanyCircles"> | string | null
     activityLevel?: EnumActivityLevelFilter<"CompanyCircles"> | $Enums.ActivityLevel
+    companyUserId?: StringNullableFilter<"CompanyCircles"> | string | null
     coyCircleStatus?: EnumUserStatusFilter<"CompanyCircles"> | $Enums.UserStatus
     circleImg?: StringNullableFilter<"CompanyCircles"> | string | null
     circleStatus?: EnumCircleStatusNullableFilter<"CompanyCircles"> | $Enums.CircleStatus | null
     companyUser?: XOR<CompanyUserNullableRelationFilter, CompanyUserWhereInput> | null
     memberList?: UserListRelationFilter
     circleScoreDetail?: ScoreDetailListRelationFilter
-  }, "id" | "id" | "coyCircleName" | "coyCircleShareLink" | "companyUserId" | "coyCircleNos">
+  }, "id" | "id" | "coyCircleName" | "coyCircleShareLink" | "coyCircleNos">
 
   export type CompanyCirclesOrderByWithAggregationInput = {
     id?: SortOrder

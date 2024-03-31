@@ -137,6 +137,7 @@ export class CirclesService {
           memberList: {
             connect: foundUsers.map(user => ({
               id: user.id,
+              accountType: "clientUser",
             })),
           },
           created_at: this.timeGenerated,
@@ -380,7 +381,7 @@ export class CirclesService {
 
   async getCompanyCircleById(id: string) {
     const companyCircle = await this.prisma.companyCircles.findUnique({
-      where: { id },
+      where: { id: id },
       select: {
         id: true,
         created_at: true,

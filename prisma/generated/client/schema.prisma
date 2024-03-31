@@ -78,7 +78,7 @@ model CompanyCircles {
   wellbeingScore       String?
   activityLevel        ActivityLevel @default(low)
   companyUser          CompanyUser?  @relation("circles_company_user_fkey", fields: [companyUserId], references: [id])
-  companyUserId        String?       @unique
+  companyUserId        String?       
   coyCircleStatus      UserStatus    @default(inactive)
   coyCircleNos         String?       @unique
   memberList           User[]
