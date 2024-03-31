@@ -3,6 +3,7 @@ import { PassportStrategy } from "@nestjs/passport";
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { AuthResolver } from "../authFinder.service";
+import { PrismaService } from "src/prisma/prisma.service";
 
 const cookieExtractor = req => req?.cookies?.accessToken;
 
@@ -11,6 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
   constructor(
     configService: ConfigService,
     private readonly authResolver: AuthResolver,
+    private readonly prisma: PrismaService,
   ) {
     super({
       jwtFromRequest: ExtractJwt?.fromExtractors([
@@ -31,7 +33,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
         payload.id,
         "id",
         "companyUser",
-      ));
+      )) ||
+      (await this.prisma.empyloUser.findUnique({ where: { id: payload.id } }));
 
     if (!user) {
       throw new UnauthorizedException();
