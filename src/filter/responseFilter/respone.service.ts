@@ -46,7 +46,7 @@ export class ResponseInterceptor implements NestInterceptor {
     response.status(status).json({
       status: false,
       statusCode: status,
-      message: exception.message,
+      message: exception?.message,
     });
 
     // You should return an observable here, so let's return an observable with a default response

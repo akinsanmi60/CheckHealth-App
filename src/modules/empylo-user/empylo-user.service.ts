@@ -2,13 +2,8 @@ import {
   ChangePasswordDto,
   ForgotPasswordDto,
   ResetPasswordDto,
-  VerifyEmailDto,
 } from "./../../auth/dto/auth.dto";
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-} from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { GetAllUserDto, LoginDto } from "../../auth/dto/auth.dto";
 import { PasswordService } from "../../auth/password.service";
 import { MailService } from "../../mail/mail.service";
@@ -17,7 +12,7 @@ import { AddAdminUSerDto } from "./dto/empylo-user.dto";
 import * as crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
 import { Role } from "src/roles/role.enum";
-import { SystemRole, UserStatus } from "src/types/appModel.type";
+import { SystemRole } from "src/types/appModel.type";
 
 @Injectable()
 export class EmpyloUserService {
@@ -70,8 +65,9 @@ export class EmpyloUserService {
           id: uuidv4(),
           email: email,
           created_at: this.timeGenerated,
-          status: "pending",
-          isEmailVerified: false,
+          status: "active",
+          isActive: true,
+          isEmailVerified: true,
           verificationCode: code,
           permissions: permissions,
           firstName: firstName,
@@ -110,12 +106,12 @@ export class EmpyloUserService {
       throw new BadRequestException("Wrong email credential");
     }
 
-    const isMatch = this.passwordService.validatePassword(
+    const isMatch = await this.passwordService.validatePassword(
       password,
       foundUser.password,
     );
 
-    if (!isMatch) {
+    if (isMatch === false) {
       throw new BadRequestException("Wrong password inputed");
     }
 
@@ -160,96 +156,49 @@ export class EmpyloUserService {
     }
   }
 
-  async verifyAccount(dto: VerifyEmailDto) {
-    const { code } = dto;
-
-    const foundUserWithCode = await this.prisma.empyloUser.findUnique({
+  async forgotPassword(dto: ForgotPasswordDto) {
+    const { email } = dto;
+    const foundUserChecked = await this.prisma.empyloUser.findUnique({
       where: {
-        verificationCode: code,
+        email: email,
       },
     });
 
-    if (!foundUserWithCode) {
-      throw new BadRequestException("Code not found");
+    if (!foundUserChecked) {
+      throw new BadRequestException("Admin User not found");
     }
 
+    const codeGenerated = crypto.randomInt(100000, 999999).toString();
+
     const data = {
-      isEmailVerified: true,
-      verificationCode: null,
-      status: "active" as unknown as UserStatus,
-      isActive: true,
-      updated_at: this.timeGenerated,
+      passwordResetCode: codeGenerated,
     };
 
-    const updatedUser = await this.prisma.empyloUser.update({
+    const updatedfoundUser = await this.prisma.empyloUser.update({
       where: {
-        id: foundUserWithCode.id,
+        id: foundUserChecked.id,
       },
       data: data,
     });
 
-    if (!updatedUser) {
-      throw new BadRequestException("Failed to update user");
+    if (!updatedfoundUser) {
+      throw new BadRequestException("Failed to send forgot code");
     }
 
-    if (updatedUser.isEmailVerified === true) {
-      return {
-        meassage: "Email verification success",
-      };
-    }
+    await this.mailService.forgotPassword({
+      to: foundUserChecked.email,
+      data: {
+        name: foundUserChecked.firstName,
+        code: codeGenerated,
+      },
+    });
 
     return {
-      meassage: "Email verification success",
+      message: "Verication code sent",
+      data: {
+        code: codeGenerated,
+      },
     };
-  }
-
-  async forgotPassword(dto: ForgotPasswordDto) {
-    const { email } = dto;
-    try {
-      const foundUserChecked = await this.prisma.empyloUser.findUnique({
-        where: {
-          email,
-        },
-      });
-
-      if (!foundUserChecked) {
-        throw new BadRequestException("Admin User not found");
-      }
-
-      const codeGenerated = crypto.randomInt(100000, 999999).toString();
-
-      const data = {
-        password_resetCode: codeGenerated,
-      };
-
-      const updatedfoundUser = await this.prisma.empyloUser.update({
-        where: {
-          id: foundUserChecked.id,
-        },
-        data: data,
-      });
-
-      if (!updatedfoundUser) {
-        throw new BadRequestException("Failed to send forgot code");
-      }
-
-      await this.mailService.forgotPassword({
-        to: foundUserChecked.email,
-        data: {
-          name: foundUserChecked.firstName,
-          code: codeGenerated,
-        },
-      });
-
-      return {
-        message: "Verication code sent",
-        data: {
-          code: codeGenerated,
-        },
-      };
-    } catch (err) {
-      throw new InternalServerErrorException("Internal server error");
-    }
   }
 
   async resetPassword(dto: ResetPasswordDto) {
@@ -270,7 +219,7 @@ export class EmpyloUserService {
 
     const data = {
       password: hashedPassword,
-      password_resetCode: null,
+      passwordResetCode: null,
       updated_at: this.timeGenerated,
     };
 
@@ -318,7 +267,7 @@ export class EmpyloUserService {
 
         const data = {
           password: hashedPassword,
-          password_resetCode: null,
+          passwordResetCode: null,
           updated_at: this.timeGenerated,
         };
 

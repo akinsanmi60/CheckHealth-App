@@ -65,8 +65,8 @@ export class CirclesController {
     description:
       "Creating a circle for a company. Note append the file to the formData when posting",
   })
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles([Role.company])
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Roles([Role.company])
   createCirlce(
     @UploadedFile() file: Express.Multer.File,
     @Body() dto,

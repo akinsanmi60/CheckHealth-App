@@ -219,7 +219,6 @@ export class CompanyAuthService {
       foundCompany.password,
     );
 
-    console.log(isMatch);
     if (isMatch === false) {
       throw new BadRequestException("Wrong password inputed");
     }

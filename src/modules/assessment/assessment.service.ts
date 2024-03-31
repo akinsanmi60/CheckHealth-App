@@ -14,6 +14,8 @@ export class AssessmentService {
 
   async createAssessment(id: string, dto: CreateAssessmentDto) {
     const { setNo, assessmentType, setQuestions } = dto;
+    console.log(setQuestions);
+    console.log(JSON.parse(setQuestions as unknown as string));
 
     const assessmentCreator = await this.prisma.empyloUser.findUnique({
       where: {

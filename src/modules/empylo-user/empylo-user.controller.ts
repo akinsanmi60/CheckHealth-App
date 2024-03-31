@@ -19,7 +19,6 @@ import {
   ForgotPasswordDto,
   LoginDto,
   ResetPasswordDto,
-  VerifyEmailDto,
 } from "../../auth/dto/auth.dto";
 import { JwtAuthGuard } from "src/auth/jwtAuth.guard";
 import { Role } from "../../roles/role.enum";
@@ -54,17 +53,6 @@ export class EmpyloUserController {
   })
   login(@Body() dto: LoginDto) {
     return this.empyloUserService.loginAdminUser(dto);
-  }
-
-  @Post("/admin/verify")
-  @ApiBody({
-    type: VerifyEmailDto,
-  })
-  @ApiResponse({
-    type: GenericResponse,
-  })
-  accountVerify(@Body() dto) {
-    return this.empyloUserService.verifyAccount(dto);
   }
 
   @Post("/admin/:id/change-password")
