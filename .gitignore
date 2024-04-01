@@ -42,10 +42,10 @@ lerna-debug.log*
 # Lock File
 yarn.lock
 /yarn.lock
+package-lock.json
+/package-lock.json
 
 #  src
-src/seed/seed.ts
-./src/seed/seed.ts
-src/seed/seed.js
-./src/seed/seed.js
+seed/seed.ts
+./seed/seed.ts
 README.md
