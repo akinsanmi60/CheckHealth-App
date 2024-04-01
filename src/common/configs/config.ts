@@ -9,10 +9,10 @@ const config: Config = {
   },
   swagger: {
     enabled: true,
-    title: "Empylo API",
-    description: "The Empylo API description",
+    title: "Check Health API",
+    description: "The Check Health API description",
     version: "1.5",
-    path: "/api/empylo-docs",
+    path: "/api",
   },
   security: {
     expiresIn: "2m",
